@@ -1,0 +1,497 @@
+/*
+dP     dP                   oo          dP       dP
+88     88                               88       88
+88    .8P .d8888b. 88d888b. dP .d8888b. 88d888b. 88 .d8888b. .d8888b.
+88    d8' 88'  `88 88'  `88 88 88'  `88 88'  `88 88 88ooood8 Y8ooooo.
+88  .d8P  88.  .88 88       88 88.  .88 88.  .88 88 88.  ...       88
+888888'   `88888P8 dP       dP `88888P8 88Y8888' dP `88888P' `88888P'
+ */
+$primary: #19436d;
+$secondary: #90c0e9;
+$success: #5db82a;
+$danger: #ee253e;
+$warning: #ffb31c;
+$info: #31cfc0;
+$light: #d7d7d7;
+$dark: #242a37;
+
+$font-family: 'Poppins', sans-serif;
+$font-light: 200;
+$font-regular: 400;
+$font-bold: 600;
+$font-black: 800;
+
+
+/*
+d888888P                                                                dP
+   88                                                                   88
+   88    dP    dP 88d888b. .d8888b. .d8888b. 88d888b. .d8888b. 88d888b. 88d888b. dP    dP
+   88    88    88 88'  `88 88'  `88 88'  `88 88'  `88 88'  `88 88'  `88 88'  `88 88    88
+   88    88.  .88 88.  .88 88.  .88 88.  .88 88       88.  .88 88.  .88 88    88 88.  .88
+   dP    `8888P88 88Y888P' `88888P' `8888P88 dP       `88888P8 88Y888P' dP    dP `8888P88
+              .88 88                     .88                   88                     .88
+          d8888P  dP                 d8888P                    dP                 d8888P
+ */
+* {
+  font-family: $font-family;
+  font-weight: $font-regular;
+  font-size: 14px;
+  letter-spacing: .01rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: $font-bold !important;
+}
+
+h1 {
+  font-size: 55px !important;
+}
+
+h2 {
+  font-size: 50px !important;
+}
+
+h3 {
+  font-size: 45px !important;
+}
+
+h4 {
+  font-size: 40px !important;
+}
+
+h5 {
+  font-size: 35px !important;
+}
+
+h6 {
+  font-size: 30px !important;
+}
+
+
+/*
+ 888888ba             dP     dP
+ 88    `8b            88     88
+a88aaaa8P' dP    dP d8888P d8888P .d8888b. 88d888b. .d8888b.
+ 88   `8b. 88    88   88     88   88'  `88 88'  `88 Y8ooooo.
+ 88    .88 88.  .88   88     88   88.  .88 88    88       88
+ 88888888P `88888P'   dP     dP   `88888P' dP    dP `88888P'
+ */
+.btn {
+  border: 1px solid transparent !important;
+  border-radius: .4rem !important;
+  padding: .4rem 1.1rem !important;
+
+  &:focus {
+    box-shadow: none !important;
+  }
+}
+
+.btn-light-primary, .btn-outline-primary, .btn-bg-primary {
+  color: $primary !important;
+}
+
+.btn-light-secondary, .btn-outline-secondary, .btn-bg-secondary {
+  color: darken($secondary, 10%) !important;
+}
+
+.btn-light-success, .btn-outline-success, .btn-bg-success {
+  color: $success !important;
+}
+
+.btn-light-danger, .btn-outline-danger, .btn-bg-danger {
+  color: $danger !important;
+}
+
+.btn-light-warning, .btn-outline-warning, .btn-bg-warning {
+  color: $warning !important;
+}
+
+.btn-light-info, .btn-outline-info, .btn-bg-info {
+  color: $info !important;
+}
+
+.btn-light-light, .btn-outline-light, .btn-bg-light {
+  color: darken($light, 20%) !important;
+}
+
+.btn-light-dark, .btn-outline-dark, .btn-bg-dark {
+  color: $dark !important;
+}
+
+.btn-light-primary {
+  background-color: rgba($primary, .4) !important;
+}
+
+.btn-light-secondary {
+  background-color: rgba($secondary, .4) !important;
+}
+
+.btn-light-success {
+  background-color: rgba($success, .4) !important;
+}
+
+.btn-light-danger {
+  background-color: rgba($danger, .4) !important;
+}
+
+.btn-light-warning {
+  background-color: rgba($warning, .4) !important;
+}
+
+.btn-light-info {
+  background-color: rgba($info, .4) !important;
+}
+
+.btn-light-light {
+  background-color: rgba($light, .4) !important;
+}
+
+.btn-light-dark {
+  background-color: rgba($dark, .4) !important;
+}
+
+.btn-outline-primary {
+  border-color: $primary !important;
+}
+
+.btn-outline-secondary {
+  border-color: $secondary !important;
+}
+
+.btn-outline-success {
+  border-color: $success !important;
+}
+
+.btn-outline-danger {
+  border-color: $danger !important;
+}
+
+.btn-outline-warning {
+  border-color: $warning !important;
+}
+
+.btn-outline-info {
+  border-color: $info !important;
+}
+
+.btn-outline-light {
+  border-color: $light !important;
+}
+
+.btn-outline-dark {
+  border-color: $dark !important;
+}
+
+.btn-primary {
+  background-color: $primary !important;
+}
+
+.btn-secondary {
+  background-color: $secondary !important;
+}
+
+.btn-success {
+  background-color: $success !important;
+}
+
+.btn-danger {
+  background-color: $danger !important;
+}
+
+.btn-warning {
+  background-color: $warning !important;
+  color: white !important;
+}
+
+.btn-info {
+  background-color: $info !important;
+}
+
+.btn-light {
+  background-color: $light !important;
+}
+
+.btn-dark {
+  background-color: $dark !important;
+}
+
+.btn:hover:enabled, .btn:focus:enabled {
+  color: white !important;
+
+  &.btn-light-primary, &.btn-outline-primary, &.btn-bg-primary {
+    background-color: $primary !important;
+  }
+
+  &.btn-light-secondary, &.btn-outline-secondary, &.btn-bg-secondary {
+    background-color: $secondary !important;
+  }
+
+  &.btn-light-success, &.btn-outline-success, &.btn-bg-success {
+    background-color: $success !important;
+  }
+
+  &.btn-light-danger, &.btn-outline-danger, &.btn-bg-danger {
+    background-color: $danger !important;
+  }
+
+  &.btn-light-warning, &.btn-outline-warning, &.btn-bg-warning {
+    background-color: $warning !important;
+  }
+
+  &.btn-light-info, &.btn-outline-info, &.btn-bg-info {
+    background-color: $info !important;
+  }
+
+  &.btn-light-light, &.btn-outline-light, &.btn-bg-light {
+    background-color: $light !important;
+    color: #212529 !important;
+  }
+
+  &.btn-light-dark, &.btn-outline-dark, &.btn-bg-dark {
+    background-color: $dark !important;
+  }
+
+  &.btn-primary {
+    background-color: darken($primary, 8%) !important;
+  }
+
+  &.btn-secondary {
+    background-color: darken($secondary, 8%) !important;
+  }
+
+  &.btn-success {
+    background-color: darken($success, 8%) !important;
+  }
+
+  &.btn-danger {
+    background-color: darken($danger, 13%) !important;
+  }
+
+  &.btn-warning {
+    background-color: darken($warning, 8%) !important;
+  }
+
+  &.btn-info {
+    background-color: darken($info, 8%) !important;
+  }
+
+  &.btn-light {
+    background-color: darken($light, 8%) !important;
+    color: #212529 !important;
+  }
+
+  &.btn-dark {
+    background-color: darken($dark, 8%) !important;
+  }
+}
+
+
+/*
+ 888888ba                 dP
+ 88    `8b                88
+a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
+ 88   `8b. 88'  `88 88'  `88 88'  `88 88ooood8 Y8ooooo.
+ 88    .88 88.  .88 88.  .88 88.  .88 88.  ...       88
+ 88888888P `88888P8 `88888P8 `8888P88 `88888P' `88888P'
+                                  .88
+                              d8888P
+ */
+.badge {
+  border: 1px solid transparent;
+  border-radius: .3rem !important;
+  padding: .25rem .65rem !important;
+  font-weight: $font-bold !important;
+  font-size: 0.8rem !important;
+  background-color: white !important;
+
+  &.rounded {
+    border-radius: 100px !important;
+    padding: .25rem .5rem !important;
+  }
+}
+
+.badge-outline-primary, .badge-outline-secondary, .badge-outline-success, .badge-outline-danger,
+.badge-outline-warning, .badge-outline-info, .badge-outline-light, .badge-outline-dark {
+  background-color: transparent !important;
+  font-weight: $font-regular !important;
+}
+
+.badge-light-primary, .badge-outline-primary {
+  color: $primary !important;
+}
+
+.badge-light-secondary, .badge-outline-secondary {
+  color: darken($secondary, 10%) !important;
+}
+
+.badge-light-success, .badge-outline-success {
+  color: $success !important;
+}
+
+.badge-light-danger, .badge-outline-danger {
+  color: $danger !important;
+}
+
+.badge-light-warning, .badge-outline-warning {
+  color: $warning !important;
+}
+
+.badge-light-info, .badge-outline-info {
+  color: $info !important;
+}
+
+.badge-light-light, .badge-outline-light {
+  color: darken($light, 20%) !important;
+}
+
+.badge-light-dark, .badge-outline-dark {
+  color: $dark !important;
+}
+
+.badge-primary, .badge-light-primary {
+  background-color: $primary !important;
+}
+
+.badge-secondary, .badge-light-secondary {
+  background-color: $secondary !important;
+}
+
+.badge-success, .badge-light-success {
+  background-color: $success !important;
+}
+
+.badge-danger, .badge-light-danger {
+  background-color: $danger !important;
+}
+
+.badge-warning, .badge-light-warning {
+  background-color: $warning !important;
+}
+
+.badge-info, .badge-light-info {
+  background-color: $info !important;
+}
+
+.badge-light, .badge-light-light {
+  background-color: $light !important;
+}
+
+.badge-dark, .badge-light-dark {
+  background-color: $dark !important;
+}
+
+.badge-light-primary {
+  background-color: rgba($primary, .4) !important;
+}
+
+.badge-light-secondary {
+  background-color: rgba($secondary, .4) !important;
+}
+
+.badge-light-success {
+  background-color: rgba($success, .4) !important;
+}
+
+.badge-light-danger {
+  background-color: rgba($danger, .4) !important;
+}
+
+.badge-light-warning {
+  background-color: rgba($warning, .4) !important;
+}
+
+.badge-light-info {
+  background-color: rgba($info, .4) !important;
+}
+
+.badge-light-light {
+  background-color: rgba($light, .4) !important;
+}
+
+.badge-light-dark {
+  background-color: rgba($dark, .4) !important;
+}
+
+.badge-outline-primary {
+  border-color: $primary !important;
+}
+
+.badge-outline-secondary {
+  border-color: $secondary !important;
+}
+
+.badge-outline-success {
+  border-color: $success !important;
+}
+
+.badge-outline-danger {
+  border-color: $danger !important;
+}
+
+.badge-outline-warning {
+  border-color: $warning !important;
+}
+
+.badge-outline-info {
+  border-color: $info !important;
+}
+
+.badge-outline-light {
+  border-color: $light !important;
+}
+
+.badge-outline-dark {
+  border-color: $dark !important;
+}
+
+.badge-warning {
+  color: white !important;
+}
+
+
+/*
+ a88888b.                         dP
+d8'   `88                         88
+88        .d8888b. 88d888b. .d888b88 .d8888b.
+88        88'  `88 88'  `88 88'  `88 Y8ooooo.
+Y8.   .88 88.  .88 88       88.  .88       88
+ Y88888P' `88888P8 dP       `88888P8 `88888P'
+ */
+.card {
+  border: none !important;
+  border-radius: 0.25rem !important;
+  box-shadow: .5rem .5rem 1.5rem #dedede;
+}
+
+.card-header, .card-body, .card-footer {
+  background-color: #f8f8f8 !important;
+  padding: 1.25rem !important;
+}
+
+.card-header {
+  border-bottom: 1px solid #dddddd !important;
+
+  .card-title, .card-subtitle {
+    display: inline;
+  }
+}
+
+.card-footer {
+  border-top: 1px solid #dddddd !important;
+}
+
+.card-title, .card-subtitle {
+  font-weight: $font-bold !important;
+  display: inline-block;
+}
+
+.card-title {
+  font-size: 1.6rem !important;
+  margin-right: .5rem;
+}
+
+.card-subtitle {
+  font-size: 1.1rem !important;
+  color: #b5b5b5 !important;
+}
+
