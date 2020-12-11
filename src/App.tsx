@@ -4,6 +4,7 @@ import axiosInstance from "./axiosInstance";
 import qs from 'qs'
 import Home from './Home'
 import Theme from './Theme'
+import Error404 from './ErrorViews/Error404'
 
 export default function App() {
     return (
@@ -11,7 +12,9 @@ export default function App() {
             <Switch>
                 <Route exact path="/" component={Home}/>
                 <Route exact path="/login" component={Login}/>
+                <Route exact path="/logout" component={Logout}/>
                 <Route exact path="/theme" component={Theme}/>
+                <Route component={Error404}/>
             </Switch>
         </BrowserRouter>
     );
@@ -36,6 +39,15 @@ function Login() {
             window.location.href = 'https://auth.vatsim.net/oauth/authorize?client_id=593&redirect_uri=http://www.zhuartcc.devel/login&response_type=code&scope=full_name+vatsim_details+email'
         }
     })
+    return null
+}
 
+function Logout() {
+    useEffect(() => {
+        localStorage.removeItem('access_token')
+        localStorage.removeItem('refresh_token')
+        axiosInstance.defaults.headers['Authorization'] = null
+        window.location.href = '/'
+    })
     return null
 }

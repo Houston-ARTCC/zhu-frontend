@@ -7,9 +7,12 @@ export default class Home extends Component<any, any> {
     render() {
         return (
             <Container className="text-center">
-                <h1>Welcome {getFirstName()}!</h1>
+                <h1>Welcome{getFirstName() ? ' ' + getFirstName() : ''}!</h1>
                 <Link to="/login">
-                    <Button variant="secondary">Login with VATSIM</Button>
+                    <Button className="mr-3" variant="light-primary">Login with VATSIM</Button>
+                </Link>
+                <Link to="/logout">
+                    <Button variant="light-danger">Logout</Button>
                 </Link>
             </Container>
         )
