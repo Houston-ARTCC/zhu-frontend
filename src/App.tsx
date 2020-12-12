@@ -4,7 +4,10 @@ import axiosInstance from "./axiosInstance";
 import qs from 'qs'
 import Home from './Home'
 import Theme from './Theme'
+import AllEvents from './EventViews/AllEvents'
+import ViewEvent from './EventViews/ViewEvent'
 import Error404 from './ErrorViews/Error404'
+import AllResources from "./ResourceViews/AllResources";
 
 export default function App() {
     return (
@@ -13,6 +16,9 @@ export default function App() {
                 <Route exact path="/" component={Home}/>
                 <Route exact path="/login" component={Login}/>
                 <Route exact path="/logout" component={Logout}/>
+                <Route exact path="/events" component={AllEvents}/>
+                <Route exact path="/events/:id" component={ViewEvent}/>
+                <Route exact path="/resources" component={AllResources}/>
                 <Route exact path="/theme" component={Theme}/>
                 <Route component={Error404}/>
             </Switch>
