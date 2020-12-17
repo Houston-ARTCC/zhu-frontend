@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="56184f3e-b1d3-4c24-b343-8c61d43cf0f8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/EventViews/AllEvents.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/EventViews/ViewEvent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ResourceViews/AllResources.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Helpers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Helpers.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/axiosInstance.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/axiosInstance.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -105,7 +103,9 @@
       <workItem from="1607656239595" duration="6536000" />
       <workItem from="1607693963803" duration="259000" />
       <workItem from="1607703330711" duration="3916000" />
-      <workItem from="1607723863848" duration="9261000" />
+      <workItem from="1607723863848" duration="9416000" />
+      <workItem from="1607751380027" duration="8084000" />
+      <workItem from="1607806162150" duration="7158000" />
     </task>
     <servers />
   </component>

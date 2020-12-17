@@ -1,5 +1,5 @@
 export function parseJWT() {
-    const accessToken = localStorage.getItem('access_token')
+    const accessToken = localStorage.getItem('access')
     if (accessToken) {
         return JSON.parse(atob(accessToken.split('.')[1]))
     }

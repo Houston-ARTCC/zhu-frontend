@@ -35,9 +35,9 @@ function Login() {
             axiosInstance
                 .post('/auth/token/', qs.stringify({ code: auth_code }))
                 .then(res => {
-                    localStorage.setItem('access_token', res.data.access_token)
-                    localStorage.setItem('refresh_token', res.data.refresh_token)
-                    axiosInstance.defaults.headers['Authorization'] = 'Bearer ' + res.data.access_token
+                    localStorage.setItem('access', res.data.access)
+                    localStorage.setItem('refresh', res.data.refresh)
+                    axiosInstance.defaults.headers['Authorization'] = 'Bearer ' + res.data.access
                     window.location.href = '/'
                 })
                 .catch(err => console.log(err))
@@ -50,9 +50,9 @@ function Login() {
 
 function Logout() {
     useEffect(() => {
-        localStorage.removeItem('access_token')
-        localStorage.removeItem('refresh_token')
-        axiosInstance.defaults.headers['Authorization'] = null
+        localStorage.removeItem('access')
+        localStorage.removeItem('refresh')
+        delete axiosInstance.defaults.headers['Authorization']
         window.location.href = '/'
     })
     return null

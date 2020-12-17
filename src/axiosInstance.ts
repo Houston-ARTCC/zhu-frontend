@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
     baseURL: baseURL,
     timeout: 5000,
     headers: {
-        'Authorization': localStorage.getItem('access_token') ? 'Bearer ' + localStorage.getItem('access_token') : null,
+        'Authorization': localStorage.getItem('access') ? 'Bearer ' + localStorage.getItem('access') : null,
         'Content-Type': 'application/x-www-form-urlencoded',
         'accept': 'application/json'
     }
@@ -18,8 +18,10 @@ axiosInstance.interceptors.response.use(
         const originalRequest = err.config
 
         // Check if error occurred during token refresh
-        if (err.response.status === 401 && originalRequest.url === baseURL + '/auth/token/refresh/') {
-            window.location.href = '/login/'
+        if (err.response.status === 401 && originalRequest.url === baseURL + 'auth/token/refresh/') {
+            console.log(err)
+            console.log(err.data)
+            // window.location.href = '/login/'
             return Promise.reject(err)
         }
 
@@ -34,15 +36,14 @@ axiosInstance.interceptors.response.use(
                     return axiosInstance
                         .post('/auth/token/refresh/', { refresh: refreshToken })
                         .then((res) => {
-                            localStorage.setItem('access_token', res.data.access_token)
-                            localStorage.setItem('refresh_token', res.data.refresh_token)
+                            localStorage.setItem('', res.data.access)
 
-                            axiosInstance.defaults.headers['Authorization'] = 'Bearer ' + res.data.access_token
-                            originalRequest.headers['Authorization'] = 'Bearer ' + res.data.access_token
+                            axiosInstance.defaults.headers['Authorization'] = 'Bearer ' + res.data.access
+                            originalRequest.headers.common['Authorization'] = 'Bearer ' + res.data.access
 
                             return axiosInstance(originalRequest)
                         })
-                        .catch(err => console.log(err))
+                        .catch(err => console.log(err.data))
                 }
             }
             window.location.href = '/login/'
