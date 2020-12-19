@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter, Route, Switch, useLocation } from 'react-router-dom'
-import axiosInstance from "./axiosInstance";
+import axiosInstance from "./axiosInstance"
 import qs from 'qs'
 import Home from './Home'
 import Theme from './Theme'
 import AllEvents from './EventViews/AllEvents'
 import ViewEvent from './EventViews/ViewEvent'
+import EditEvent from './EventViews/EditEvent'
 import Error404 from './ErrorViews/Error404'
 import AllResources from "./ResourceViews/AllResources";
 
@@ -17,7 +18,8 @@ export default function App() {
                 <Route exact path="/login" component={Login}/>
                 <Route exact path="/logout" component={Logout}/>
                 <Route exact path="/events" component={AllEvents}/>
-                <Route exact path="/events/:id" component={ViewEvent}/>
+                <Route exact path="/events/:id(\d+)" component={ViewEvent}/>
+                <Route exact path="/events/:id(\d+)/edit" component={EditEvent}/>
                 <Route exact path="/resources" component={AllResources}/>
                 <Route exact path="/theme" component={Theme}/>
                 <Route component={Error404}/>

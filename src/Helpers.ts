@@ -25,3 +25,11 @@ export function getLastName() {
 export function getFullName() {
     return getFirstName() + ' ' + getLastName()
 }
+
+export function getCID() {
+    const jwt = parseJWT()
+    if (jwt) {
+        return jwt.cid
+    }
+    return null
+}
