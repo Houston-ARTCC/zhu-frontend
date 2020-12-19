@@ -9,6 +9,9 @@ import ViewEvent from './EventViews/ViewEvent'
 import EditEvent from './EventViews/EditEvent'
 import Error404 from './ErrorViews/Error404'
 import AllResources from "./ResourceViews/AllResources";
+import Roster from "./UserViews/Roster";
+import Profile from "./UserViews/Profile";
+import EditUser from "./UserViews/EditUser";
 
 export default function App() {
     return (
@@ -20,6 +23,9 @@ export default function App() {
                 <Route exact path="/events" component={AllEvents}/>
                 <Route exact path="/events/:id(\d+)" component={ViewEvent}/>
                 <Route exact path="/events/:id(\d+)/edit" component={EditEvent}/>
+                <Route exact path="/roster" component={Roster}/>
+                <Route exact path="/roster/:cid(\d+)" component={Profile}/>
+                <Route exact path="/roster/:cid(\d+)/edit" component={EditUser}/>
                 <Route exact path="/resources" component={AllResources}/>
                 <Route exact path="/theme" component={Theme}/>
                 <Route component={Error404}/>

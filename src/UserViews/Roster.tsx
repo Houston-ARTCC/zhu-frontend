@@ -3,37 +3,34 @@ import { Card, Col, Container, Image, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import axiosInstance from "../axiosInstance"
 
-export default class AllEvents extends Component<any, any> {
+export default class Roster extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
-            events: []
+            users: []
         }
     }
 
     componentDidMount() {
-        this.fetchEvents()
+        this.fetchUsers()
     }
 
-    fetchEvents() {
+    fetchUsers() {
         axiosInstance
-            .get('/api/events')
+            .get('/api/users')
             .then(res => {
-                this.setState({ events: res.data })
+                this.setState({ users: res.data })
             })
     }
 
-    renderEvent(event) {
+    renderUser(user) {
         return (
-            <Col sm={6}>
-                <Link to={`/events/${event.id}`}>
+            <Col sm={6} className="mx-auto">
+                <Link to={`/roster/${user.cid}`}>
                     <Card className="mb-4">
                         <Card.Header>
-                            <Card.Title>{event.name}</Card.Title>
+                            <Card.Title>{user.first_name} {user.last_name}</Card.Title>
                         </Card.Header>
-                        <Card.Body>
-                            <Image width="100%" src={event.banner}/>
-                        </Card.Body>
                     </Card>
                 </Link>
             </Col>
@@ -43,9 +40,9 @@ export default class AllEvents extends Component<any, any> {
     render() {
         return (
             <Container>
-                <h1 className="text-center">Events</h1>
+                <h1 className="text-center">Roster</h1>
                 <Row>
-                    {this.state.events.map(event => this.renderEvent(event))}
+                    {this.state.users.map(user => this.renderUser(user))}
                 </Row>
             </Container>
         )

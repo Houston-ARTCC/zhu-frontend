@@ -2,16 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="56184f3e-b1d3-4c24-b343-8c61d43cf0f8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/EventViews/EditEvent.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/UserViews/EditUser.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/UserViews/Profile.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/UserViews/Roster.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventViews/ViewEvent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventViews/ViewEvent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Helpers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Helpers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/theme.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/theme.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventViews/AllEvents.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventViews/AllEvents.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +40,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/EventViews" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/UserViews" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -61,6 +57,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\miker\Documents\Projects\Houston ARTCC\zhu-frontend\src\UserViews" />
       <recent name="C:\Users\miker\Documents\Projects\Houston ARTCC\zhu-frontend\src\EventViews" />
       <recent name="C:\Users\miker\Documents\Projects\Houston ARTCC\zhu-frontend\src\ErrorViews" />
       <recent name="C:\Users\miker\Documents\Projects\Houston ARTCC\zhu-frontend\src" />
@@ -116,7 +113,7 @@
       <workItem from="1608212656158" duration="18437000" />
       <workItem from="1608240777749" duration="5913000" />
       <workItem from="1608332117492" duration="91000" />
-      <workItem from="1608343991923" duration="6006000" />
+      <workItem from="1608343991923" duration="11402000" />
     </task>
     <servers />
   </component>
