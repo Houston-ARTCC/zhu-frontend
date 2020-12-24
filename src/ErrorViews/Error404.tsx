@@ -1,5 +1,5 @@
-import { Component } from "react";
-import { Container } from "react-bootstrap";
+import { Component } from 'react';
+import { Container } from 'react-bootstrap';
 
 export default class Error404 extends Component<any, any> {
     render() {

@@ -1,67 +1,44 @@
-import React, { useEffect } from 'react'
-import { BrowserRouter, Route, Switch, useLocation } from 'react-router-dom'
-import axiosInstance from "./axiosInstance"
-import qs from 'qs'
-import Home from './Home'
-import Theme from './Theme'
-import AllEvents from './EventViews/AllEvents'
-import ViewEvent from './EventViews/ViewEvent'
-import EditEvent from './EventViews/EditEvent'
-import Error404 from './ErrorViews/Error404'
-import AllResources from "./ResourceViews/AllResources";
-import Roster from "./UserViews/Roster";
-import Profile from "./UserViews/Profile";
-import EditUser from "./UserViews/EditUser";
+import React, { useEffect, useState } from 'react'
+import { BrowserRouter, Link } from 'react-router-dom'
+import { Button, Nav, Navbar, NavbarBrand } from 'react-bootstrap'
+import logoLight from './img/logo-light.png'
+import logoColor from './img/logo.png'
+import Footer from './Components/Footer'
+import RouterSwitch from './Components/RouterSwitch'
+import { getFullName, parseJWT } from './Helpers'
 
 export default function App() {
+    const [scroll, setScroll] = useState(false);
+
+    useEffect(() => window.addEventListener('scroll', () => setScroll(window.scrollY > 50)), [])
+
     return (
         <BrowserRouter>
-            <Switch>
-                <Route exact path="/" component={Home}/>
-                <Route exact path="/login" component={Login}/>
-                <Route exact path="/logout" component={Logout}/>
-                <Route exact path="/events" component={AllEvents}/>
-                <Route exact path="/events/:id(\d+)" component={ViewEvent}/>
-                <Route exact path="/events/:id(\d+)/edit" component={EditEvent}/>
-                <Route exact path="/roster" component={Roster}/>
-                <Route exact path="/roster/:cid(\d+)" component={Profile}/>
-                <Route exact path="/roster/:cid(\d+)/edit" component={EditUser}/>
-                <Route exact path="/resources" component={AllResources}/>
-                <Route exact path="/theme" component={Theme}/>
-                <Route component={Error404}/>
-            </Switch>
+            <Navbar id="navbar" className={scroll ? 'navbar-shrink' : ''}>
+                <NavbarBrand>
+                    <img src={scroll ? logoColor : logoLight} alt="Logo"/>
+                    <h6 className={(scroll ? 'text-black' : 'text-white') + ' font-w700 m-0'}>Houston ARTCC</h6>
+                </NavbarBrand>
+                <Nav>
+                    <Nav.Link className={scroll ? 'text-black' : ''}>Calendar</Nav.Link>
+                    <Nav.Link className={scroll ? 'text-black' : ''}>Events</Nav.Link>
+                    <Nav.Link className={scroll ? 'text-black' : ''}>Pilots</Nav.Link>
+                    <Nav.Link className={scroll ? 'text-black' : ''}>Controllers</Nav.Link>
+                    {parseJWT()
+                        ? <Nav.Link className={scroll ? 'text-black' : ''}>{getFullName()}</Nav.Link>
+                        : <Nav.Item className="ml-4">
+                            <Link to="/login">
+                                <Button variant="vatsim">
+                                    <span className="font-w700">Login with VATSIM</span>
+                                </Button>
+                            </Link>
+                        </Nav.Item>
+                    }
+                </Nav>
+            </Navbar>
+            <RouterSwitch/>
+            <Footer/>
         </BrowserRouter>
     );
 }
 
-function Login() {
-    let { search } = useLocation()
-    const auth_code = new URLSearchParams(search).get('code')
-
-    useEffect(() => {
-        if (auth_code) {
-            axiosInstance
-                .post('/auth/token/', qs.stringify({ code: auth_code }))
-                .then(res => {
-                    localStorage.setItem('access', res.data.access)
-                    localStorage.setItem('refresh', res.data.refresh)
-                    axiosInstance.defaults.headers['Authorization'] = 'Bearer ' + res.data.access
-                    window.location.href = '/'
-                })
-                .catch(err => console.log(err))
-        } else {
-            window.location.href = 'https://auth.vatsim.net/oauth/authorize?client_id=593&redirect_uri=http://www.zhuartcc.devel/login&response_type=code&scope=full_name+vatsim_details+email'
-        }
-    })
-    return null
-}
-
-function Logout() {
-    useEffect(() => {
-        localStorage.removeItem('access')
-        localStorage.removeItem('refresh')
-        delete axiosInstance.defaults.headers['Authorization']
-        window.location.href = '/'
-    })
-    return null
-}

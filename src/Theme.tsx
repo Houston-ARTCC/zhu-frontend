@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Badge, Button, Card, Col, Row } from "react-bootstrap";
+import { Badge, Button, Card, Col, Row } from 'react-bootstrap';
 
 export default function Theme() {
     return (

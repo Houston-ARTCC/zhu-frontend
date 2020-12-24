@@ -1,17 +1,15 @@
-import { Component } from "react";
-import { Badge, Button, Col, Container, Form, Row } from "react-bootstrap"
-import { Link } from "react-router-dom"
-import axiosInstance from "../axiosInstance"
-import swal from "@sweetalert/with-react"
-import Select  from 'react-select'
+import { Component } from 'react';
+import { Button, Col, Container, Form } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import axiosInstance from '../axiosInstance'
+import swal from '@sweetalert/with-react'
 import qs from 'qs'
-import { FaTimes, FaUserTimes } from "react-icons/all";
 
 export default class EditUser extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
-            user: {}
+            user: {},
         }
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,15 +26,15 @@ export default class EditUser extends Component<any, any> {
     }
 
     handleTextChange(event) {
-        let modifiedUser = {...this.state.user}
+        let modifiedUser = { ...this.state.user }
         modifiedUser[event.target.name] = event.target.value;
-        this.setState({user: modifiedUser})
+        this.setState({ user: modifiedUser })
     }
 
     handleSubmit(e) {
         e.preventDefault();
         axiosInstance
-            .put('/api/users/' + this.props.match.params.cid + '/', qs.stringify({...this.state.user}))
+            .put('/api/users/' + this.props.match.params.cid + '/', qs.stringify({ ...this.state.user }))
             .then(res => swal({
                 title: 'Success!',
                 text: 'User details were successfully saved.',
@@ -44,7 +42,7 @@ export default class EditUser extends Component<any, any> {
                 buttons: {
                     return: 'Return to Profile',
                     confirm: 'Continue Editing',
-                }
+                },
             }).then((value) => {
                 switch (value) {
                     case 'return':
@@ -60,25 +58,27 @@ export default class EditUser extends Component<any, any> {
                 icon: 'error',
                 buttons: {
                     cancel: 'Return to Profile',
-                }
+                },
             }))
     }
 
     render() {
         return (
             <Container className="text-center">
-                <Link to={'/events/' + this.props.match.params.id}>&lt; Back to Event</Link>
+                <Link to={'/roster/' + this.props.match.params.cid}>&lt; Back to Profile</Link>
                 <h1 className="my-4">Editing {this.state.user.first_name} {this.state.user.last_name}</h1>
                 <div className="text-left">
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Row>
                             <Form.Group as={Col}>
                                 <Form.Label>First Name</Form.Label>
-                                <Form.Control required type="text" name="first_name" value={this.state.user.first_name} onChange={this.handleTextChange}/>
+                                <Form.Control required type="text" name="first_name" value={this.state.user.first_name}
+                                              onChange={this.handleTextChange}/>
                             </Form.Group>
                             <Form.Group as={Col}>
                                 <Form.Label>Last Name</Form.Label>
-                                <Form.Control required type="text" name="last_name" value={this.state.user.last_name} onChange={this.handleTextChange}/>
+                                <Form.Control required type="text" name="last_name" value={this.state.user.last_name}
+                                              onChange={this.handleTextChange}/>
                             </Form.Group>
                             <Form.Group as={Col}>
                                 <Form.Label>Email</Form.Label>

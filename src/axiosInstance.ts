@@ -8,8 +8,8 @@ const axiosInstance = axios.create({
     headers: {
         'Authorization': localStorage.getItem('access') ? 'Bearer ' + localStorage.getItem('access') : null,
         'Content-Type': 'application/x-www-form-urlencoded',
-        'accept': 'application/json'
-    }
+        'accept': 'application/json',
+    },
 })
 
 axiosInstance.interceptors.response.use(
@@ -49,7 +49,7 @@ axiosInstance.interceptors.response.use(
             window.location.href = '/login/'
         }
         return Promise.reject(err)
-    }
+    },
 )
 
 export default axiosInstance

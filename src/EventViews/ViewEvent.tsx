@@ -1,14 +1,14 @@
-import { Component } from "react";
-import { Button, Container } from "react-bootstrap"
-import { Link } from "react-router-dom"
-import axiosInstance from "../axiosInstance"
-import { getCID } from "../Helpers";
+import { Component } from 'react';
+import { Button, Container } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import axiosInstance from '../axiosInstance'
+import { getCID } from '../Helpers';
 
 export default class ViewEvent extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
-            event: {}
+            event: {},
         }
     }
 
@@ -50,7 +50,8 @@ export default class ViewEvent extends Component<any, any> {
     render() {
         return (
             <Container className="text-center">
-                <Link className="mr-5" to="/events">&lt; Back to Events</Link><Link to={'/events/' + this.props.match.params.id + '/edit'}>Edit Event &gt;</Link>
+                <Link className="mr-5" to="/events">&lt; Back to Events</Link><Link to={'/events/' + this.props.match.params.id + '/edit'}>Edit
+                Event &gt;</Link>
                 <h1 className="mt-5">{this.state.event.name}</h1>
                 <h5 className="text-black-50">Presented by {this.state.event.host}</h5>
                 <div className="my-5">

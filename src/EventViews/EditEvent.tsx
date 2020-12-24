@@ -1,17 +1,17 @@
-import { Component } from "react";
-import { Badge, Button, Col, Container, Form, Row } from "react-bootstrap"
-import { Link } from "react-router-dom"
-import axiosInstance from "../axiosInstance"
-import swal from "@sweetalert/with-react"
-import Select  from 'react-select'
+import { Component } from 'react';
+import { Badge, Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import axiosInstance from '../axiosInstance'
+import swal from '@sweetalert/with-react'
+import Select from 'react-select'
 import qs from 'qs'
-import { FaTimes, FaUserTimes } from "react-icons/all";
+import { FaTimes, FaUserTimes } from 'react-icons/all';
 
 export default class EditEvent extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
-            event: {}
+            event: {},
         }
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
@@ -30,27 +30,27 @@ export default class EditEvent extends Component<any, any> {
     }
 
     handleTextChange(event) {
-        let newEvent = {...this.state.event}
+        let newEvent = { ...this.state.event }
         newEvent[event.target.name] = event.target.value;
-        this.setState({event: newEvent})
+        this.setState({ event: newEvent })
     }
 
     handleDateChange(event) {
-        let newEvent = {...this.state.event}
+        let newEvent = { ...this.state.event }
         newEvent[event.target.name] = event.target.value + 'Z'
-        this.setState({event: newEvent})
+        this.setState({ event: newEvent })
     }
 
     handleSwitchChange(event) {
-        let newEvent = {...this.state.event}
+        let newEvent = { ...this.state.event }
         newEvent[event.target.name] = !newEvent[event.target.name]
-        this.setState({event: newEvent})
+        this.setState({ event: newEvent })
     }
 
     handleSubmit(e) {
         e.preventDefault();
         axiosInstance
-            .put('/api/events/' + this.props.match.params.id + '/', qs.stringify({...this.state.event}))
+            .put('/api/events/' + this.props.match.params.id + '/', qs.stringify({ ...this.state.event }))
             .then(res => swal({
                 title: 'Success!',
                 text: 'Event details were successfully saved.',
@@ -58,7 +58,7 @@ export default class EditEvent extends Component<any, any> {
                 buttons: {
                     return: 'Return to Event',
                     confirm: 'Continue Editing',
-                }
+                },
             }).then((value) => {
                 switch (value) {
                     case 'return':
@@ -74,14 +74,14 @@ export default class EditEvent extends Component<any, any> {
                 icon: 'error',
                 buttons: {
                     cancel: 'Return to Event',
-                }
+                },
             }))
     }
 
     renderPosition(position) {
         const handleAssign = (value) => {
             axiosInstance
-                .patch('/api/events/position/' + position.id + '/', qs.stringify({user: value}))
+                .patch('/api/events/position/' + position.id + '/', qs.stringify({ user: value }))
                 .then(res => this.fetchEvent())
         }
 
@@ -93,7 +93,7 @@ export default class EditEvent extends Component<any, any> {
 
         const handleUnassign = () => {
             axiosInstance
-                .patch('/api/events/position/' + position.id + '/', qs.stringify({user: null}))
+                .patch('/api/events/position/' + position.id + '/', qs.stringify({ user: null }))
                 .then(res => this.fetchEvent())
                 .catch(err => console.log(err.response))
         }
@@ -148,18 +148,22 @@ export default class EditEvent extends Component<any, any> {
                         <Form.Row>
                             <Form.Group as={Col} md={6}>
                                 <Form.Label>Start</Form.Label>
-                                <Form.Control required type="datetime-local" name="start" value={this.state.event.start?.slice(0, -1)} onChange={this.handleDateChange}/>
+                                <Form.Control required type="datetime-local" name="start" value={this.state.event.start?.slice(0, -1)}
+                                              onChange={this.handleDateChange}/>
                             </Form.Group>
                             <Form.Group as={Col} md={6}>
                                 <Form.Label>End</Form.Label>
-                                <Form.Control required type="datetime-local" name="end" value={this.state.event.end?.slice(0, -1)} onChange={this.handleDateChange}/>
+                                <Form.Control required type="datetime-local" name="end" value={this.state.event.end?.slice(0, -1)}
+                                              onChange={this.handleDateChange}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Group>
                             <Form.Label> End</Form.Label>
-                            <Form.Control as="textarea" rows={5} name="description" value={this.state.event.description} onChange={this.handleTextChange}/>
+                            <Form.Control as="textarea" rows={5} name="description" value={this.state.event.description}
+                                          onChange={this.handleTextChange}/>
                         </Form.Group>
-                        <Form.Switch className="mb-3" id="hidden" name="hidden" label="Event hidden from controllers." checked={this.state.event.hidden} onChange={this.handleSwitchChange}/>
+                        <Form.Switch className="mb-3" id="hidden" name="hidden" label="Event hidden from controllers."
+                                     checked={this.state.event.hidden} onChange={this.handleSwitchChange}/>
                         <Button className="mb-3" variant="primary" type="submit">
                             Save
                         </Button>

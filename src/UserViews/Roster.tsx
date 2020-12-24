@@ -1,13 +1,13 @@
-import { Component } from "react";
-import { Card, Col, Container, Image, Row } from "react-bootstrap"
-import { Link } from "react-router-dom"
-import axiosInstance from "../axiosInstance"
+import { Component } from 'react';
+import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import axiosInstance from '../axiosInstance'
 
 export default class Roster extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
-            users: []
+            users: [],
         }
     }
 
