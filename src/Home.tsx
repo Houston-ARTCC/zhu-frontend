@@ -7,8 +7,76 @@ import background from './img/homepage-bg.jpg'
 import profile from './img/profile.png'
 import herb from './img/herb.jpg'
 import zhu from './img/zhu.gif'
+import axiosInstance from './axiosInstance'
+import { asDuration } from './Helpers'
 
 export default class Home extends Component<any, any> {
+    constructor(props) {
+        super(props)
+        this.state = {
+            onlineControllers: [],
+            topControllers: [],
+            topPositions: [],
+        }
+    }
+
+    componentDidMount() {
+        this.fetchOnlineControllers()
+        this.fetchTopControllers()
+        this.fetchTopPositions()
+    }
+
+    fetchOnlineControllers() {
+        axiosInstance
+            .get('/api/connections/online')
+            .then(res => this.setState({ onlineControllers: res.data }))
+    }
+
+    fetchTopControllers() {
+        axiosInstance
+            .get('/api/connections/top/controllers')
+            .then(res => this.setState({ topControllers: res.data }))
+    }
+
+    fetchTopPositions() {
+        axiosInstance
+            .get('/api/connections/top/positions')
+            .then(res => this.setState({ topPositions: res.data }))
+    }
+
+    renderOnlineController(controller) {
+        return (
+            <li className="li-flex text-black font-w700 font-lg">
+                <Badge variant="primary" className="font-w700 mr-2">{controller.callsign}</Badge>
+                {controller.user.first_name} {controller.user.last_name}
+            </li>
+        )
+    }
+
+    renderTopController(controller, index) {
+        return (
+            <li className="li-flex">
+                <IoTrophy className={`fill-${index === 0 ? 'gold' : index === 1 ? 'silver' : 'bronze'} mr-2`} size={45}/>
+                <div className="text-black font-w700 font-lg">
+                    {controller.first_name} {controller.last_name}
+                    <br/><span className="text-gray font-w500">{asDuration(controller.hours)}</span>
+                </div>
+            </li>
+        )
+    }
+
+    renderTopPosition(position, index) {
+        return (
+            <li className="li-flex">
+                <IoIosAirplane className={`fill-${index === 0 ? 'gold' : index === 1 ? 'silver' : 'bronze'} mr-2`} size={45}/>
+                <div className="text-black font-w700 font-lg">
+                    {position.position}
+                    <br/><span className="text-gray font-w500">{asDuration(position.hours)}</span>
+                </div>
+            </li>
+        )
+    }
+
     render() {
         return (
             <div>
@@ -32,19 +100,10 @@ export default class Home extends Component<any, any> {
                             <Col sm={12} xl={3}>
                                 <h2 className="text-black font-w500 mb-3">Who's Online?</h2>
                                 <ul className="p-0">
-                                    <li className="li-flex text-black font-w700 font-lg">
-                                        <div className="badge badge-primary font-w700 mr-2">HOU_81_CTR</div>
-                                        Ethan Hawes
-                                    </li>
-                                    <li className="li-flex text-black font-w700 font-lg">
-                                        <Badge variant="primary" className="font-w700 mr-2">MSY_TWR</Badge> Matthew Rogers
-                                    </li>
-                                    <li className="li-flex text-black font-w700 font-lg">
-                                        <Badge variant="primary" className="font-w700 mr-2">CRP_APP</Badge> Elijah Whitaker
-                                    </li>
-                                    <li className="li-flex text-black font-w700 font-lg">
-                                        <Badge variant="primary" className="font-w700 mr-2">HOU_D_APP</Badge> Josue Rivera
-                                    </li>
+                                    {this.state.onlineControllers.length > 0
+                                        ? this.state.onlineControllers.map(controller => this.renderOnlineController(controller))
+                                        : <p>Nobody is online.</p>
+                                    }
                                 </ul>
                             </Col>
                         </Row>
@@ -116,7 +175,7 @@ export default class Home extends Component<any, any> {
                                 </Card>
                             </Col>
                         </Row>
-                        <Row className="mb-5">
+                        <Row>
                             <Col>
                                 <h2 className="text-black font-w500 mb-3">Newest Controllers</h2>
                                 <ul className="p-0">
@@ -134,66 +193,20 @@ export default class Home extends Component<any, any> {
                             <Col>
                                 <h2 className="text-black font-w500 mb-3">Top Controllers</h2>
                                 <ul className="p-0">
-                                    <li className="li-flex">
-                                        <IoTrophy className="fill-gold mr-2" size={45}/>
-                                        <div className="text-black font-w700 font-lg">
-                                            John Quaziz
-                                            <br/><span className="text-gray font-w500">53h 50m</span>
-                                        </div>
-                                    </li>
-                                    <li className="li-flex text-black font-w700">
-                                        <IoTrophy className="fill-silver mr-2" size={45}/>
-                                        <div className="text-black font-w700 font-lg">
-                                            Marcus Miller
-                                            <br/><span className="text-gray font-w500">28h 33m</span>
-                                        </div>
-                                    </li>
-                                    <li className="li-flex text-black font-w700">
-                                        <IoTrophy className="fill-bronze mr-2" size={45}/>
-                                        <div className="text-black font-w700 font-lg">
-                                            Joshua Seagrave
-                                            <br/><span className="text-gray font-w500">19h 37m</span>
-                                        </div>
-                                    </li>
+                                    {this.state.topControllers.length > 0
+                                        ? this.state.topControllers.slice(0, 3).map((controller, index) => this.renderTopController(controller, index))
+                                        : <p>Not enough data.</p>
+                                    }
                                 </ul>
                             </Col>
                             <Col>
                                 <h2 className="text-black font-w500 mb-3">Top Positions</h2>
                                 <ul className="p-0">
-                                    <li className="li-flex">
-                                        <IoIosAirplane className="fill-gold mr-2" size={45}/>
-                                        <div className="text-black font-w700 font-lg">
-                                            Houston Center
-                                            <br/><span className="text-gray font-w500">53h 50m</span>
-                                        </div>
-                                    </li>
-                                    <li className="li-flex text-black font-w700">
-                                        <IoIosAirplane className="fill-silver mr-2" size={45}/>
-                                        <div className="text-black font-w700 font-lg">
-                                            Houston Ground
-                                            <br/><span className="text-gray font-w500">28h 33m</span>
-                                        </div>
-                                    </li>
-                                    <li className="li-flex text-black font-w700">
-                                        <IoIosAirplane className="fill-bronze mr-2" size={45}/>
-                                        <div className="text-black font-w700 font-lg">
-                                            Austin Approach
-                                            <br/><span className="text-gray font-w500">19h 37m</span>
-                                        </div>
-                                    </li>
+                                    {this.state.topPositions.length > 0
+                                        ? this.state.topPositions.slice(0, 3).map((position, index) => this.renderTopPosition(position, index))
+                                        : <p>Not enough data.</p>
+                                    }
                                 </ul>
-                            </Col>
-                        </Row>
-                        <Row className="justify-content-center">
-                            <Col md={6}>
-                                <Alert variant="primary" className="d-flex m-0">
-                                    <RiErrorWarningLine className="fill-primary mr-3" size={75} preserveAspectRatio="xMaxYMin"/>
-                                    <p className="text-primary m-0">
-                                        <b>Disclaimer!</b> All information on this website is for flight simulation use only and is not to be used for
-                                        real world navigation or flight. This site is not affiliated with ICAO, the FAA, the actual Houston ARTCC, or
-                                        any other real world aerospace entity.
-                                    </p>
-                                </Alert>
                             </Col>
                         </Row>
                     </Container>

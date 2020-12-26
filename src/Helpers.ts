@@ -33,3 +33,8 @@ export function getCID() {
     }
     return null
 }
+
+export function asDuration(durationStr) {
+    const parts = durationStr.split(/[:.]/)
+    return `${parts[0]}h ${parts[1]}m`
+}
