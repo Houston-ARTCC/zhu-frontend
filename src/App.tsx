@@ -19,6 +19,7 @@ import AllResources from './ResourceViews/AllResources'
 import Theme from './Theme'
 import Error404 from './ErrorViews/Error404'
 import Privacy from './Privacy'
+import ScrollToTop from './ScrollToTop'
 
 export default function App() {
     const [scroll, setScroll] = useState(false);
@@ -27,6 +28,7 @@ export default function App() {
 
     return (
         <BrowserRouter>
+            <ScrollToTop/>
             <Navbar id="navbar" className={scroll ? 'navbar-shrink' : ''}>
                 <Link to="/">
                     <NavbarBrand>

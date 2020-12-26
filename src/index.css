@@ -109,3 +109,14 @@ html {
     position: absolute;
     right: 15px;
 }
+
+.header {
+    height: 400px;
+    display: flex;
+    align-items: flex-end;
+    padding: 60px 130px;
+}
+
+.header h1 {
+    font-size: 60px;
+}

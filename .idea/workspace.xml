@@ -2,45 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="56184f3e-b1d3-4c24-b343-8c61d43cf0f8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Components/Footer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/RouterSwitch.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fonts/CeraPro-Black.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fonts/CeraPro-Bold.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fonts/CeraPro-Light.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fonts/CeraPro-Medium.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fonts/CeraPro-Regular.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fonts/CeraPro-Thin.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/img/herb.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/img/homepage-bg.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/img/logo-light.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/img/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/img/profile.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/img/zhu.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/scroll.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/theme-alt.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Privacy.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ScrollToTop.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo512.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ErrorViews/Error404.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ErrorViews/Error404.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventViews/AllEvents.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventViews/AllEvents.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventViews/EditEvent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventViews/EditEvent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventViews/ViewEvent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventViews/ViewEvent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Footer.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/RouterSwitch.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Helpers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Helpers.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ResourceViews/AllResources.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ResourceViews/AllResources.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Theme.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Theme.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserViews/EditUser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserViews/EditUser.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserViews/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserViews/Profile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserViews/Roster.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserViews/Roster.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/axiosInstance.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/axiosInstance.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setupTests.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/setupTests.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/theme.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/theme.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +22,7 @@
       <list>
         <option value="CSS File" />
         <option value="TypeScript File" />
+        <option value="JavaScript File" />
         <option value="TypeScript JSX File" />
       </list>
     </option>
@@ -153,7 +124,8 @@
       <workItem from="1608343991923" duration="13901000" />
       <workItem from="1608417123361" duration="3066000" />
       <workItem from="1608678578718" duration="15342000" />
-      <workItem from="1608736079166" duration="27573000" />
+      <workItem from="1608736079166" duration="27966000" />
+      <workItem from="1608935163816" duration="12918000" />
     </task>
     <servers />
   </component>
