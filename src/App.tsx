@@ -83,17 +83,17 @@ export default function App() {
             <div className="bg-dark-gray text-center p-5">
                 <h5 className="text-white font-w300 mb-3"><b className="font-w500">Copyright 2020</b> Virtual Houston ARTCC. All Rights Reserved.</h5>
                 <div className="d-flex justify-content-center" id="footer-links">
-                    <a href="https://vatsim.net" target="_blank"><h6 className="text-light-gray font-w300">VATSIM</h6></a>
+                    <a href="https://vatsim.net" target="_blank" rel="noreferrer"><h6 className="text-light-gray font-w300">VATSIM</h6></a>
                     <h6 className="text-light-gray font-w300">→</h6>
-                    <a href="https://vatusa.net" target="_blank"><h6 className="text-light-gray font-w300">VATUSA</h6></a>
+                    <a href="https://vatusa.net" target="_blank" rel="noreferrer"><h6 className="text-light-gray font-w300">VATUSA</h6></a>
                     <h6 className="text-light-gray font-w300">→</h6>
                     <Link to="/privacy"><h6 className="text-light-gray font-w300">Privacy Policy</h6></Link>
                     <h6 className="text-light-gray font-w300">→</h6>
                     <Link to="/feedback"><h6 className="text-light-gray font-w300">Feedback</h6></Link>
                     <h6 className="text-light-gray font-w300">→</h6>
-                    <a href="https://discord.gg/Ag2cdZz" target="_blank"><h6 className="text-light-gray font-w300">Discord</h6></a>
+                    <a href="https://discord.gg/Ag2cdZz" target="_blank" rel="noreferrer"><h6 className="text-light-gray font-w300">Discord</h6></a>
                     <h6 className="text-light-gray font-w300">→</h6>
-                    <a href="https://github.com/Houston-ARTCC" target="_blank"><h6 className="text-light-gray font-w300">GitHub</h6></a>
+                    <a href="https://github.com/Houston-ARTCC" target="_blank" rel="noreferrer"><h6 className="text-light-gray font-w300">GitHub</h6></a>
                 </div>
             </div>
         </BrowserRouter>

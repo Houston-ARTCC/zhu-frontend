@@ -1,14 +1,14 @@
 import { Component } from 'react'
-import { Alert, Badge, Card, Col, Container, Row } from 'react-bootstrap'
-import { HiOutlineCalendar, HiOutlineClock, IoIosAirplane, IoTrophy, RiErrorWarningLine } from 'react-icons/all'
+import { Badge, Card, Col, Container, Row } from 'react-bootstrap'
+import { HiOutlineCalendar, HiOutlineClock, IoIosAirplane, IoTrophy } from 'react-icons/all'
 import { Parallax } from 'react-parallax'
 import Fade from 'react-reveal/Fade'
 import background from './img/homepage-bg.jpg'
 import profile from './img/profile.png'
-import herb from './img/herb.jpg'
-import zhu from './img/zhu.gif'
 import axiosInstance from './axiosInstance'
 import { asDuration } from './Helpers'
+import Moment from 'react-moment'
+import 'moment-timezone'
 
 export default class Home extends Component<any, any> {
     constructor(props) {
@@ -17,6 +17,7 @@ export default class Home extends Component<any, any> {
             onlineControllers: [],
             topControllers: [],
             topPositions: [],
+            events: [],
         }
     }
 
@@ -24,6 +25,7 @@ export default class Home extends Component<any, any> {
         this.fetchOnlineControllers()
         this.fetchTopControllers()
         this.fetchTopPositions()
+        this.fetchEvents()
     }
 
     fetchOnlineControllers() {
@@ -42,6 +44,12 @@ export default class Home extends Component<any, any> {
         axiosInstance
             .get('/api/connections/top/positions')
             .then(res => this.setState({ topPositions: res.data }))
+    }
+
+    fetchEvents() {
+        axiosInstance
+            .get('/api/events')
+            .then(res => this.setState({ events: res.data }))
     }
 
     renderOnlineController(controller) {
@@ -77,6 +85,31 @@ export default class Home extends Component<any, any> {
         )
     }
 
+    renderEvent(event) {
+        return (
+            <Card>
+                <Row>
+                    <Col>
+                        <h5 className="text-black font-w700 m-0">{event.name}</h5>
+                        <h6 className="text-gray font-w500 mb-3">Presented by {event.host}</h6>
+                        <div className="li-flex">
+                            <HiOutlineCalendar size={25} className="mr-2"/>
+                            <Moment local className="font-w500 font-md" format="MMMM, D, YYYY">{event.start}</Moment>
+                        </div>
+                        <div className="li-flex font-w500 font-md">
+                            <HiOutlineClock size={25} className="mr-2"/>
+                            <Moment local className="font-w500 font-md" format="HH:mm z →&nbsp;">{event.start}</Moment>
+                            <Moment local className="font-w500 font-md" format="HH:mm z">{event.end}</Moment>
+                        </div>
+                    </Col>
+                    <Col className="text-right overflow-hidden">
+                        <img className="event-banner" src={event.banner} alt={event.name}/>
+                    </Col>
+                </Row>
+            </Card>
+        )
+    }
+
     render() {
         return (
             <div>
@@ -91,7 +124,7 @@ export default class Home extends Component<any, any> {
                         <Row className="justify-content-between mb-5">
                             <Col sm={12} xl={7}>
                                 <h1 className="text-black font-w700 mb-1">Virtual Houston ARTCC</h1>
-                                <h4 className="text-gray font-w700 mb-4">Part of VATUSA & the VATSIM Network.</h4>
+                                <h4 className="text-gray font-w500 mb-4">Part of VATUSA & the VATSIM Network.</h4>
                                 <p>Welcome to the Virtual Houston Air Route Traffic Control Center! Encompassing an airspace of approximately 280,000
                                     square miles in parts of Texas, Louisiana, Mississippi, and Alabama, Houston has a diverse selection of
                                     destinations for you to choose from along with the professional air traffic control services to support your
@@ -110,7 +143,7 @@ export default class Home extends Component<any, any> {
                         <Row className="mb-5">
                             <Col sm={12} xl={6}>
                                 <h1 className="text-black font-w700 mb-1">Announcements</h1>
-                                <h4 className="text-gray font-w700 mb-4">What's happening at Houston?</h4>
+                                <h4 className="text-gray font-w500 mb-4">What's happening at Houston?</h4>
                                 <Card>
                                     <div className="badge badge-primary announcment-date">Dec. 25, 2020</div>
                                     <h5 className="text-black font-w700">Happy Holidays from Houston!</h5>
@@ -138,41 +171,11 @@ export default class Home extends Component<any, any> {
                             </Col>
                             <Col sm={12} xl={6}>
                                 <h1 className="text-black font-w700 mb-1">Events</h1>
-                                <h4 className="text-gray font-w700 mb-4">Are y'all busy?</h4>
-                                <Card>
-                                    <Row>
-                                        <Col>
-                                            <h5 className="text-black font-w700 m-0">Fireworks Over Lake Houston</h5>
-                                            <h6 className="text-gray font-w500 mb-3">Presented by Houston ARTCC</h6>
-                                            <div className="li-flex font-w500 font-md">
-                                                <HiOutlineCalendar size={25} className="mr-2"/> January 2, 2021
-                                            </div>
-                                            <div className="li-flex font-w500 font-md">
-                                                <HiOutlineClock size={25} className="mr-2"/> 18:59 EST → 23:00 EST
-                                            </div>
-                                        </Col>
-                                        <Col className="text-right overflow-hidden">
-                                            <img className="event-banner" src={zhu} alt="Fireworks Over Lake Houston"/>
-                                        </Col>
-                                    </Row>
-                                </Card>
-                                <Card>
-                                    <Row>
-                                        <Col>
-                                            <h5 className="text-black font-w700 m-0">Honoring Herb</h5>
-                                            <h6 className="text-gray font-w500 mb-3">Presented by Southwest Virtual Airlines</h6>
-                                            <div className="li-flex font-w500 font-md">
-                                                <HiOutlineCalendar size={25} className="mr-2"/> January 3, 2021
-                                            </div>
-                                            <div className="li-flex font-w500 font-md">
-                                                <HiOutlineClock size={25} className="mr-2"/> 16:00 EST → 19:00 EST
-                                            </div>
-                                        </Col>
-                                        <Col className="text-right m-0">
-                                            <img className="event-banner" src={herb} alt="Honoring Herb"/>
-                                        </Col>
-                                    </Row>
-                                </Card>
+                                <h4 className="text-gray font-w500 mb-4">Are y'all busy?</h4>
+                                {this.state.events.length > 0
+                                    ? this.state.events.slice(0, 2).map(event => this.renderEvent(event))
+                                    : <p>There are no planned events.</p>
+                                }
                             </Col>
                         </Row>
                         <Row>
