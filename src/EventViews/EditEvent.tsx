@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Badge, Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axiosInstance from '../axiosInstance'
@@ -6,6 +6,7 @@ import swal from '@sweetalert/with-react'
 import Select from 'react-select'
 import qs from 'qs'
 import { FaTimes, FaUserTimes } from 'react-icons/all';
+import Header from '../components/Header'
 
 export default class EditEvent extends Component<any, any> {
     constructor(props) {
@@ -126,53 +127,55 @@ export default class EditEvent extends Component<any, any> {
 
     render() {
         return (
-            <Container className="text-center">
-                <Link to={'/events/' + this.props.match.params.id}>&lt; Back to Event</Link>
-                <h1 className="my-4">Editing {this.state.event.name}</h1>
-                <div className="text-left">
-                    <Form onSubmit={this.handleSubmit}>
-                        <Form.Row>
-                            <Form.Group as={Col} md={4}>
-                                <Form.Label>Event Name</Form.Label>
-                                <Form.Control required type="text" name="name" value={this.state.event.name} onChange={this.handleTextChange}/>
+            <div>
+                <Header title={this.state.event.name}/>
+                <Container fluid className="text-center">
+                    <Link to={'/events/' + this.props.match.params.id}>&lt; Back to Event</Link>
+                    <div className="text-left">
+                        <Form onSubmit={this.handleSubmit}>
+                            <Form.Row>
+                                <Form.Group as={Col} md={4}>
+                                    <Form.Label>Event Name</Form.Label>
+                                    <Form.Control required type="text" name="name" value={this.state.event.name} onChange={this.handleTextChange}/>
+                                </Form.Group>
+                                <Form.Group as={Col} md={4}>
+                                    <Form.Label>Event Host</Form.Label>
+                                    <Form.Control required type="text" name="host" value={this.state.event.host} onChange={this.handleTextChange}/>
+                                </Form.Group>
+                                <Form.Group as={Col} md={4}>
+                                    <Form.Label>Banner URL</Form.Label>
+                                    <Form.Control required type="text" name="banner" value={this.state.event.banner} onChange={this.handleTextChange}/>
+                                </Form.Group>
+                            </Form.Row>
+                            <Form.Row>
+                                <Form.Group as={Col} md={6}>
+                                    <Form.Label>Start</Form.Label>
+                                    <Form.Control required type="datetime-local" name="start" value={this.state.event.start?.slice(0, -1)}
+                                                  onChange={this.handleDateChange}/>
+                                </Form.Group>
+                                <Form.Group as={Col} md={6}>
+                                    <Form.Label>End</Form.Label>
+                                    <Form.Control required type="datetime-local" name="end" value={this.state.event.end?.slice(0, -1)}
+                                                  onChange={this.handleDateChange}/>
+                                </Form.Group>
+                            </Form.Row>
+                            <Form.Group>
+                                <Form.Label> End</Form.Label>
+                                <Form.Control as="textarea" rows={5} name="description" value={this.state.event.description}
+                                              onChange={this.handleTextChange}/>
                             </Form.Group>
-                            <Form.Group as={Col} md={4}>
-                                <Form.Label>Event Host</Form.Label>
-                                <Form.Control required type="text" name="host" value={this.state.event.host} onChange={this.handleTextChange}/>
-                            </Form.Group>
-                            <Form.Group as={Col} md={4}>
-                                <Form.Label>Banner URL</Form.Label>
-                                <Form.Control required type="text" name="banner" value={this.state.event.banner} onChange={this.handleTextChange}/>
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Row>
-                            <Form.Group as={Col} md={6}>
-                                <Form.Label>Start</Form.Label>
-                                <Form.Control required type="datetime-local" name="start" value={this.state.event.start?.slice(0, -1)}
-                                              onChange={this.handleDateChange}/>
-                            </Form.Group>
-                            <Form.Group as={Col} md={6}>
-                                <Form.Label>End</Form.Label>
-                                <Form.Control required type="datetime-local" name="end" value={this.state.event.end?.slice(0, -1)}
-                                              onChange={this.handleDateChange}/>
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Group>
-                            <Form.Label> End</Form.Label>
-                            <Form.Control as="textarea" rows={5} name="description" value={this.state.event.description}
-                                          onChange={this.handleTextChange}/>
-                        </Form.Group>
-                        <Form.Switch className="mb-3" id="hidden" name="hidden" label="Event hidden from controllers."
-                                     checked={this.state.event.hidden} onChange={this.handleSwitchChange}/>
-                        <Button className="mb-3" variant="primary" type="submit">
-                            Save
-                        </Button>
-                    </Form>
-                </div>
-                <Row>
-                    <Col md={4}>{this.state.event.positions?.map(position => this.renderPosition(position))}</Col>
-                </Row>
-            </Container>
+                            <Form.Switch className="mb-3" id="hidden" name="hidden" label="Event hidden from controllers."
+                                         checked={this.state.event.hidden} onChange={this.handleSwitchChange}/>
+                            <Button className="mb-3" variant="primary" type="submit">
+                                Save
+                            </Button>
+                        </Form>
+                    </div>
+                    <Row>
+                        <Col md={4}>{this.state.event.positions?.map(position => this.renderPosition(position))}</Col>
+                    </Row>
+                </Container>
+            </div>
         )
     }
 }

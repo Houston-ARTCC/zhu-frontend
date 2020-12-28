@@ -2,13 +2,12 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container } from 'react-bootstrap'
 import Fade from 'react-reveal/Fade'
+import Header from './components/Header'
 
 export default function Privacy() {
     return (
         <div>
-            <div className="bg-dark-blue header">
-                <h1 className="text-white">Privacy Policy</h1>
-            </div>
+            <Header title="Privacy Policy"/>
             <Fade bottom duration={1250} distance="50px">
                 <Container fluid>
                     <h2>Information We Collect</h2>

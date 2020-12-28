@@ -1,7 +1,8 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Card, Col, Container, Image, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axiosInstance from '../axiosInstance'
+import Header from '../components/Header'
 
 export default class AllEvents extends Component<any, any> {
     constructor(props) {
@@ -18,9 +19,7 @@ export default class AllEvents extends Component<any, any> {
     fetchEvents() {
         axiosInstance
             .get('/api/events')
-            .then(res => {
-                this.setState({ events: res.data })
-            })
+            .then(res => this.setState({ events: res.data }))
     }
 
     renderEvent(event) {
@@ -42,12 +41,14 @@ export default class AllEvents extends Component<any, any> {
 
     render() {
         return (
-            <Container>
-                <h1 className="text-center">Events</h1>
-                <Row>
-                    {this.state.events.map(event => this.renderEvent(event))}
-                </Row>
-            </Container>
+            <div>
+                <Header title="Events"/>
+                <Container fluid>
+                    <Row>
+                        {this.state.events.map(event => this.renderEvent(event))}
+                    </Row>
+                </Container>
+            </div>
         )
     }
 }

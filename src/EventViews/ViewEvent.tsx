@@ -1,8 +1,9 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Button, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axiosInstance from '../axiosInstance'
 import { getCID } from '../Helpers';
+import Header from '../components/Header'
 
 export default class ViewEvent extends Component<any, any> {
     constructor(props) {
@@ -49,17 +50,18 @@ export default class ViewEvent extends Component<any, any> {
 
     render() {
         return (
-            <Container className="text-center">
-                <Link className="mr-5" to="/events">&lt; Back to Events</Link><Link to={'/events/' + this.props.match.params.id + '/edit'}>Edit
-                Event &gt;</Link>
-                <h1 className="mt-5">{this.state.event.name}</h1>
-                <h5 className="text-black-50">Presented by {this.state.event.host}</h5>
-                <div className="my-5">
-                    <img src={this.state.event.banner} alt="Banner" width="75%"/>
-                </div>
-                <p>{this.state.event.description}</p>
-                {this.state.event.positions?.map(position => this.renderPosition(position))}
-            </Container>
+            <div>
+                <Header title={this.state.event.name} subtitle={`Presented by ${this.state.event.host}`}/>
+                <Container fluid className="text-center">
+                    <Link className="mr-5" to="/events">&lt; Back to Events</Link><Link to={'/events/' + this.props.match.params.id + '/edit'}>Edit
+                    Event &gt;</Link>
+                    <div className="my-5">
+                        <img src={this.state.event.banner} alt="Banner" width="75%"/>
+                    </div>
+                    <p>{this.state.event.description}</p>
+                    {this.state.event.positions?.map(position => this.renderPosition(position))}
+                </Container>
+            </div>
         )
     }
 }
