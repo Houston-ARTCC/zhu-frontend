@@ -133,7 +133,7 @@ export default class Home extends Component<any, any> {
                             <Col sm={12} xl={3}>
                                 <h2 className="text-black font-w500 mb-3">Who's Online?</h2>
                                 <ul className="p-0">
-                                    {this.state.onlineControllers.length > 0
+                                    {this.state.onlineControllers?.length > 0
                                         ? this.state.onlineControllers.map(controller => this.renderOnlineController(controller))
                                         : <p>Nobody is online.</p>
                                     }
@@ -172,7 +172,7 @@ export default class Home extends Component<any, any> {
                             <Col sm={12} xl={6}>
                                 <h1 className="text-black font-w700 mb-1">Events</h1>
                                 <h4 className="text-gray font-w500 mb-4">Are y'all busy?</h4>
-                                {this.state.events.length > 0
+                                {this.state.events?.length > 0
                                     ? this.state.events.slice(0, 2).map(event => this.renderEvent(event))
                                     : <p>There are no planned events.</p>
                                 }
@@ -196,7 +196,7 @@ export default class Home extends Component<any, any> {
                             <Col>
                                 <h2 className="text-black font-w500 mb-3">Top Controllers</h2>
                                 <ul className="p-0">
-                                    {this.state.topControllers.length > 0
+                                    {this.state.topControllers?.length > 0
                                         ? this.state.topControllers.slice(0, 3).map((controller, index) => this.renderTopController(controller, index))
                                         : <p>Not enough data.</p>
                                     }
@@ -205,7 +205,7 @@ export default class Home extends Component<any, any> {
                             <Col>
                                 <h2 className="text-black font-w500 mb-3">Top Positions</h2>
                                 <ul className="p-0">
-                                    {this.state.topPositions.length > 0
+                                    {this.state.topPositions?.length > 0
                                         ? this.state.topPositions.slice(0, 3).map((position, index) => this.renderTopPosition(position, index))
                                         : <p>Not enough data.</p>
                                     }

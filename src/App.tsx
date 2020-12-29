@@ -19,10 +19,11 @@ import AllResources from './ResourceViews/AllResources'
 import Theme from './Theme'
 import Error404 from './ErrorViews/Error404'
 import Privacy from './Privacy'
-import ScrollToTop from './ScrollToTop'
+import ScrollToTop from './components/ScrollToTop'
+import LoadingScreen from './components/LoadingScreen'
 
 export default function App() {
-    const [scroll, setScroll] = useState(false);
+    const [scroll, setScroll] = useState(false)
 
     useEffect(() => window.addEventListener('scroll', () => setScroll(window.scrollY > 50)), [])
 
@@ -97,7 +98,7 @@ export default function App() {
                 </div>
             </div>
         </BrowserRouter>
-    );
+    )
 }
 
 function Login() {
@@ -119,7 +120,7 @@ function Login() {
             window.location.href = 'https://auth.vatsim.net/oauth/authorize?client_id=593&redirect_uri=http://www.zhuartcc.devel/login&response_type=code&scope=full_name+vatsim_details+email'
         }
     })
-    return null
+    return <LoadingScreen/>
 }
 
 function Logout() {
@@ -129,5 +130,5 @@ function Logout() {
         delete axiosInstance.defaults.headers['Authorization']
         window.location.href = '/'
     })
-    return null
+    return <LoadingScreen/>
 }
