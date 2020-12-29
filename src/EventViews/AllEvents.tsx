@@ -3,6 +3,7 @@ import { Card, Col, Container, Image, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axiosInstance from '../axiosInstance'
 import Header from '../components/Header'
+import Navigation from '../components/Navigation'
 
 export default class AllEvents extends Component<any, any> {
     constructor(props) {
@@ -42,6 +43,7 @@ export default class AllEvents extends Component<any, any> {
     render() {
         return (
             <div>
+                <Navigation/>
                 <Header title="Events"/>
                 <Container fluid>
                     <Row>

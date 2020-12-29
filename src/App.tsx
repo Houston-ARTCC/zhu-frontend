@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter, Link } from 'react-router-dom'
-import { Route, Switch, useLocation } from 'react-router'
+import { Route, Switch, useHistory, useLocation } from 'react-router'
 import { RiErrorWarningLine } from 'react-icons/all'
-import { Alert, Button, Col, Nav, Navbar, NavbarBrand, Row } from 'react-bootstrap'
+import { Alert, Col, Row } from 'react-bootstrap'
 import qs from 'qs'
-import logoLight from './img/logo-light.png'
-import logoColor from './img/logo.png'
-import { getFullName, parseJWT } from './Helpers'
+import { getFullName } from './Helpers'
 import axiosInstance from './axiosInstance'
 import Home from './Home'
 import AllEvents from './EventViews/AllEvents'
@@ -21,39 +19,12 @@ import Error404 from './ErrorViews/Error404'
 import Privacy from './Privacy'
 import ScrollToTop from './components/ScrollToTop'
 import LoadingScreen from './components/LoadingScreen'
+import { useSnackbar } from 'notistack'
 
 export default function App() {
-    const [scroll, setScroll] = useState(false)
-
-    useEffect(() => window.addEventListener('scroll', () => setScroll(window.scrollY > 50)), [])
-
     return (
         <BrowserRouter>
             <ScrollToTop/>
-            <Navbar id="navbar" className={scroll ? 'navbar-shrink' : ''}>
-                <Link to="/">
-                    <NavbarBrand>
-                        <img src={scroll ? logoColor : logoLight} alt="Logo"/>
-                        <h6 className={(scroll ? 'text-black' : 'text-white') + ' font-w700 m-0'}>Houston ARTCC</h6>
-                    </NavbarBrand>
-                </Link>
-                <Nav>
-                    <Nav.Link className={scroll ? 'text-black' : ''}>Calendar</Nav.Link>
-                    <Nav.Link className={scroll ? 'text-black' : ''}>Events</Nav.Link>
-                    <Nav.Link className={scroll ? 'text-black' : ''}>Pilots</Nav.Link>
-                    <Nav.Link className={scroll ? 'text-black' : ''}>Controllers</Nav.Link>
-                    {parseJWT()
-                        ? <Nav.Link className={scroll ? 'text-black' : ''}>{getFullName()}</Nav.Link>
-                        : <Nav.Item className="ml-4">
-                            <Link to="/login">
-                                <Button variant="vatsim">
-                                    <span className="font-w700">Login with VATSIM</span>
-                                </Button>
-                            </Link>
-                        </Nav.Item>
-                    }
-                </Nav>
-            </Navbar>
             <Switch>
                 <Route exact path="/" component={Home}/>
                 <Route exact path="/login" component={Login}/>
@@ -103,6 +74,9 @@ export default function App() {
 
 function Login() {
     let { search } = useLocation()
+    const history = useHistory()
+    const { enqueueSnackbar } = useSnackbar()
+
     const auth_code = new URLSearchParams(search).get('code')
 
     useEffect(() => {
@@ -113,9 +87,26 @@ function Login() {
                     localStorage.setItem('access', res.data.access)
                     localStorage.setItem('refresh', res.data.refresh)
                     axiosInstance.defaults.headers['Authorization'] = 'Bearer ' + res.data.access
-                    window.location.href = '/'
+
+                    enqueueSnackbar('Successfully logged in as ' + getFullName() + '!', {
+                        variant: 'success',
+                        anchorOrigin: {
+                            vertical: 'bottom',
+                            horizontal: 'right',
+                        },
+                    })
                 })
-                .catch(err => console.log(err))
+                .catch(err => {
+                    enqueueSnackbar(err.toString(), {
+                        variant: 'error',
+                        anchorOrigin: {
+                            vertical: 'bottom',
+                            horizontal: 'right',
+                        },
+                    })
+                })
+                .finally(() => history.push('/'))
+
         } else {
             window.location.href = 'https://auth.vatsim.net/oauth/authorize?client_id=593&redirect_uri=http://www.zhuartcc.devel/login&response_type=code&scope=full_name+vatsim_details+email'
         }
@@ -124,11 +115,23 @@ function Login() {
 }
 
 function Logout() {
+    const history = useHistory()
+    const { enqueueSnackbar } = useSnackbar()
+
     useEffect(() => {
         localStorage.removeItem('access')
         localStorage.removeItem('refresh')
         delete axiosInstance.defaults.headers['Authorization']
-        window.location.href = '/'
+
+        enqueueSnackbar('Successfully logged out, see you soon!', {
+            variant: 'success',
+            anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'right',
+            },
+        })
+
+        history.push('/')
     })
     return <LoadingScreen/>
 }

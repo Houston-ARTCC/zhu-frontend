@@ -12,21 +12,25 @@ const axiosInstance = axios.create({
     },
 })
 
+
 axiosInstance.interceptors.response.use(
     response => response,
     err => {
         const originalRequest = err.config
 
+        // Check if connection to API failed
+        if (!err.response) {
+            return Promise.reject(err)
+        }
+
         // Check if error occurred during token refresh
-        if (err.response.status === 401 && originalRequest.url === baseURL + 'auth/token/refresh/') {
-            console.log(err)
-            console.log(err.data)
-            // window.location.href = '/login/'
+        else if (err.response.status === 401 && originalRequest.url === baseURL + 'auth/token/refresh/') {
+            window.location.href = '/login/'
             return Promise.reject(err)
         }
 
         // Check if error was caused by an expired access token
-        if (err.response.data.code === 'token_not_valid' && err.response.status === 401) {
+        else if (err.response.data.code === 'token_not_valid' && err.response.status === 401) {
             const refreshToken = localStorage.getItem('refresh_token')
 
             if (refreshToken) {

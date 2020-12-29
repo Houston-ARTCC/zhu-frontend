@@ -7,6 +7,7 @@ import Select from 'react-select'
 import qs from 'qs'
 import { FaTimes, FaUserTimes } from 'react-icons/all';
 import Header from '../components/Header'
+import Navigation from '../components/Navigation'
 
 export default class EditEvent extends Component<any, any> {
     constructor(props) {
@@ -128,6 +129,7 @@ export default class EditEvent extends Component<any, any> {
     render() {
         return (
             <div>
+                <Navigation/>
                 <Header title={this.state.event.name}/>
                 <Container fluid className="text-center">
                     <Link to={'/events/' + this.props.match.params.id}>&lt; Back to Event</Link>

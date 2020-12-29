@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import axiosInstance from '../axiosInstance'
 import { getCID } from '../Helpers';
 import Header from '../components/Header'
+import Navigation from '../components/Navigation'
 
 export default class ViewEvent extends Component<any, any> {
     constructor(props) {
@@ -51,6 +52,7 @@ export default class ViewEvent extends Component<any, any> {
     render() {
         return (
             <div>
+                <Navigation/>
                 <Header title={this.state.event.name} subtitle={`Presented by ${this.state.event.host}`}/>
                 <Container fluid className="text-center">
                     <Link className="mr-5" to="/events">&lt; Back to Events</Link><Link to={'/events/' + this.props.match.params.id + '/edit'}>Edit

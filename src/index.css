@@ -135,3 +135,6 @@ html {
     text-align: center;
 }
 
+#notistack-snackbar, #notistack-snackbar path {
+    color: white;
+}

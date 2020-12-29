@@ -3,10 +3,12 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container } from 'react-bootstrap'
 import Fade from 'react-reveal/Fade'
 import Header from './components/Header'
+import Navigation from './components/Navigation'
 
 export default function Privacy() {
     return (
         <div>
+            <Navigation/>
             <Header title="Privacy Policy"/>
             <Fade bottom duration={1250} distance="50px">
                 <Container fluid>
