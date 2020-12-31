@@ -103,10 +103,12 @@ html {
     border-radius: 45px;
 }
 
-.event-banner {
+.event-banner-sm {
     width: 350px;
-    position: absolute;
-    right: 15px;
+}
+
+.event-banner-lg {
+    width: 100%;
 }
 
 .header {

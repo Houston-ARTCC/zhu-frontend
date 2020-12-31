@@ -1,13 +1,21 @@
+/*
+dP     dP                   oo          dP       dP
+88     88                               88       88
+88    .8P .d8888b. 88d888b. dP .d8888b. 88d888b. 88 .d8888b. .d8888b.
+88    d8' 88'  `88 88'  `88 88 88'  `88 88'  `88 88 88ooood8 Y8ooooo.
+88  .d8P  88.  .88 88       88 88.  .88 88.  .88 88 88.  ...       88
+888888'   `88888P8 dP       dP `88888P8 88Y8888' dP `88888P' `88888P'
+ */
 $primary: #109CF1;
 $yellow: #FFB946;
 $red: #F7685B;
 $green: #2ED47A;
 $purple: #885AF8;
 $black: #192A3E;
-$dark-gray: #323C47;
-$dark-blue: #334D6E;
+$darkgray: #323C47;
+$darkblue: #334D6E;
 $gray: #90A0B7;
-$light-gray: #C2CFE0;
+$lightgray: #C2CFE0;
 $white: #FFFFFF;
 
 $gold: #FFB800;
@@ -16,131 +24,272 @@ $bronze: #B4651D;
 
 $shadow: 2px 2px 19px rgba(152, 152, 152, 0.25);
 
+/*
+d888888P                                                                dP
+   88                                                                   88
+   88    dP    dP 88d888b. .d8888b. .d8888b. 88d888b. .d8888b. 88d888b. 88d888b. dP    dP
+   88    88    88 88'  `88 88'  `88 88'  `88 88'  `88 88'  `88 88'  `88 88'  `88 88    88
+   88    88.  .88 88.  .88 88.  .88 88.  .88 88       88.  .88 88.  .88 88    88 88.  .88
+   dP    `8888P88 88Y888P' `88888P' `8888P88 dP       `88888P8 88Y888P' dP    dP `8888P88
+              .88 88                     .88                   88                     .88
+          d8888P  dP                 d8888P                    dP                 d8888P
+ */
 .bg-primary { background-color: $primary !important; }
-
 .bg-yellow { background-color: $yellow !important; }
-
 .bg-red { background-color: $red !important; }
-
 .bg-green { background-color: $green !important; }
-
 .bg-purple { background-color: $purple !important; }
-
 .bg-black { background-color: $black !important; }
-
-.bg-dark-gray { background-color: $dark-gray !important; }
-
-.bg-dark-blue { background-color: $dark-blue !important; }
-
+.bg-darkgray { background-color: $darkgray !important; }
+.bg-darkblue { background-color: $darkblue !important; }
 .bg-gray { background-color: $gray !important; }
-
-.bg-light-gray { background-color: $light-gray !important; }
-
+.bg-lightgray { background-color: $lightgray !important; }
 .bg-white { background-color: $white !important; }
-
 .bg-gold { background-color: $gold !important; }
-
 .bg-silver { background-color: $silver !important; }
-
 .bg-bronze { background-color: $bronze !important; }
 
 .text-primary { color: $primary !important; }
-
 .text-yellow { color: $yellow !important; }
-
 .text-red { color: $red !important; }
-
 .text-green { color: $green !important; }
-
 .text-purple { color: $purple !important; }
-
 .text-black { color: $black !important; }
-
-.text-dark-gray { color: $dark-gray !important; }
-
-.text-dark-blue { color: $dark-blue !important; }
-
+.text-darkgray { color: $darkgray !important; }
+.text-darkblue { color: $darkblue !important; }
 .text-gray { color: $gray !important; }
-
-.text-light-gray { color: $light-gray !important; }
-
+.text-lightgray { color: $lightgray !important; }
 .text-white { color: $white !important; }
-
 .text-gold { color: $gold !important; }
-
 .text-silver { color: $silver !important; }
-
 .text-bronze { color: $bronze !important; }
 
 .font-w100 { font-weight: 100 !important; }
-
 .font-w300 { font-weight: 300 !important; }
-
 .font-w400 { font-weight: 400 !important; }
-
 .font-w500 { font-weight: 500 !important; }
-
 .font-w700 { font-weight: 700 !important; }
-
 .font-w900 { font-weight: 900 !important; }
 
 .font-sm { font-size: 14px !important; }
-
 .font-md { font-size: 16px !important; }
-
 .font-lg { font-size: 19px !important; }
-
 .font-xl { font-size: 25px !important; }
 
 .fill-primary { fill: $primary !important; }
-
 .fill-yellow { fill: $yellow !important; }
-
 .fill-red { fill: $red !important; }
-
 .fill-green { fill: $green !important; }
-
 .fill-purple { fill: $purple !important; }
-
 .fill-black { fill: $black !important; }
-
-.fill-dark-gray { fill: $dark-gray !important; }
-
-.fill-dark-blue { fill: $dark-blue !important; }
-
+.fill-darkgray { fill: $darkgray !important; }
+.fill-darkblue { fill: $darkblue !important; }
 .fill-gray { fill: $gray !important; }
-
-.fill-light-gray { fill: $light-gray !important; }
-
+.fill-lightgray { fill: $lightgray !important; }
 .fill-white { fill: $white !important; }
-
 .fill-gold { fill: $gold !important; }
-
 .fill-silver { fill: $silver !important; }
-
 .fill-bronze { fill: $bronze !important; }
 
+/*
+ 888888ba             dP     dP
+ 88    `8b            88     88
+a88aaaa8P' dP    dP d8888P d8888P .d8888b. 88d888b. .d8888b.
+ 88   `8b. 88    88   88     88   88'  `88 88'  `88 Y8ooooo.
+ 88    .88 88.  .88   88     88   88.  .88 88    88       88
+ 88888888P `88888P'   dP     dP   `88888P' dP    dP `88888P'
+
+ 888888ba                 dP
+ 88    `8b                88
+a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
+ 88   `8b. 88'  `88 88'  `88 88'  `88 88ooood8 Y8ooooo.
+ 88    .88 88.  .88 88.  .88 88.  .88 88.  ...       88
+ 88888888P `88888P8 `88888P8 `8888P88 `88888P' `88888P'
+                                  .88
+                              d8888P
+ */
+.btn {
+    color: white !important;
+    border: 2px solid transparent !important;
+    border-radius: 5px !important;
+    padding: 5px 25px !important;
+    font-weight: 700 !important;
+
+    &:focus {
+        box-shadow: none !important;
+    }
+}
 .badge {
-    border-radius: 4px;
-    padding: 7px 12px !important;
+    color: white !important;
+    border: 2px solid transparent;
+    border-radius: 4px !important;
+    padding: 5px 13px !important;
     font-size: 13px !important;
     min-width: 120px;
+
+    &.rounded {
+        border-radius: 100px !important;
+        padding: 3px 6px !important;
+        min-width: unset;
+    }
 }
 
-.badge-primary {
-    background: $primary !important;
-    box-shadow: 0 4px 10px rgba($primary, 0.25);
+.btn-light-primary, .btn-outline-primary, .btn-bg-primary, .badge-light-primary, .badge-outline-primary { color: $primary !important; }
+.btn-light-yellow, .btn-outline-yellow, .btn-bg-yellow, .badge-light-yellow, .badge-outline-yellow { color: $yellow !important; }
+.btn-light-red, .btn-outline-red, .btn-bg-red, .badge-light-red, .badge-outline-red { color: $red !important; }
+.btn-light-green, .btn-outline-green, .btn-bg-green, .badge-light-green, .badge-outline-green { color: $green !important; }
+.btn-light-purple, .btn-outline-purple, .btn-bg-purple, .badge-light-purple, .badge-outline-purple { color: $purple !important; }
+.btn-light-black, .btn-outline-black, .btn-bg-black, .badge-light-black, .badge-outline-black { color: $black !important; }
+.btn-light-darkgray, .btn-outline-darkgray, .btn-bg-darkgray, .badge-light-darkgray, .badge-outline-darkgray { color: $darkgray !important; }
+.btn-light-darkblue, .btn-outline-darkblue, .btn-bg-darkblue, .badge-light-darkblue, .badge-outline-darkblue { color: $darkblue !important; }
+.btn-light-gray, .btn-outline-gray, .btn-bg-gray, .badge-light-gray, .badge-outline-gray { color: $gray !important; }
+.btn-light-lightgray, .btn-outline-lightgray, .btn-bg-lightgray, .badge-light-lightgray, .badge-outline-lightgray { color: $lightgray !important; }
+.btn-light-white, .btn-outline-white, .btn-bg-white, .badge-light-white, .badge-outline-white { color: $white !important; }
+
+.btn-light-primary, .badge-light-primary { background-color: rgba($primary, .4) !important; }
+.btn-light-yellow, .badge-light-yellow { background-color: rgba($yellow, .4) !important; }
+.btn-light-red, .badge-light-red { background-color: rgba($red, .4) !important; }
+.btn-light-green, .badge-light-green { background-color: rgba($green, .4) !important; }
+.btn-light-purple, .badge-light-purple { background-color: rgba($purple, .4) !important; }
+.btn-light-black, .badge-light-black { background-color: rgba($black, .4) !important; }
+.btn-light-darkgray, .badge-light-darkgray { background-color: rgba($darkgray, .4) !important; }
+.btn-light-darkblue, .badge-light-darkblue { background-color: rgba($darkblue, .4) !important; }
+.btn-light-gray, .badge-light-gray { background-color: rgba($gray, .4) !important; }
+.btn-light-lightgray, .badge-light-lightgray { background-color: rgba($lightgray, .4) !important; }
+.btn-light-white, .badge-light-white { background-color: rgba($white, .4) !important; }
+
+.btn-outline-primary, .badge-outline-primary { border-color: $primary !important; }
+.btn-outline-yellow, .badge-outline-yellow { border-color: $yellow !important; }
+.btn-outline-red, .badge-outline-red { border-color: $red !important; }
+.btn-outline-green, .badge-outline-green { border-color: $green !important; }
+.btn-outline-purple, .badge-outline-purple { border-color: $purple !important; }
+.btn-outline-black, .badge-outline-black { border-color: $black !important; }
+.btn-outline-darkgray, .badge-outline-darkgray { border-color: $darkgray !important; }
+.btn-outline-darkblue, .badge-outline-darkblue { border-color: $darkblue !important; }
+.btn-outline-gray, .badge-outline-gray { border-color: $gray !important; }
+.btn-outline-lightgray, .badge-outline-lightgray { border-color: $lightgray !important; }
+.btn-outline-white, .badge-outline-white { border-color: $white !important; }
+
+.btn-primary, .badge-primary { background-color: $primary !important; }
+.btn-yellow, .badge-yellow { background-color: $yellow !important; }
+.btn-red, .badge-red { background-color: $red !important; }
+.btn-green, .badge-green { background-color: $green !important; }
+.btn-purple, .badge-purple { background-color: $purple !important; }
+.btn-black, .badge-black { background-color: $black !important; }
+.btn-darkgray, .badge-darkgray { background-color: $darkgray !important; }
+.btn-darkblue, .badge-darkblue { background-color: $darkblue !important; }
+.btn-gray, .badge-gray { background-color: $gray !important; }
+.btn-lightgray, .badge-lightgray { background-color: $lightgray !important; }
+.btn-white, .badge-white { background-color: $white !important; }
+
+.btn-primary, .btn-light-primary, .badge-primary, .badge-light-primary { box-shadow: 0 4px 10px rgba($primary, 0.25)!important; }
+.btn-yellow, .btn-light-yellow, .badge-yellow, .badge-light-yellow { box-shadow: 0 4px 10px rgba($yellow, 0.25)!important; }
+.btn-red, .btn-light-red, .badge-red, .badge-light-red { box-shadow: 0 4px 10px rgba($red, 0.25)!important; }
+.btn-green, .btn-light-green, .badge-green, .badge-light-green { box-shadow: 0 4px 10px rgba($green, 0.25)!important; }
+.btn-purple, .btn-light-purple, .badge-purple, .badge-light-purple { box-shadow: 0 4px 10px rgba($purple, 0.25)!important; }
+.btn-black, .btn-light-black, .badge-black, .badge-light-black { box-shadow: 0 4px 10px rgba($black, 0.25)!important; }
+.btn-darkgray, .btn-light-darkgray, .badge-darkgray, .badge-light-darkgray { box-shadow: 0 4px 10px rgba($darkgray, 0.25)!important; }
+.btn-darkblue, .btn-light-darkblue, .badge-darkblue, .badge-light-darkblue { box-shadow: 0 4px 10px rgba($darkblue, 0.25)!important; }
+.btn-gray, .btn-light-gray, .btn-gray, .btn-light-gray { box-shadow: 0 4px 10px rgba($gray, 0.25)!important; }
+.btn-lightgray, .btn-light-lightgray, .btn-lightgray, .btn-light-lightgray { box-shadow: 0 4px 10px rgba($lightgray, 0.25)!important; }
+.btn-white, .btn-light-white, .btn-white, .btn-light-white { box-shadow: 0 4px 10px rgba($white, 0.25)!important; }
+
+.btn:hover:enabled, .btn:focus:enabled {
+    color: white !important;
+
+    &.btn-light-primary, &.btn-outline-primary, &.btn-bg-primary { background-color: $primary !important; }
+    &.btn-light-yellow, &.btn-outline-yellow, &.btn-bg-yellow { background-color: $yellow !important; }
+    &.btn-light-red, &.btn-outline-red, &.btn-bg-red { background-color: $red !important; }
+    &.btn-light-green, &.btn-outline-green, &.btn-bg-green { background-color: $green !important; }
+    &.btn-light-purple, &.btn-outline-purple, &.btn-bg-purple { background-color: $purple !important; }
+    &.btn-light-black, &.btn-outline-black, &.btn-bg-black { background-color: $black !important; }
+    &.btn-light-darkgray, &.btn-outline-darkgray, &.btn-bg-darkgray { background-color: $darkgray !important; }
+    &.btn-light-darkblue, &.btn-outline-darkblue, &.btn-bg-darkblue { background-color: $darkblue !important; }
+    &.btn-light-gray, &.btn-outline-gray, &.btn-bg-gray { background-color: $gray !important; }
+    &.btn-light-lightgray, &.btn-outline-lightgray, &.btn-bg-lightgray { background-color: $lightgray !important; }
+    &.btn-light-white, &.btn-outline-white, &.btn-bg-white { background-color: $white !important; }
+
+    &.btn-primary { background-color: darken($primary, 0.08) !important; }
+    &.btn-yellow { background-color: darken($yellow, 0.08) !important; }
+    &.btn-red { background-color: darken($red, 0.08) !important; }
+    &.btn-green { background-color: darken($green, 0.08) !important; }
+    &.btn-purple { background-color: darken($purple, 0.08) !important; }
+    &.btn-black { background-color: darken($black, 0.08) !important; }
+    &.btn-darkgray { background-color: darken($darkgray, 0.08) !important; }
+    &.btn-darkblue { background-color: darken($darkblue, 0.08) !important; }
+    &.btn-gray { background-color: darken($gray, 0.08) !important; }
+    &.btn-lightgray { background-color: darken($lightgray, 0.08) !important; }
+    &.btn-white { background-color: darken($white, 0.08) !important; }
 }
+
+.btn-vatsim {
+    background: $white !important;
+    box-shadow: 0 4px 10px rgba($white, 0.25) !important;
+    transition: 500ms;
+
+    span {
+        color: $primary;
+        text-shadow: 0 4px 10px rgba($primary, 0.25);
+        background: -webkit-linear-gradient(45deg, $primary 20%, #2B3990);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        transition: 500ms;
+    }
+}
+.navbar-shrink .btn-vatsim {
+    background-color: $primary !important;
+    box-shadow: 0 4px 10px rgba($primary, 0.25) !important;
+    transition: 500ms;
+
+    span {
+        color: $white;
+        text-shadow: 0 4px 10px rgba($white, 0.25);
+        background: none;
+        -webkit-background-clip: unset;
+        -webkit-text-fill-color: unset;
+        transition: 500ms;
+    }
+}
+
+/*
+ .d888888  dP                     dP
+d8'    88  88                     88
+88aaaaa88a 88 .d8888b. 88d888b. d8888P .d8888b.
+88     88  88 88ooood8 88'  `88   88   Y8ooooo.
+88     88  88 88.  ... 88         88         88
+88     88  dP `88888P' dP         dP   `88888P'
+ */
+
+
+
+
+
+
+
+
+
+
 
 .alert {
     border: none !important;
     border-radius: 8px;
     padding: 20px !important;
-}
 
-.alert-primary {
-    background-color: rgba($primary, 0.1) !important;
+    p {
+        color: inherit;
+    }
 }
+.alert-primary { color: $primary !important; background-color: rgba($primary, 0.1) !important; }
+.alert-yellow { color: $yellow !important; background-color: rgba($yellow, 0.1) !important; }
+.alert-red { color: $red !important; background-color: rgba($red, 0.1) !important; }
+.alert-green { color: $green !important; background-color: rgba($green, 0.1) !important; }
+.alert-purple { color: $purple !important; background-color: rgba($purple, 0.1) !important; }
+.alert-black { color: $black !important; background-color: rgba($black, 0.1) !important; }
+.alert-darkgray { color: $darkgray !important; background-color: rgba($darkgray, 0.1) !important; }
+.alert-darkblue { color: $darkblue !important; background-color: rgba($darkblue, 0.1) !important; }
+.alert-gray { color: $gray !important; background-color: rgba($gray, 0.1) !important; }
+.alert-lightgray { color: $lightgray !important; background-color: rgba($lightgray, 0.1) !important; }
+.alert-white { color: $white !important; background-color: rgba($white, 0.1) !important; }
 
 * {
     font-family: Cera Pro, sans-serif;
@@ -149,7 +298,7 @@ $shadow: 2px 2px 19px rgba(152, 152, 152, 0.25);
     font-size: 17px;
     line-height: 23px;
     font-feature-settings: 'pnum' on, 'onum' on, 'salt' on, 'case' on, 'kern' off;
-    color: $dark-gray;
+    color: $darkgray;
 }
 
 b {
@@ -197,40 +346,10 @@ b {
     }
 }
 
-.btn {
-    border-radius: 5px !important;
-    padding: 5px 25px !important;
-    font-weight: 700 !important;
-}
 
-.navbar .btn-vatsim {
-    background: $white;
-    box-shadow: 0 4px 10px rgba($white, 0.25) !important;
-    transition: 500ms;
 
-    span {
-        color: #2483C5;
-        text-shadow: 0 4px 10px rgba(#2483C5, 0.25);
-        background: -webkit-linear-gradient(45deg, #2483C5 20%, #2B3990);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        transition: 500ms;
-    }
-}
-
-.navbar.navbar-shrink .btn-vatsim {
-    background-color: $primary;
-    box-shadow: 0 4px 10px rgba($primary, 0.25) !important;
-    transition: 500ms;
-
-    span {
-        color: $white;
-        text-shadow: 0 4px 10px rgba($white, 0.25);
-        background: none;
-        -webkit-background-clip: unset;
-        -webkit-text-fill-color: unset;
-        transition: 500ms;
-    }
+.dropdown-toggle {
+    color: inherit!important;
 }
 
 .container-fluid {
@@ -238,9 +357,14 @@ b {
 }
 
 .card {
-    padding: 20px !important;
     border-radius: 4px;
     border: none !important;
     box-shadow: $shadow;
     margin-bottom: 20px;
+}
+
+.card-footer {
+    border: none!important;
+    background-color: white!important;
+    padding: 0!important;
 }
