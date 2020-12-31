@@ -88,8 +88,9 @@ function Login() {
                     localStorage.setItem('refresh', res.data.refresh)
                     axiosInstance.defaults.headers['Authorization'] = 'Bearer ' + res.data.access
 
-                    enqueueSnackbar('Successfully logged in as ' + getFullName() + '!', {
+                    enqueueSnackbar('Logged in as ' + getFullName(), {
                         variant: 'success',
+                        autoHideDuration: 3000,
                         anchorOrigin: {
                             vertical: 'bottom',
                             horizontal: 'right',
@@ -99,6 +100,7 @@ function Login() {
                 .catch(err => {
                     enqueueSnackbar(err.toString(), {
                         variant: 'error',
+                        autoHideDuration: 3000,
                         anchorOrigin: {
                             vertical: 'bottom',
                             horizontal: 'right',
@@ -123,8 +125,9 @@ function Logout() {
         localStorage.removeItem('refresh')
         delete axiosInstance.defaults.headers['Authorization']
 
-        enqueueSnackbar('Successfully logged out, see you soon!', {
+        enqueueSnackbar('You have been logged out, see you soon!', {
             variant: 'success',
+            autoHideDuration: 3000,
             anchorOrigin: {
                 vertical: 'bottom',
                 horizontal: 'right',
