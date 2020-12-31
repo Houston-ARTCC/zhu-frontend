@@ -259,17 +259,6 @@ d8'    88  88                     88
 88     88  88 88.  ... 88         88         88
 88     88  dP `88888P' dP         dP   `88888P'
  */
-
-
-
-
-
-
-
-
-
-
-
 .alert {
     border: none !important;
     border-radius: 8px;
@@ -297,7 +286,7 @@ d8'    88  88                     88
     font-weight: 400;
     font-size: 17px;
     line-height: 23px;
-    font-feature-settings: 'pnum' on, 'onum' on, 'salt' on, 'case' on, 'kern' off;
+    font-feature-settings: 'pnum' on, 'salt' on, 'case' on, 'kern' off;
     color: $darkgray;
 }
 

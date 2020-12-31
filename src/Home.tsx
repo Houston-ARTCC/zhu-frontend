@@ -97,7 +97,7 @@ export default class Home extends Component<any, any> {
                             <h6 className="text-gray font-w500 mb-3">Presented by {event.host}</h6>
                             <div className="li-flex">
                                 <HiOutlineCalendar size={25} className="mr-2"/>
-                                <Moment local className="font-w500 font-md" format="MMMM, D, YYYY">{event.start}</Moment>
+                                <Moment local className="font-w500 font-md" format="MMMM D, YYYY">{event.start}</Moment>
                             </div>
                             <div className="li-flex font-w500">
                                 <HiOutlineClock size={25} className="mr-2"/>

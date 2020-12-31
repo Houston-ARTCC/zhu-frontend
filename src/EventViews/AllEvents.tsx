@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { Card, Col, Container, Image, Row } from 'react-bootstrap'
+import { Card, Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axiosInstance from '../axiosInstance'
 import Header from '../components/Header'
 import Navigation from '../components/Navigation'
+import { HiOutlineCalendar, HiOutlineClock, MdPersonOutline } from 'react-icons/all'
+import Moment from 'react-moment'
+import moment from 'moment/moment'
 
 export default class AllEvents extends Component<any, any> {
     constructor(props) {
@@ -24,16 +27,37 @@ export default class AllEvents extends Component<any, any> {
     }
 
     renderEvent(event) {
+        const positions = event.positions.filter(position => !position.user).length
         return (
-            <Col sm={6}>
+            <Col md={6}>
                 <Link to={`/events/${event.id}`}>
-                    <Card className="mb-4">
-                        <Card.Header>
-                            <Card.Title>{event.name}</Card.Title>
-                        </Card.Header>
+                    <Card>
                         <Card.Body>
-                            <Image width="100%" src={event.banner}/>
+                            <h3 className="text-black font-w700 m-0">{event.name}</h3>
+                            <h5 className="text-gray font-w500 mb-3">Presented by {event.host}</h5>
+                            <Row>
+                                <Col>
+                                    <div className="li-flex">
+                                        <HiOutlineCalendar size={30} className="mr-2"/>
+                                        <Moment local className="font-w500 font-lg" format="MMMM D, YYYY">{event.start}</Moment>
+                                    </div>
+                                    <div className="li-flex font-w500 font-lg">
+                                        <HiOutlineClock size={30} className="mr-2"/>
+                                        <Moment local tz={moment.tz.guess()} format="HH:mm z →&nbsp;" className="font-w500 font-lg">{event.start}</Moment>
+                                        <Moment local tz={moment.tz.guess()} format="HH:mm z" className="font-w500 font-lg">{event.end}</Moment>
+                                    </div>
+                                </Col>
+                                <Col>
+                                    <div className="li-flex font-w500 font-lg">
+                                        <MdPersonOutline size={30} className="mr-2"/>
+                                        {positions} Position{positions === 1 ? '' : 's'} Available
+                                    </div>
+                                </Col>
+                            </Row>
                         </Card.Body>
+                        <Card.Footer>
+                            <img className="event-banner-lg" src={event.banner} alt={event.name}/>
+                        </Card.Footer>
                     </Card>
                 </Link>
             </Col>
