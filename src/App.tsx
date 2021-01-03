@@ -18,6 +18,7 @@ import Theme from './Theme'
 import Error404 from './ErrorViews/Error404'
 import Privacy from './Privacy'
 import ScrollToTop from './components/ScrollToTop'
+import Statistics from './Statistics'
 import LoadingScreen from './components/LoadingScreen'
 import { useSnackbar } from 'notistack'
 
@@ -38,6 +39,7 @@ export default function App() {
                 <Route exact path="/resources" component={AllResources}/>
                 <Route exact path="/theme" component={Theme}/>
                 <Route exact path="/privacy" component={Privacy}/>
+                <Route exact path="/statistics" component={Statistics}/>
                 <Route component={Error404}/>
             </Switch>
             <Row className="justify-content-center mb-5">

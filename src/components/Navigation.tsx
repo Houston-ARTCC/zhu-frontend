@@ -33,7 +33,7 @@ export default function Navigation() {
                         <NavDropdown.Item as={Link} to="">Staff</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="">IDS</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="">Resources</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="">Statistics</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/statistics">Statistics</NavDropdown.Item>
                     </NavDropdown>
                     {parseJWT()
                         ?<NavDropdown className={scroll ? 'text-black' : 'text-white'} title={getFullName()} id="nav-dropdown-user">
