@@ -64,14 +64,14 @@ export default class Statistics extends Component<any, any> {
                                     selector: 'prev_prev_hours',
                                     sortable: true,
                                     sortFunction: (a, b) => {return asSeconds(a.prev_prev_hours) > asSeconds(b.prev_prev_hours) ? 1 : -1},
-                                    cell: row => asDuration(row.prev_prev_hours),
+                                    cell: row => <div><HiCheck size={25} className={(asSeconds(row.prev_prev_hours) >= 7200 ? 'fill-green' : 'fill-transparent') + ' mr-2'}/> {asDuration(row.prev_prev_hours)}</div>
                                 },
                                 {
                                     name: <Moment tz="UTC" format="MMMM" subtract={{ months: 1 }}>{new Date()}</Moment>,
                                     selector: 'prev_hours',
                                     sortable: true,
                                     sortFunction: (a, b) => {return asSeconds(a.prev_hours) > asSeconds(b.prev_hours) ? 1 : -1},
-                                    cell: row => asDuration(row.prev_hours),
+                                    cell: row => <div><HiCheck size={25} className={(asSeconds(row.prev_hours) >= 7200 ? 'fill-green' : 'fill-transparent') + ' mr-2'}/> {asDuration(row.prev_hours)}</div>
                                 },
                                 {
                                     name: <Moment tz="UTC" format="MMMM">{new Date()}</Moment>,

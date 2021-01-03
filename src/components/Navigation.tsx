@@ -25,8 +25,8 @@ export default function Navigation() {
                     <NavDropdown className={scroll ? 'text-black' : 'text-white'} title="Pilots" id="nav-dropdown-pilots">
                         <NavDropdown.Item as={Link} to="">Leave Feedback</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="">ARTCC Map</NavDropdown.Item>
-                        <NavDropdown.Item href="https://simcharts.info/">Charts</NavDropdown.Item>
-                        <NavDropdown.Item href="https://flightaware.com/statistics/ifr-route/">Routes</NavDropdown.Item>
+                        <NavDropdown.Item href="https://simcharts.info/" target="_blank">Charts</NavDropdown.Item>
+                        <NavDropdown.Item href="https://flightaware.com/statistics/ifr-route/" target="_blank">Routes</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown className={scroll ? 'text-black' : 'text-white'} title="Controllers" id="nav-dropdown-controllers">
                         <NavDropdown.Item as={Link} to="/roster">Roster</NavDropdown.Item>
