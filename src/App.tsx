@@ -53,7 +53,7 @@ export default function App() {
                 </Col>
             </Row>
             <div className="bg-darkgray text-center p-5">
-                <h5 className="text-white font-w300 mb-3"><b className="font-w500">Copyright 2020</b> Virtual Houston ARTCC. All Rights Reserved.</h5>
+                <h5 className="text-white font-w300 mb-3"><b className="font-w500">Copyright 2021</b> Virtual Houston ARTCC. All Rights Reserved.</h5>
                 <div className="d-flex justify-content-center" id="footer-links">
                     <a href="https://vatsim.net" target="_blank" rel="noreferrer"><h6 className="text-lightgray font-w300">VATSIM</h6></a>
                     <h6 className="text-lightgray font-w300">→</h6>

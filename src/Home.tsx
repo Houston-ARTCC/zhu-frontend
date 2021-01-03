@@ -56,7 +56,7 @@ export default class Home extends Component<any, any> {
 
     renderOnlineController(controller) {
         return (
-            <li className="li-flex text-black font-w700 font-lg">
+            <li className="li-flex text-black font-w700 font-lg" style={this.state.onlineControllers?.length > 5 ? {width: '50%'} : {}}>
                 <Badge variant="primary" className="font-w700 mr-2">{controller.callsign}</Badge>
                 {controller.user.first_name} {controller.user.last_name}
             </li>
@@ -127,7 +127,7 @@ export default class Home extends Component<any, any> {
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
                         <Row className="justify-content-between mb-5">
-                            <Col sm={12} xl={7}>
+                            <Col sm={12} xl={this.state.onlineControllers?.length > 5 ? 6 : 7}>
                                 <h1 className="text-black font-w700 mb-1">Virtual Houston ARTCC</h1>
                                 <h4 className="text-gray font-w500 mb-4">Part of VATUSA & the VATSIM Network.</h4>
                                 <p>Welcome to the Virtual Houston Air Route Traffic Control Center! Encompassing an airspace of approximately 280,000
@@ -135,9 +135,9 @@ export default class Home extends Component<any, any> {
                                     destinations for you to choose from along with the professional air traffic control services to support your
                                     flight.</p>
                             </Col>
-                            <Col sm={12} xl={3}>
+                            <Col sm={12} xl={this.state.onlineControllers?.length > 5 ? 5 : 3}>
                                 <h2 className="text-black font-w500 mb-3">Who's Online?</h2>
-                                <ul className="p-0">
+                                <ul className={'p-0 ' + (this.state.onlineControllers?.length > 5 ? 'd-flex flex-wrap' : '')}>
                                     {this.state.onlineControllers?.length > 0
                                         ? this.state.onlineControllers.map(controller => this.renderOnlineController(controller))
                                         : <p>Nobody is online.</p>

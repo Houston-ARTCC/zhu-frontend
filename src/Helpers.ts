@@ -8,18 +8,12 @@ export function parseJWT() {
 
 export function getFirstName() {
     const jwt = parseJWT()
-    if (jwt) {
-        return jwt.first_name
-    }
-    return null
+    return jwt ? jwt.first_name : null
 }
 
 export function getLastName() {
     const jwt = parseJWT()
-    if (jwt) {
-        return jwt.last_name
-    }
-    return null
+    return jwt ? jwt.last_name : null
 }
 
 export function getFullName() {
@@ -28,10 +22,12 @@ export function getFullName() {
 
 export function getCID() {
     const jwt = parseJWT()
-    if (jwt) {
-        return jwt.cid
-    }
-    return null
+    return jwt ? jwt.cid : null
+}
+
+export function isStaff() {
+    const jwt = parseJWT()
+    return jwt ? jwt.is_staff : false
 }
 
 export function asDuration(durationStr) {

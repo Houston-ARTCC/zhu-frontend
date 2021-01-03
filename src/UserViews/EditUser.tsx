@@ -2,7 +2,6 @@ import { Component } from 'react';
 import { Button, Col, Container, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axiosInstance from '../axiosInstance'
-import swal from '@sweetalert/with-react'
 import qs from 'qs'
 
 export default class EditUser extends Component<any, any> {
@@ -35,31 +34,26 @@ export default class EditUser extends Component<any, any> {
         e.preventDefault();
         axiosInstance
             .put('/api/users/' + this.props.match.params.cid + '/', qs.stringify({ ...this.state.user }))
-            .then(res => swal({
-                title: 'Success!',
-                text: 'User details were successfully saved.',
-                icon: 'success',
-                buttons: {
-                    return: 'Return to Profile',
-                    confirm: 'Continue Editing',
-                },
-            }).then((value) => {
-                switch (value) {
-                    case 'return':
-                        this.props.history.push('/roster/' + this.props.match.params.cid)
-                        break
-                    default:
-                        break
-                }
-            }))
-            .catch(err => swal({
-                title: 'Uh oh!',
-                text: 'Something went wrong while processing your request!',
-                icon: 'error',
-                buttons: {
-                    cancel: 'Return to Profile',
-                },
-            }))
+            .then(res => {
+                this.props.enqueueSnackbar('Changes to user details saved!', {
+                    variant: 'success',
+                    autoHideDuration: 3000,
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    },
+                })
+            })
+            .catch(err => {
+                this.props.enqueueSnackbar(err.toString(), {
+                    variant: 'error',
+                    autoHideDuration: 3000,
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    },
+                })
+            })
     }
 
     render() {

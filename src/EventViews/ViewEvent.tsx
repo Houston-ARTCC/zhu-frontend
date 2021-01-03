@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Alert, Button, Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axiosInstance from '../axiosInstance'
-import { getCID } from '../Helpers';
+import { getCID, isStaff } from '../Helpers';
 import Header from '../components/Header'
 import Navigation from '../components/Navigation'
 import { withSnackbar } from 'notistack'
-import { HiOutlineCalendar, HiOutlineClock } from 'react-icons/all'
 import Moment from 'react-moment'
 import moment from 'moment/moment'
 import 'moment-timezone'
 import Countdown from 'react-countdown'
+import { FaRegEyeSlash, RiPencilRuler2Line } from 'react-icons/all'
 
 class ViewEvent extends Component<any, any> {
     constructor(props) {
@@ -87,8 +87,8 @@ class ViewEvent extends Component<any, any> {
             <li className="li-flex"><b className="mr-2">{position.callsign}</b> {position.user != null
                 ? <b>{position.user.first_name} {position.user.last_name}</b>
                 : position.requests.some(request => request.user.cid === getCID())
-                    ? <Link className="text-danger" onClick={() => handleUnrequest()}>Unrequest</Link>
-                    : <Link className="text-success" onClick={() => handleRequest()}>Request</Link>
+                    ? <Link className="text-danger" onClick={handleUnrequest}>Unrequest</Link>
+                    : <Link className="text-success" onClick={handleRequest}>Request</Link>
             }</li>
         )
     }
@@ -120,18 +120,33 @@ class ViewEvent extends Component<any, any> {
                 <Navigation/>
                 <Header title={this.state.event.name} subtitle={`Presented by ${this.state.event.host}`}/>
                 <Container fluid className="text-center">
+                    {this.state.event.hidden
+                        ? <Row className="justify-content-center mb-5">
+                            <Col md={6}>
+                                <Alert variant="red" className="d-flex m-0">
+                                    <FaRegEyeSlash className="fill-red mr-3" size={35} preserveAspectRatio="xMaxYMin"/>
+                                    <div className="text-left">
+                                        <h4>Event Hidden</h4>
+                                        <p className="m-0">
+                                            This event is currently hidden from controllers. <Link to={this.props.match.params.id + '/edit'} className="font-w500">Edit the event</Link> to make it visible.
+                                        </p>
+                                    </div>
+                                </Alert>
+                            </Col>
+                        </Row>
+                        : null
+                    }
                     <Row className="mb-5 d-flex align-items-center">
                         <Col md={6}>
-                            <p className="font-w500">{this.state.event.description}</p>
-                            <Row className="align-items-center">
+                            <Row className="align-items-center mb-4">
                                 <Col>
-                                    <h3 className="text-black font-w500">Start</h3>
+                                    <h4 className="text-black font-w500">Start</h4>
                                     <Moment local tz={moment.tz.guess()} format="MMM DD, YYYY, HH:mm z" element="h5" className="font-w400">{this.state.event.start}</Moment>
-                                    <h3 className="text-black font-w500">End</h3>
+                                    <h4 className="text-black font-w500">End</h4>
                                     <Moment local tz={moment.tz.guess()} format="MMM DD, YYYY, HH:mm z" element="h5" className="font-w400">{this.state.event.end}</Moment>
                                 </Col>
                                 <Col>
-                                    <h3 className="text-black font-w500">Time Until Event</h3>
+                                    <h4 className="text-black font-w500">Time Until Event</h4>
                                     {new Date(this.state.event.end) < new Date()
                                         ? <h5 className="font-w400">Event has ended.</h5>
                                         : <Countdown date={new Date(this.state.event.start)} renderer={
@@ -140,6 +155,13 @@ class ViewEvent extends Component<any, any> {
                                     }
                                 </Col>
                             </Row>
+                            <p className="font-w500">{this.state.event.description}</p>
+                            {isStaff()
+                                ? <Link to={this.state.event.id + '/edit'}>
+                                    <Button variant="primary"><RiPencilRuler2Line className="fill-white" viewBox="3 3 20 20"/> Edit Event</Button>
+                                </Link>
+                                : null
+                            }
                         </Col>
                         <Col md={6}>
                             <img className="event-banner-lg" src={this.state.event.banner} alt={this.state.event.name}/>

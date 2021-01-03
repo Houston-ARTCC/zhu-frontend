@@ -112,7 +112,7 @@ a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
     color: white !important;
     border: 2px solid transparent !important;
     border-radius: 5px !important;
-    padding: 5px 25px !important;
+    padding: 4px 22px !important;
     font-weight: 700 !important;
 
     &:focus {
@@ -132,6 +132,10 @@ a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
         padding: 3px 6px !important;
         min-width: unset;
     }
+
+    &.badge-sm {
+        min-width: unset!important;
+    }
 }
 
 .btn-light-primary, .btn-outline-primary, .btn-bg-primary, .badge-light-primary, .badge-outline-primary { color: $primary !important; }
@@ -144,7 +148,8 @@ a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
 .btn-light-darkblue, .btn-outline-darkblue, .btn-bg-darkblue, .badge-light-darkblue, .badge-outline-darkblue { color: $darkblue !important; }
 .btn-light-gray, .btn-outline-gray, .btn-bg-gray, .badge-light-gray, .badge-outline-gray { color: $gray !important; }
 .btn-light-lightgray, .btn-outline-lightgray, .btn-bg-lightgray, .badge-light-lightgray, .badge-outline-lightgray { color: $lightgray !important; }
-.btn-light-white, .btn-outline-white, .btn-bg-white, .badge-light-white, .badge-outline-white { color: $white !important; }
+.btn-light-white, .btn-outline-white, .btn-bg-white, .badge-light-white, .badge-outline-white { color: $darkgray !important; }
+.btn-white, .badge-white { color: $darkgray !important; }
 
 .btn-light-primary, .badge-light-primary { background-color: rgba($primary, .4) !important; }
 .btn-light-yellow, .badge-light-yellow { background-color: rgba($yellow, .4) !important; }
@@ -197,6 +202,8 @@ a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
 .btn:hover:enabled, .btn:focus:enabled {
     color: white !important;
 
+    &.btn-white, &.btn-light-white, &.btn-outline-white, &.btn-bg-white { color: $darkgray !important; }
+
     &.btn-light-primary, &.btn-outline-primary, &.btn-bg-primary { background-color: $primary !important; }
     &.btn-light-yellow, &.btn-outline-yellow, &.btn-bg-yellow { background-color: $yellow !important; }
     &.btn-light-red, &.btn-outline-red, &.btn-bg-red { background-color: $red !important; }
@@ -209,17 +216,17 @@ a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
     &.btn-light-lightgray, &.btn-outline-lightgray, &.btn-bg-lightgray { background-color: $lightgray !important; }
     &.btn-light-white, &.btn-outline-white, &.btn-bg-white { background-color: $white !important; }
 
-    &.btn-primary { background-color: darken($primary, 0.08) !important; }
-    &.btn-yellow { background-color: darken($yellow, 0.08) !important; }
-    &.btn-red { background-color: darken($red, 0.08) !important; }
-    &.btn-green { background-color: darken($green, 0.08) !important; }
-    &.btn-purple { background-color: darken($purple, 0.08) !important; }
-    &.btn-black { background-color: darken($black, 0.08) !important; }
-    &.btn-darkgray { background-color: darken($darkgray, 0.08) !important; }
-    &.btn-darkblue { background-color: darken($darkblue, 0.08) !important; }
-    &.btn-gray { background-color: darken($gray, 0.08) !important; }
-    &.btn-lightgray { background-color: darken($lightgray, 0.08) !important; }
-    &.btn-white { background-color: darken($white, 0.08) !important; }
+    &.btn-primary { background-color: darken($primary, 8%) !important; }
+    &.btn-yellow { background-color: darken($yellow, 8%) !important; }
+    &.btn-red { background-color: darken($red, 8%) !important; }
+    &.btn-green { background-color: darken($green, 8%) !important; }
+    &.btn-purple { background-color: darken($purple, 8%) !important; }
+    &.btn-black { background-color: darken($black, 8%) !important; }
+    &.btn-darkgray { background-color: darken($darkgray, 8%) !important; }
+    &.btn-darkblue { background-color: darken($darkblue, 8%) !important; }
+    &.btn-gray { background-color: darken($gray, 8%) !important; }
+    &.btn-lightgray { background-color: darken($lightgray, 8%) !important; }
+    &.btn-white { background-color: darken($white, 8%) !important; }
 }
 
 .btn-vatsim {
@@ -264,7 +271,7 @@ d8'    88  88                     88
     border-radius: 8px;
     padding: 20px !important;
 
-    p {
+    * {
         color: inherit;
     }
 }

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import axiosInstance from '../axiosInstance'
 import Header from '../components/Header'
 import Navigation from '../components/Navigation'
-import { HiOutlineCalendar, HiOutlineClock, MdPersonOutline } from 'react-icons/all'
+import { FaRegEyeSlash, HiOutlineCalendar, HiOutlineClock, MdPersonOutline } from 'react-icons/all'
 import Moment from 'react-moment'
 import moment from 'moment/moment'
 
@@ -33,7 +33,7 @@ export default class AllEvents extends Component<any, any> {
                 <Link to={`/events/${event.id}`}>
                     <Card>
                         <Card.Body>
-                            <h3 className="text-black font-w700 m-0">{event.name}</h3>
+                            <h3 className="text-black font-w700 m-0">{event.name} {event.hidden ? <FaRegEyeSlash className="fill-red" size={35}/> : null}</h3>
                             <h5 className="text-gray font-w500 mb-3">Presented by {event.host}</h5>
                             <Row>
                                 <Col>
