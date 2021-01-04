@@ -17,6 +17,7 @@ export default class Home extends Component<any, any> {
         super(props)
         this.state = {
             onlineControllers: [],
+            newestControllers: [],
             topControllers: [],
             topPositions: [],
             events: [],
@@ -25,6 +26,7 @@ export default class Home extends Component<any, any> {
 
     componentDidMount() {
         this.fetchOnlineControllers()
+        this.fetchNewestControllers()
         this.fetchTopControllers()
         this.fetchTopPositions()
         this.fetchEvents()
@@ -34,6 +36,12 @@ export default class Home extends Component<any, any> {
         axiosInstance
             .get('/api/connections/online')
             .then(res => this.setState({ onlineControllers: res.data }))
+    }
+
+    fetchNewestControllers() {
+        axiosInstance
+            .get('/api/users/newest')
+            .then(res => this.setState({ newestControllers: res.data }))
     }
 
     fetchTopControllers() {
@@ -59,6 +67,14 @@ export default class Home extends Component<any, any> {
             <li className="li-flex text-black font-w700 font-lg" style={this.state.onlineControllers?.length > 5 ? {width: '50%'} : {}}>
                 <Badge variant="primary" className="font-w700 mr-2">{controller.callsign}</Badge>
                 {controller.user.first_name} {controller.user.last_name}
+            </li>
+        )
+    }
+
+    renderNewestController(controller) {
+        return (
+            <li className="li-flex text-black font-w700 font-lg">
+                <img className="profile-md mr-2" src={profile} alt="Michael Romashov"/> {controller.first_name} {controller.last_name} ({controller.initials})
             </li>
         )
     }
@@ -193,15 +209,10 @@ export default class Home extends Component<any, any> {
                             <Col>
                                 <h2 className="text-black font-w500 mb-3">Newest Controllers</h2>
                                 <ul className="p-0">
-                                    <li className="li-flex text-black font-w700 font-lg">
-                                        <img className="profile-md mr-2" src={profile} alt="Michael Romashov"/> Conner Hopkins (CH)
-                                    </li>
-                                    <li className="li-flex text-black font-w700 font-lg">
-                                        <img className="profile-md mr-2" src={profile} alt="Michael Romashov"/> Leszek Kwasniowski (LK)
-                                    </li>
-                                    <li className="li-flex text-black font-w700 font-lg">
-                                        <img className="profile-md mr-2" src={profile} alt="Michael Romashov"/> Derek Ang (DA)
-                                    </li>
+                                    {this.state.newestControllers?.length > 0
+                                        ? this.state.newestControllers.map((controller) => this.renderNewestController(controller))
+                                        : <p>Not enough data.</p>
+                                    }
                                 </ul>
                             </Col>
                             <Col>
