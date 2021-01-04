@@ -39,7 +39,7 @@ export default function Navigation() {
                         ?<NavDropdown className={scroll ? 'text-black' : 'text-white'} title={getFullName()} id="nav-dropdown-user">
                             <NavDropdown.Item as={Link} to="">My Profile</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="">Training Center</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="">Administration</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/admin">Administration</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item as={Link} to="/logout">Log Out</NavDropdown.Item>
                         </NavDropdown>

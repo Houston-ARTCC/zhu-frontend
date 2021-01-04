@@ -22,7 +22,8 @@ $gold: #FFB800;
 $silver: #BDBDBD;
 $bronze: #B4651D;
 
-$shadow: 2px 2px 19px rgba(152, 152, 152, 0.25);
+$shadow: 2px 2px 20px rgba(152, 152, 152, 0.25);
+$shadow-lifted: 4px 4px 30px rgba(126, 126, 126, 0.25);
 
 /*
 d888888P                                                                dP
@@ -298,9 +299,21 @@ d8'    88  88                     88
     color: $darkgray;
 }
 
-b {
+u, b, i, s, strong, em, time {
     color: inherit;
     font-size: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+}
+
+i, em {
+    font-style: italic;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    span {
+        font-size: inherit;
+    }
 }
 
 #navbar {
@@ -358,10 +371,25 @@ b {
     border: none !important;
     box-shadow: $shadow;
     margin-bottom: 20px;
+    transition: 500ms ease-in-out;
 }
 
 .card-footer {
     border: none!important;
     background-color: white!important;
     padding: 0!important;
+}
+
+a:hover {
+    text-decoration: none!important;
+
+    .card {
+        box-shadow: $shadow-lifted;
+        transform: translateY(-5px);
+        transition: 300ms ease-in-out;
+    }
+}
+
+.modal-content {
+    border: none!important;
 }

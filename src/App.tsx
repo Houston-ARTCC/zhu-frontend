@@ -21,6 +21,7 @@ import ScrollToTop from './components/ScrollToTop'
 import Statistics from './Statistics'
 import LoadingScreen from './components/LoadingScreen'
 import { useSnackbar } from 'notistack'
+import AdminPanel from './AdminPanel'
 
 export default function App() {
     return (
@@ -40,6 +41,7 @@ export default function App() {
                 <Route exact path="/theme" component={Theme}/>
                 <Route exact path="/privacy" component={Privacy}/>
                 <Route exact path="/statistics" component={Statistics}/>
+                <Route exact path="/admin" component={AdminPanel}/>
                 <Route component={Error404}/>
             </Switch>
             <Row className="justify-content-center mb-5">

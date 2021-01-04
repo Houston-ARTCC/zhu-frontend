@@ -1,5 +1,5 @@
-import { Component } from 'react'
-import { Badge, Card, Col, Container, Row } from 'react-bootstrap'
+import React, { Component } from 'react'
+import { Badge, Card, Col, Container, Modal, Row } from 'react-bootstrap'
 import { HiOutlineCalendar, HiOutlineClock, IoIosAirplane, IoTrophy } from 'react-icons/all'
 import { Parallax } from 'react-parallax'
 import Fade from 'react-reveal/Fade'
@@ -11,31 +11,49 @@ import Moment from 'react-moment'
 import 'moment-timezone'
 import Navigation from './components/Navigation'
 import moment from 'moment/moment'
+import parse from 'html-react-parser'
+import { Link } from 'react-router-dom'
 
 export default class Home extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
             onlineControllers: [],
+            announcements: [],
+            events: [],
             newestControllers: [],
             topControllers: [],
             topPositions: [],
-            events: [],
+            showAnnouncementModal: false,
+            activeAnnouncement: {}
         }
     }
 
     componentDidMount() {
         this.fetchOnlineControllers()
+        this.fetchAnnouncements()
+        this.fetchEvents()
         this.fetchNewestControllers()
         this.fetchTopControllers()
         this.fetchTopPositions()
-        this.fetchEvents()
     }
 
     fetchOnlineControllers() {
         axiosInstance
             .get('/api/connections/online')
             .then(res => this.setState({ onlineControllers: res.data }))
+    }
+
+    fetchAnnouncements() {
+        axiosInstance
+            .get('/api/announcements')
+            .then(res => this.setState({ announcements: res.data }))
+    }
+
+    fetchEvents() {
+        axiosInstance
+            .get('/api/events')
+            .then(res => this.setState({ events: res.data }))
     }
 
     fetchNewestControllers() {
@@ -56,18 +74,58 @@ export default class Home extends Component<any, any> {
             .then(res => this.setState({ topPositions: res.data }))
     }
 
-    fetchEvents() {
-        axiosInstance
-            .get('/api/events')
-            .then(res => this.setState({ events: res.data }))
-    }
-
     renderOnlineController(controller) {
         return (
             <li className="li-flex text-black font-w700 font-lg" style={this.state.onlineControllers?.length > 5 ? {width: '50%'} : {}}>
                 <Badge variant="primary" className="font-w700 mr-2">{controller.callsign}</Badge>
                 {controller.user.first_name} {controller.user.last_name}
             </li>
+        )
+    }
+
+    renderAnnouncement(announcement) {
+        return (
+            <Link onClick={() => this.setState({showAnnouncementModal: true, activeAnnouncement: announcement})}>
+                <Card>
+                    <Card.Body>
+                        <Moment element="div" className="badge badge-primary announcment-date" local format="MMM. D, YYYY">{announcement.posted}</Moment>
+                        <h5 className="text-black font-w700">{announcement.title}</h5>
+                        <div className="user">
+                            <img className="profile-sm mr-2" src={profile} alt="Michael Romashov"/>
+                            <p className="text-darkgray font-w500 m-0">{announcement.author.first_name} {announcement.author.last_name}</p>
+                        </div>
+                    </Card.Body>
+                </Card>
+            </Link>
+        )
+    }
+
+    renderEvent(event) {
+        return (
+            <Link to={'/events/' + event.id}>
+                <Card>
+                    <Card.Body>
+                        <Row>
+                            <Col>
+                                <h5 className="text-black font-w700 m-0">{event.name}</h5>
+                                <h6 className="text-gray font-w500 mb-3">Presented by {event.host}</h6>
+                                <div className="li-flex">
+                                    <HiOutlineCalendar size={25} className="mr-2"/>
+                                    <Moment local className="font-w500 font-md" format="MMMM D, YYYY">{event.start}</Moment>
+                                </div>
+                                <div className="li-flex font-w500">
+                                    <HiOutlineClock size={25} className="mr-2"/>
+                                    <Moment local tz={moment.tz.guess()} format="HH:mm z →&nbsp;" className="font-w500 font-md">{event.start}</Moment>
+                                    <Moment local tz={moment.tz.guess()} format="HH:mm z" className="font-w500 font-md">{event.end}</Moment>
+                                </div>
+                            </Col>
+                            <Col className="text-right">
+                                <img className="event-banner-sm" src={event.banner} alt={event.name}/>
+                            </Col>
+                        </Row>
+                    </Card.Body>
+                </Card>
+            </Link>
         )
     }
 
@@ -100,33 +158,6 @@ export default class Home extends Component<any, any> {
                     <br/><span className="text-gray font-w500">{asDuration(position.hours)}</span>
                 </div>
             </li>
-        )
-    }
-
-    renderEvent(event) {
-        return (
-            <Card>
-                <Card.Body>
-                    <Row>
-                        <Col>
-                            <h5 className="text-black font-w700 m-0">{event.name}</h5>
-                            <h6 className="text-gray font-w500 mb-3">Presented by {event.host}</h6>
-                            <div className="li-flex">
-                                <HiOutlineCalendar size={25} className="mr-2"/>
-                                <Moment local className="font-w500 font-md" format="MMMM D, YYYY">{event.start}</Moment>
-                            </div>
-                            <div className="li-flex font-w500">
-                                <HiOutlineClock size={25} className="mr-2"/>
-                                <Moment local tz={moment.tz.guess()} format="HH:mm z →&nbsp;" className="font-w500 font-md">{event.start}</Moment>
-                                <Moment local tz={moment.tz.guess()} format="HH:mm z" className="font-w500 font-md">{event.end}</Moment>
-                            </div>
-                        </Col>
-                        <Col className="text-right">
-                            <img className="event-banner-sm" src={event.banner} alt={event.name}/>
-                        </Col>
-                    </Row>
-                </Card.Body>
-            </Card>
         )
     }
 
@@ -165,36 +196,10 @@ export default class Home extends Component<any, any> {
                             <Col sm={12} xl={6}>
                                 <h1 className="text-black font-w700 mb-1">Announcements</h1>
                                 <h4 className="text-gray font-w500 mb-4">What's happening at Houston?</h4>
-                                <Card>
-                                    <Card.Body>
-                                        <div className="badge badge-primary announcment-date">Dec. 25, 2020</div>
-                                        <h5 className="text-black font-w700">Happy Holidays from Houston!</h5>
-                                        <div className="user">
-                                            <img className="profile-sm mr-2" src={profile} alt="Michael Romashov"/>
-                                            <p className="text-darkgray font-w500 m-0">Marcus Miller</p>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                                <Card>
-                                    <Card.Body>
-                                        <div className="badge badge-primary announcment-date">Dec. 18, 2020</div>
-                                        <h5 className="text-black font-w700">Welcome to the Refined Houston Experience!</h5>
-                                        <div className="user">
-                                            <img className="profile-sm mr-2" src={profile} alt="Michael Romashov"/>
-                                            <p className="text-darkgray font-w500 m-0">Michael Romashov</p>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                                <Card>
-                                    <Card.Body>
-                                        <div className="badge badge-primary announcment-date">Nov. 25, 2020</div>
-                                        <h5 className="text-black font-w700">Houston Events Department Survey</h5>
-                                        <div className="user">
-                                            <img className="profile-sm mr-2" src={profile} alt="Michael Romashov"/>
-                                            <p className="text-darkgray font-w500 m-0">Ryan Drozd</p>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
+                                {this.state.announcements?.length > 0
+                                    ? this.state.announcements.slice(0, 3).map(announcement => this.renderAnnouncement(announcement))
+                                    : <p>There are no announcements.</p>
+                                }
                             </Col>
                             <Col sm={12} xl={6}>
                                 <h1 className="text-black font-w700 mb-1">Events</h1>
@@ -234,6 +239,18 @@ export default class Home extends Component<any, any> {
                                 </ul>
                             </Col>
                         </Row>
+                        <Modal
+                            size="lg"
+                            show={this.state.showAnnouncementModal}
+                            onHide={() => this.setState({showAnnouncementModal: false})}
+                        >
+                            <Modal.Header closeButton>
+                                <Modal.Title>{this.state.activeAnnouncement.title}</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                {this.state.activeAnnouncement.body ? parse(this.state.activeAnnouncement.body) : ''}
+                            </Modal.Body>
+                        </Modal>
                     </Container>
                 </Fade>
             </div>

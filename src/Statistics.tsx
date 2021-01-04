@@ -8,7 +8,7 @@ import { asDuration, asSeconds, ratingInt } from './Helpers'
 import Navigation from './components/Navigation'
 import Moment from 'react-moment'
 import DataTable from 'react-data-table-component';
-import { BiCheck, BsArrowDown, FaCheck, HiCheck, RiCheckFill } from 'react-icons/all'
+import { BsArrowDown, HiCheck } from 'react-icons/all'
 
 export default class Statistics extends Component<any, any> {
     constructor(props) {
