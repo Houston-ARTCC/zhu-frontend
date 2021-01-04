@@ -91,7 +91,11 @@ export default class Home extends Component<any, any> {
                         <Moment element="div" className="badge badge-primary announcment-date" local format="MMM. D, YYYY">{announcement.posted}</Moment>
                         <h5 className="text-black font-w700">{announcement.title}</h5>
                         <div className="user">
-                            <img className="profile-sm mr-2" src={profile} alt="Michael Romashov"/>
+                            <img
+                                className="profile-sm mr-2"
+                                src={'http://api.zhuartcc.devel' + announcement.author.profile}
+                                alt={announcement.author.first_name + ' ' + announcement.author.last_name}
+                            />
                             <p className="text-darkgray font-w500 m-0">{announcement.author.first_name} {announcement.author.last_name}</p>
                         </div>
                     </Card.Body>
@@ -132,7 +136,12 @@ export default class Home extends Component<any, any> {
     renderNewestController(controller) {
         return (
             <li className="li-flex text-black font-w700 font-lg">
-                <img className="profile-md mr-2" src={profile} alt="Michael Romashov"/> {controller.first_name} {controller.last_name} ({controller.initials})
+                <img
+                    className="profile-md mr-2"
+                    src={'http://api.zhuartcc.devel' + controller.profile}
+                    alt={controller.first_name + ' ' + controller.last_name}
+                />
+                {controller.first_name} {controller.last_name} ({controller.initials})
             </li>
         )
     }
