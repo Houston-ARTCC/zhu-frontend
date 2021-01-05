@@ -227,3 +227,9 @@ html {
 #notistack-snackbar, #notistack-snackbar path {
     color: white;
 }
+
+.nivo-tooltip {
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+}

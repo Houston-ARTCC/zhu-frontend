@@ -7,25 +7,35 @@ import axiosInstance from './axiosInstance'
 import { asDuration, asSeconds, ratingInt } from './Helpers'
 import Navigation from './components/Navigation'
 import Moment from 'react-moment'
-import DataTable from 'react-data-table-component';
+import DataTable from 'react-data-table-component'
 import { BsArrowDown, HiCheck } from 'react-icons/all'
+import { ResponsiveCalendar } from '@nivo/calendar'
+import moment from 'moment'
 
 export default class Statistics extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
-            stats: [],
+            user_stats: [],
+            daily_stats: [],
         }
     }
 
     componentDidMount() {
-        this.fetchStatistics()
+        this.fetchUserStatistics()
+        this.fetchDailyStatistics()
     }
 
-    fetchStatistics() {
+    fetchUserStatistics() {
         axiosInstance
             .get('/api/connections/statistics')
-            .then(res => this.setState({ stats: res.data }))
+            .then(res => this.setState({ user_stats: res.data }))
+    }
+
+    fetchDailyStatistics() {
+        axiosInstance
+            .get('/api/connections/daily/' + moment().year())
+            .then(res => this.setState({ daily_stats: res.data }))
     }
 
     render() {
@@ -35,7 +45,27 @@ export default class Statistics extends Component<any, any> {
                 <Header title="Statistics"/>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
+                        <div style={{height: 300}}>
+                            <ResponsiveCalendar
+                                data={this.state.daily_stats}
+                                from={moment().startOf('year').toDate()}
+                                to={moment().toDate()}
+                                emptyColor="#eeeeee"
+                                colors={[ '#c5dcdd', '#a1b8c1', '#7c95a6', '#58718a', '#334d6e' ]}
+                                margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+                                monthBorderColor="#F9F9F9"
+                                dayBorderWidth={2}
+                                dayBorderColor="#F9F9F9"
+                                theme={{
+                                    'fontSize': 14
+                                }}
+                                tooltip={(obj) =>
+                                    <div className="nivo-tooltip"><b>{obj.day} :</b> {obj.value ? Math.floor(obj.value * 100) / 100 : 0} hours</div>
+                                }
+                            />
+                        </div>
                         <DataTable
+                            data={this.state.user_stats}
                             noHeader
                             highlightOnHover
                             defaultSortField="name"
@@ -81,7 +111,6 @@ export default class Statistics extends Component<any, any> {
                                     cell: row => <div><HiCheck size={25} className={(asSeconds(row.curr_hours) >= 7200 ? 'fill-green' : 'fill-transparent') + ' mr-2'}/> {asDuration(row.curr_hours)}</div>
                                 },
                             ]}
-                            data={this.state.stats}
                             customStyles={{
                                 table: {
                                     style: {
@@ -92,9 +121,6 @@ export default class Statistics extends Component<any, any> {
                                     style: {
                                         backgroundColor: 'transparent'
                                     },
-                                    highlightOnHoverStyle: {
-                                        borderColor: 'transparent'
-                                    }
                                 },
                                 headRow: {
                                     style: {
