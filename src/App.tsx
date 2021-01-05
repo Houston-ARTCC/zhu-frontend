@@ -44,10 +44,11 @@ export default function App() {
                 <Route exact path="/admin" component={AdminPanel}/>
                 <Route component={Error404}/>
             </Switch>
-            <Row className="justify-content-center mb-5">
-                <Col md={6}>
+            <div className="d-flex justify-content-center mb-5">
+                <Col xs={10} xl={6}>
                     <Alert variant="primary" className="d-flex m-0">
-                        <RiErrorWarningLine className="fill-primary mr-3" size={75} preserveAspectRatio="xMaxYMin"/>
+                        {/* TODO: Fix icon scaling on mobile devices. */}
+                        <RiErrorWarningLine className="fill-primary mr-3" size={60} preserveAspectRatio="xMaxYMin"/>
                         <p className="m-0">
                             <b>Disclaimer!</b> All information on this website is for flight simulation use only and is not to be used for
                             real world navigation or flight. This site is not affiliated with ICAO, the FAA, the actual Houston ARTCC, or
@@ -55,10 +56,10 @@ export default function App() {
                         </p>
                     </Alert>
                 </Col>
-            </Row>
-            <div className="bg-darkgray text-center p-5">
-                <h5 className="text-white font-w300 mb-3"><b className="font-w500">Copyright 2021</b> Virtual Houston ARTCC. All Rights Reserved.</h5>
-                <div className="d-flex justify-content-center" id="footer-links">
+            </div>
+            <div className="bg-darkgray text-center p-4 p-xl-5">
+                <h5 className="text-white font-w400 mb-3">Copyright 2021 Virtual Houston ARTCC. All Rights Reserved.</h5>
+                <div className="d-flex flex-wrap justify-content-center" id="footer-links">
                     <a href="https://vatsim.net" target="_blank" rel="noreferrer"><h6 className="text-lightgray font-w300">VATSIM</h6></a>
                     <h6 className="text-lightgray font-w300">→</h6>
                     <a href="https://vatusa.net" target="_blank" rel="noreferrer"><h6 className="text-lightgray font-w300">VATUSA</h6></a>

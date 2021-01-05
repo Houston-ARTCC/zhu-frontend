@@ -4,7 +4,6 @@ import { HiOutlineCalendar, HiOutlineClock, IoIosAirplane, IoTrophy } from 'reac
 import { Parallax } from 'react-parallax'
 import Fade from 'react-reveal/Fade'
 import background from './img/homepage-bg.jpg'
-import profile from './img/profile.png'
 import axiosInstance from './axiosInstance'
 import { asDuration } from './Helpers'
 import Moment from 'react-moment'
@@ -18,6 +17,7 @@ export default class Home extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
+            scroll: false,
             onlineControllers: [],
             announcements: [],
             events: [],
@@ -27,6 +27,7 @@ export default class Home extends Component<any, any> {
             showAnnouncementModal: false,
             activeAnnouncement: {}
         }
+        this.onScroll = this.onScroll.bind(this)
     }
 
     componentDidMount() {
@@ -36,6 +37,15 @@ export default class Home extends Component<any, any> {
         this.fetchNewestControllers()
         this.fetchTopControllers()
         this.fetchTopPositions()
+        window.addEventListener('scroll', this.onScroll);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.onScroll);
+    }
+
+    onScroll() {
+        this.setState({scroll: true})
     }
 
     fetchOnlineControllers() {
@@ -110,7 +120,7 @@ export default class Home extends Component<any, any> {
                 <Card>
                     <Card.Body>
                         <Row>
-                            <Col>
+                            <Col xs={12} lg={6}>
                                 <h5 className="text-black font-w700 m-0">{event.name}</h5>
                                 <h6 className="text-gray font-w500 mb-3">Presented by {event.host}</h6>
                                 <div className="li-flex">
@@ -123,7 +133,7 @@ export default class Home extends Component<any, any> {
                                     <Moment local tz={moment.tz.guess()} format="HH:mm z" className="font-w500 font-md">{event.end}</Moment>
                                 </div>
                             </Col>
-                            <Col className="text-right">
+                            <Col xs={12} lg={6} className="text-right">
                                 <img className="event-banner-sm" src={event.banner} alt={event.name}/>
                             </Col>
                         </Row>
@@ -179,11 +189,14 @@ export default class Home extends Component<any, any> {
                         <h4 className="text-white font-w500" id="tagline">From longhorns to space ships, we've got it all!</h4>
                         <h1 className="text-white font-w700" id="welcome">Welcome to Houston</h1>
                     </div>
+                    <svg width="56" height="31" viewBox="0 0 56 31" fill="none" xmlns="http://www.w3.org/2000/svg" id="hero-arrow" className={this.state.scroll ? 'hide' : ''}>
+                        <path d="M3 3L28 28L53 3" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </Parallax>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
-                        <Row className="justify-content-between mb-5">
-                            <Col sm={12} xl={this.state.onlineControllers?.length > 5 ? 6 : 7}>
+                        <Row className="justify-content-between mb-4">
+                            <Col sm={12} xl={this.state.onlineControllers?.length > 5 ? 6 : 7} className="mb-4 mb-xl-0">
                                 <h1 className="text-black font-w700 mb-1">Virtual Houston ARTCC</h1>
                                 <h4 className="text-gray font-w500 mb-4">Part of VATUSA & the VATSIM Network.</h4>
                                 <p>Welcome to the Virtual Houston Air Route Traffic Control Center! Encompassing an airspace of approximately 280,000
@@ -191,7 +204,7 @@ export default class Home extends Component<any, any> {
                                     destinations for you to choose from along with the professional air traffic control services to support your
                                     flight.</p>
                             </Col>
-                            <Col sm={12} xl={this.state.onlineControllers?.length > 5 ? 5 : 3}>
+                            <Col sm={12} xl={this.state.onlineControllers?.length > 5 ? 5 : 3} className="mb-4 mb-xl-0">
                                 <h2 className="text-black font-w500 mb-3">Who's Online?</h2>
                                 <ul className={'p-0 ' + (this.state.onlineControllers?.length > 5 ? 'd-flex flex-wrap' : '')}>
                                     {this.state.onlineControllers?.length > 0
@@ -201,8 +214,8 @@ export default class Home extends Component<any, any> {
                                 </ul>
                             </Col>
                         </Row>
-                        <Row className="mb-5">
-                            <Col sm={12} xl={6}>
+                        <Row className="mb-4">
+                            <Col sm={12} xl={6} className="mb-4 mb-xl-0">
                                 <h1 className="text-black font-w700 mb-1">Announcements</h1>
                                 <h4 className="text-gray font-w500 mb-4">What's happening at Houston?</h4>
                                 {this.state.announcements?.length > 0
@@ -210,7 +223,7 @@ export default class Home extends Component<any, any> {
                                     : <p>There are no announcements.</p>
                                 }
                             </Col>
-                            <Col sm={12} xl={6}>
+                            <Col sm={12} xl={6} className="mb-4 mb-xl-0">
                                 <h1 className="text-black font-w700 mb-1">Events</h1>
                                 <h4 className="text-gray font-w500 mb-4">Are y'all busy?</h4>
                                 {this.state.events?.length > 0
@@ -220,7 +233,7 @@ export default class Home extends Component<any, any> {
                             </Col>
                         </Row>
                         <Row>
-                            <Col>
+                            <Col className="mb-4 mb-xl-0">
                                 <h2 className="text-black font-w500 mb-3">Newest Controllers</h2>
                                 <ul className="p-0">
                                     {this.state.newestControllers?.length > 0
@@ -229,7 +242,7 @@ export default class Home extends Component<any, any> {
                                     }
                                 </ul>
                             </Col>
-                            <Col>
+                            <Col className="mb-4 mb-xl-0">
                                 <h2 className="text-black font-w500 mb-3">Top Controllers</h2>
                                 <ul className="p-0">
                                     {this.state.topControllers?.length > 0

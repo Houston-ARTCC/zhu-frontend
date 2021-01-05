@@ -25,6 +25,13 @@ $bronze: #B4651D;
 $shadow: 2px 2px 20px rgba(152, 152, 152, 0.25);
 $shadow-lifted: 4px 4px 30px rgba(126, 126, 126, 0.25);
 
+$screen-sm-min: 768px;
+$screen-xs-max: ($screen-sm-min - 1);
+$screen-md-min: 992px;
+$screen-sm-max: ($screen-md-min - 1);
+$screen-lg-min: 1200px;
+$screen-md-max: ($screen-lg-min - 1);
+
 /*
 d888888P                                                                dP
    88                                                                   88
@@ -319,7 +326,7 @@ h1, h2, h3, h4, h5, h6 {
 #navbar {
     padding: 60px;
     transition: 600ms;
-    width: 100%;
+    width: 100vw;
     position: fixed !important;
     z-index: 1000;
 
@@ -364,6 +371,18 @@ h1, h2, h3, h4, h5, h6 {
 
 .container-fluid {
     padding: 60px 130px !important;
+}
+
+@media (max-width: $screen-sm-max) {
+    .container-fluid {
+        padding: 60px !important;
+    }
+}
+
+@media (max-width: $screen-xs-max) {
+    .container-fluid {
+        padding: 60px 40px !important;
+    }
 }
 
 .card {

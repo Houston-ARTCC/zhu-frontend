@@ -112,6 +112,35 @@ html {
     font-size: 28px;
 }
 
+@media (max-width: 767px) {
+    #welcome, #tagline { width: 90%; }
+    #welcome { font-size: 70px; }
+    #tagline { font-size: 20px; }
+}
+
+#hero-arrow {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 70px;
+    margin: auto;
+    animation: bounce 2000ms infinite alternate ease-in-out;
+}
+
+@keyframes bounce {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-20px);
+    }
+}
+
+.hide {
+    opacity: 0;
+    transition: 300ms;
+}
+
 #footer-links h6 {
     margin: 0 5px;
 }
@@ -126,6 +155,16 @@ html {
     position: absolute;
     top: 20px;
     right: 20px;
+}
+
+@media (max-width: 767px) {
+    .announcment-date {
+        position: relative;
+        top: unset;
+        right: unset;
+        width: 120px;
+        margin-bottom: 10px;
+    }
 }
 
 .user {
@@ -151,6 +190,12 @@ html {
 
 .event-banner-lg {
     width: 100%;
+}
+
+@media (max-width: 991px) {
+    .event-banner-sm {
+        width: 100%;
+    }
 }
 
 .header {
