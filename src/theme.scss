@@ -399,13 +399,20 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0!important;
 }
 
+a {
+    transition: 500ms ease-in-out;
+}
+
 a:hover {
     text-decoration: none!important;
+    color: inherit !important;
+    opacity: 0.7;
+    transition: 300ms ease-in-out;
 
     .card {
         box-shadow: $shadow-lifted;
         transform: translateY(-5px);
-        transition: 300ms ease-in-out;
+        opacity: 1;
     }
 }
 

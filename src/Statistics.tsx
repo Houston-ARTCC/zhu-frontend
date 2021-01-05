@@ -42,7 +42,7 @@ export default class Statistics extends Component<any, any> {
         return (
             <div>
                 <Navigation/>
-                <Header title="Statistics"/>
+                <Header title="Controller Statistics"/>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
                         <div style={{height: 300}}>

@@ -12,6 +12,7 @@ import Navigation from './components/Navigation'
 import moment from 'moment/moment'
 import parse from 'html-react-parser'
 import { Link } from 'react-router-dom'
+import getPositionName from './facilities'
 
 export default class Home extends Component<any, any> {
     constructor(props) {
@@ -173,7 +174,7 @@ export default class Home extends Component<any, any> {
             <li className="li-flex">
                 <IoIosAirplane className={`fill-${index === 0 ? 'gold' : index === 1 ? 'silver' : 'bronze'} mr-2`} size={45}/>
                 <div className="text-black font-w700 font-lg">
-                    {position.position}
+                    {getPositionName(position.position)}
                     <br/><span className="text-gray font-w500">{asDuration(position.hours)}</span>
                 </div>
             </li>
