@@ -16,8 +16,8 @@ export default class Statistics extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
-            user_stats: [],
-            daily_stats: [],
+            userStats: [],
+            dailyStats: [],
         }
     }
 
@@ -29,13 +29,13 @@ export default class Statistics extends Component<any, any> {
     fetchUserStatistics() {
         axiosInstance
             .get('/api/connections/statistics')
-            .then(res => this.setState({ user_stats: res.data }))
+            .then(res => this.setState({ userStats: res.data }))
     }
 
     fetchDailyStatistics() {
         axiosInstance
             .get('/api/connections/daily/' + moment().year())
-            .then(res => this.setState({ daily_stats: res.data }))
+            .then(res => this.setState({ dailyStats: res.data }))
     }
 
     render() {
@@ -47,7 +47,7 @@ export default class Statistics extends Component<any, any> {
                     <Container fluid>
                         <div style={{height: 300}}>
                             <ResponsiveCalendar
-                                data={this.state.daily_stats}
+                                data={this.state.dailyStats}
                                 from={moment().startOf('year').toDate()}
                                 to={moment().toDate()}
                                 emptyColor="#eeeeee"
@@ -65,7 +65,7 @@ export default class Statistics extends Component<any, any> {
                             />
                         </div>
                         <DataTable
-                            data={this.state.user_stats}
+                            data={this.state.userStats}
                             noHeader
                             highlightOnHover
                             defaultSortField="name"
@@ -94,21 +94,30 @@ export default class Statistics extends Component<any, any> {
                                     selector: 'prev_prev_hours',
                                     sortable: true,
                                     sortFunction: (a, b) => {return asSeconds(a.prev_prev_hours) > asSeconds(b.prev_prev_hours) ? 1 : -1},
-                                    cell: row => <div><HiCheck size={25} className={(asSeconds(row.prev_prev_hours) >= 7200 ? 'fill-green' : 'fill-transparent') + ' mr-2'}/> {asDuration(row.prev_prev_hours)}</div>
+                                    cell: row => <div>
+                                        <HiCheck size={25} className={(asSeconds(row.prev_prev_hours) >= 7200 ? 'fill-green' : 'fill-transparent') + ' mr-2'}/>
+                                        {asDuration(row.prev_prev_hours)}
+                                    </div>
                                 },
                                 {
                                     name: <Moment tz="UTC" format="MMMM" subtract={{ months: 1 }}>{new Date()}</Moment>,
                                     selector: 'prev_hours',
                                     sortable: true,
                                     sortFunction: (a, b) => {return asSeconds(a.prev_hours) > asSeconds(b.prev_hours) ? 1 : -1},
-                                    cell: row => <div><HiCheck size={25} className={(asSeconds(row.prev_hours) >= 7200 ? 'fill-green' : 'fill-transparent') + ' mr-2'}/> {asDuration(row.prev_hours)}</div>
+                                    cell: row => <div>
+                                        <HiCheck size={25} className={(asSeconds(row.prev_hours) >= 7200 ? 'fill-green' : 'fill-transparent') + ' mr-2'}/>
+                                        {asDuration(row.prev_hours)}
+                                    </div>
                                 },
                                 {
                                     name: <Moment tz="UTC" format="MMMM">{new Date()}</Moment>,
                                     selector: 'curr_hours',
                                     sortable: true,
                                     sortFunction: (a, b) => {return asSeconds(a.curr_hours) > asSeconds(b.curr_hours) ? 1 : -1},
-                                    cell: row => <div><HiCheck size={25} className={(asSeconds(row.curr_hours) >= 7200 ? 'fill-green' : 'fill-transparent') + ' mr-2'}/> {asDuration(row.curr_hours)}</div>
+                                    cell: row => <div>
+                                        <HiCheck size={25} className={(asSeconds(row.curr_hours) >= 7200 ? 'fill-green' : 'fill-transparent') + ' mr-2'}/>
+                                        {asDuration(row.curr_hours)}
+                                    </div>
                                 },
                             ]}
                             customStyles={{

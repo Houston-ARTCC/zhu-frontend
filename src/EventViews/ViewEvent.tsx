@@ -120,8 +120,8 @@ class ViewEvent extends Component<any, any> {
                 <Navigation/>
                 <Header title={this.state.event.name} subtitle={`Presented by ${this.state.event.host}`}/>
                 <Container fluid className="text-center">
-                    {this.state.event.hidden
-                        ? <Row className="justify-content-center mb-5">
+                    {this.state.event.hidden &&
+                        <Row className="justify-content-center mb-5">
                             <Col md={6}>
                                 <Alert variant="red" className="d-flex m-0">
                                     <FaRegEyeSlash className="fill-red mr-3" size={35} preserveAspectRatio="xMaxYMin"/>
@@ -134,7 +134,6 @@ class ViewEvent extends Component<any, any> {
                                 </Alert>
                             </Col>
                         </Row>
-                        : null
                     }
                     <Row className="mb-5 d-flex align-items-center">
                         <Col md={6}>
@@ -156,11 +155,10 @@ class ViewEvent extends Component<any, any> {
                                 </Col>
                             </Row>
                             <p className="font-w500">{this.state.event.description}</p>
-                            {isStaff()
-                                ? <Link to={this.state.event.id + '/edit'}>
+                            {isStaff() &&
+                                <Link to={this.state.event.id + '/edit'}>
                                     <Button variant="primary"><RiPencilRuler2Line className="fill-white" viewBox="3 3 20 20"/> Edit Event</Button>
                                 </Link>
-                                : null
                             }
                         </Col>
                         <Col md={6}>

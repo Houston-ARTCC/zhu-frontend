@@ -8,12 +8,12 @@ export function parseJWT() {
 
 export function getFirstName() {
     const jwt = parseJWT()
-    return jwt ? jwt.first_name : null
+    return jwt && jwt.first_name
 }
 
 export function getLastName() {
     const jwt = parseJWT()
-    return jwt ? jwt.last_name : null
+    return jwt && jwt.last_name
 }
 
 export function getFullName() {
@@ -22,12 +22,12 @@ export function getFullName() {
 
 export function getCID() {
     const jwt = parseJWT()
-    return jwt ? jwt.cid : null
+    return jwt && jwt.cid
 }
 
 export function isStaff() {
     const jwt = parseJWT()
-    return jwt ? jwt.is_staff : false
+    return jwt && jwt.is_staff
 }
 
 export function asDuration(durationStr) {
@@ -56,4 +56,14 @@ export function ratingInt(ratingStr) {
         case 'ADM': return 9
         default: return -1
     }
+}
+
+export function certLevel(user) {
+    if (user.ocn_cert) { return 'Oceanic' }
+    if (user.ctr_cert) { return 'Center' }
+    if (user.app_cert) { return 'Approach' }
+    if (user.twr_cert) { return 'Tower' }
+    if (user.gnd_cert) { return 'Ground' }
+    if (user.del_cert) { return 'Delivery' }
+    return 'Observer'
 }

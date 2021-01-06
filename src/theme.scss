@@ -337,7 +337,8 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .navbar-brand {
-        padding: 0 !important;
+        margin: 0;
+        padding: 0;
         text-align: center;
 
         img {
@@ -391,6 +392,10 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: $shadow;
     margin-bottom: 20px;
     transition: 500ms ease-in-out;
+}
+
+.card-header {
+    border: none !important;
 }
 
 .card-footer {
