@@ -8,7 +8,7 @@ import Fade from 'react-reveal/Fade'
 import Switch from 'react-bootstrap/Switch'
 import { BsArrowDown, FaCircle } from 'react-icons/all'
 import DataTable from 'react-data-table-component'
-import { certLevel, ratingInt } from '../Helpers'
+import { certLevel, certName, ratingInt } from '../Helpers'
 
 export default class Roster extends Component<any, any> {
     constructor(props) {
@@ -58,9 +58,9 @@ export default class Roster extends Component<any, any> {
             <Col sm={12} md={6} lg={4} xl={3} className="mx-auto">
                 <Link to={`/roster/${user.cid}`}>
                     <Card className="mb-4">
-                        <Card.Header className="text-center">
-                            <img className="profile-lg mb-2" src={'http://api.zhuartcc.devel' + user.profile} alt={user.first_name + ' ' + user.last_name}/>
-                            <Card.Title>
+                        <Card.Header className="text-center py-4 px-1">
+                            <img className="profile-lg mb-3" src={'http://api.zhuartcc.devel' + user.profile} alt={user.first_name + ' ' + user.last_name}/>
+                            <Card.Title className="mb-0">
                                 {user.first_name} {user.last_name} ({user.initials})
                             </Card.Title>
                         </Card.Header>
@@ -75,7 +75,7 @@ export default class Roster extends Component<any, any> {
                                     <h6 className="font-w400">Rating</h6>
                                 </Col>
                             </Row>
-                            <table style={{width: "100%"}}>
+                            <table className="w-100">
                                 <tr>
                                     <td>{this.renderCertification(user.del_cert)}</td>
                                     <td>{this.renderCertification(user.gnd_cert)}</td>
@@ -108,6 +108,7 @@ export default class Roster extends Component<any, any> {
                 highlightOnHover
                 defaultSortField="name"
                 sortIcon={<BsArrowDown/>}
+                onRowClicked={row => this.props.history.push('/roster/' + row.cid) }
                 columns={[
                     {
                         name: 'Name',
@@ -205,7 +206,7 @@ export default class Roster extends Component<any, any> {
                             ? this.renderUserTable()
                             : Object.keys(this.state.sortedUsers).reverse().map(level =>
                                 <div className="text-center">
-                                    <h1 className="text-black font-w500 mb-3">{level}</h1>
+                                    <h1 className="text-black font-w500 mb-3">{certName(parseInt(level))}</h1>
                                     <Row>
                                         {this.state.sortedUsers[level].map(user => this.renderUserCard(user))}
                                     </Row>

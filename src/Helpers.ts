@@ -59,11 +59,23 @@ export function ratingInt(ratingStr) {
 }
 
 export function certLevel(user) {
-    if (user.ocn_cert) { return 'Oceanic' }
-    if (user.ctr_cert) { return 'Center' }
-    if (user.app_cert) { return 'Approach' }
-    if (user.twr_cert) { return 'Tower' }
-    if (user.gnd_cert) { return 'Ground' }
-    if (user.del_cert) { return 'Delivery' }
-    return 'Observer'
+    if (user.ocn_cert) return 6
+    if (user.ctr_cert) return 5
+    if (user.app_cert) return 4
+    if (user.twr_cert) return 3
+    if (user.gnd_cert) return 2
+    if (user.del_cert) return 1
+    return 0
+}
+
+export function certName(certInt) {
+    switch (certInt) {
+        case 6: return 'Oceanic'
+        case 5: return 'Center'
+        case 4: return 'Approach'
+        case 3: return 'Tower'
+        case 2: return 'Ground'
+        case 1: return 'Delivery'
+        default: return 'Observer'
+    }
 }

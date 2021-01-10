@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Button, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import logoColor from '../img/logo.png'
 import logoLight from '../img/logo-light.png'
-import { getFullName, parseJWT } from '../Helpers'
+import { getCID, getFullName, parseJWT } from '../Helpers'
 
 export default function Navigation() {
     const [scroll, setScroll] = useState(false)
@@ -37,7 +37,7 @@ export default function Navigation() {
                     </NavDropdown>
                     {parseJWT()
                         ?<NavDropdown className={scroll ? 'text-black' : 'text-white'} title={getFullName()} id="nav-dropdown-user">
-                            <NavDropdown.Item as={Link} to="">My Profile</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to={'/roster/' + getCID()}>My Profile</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="">Training Center</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/admin">Administration</NavDropdown.Item>
                             <NavDropdown.Divider />

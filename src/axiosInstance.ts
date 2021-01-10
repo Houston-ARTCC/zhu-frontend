@@ -40,7 +40,7 @@ axiosInstance.interceptors.response.use(
                     return axiosInstance
                         .post('/auth/token/refresh/', { refresh: refreshToken })
                         .then((res) => {
-                            localStorage.setItem('', res.data.access)
+                            localStorage.setItem('access', res.data.access)
 
                             axiosInstance.defaults.headers['Authorization'] = 'Bearer ' + res.data.access
                             originalRequest.headers.common['Authorization'] = 'Bearer ' + res.data.access

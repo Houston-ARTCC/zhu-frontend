@@ -190,6 +190,12 @@ html {
     border-radius: 60px;
 }
 
+.profile-xl {
+    width: 150px;
+    height: 150px;
+    border-radius: 150px;
+}
+
 .event-banner-sm {
     width: 350px;
 }

@@ -204,9 +204,9 @@ a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
 .btn-black, .btn-light-black, .badge-black, .badge-light-black { box-shadow: 0 4px 10px rgba($black, 0.25)!important; }
 .btn-darkgray, .btn-light-darkgray, .badge-darkgray, .badge-light-darkgray { box-shadow: 0 4px 10px rgba($darkgray, 0.25)!important; }
 .btn-darkblue, .btn-light-darkblue, .badge-darkblue, .badge-light-darkblue { box-shadow: 0 4px 10px rgba($darkblue, 0.25)!important; }
-.btn-gray, .btn-light-gray, .btn-gray, .btn-light-gray { box-shadow: 0 4px 10px rgba($gray, 0.25)!important; }
-.btn-lightgray, .btn-light-lightgray, .btn-lightgray, .btn-light-lightgray { box-shadow: 0 4px 10px rgba($lightgray, 0.25)!important; }
-.btn-white, .btn-light-white, .btn-white, .btn-light-white { box-shadow: 0 4px 10px rgba($white, 0.25)!important; }
+.btn-gray, .btn-light-gray .badge-gray, .badge-light-gray { box-shadow: 0 4px 10px rgba($gray, 0.25)!important; }
+.btn-lightgray, .btn-light-lightgray, .badge-lightgray, .badge-light-lightgray  { box-shadow: 0 4px 10px rgba($lightgray, 0.25)!important; }
+.btn-white, .btn-light-white, .badge-white, .badge-light-white { box-shadow: 0 4px 10px rgba($white, 0.25)!important; }
 
 .btn:hover:enabled, .btn:focus:enabled {
     color: white !important;

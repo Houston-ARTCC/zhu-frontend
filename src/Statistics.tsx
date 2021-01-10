@@ -9,8 +9,8 @@ import Navigation from './components/Navigation'
 import Moment from 'react-moment'
 import DataTable from 'react-data-table-component'
 import { BsArrowDown, HiCheck } from 'react-icons/all'
-import { ResponsiveCalendar } from '@nivo/calendar'
 import moment from 'moment'
+import StatisticCalendar from './components/StatisticCalendar'
 
 export default class Statistics extends Component<any, any> {
     constructor(props) {
@@ -46,23 +46,7 @@ export default class Statistics extends Component<any, any> {
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
                         <div style={{height: 300}}>
-                            <ResponsiveCalendar
-                                data={this.state.dailyStats}
-                                from={moment().startOf('year').toDate()}
-                                to={moment().toDate()}
-                                emptyColor="#eeeeee"
-                                colors={[ '#c5dcdd', '#a1b8c1', '#7c95a6', '#58718a', '#334d6e' ]}
-                                margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
-                                monthBorderColor="#F9F9F9"
-                                dayBorderWidth={2}
-                                dayBorderColor="#F9F9F9"
-                                theme={{
-                                    'fontSize': 14
-                                }}
-                                tooltip={(obj) =>
-                                    <div className="nivo-tooltip"><b>{obj.day} :</b> {obj.value ? Math.floor(obj.value * 100) / 100 : 0} hours</div>
-                                }
-                            />
+                            <StatisticCalendar data={this.state.dailyStats}/>
                         </div>
                         <DataTable
                             data={this.state.userStats}
@@ -70,6 +54,7 @@ export default class Statistics extends Component<any, any> {
                             highlightOnHover
                             defaultSortField="name"
                             sortIcon={<BsArrowDown/>}
+                            onRowClicked={row => this.props.history.push('/roster/' + row.cid) }
                             columns={[
                                 {
                                     name: 'Name',
