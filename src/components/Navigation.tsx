@@ -20,7 +20,7 @@ export default function Navigation() {
             </Link>
             <Navbar.Collapse>
                 <Nav className={scroll ? 'text-black' : 'text-white'}>
-                    <Nav.Link as={Link} to="" className={scroll ? 'text-black' : 'text-white'}>Calendar</Nav.Link>
+                    <Nav.Link as={Link} to="/calendar" className={scroll ? 'text-black' : 'text-white'}>Calendar</Nav.Link>
                     <Nav.Link as={Link} to="/events" className={scroll ? 'text-black' : 'text-white'}>Events</Nav.Link>
                     <NavDropdown className={scroll ? 'text-black' : 'text-white'} title="Pilots" id="nav-dropdown-pilots">
                         <NavDropdown.Item as={Link} to="">Leave Feedback</NavDropdown.Item>

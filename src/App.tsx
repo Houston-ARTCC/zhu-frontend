@@ -22,6 +22,7 @@ import Statistics from './Statistics'
 import LoadingScreen from './components/LoadingScreen'
 import { useSnackbar } from 'notistack'
 import AdminPanel from './AdminPanel'
+import ARTCCCalendar from './Calendar'
 
 export default function App() {
     return (
@@ -41,6 +42,7 @@ export default function App() {
                 <Route exact path="/theme" component={Theme}/>
                 <Route exact path="/privacy" component={Privacy}/>
                 <Route exact path="/statistics" component={Statistics}/>
+                <Route exact path="/calendar" component={ARTCCCalendar}/>
                 <Route exact path="/admin" component={AdminPanel}/>
                 <Route component={Error404}/>
             </Switch>

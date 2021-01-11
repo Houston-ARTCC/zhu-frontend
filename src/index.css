@@ -255,3 +255,11 @@ html {
     border-radius: 5px;
     padding: 10px 20px;
 }
+
+.tui-full-calendar-popup-detail .tui-full-calendar-popup-container {
+    width: 350px !important;
+}
+
+.tui-full-calendar-month-week-item .tui-full-calendar-today .tui-full-calendar-weekday-grid-date-decorator {
+    background: #334D6E !important;
+}
