@@ -4,7 +4,7 @@ import { Route, Switch, useHistory, useLocation } from 'react-router'
 import { RiErrorWarningLine } from 'react-icons/all'
 import { Alert, Col } from 'react-bootstrap'
 import qs from 'qs'
-import { getFullName } from './Helpers'
+import { getFullName, isStaff } from './Helpers'
 import axiosInstance from './axiosInstance'
 import Home from './Home'
 import AllEvents from './EventViews/AllEvents'
@@ -24,6 +24,7 @@ import { useSnackbar } from 'notistack'
 import AdminPanel from './AdminPanel'
 import Feedback from './Feedback'
 import ARTCCCalendar from './Calendar'
+import AuthRoute from './components/AuthRoute'
 
 export default function App() {
     return (
@@ -31,21 +32,26 @@ export default function App() {
             <ScrollToTop/>
             <Switch>
                 <Route exact path="/" component={Home}/>
+                {/* Auth */}
                 <Route exact path="/login" component={Login}/>
                 <Route exact path="/logout" component={Logout}/>
+                {/* Events */}
                 <Route exact path="/events" component={AllEvents}/>
                 <Route exact path="/events/:id(\d+)" component={ViewEvent}/>
-                <Route exact path="/events/:id(\d+)/edit" component={EditEvent}/>
+                <AuthRoute exact path="/events/:id(\d+)/edit" component={EditEvent} auth={isStaff}/>
+                {/* Roster */}
                 <Route exact path="/roster" component={Roster}/>
                 <Route exact path="/roster/:cid(\d+)" component={Profile}/>
-                <Route exact path="/roster/:cid(\d+)/edit" component={EditUser}/>
+                <AuthRoute exact path="/roster/:cid(\d+)/edit" component={EditUser} auth={isStaff}/>
+                {/* Resources */}
                 <Route exact path="/resources" component={AllResources}/>
+                {/* Miscellaneous */}
                 <Route exact path="/theme" component={Theme}/>
                 <Route exact path="/privacy" component={Privacy}/>
                 <Route exact path="/statistics" component={Statistics}/>
-                <Route exact path="/feedback" component={Feedback}/>
                 <Route exact path="/calendar" component={ARTCCCalendar}/>
-                <Route exact path="/admin" component={AdminPanel}/>
+                <AuthRoute exact path="/admin" component={AdminPanel} auth={isStaff}/>
+                <AuthRoute exact path="/feedback" component={Feedback}/>
                 <Route component={Error404}/>
             </Switch>
             <div className="d-flex justify-content-center mb-5">
@@ -81,7 +87,8 @@ export default function App() {
     )
 }
 
-function Login() {
+function Login(props) {
+    console.log(props)
     let { search } = useLocation()
     const history = useHistory()
     const { enqueueSnackbar } = useSnackbar()
@@ -90,6 +97,7 @@ function Login() {
 
     useEffect(() => {
         if (auth_code) {
+            console.log(localStorage.getItem('login-referrer'))
             axiosInstance
                 .post('/auth/token/', qs.stringify({ code: auth_code }))
                 .then(res => {
@@ -116,9 +124,12 @@ function Login() {
                         },
                     })
                 })
-                .finally(() => history.push('/'))
-
+                .finally(() => {
+                    history.push(localStorage.getItem('login-referrer') || '/')
+                    localStorage.removeItem('login-referrer')
+                })
         } else {
+            localStorage.setItem('login-referrer', props.location.state?.from.pathname || '/')
             window.location.href = 'https://auth.vatsim.net/oauth/authorize?client_id=593&redirect_uri=http://www.zhuartcc.devel/login&response_type=code&scope=full_name+vatsim_details+email'
         }
     })

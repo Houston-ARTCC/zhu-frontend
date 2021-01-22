@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom'
 import { Button, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import logoColor from '../img/logo.png'
 import logoLight from '../img/logo-light.png'
-import { getCID, getFullName, parseJWT } from '../Helpers'
+import { getCID, getFullName, isAuthenticated } from '../Helpers'
+import { useLocation } from 'react-router'
 
-export default function Navigation() {
+export default function Navigation(props) {
     const [scroll, setScroll] = useState(false)
+    const location = useLocation()
 
     useEffect(() => window.addEventListener('scroll', () => setScroll(window.scrollY > 50)), [])
 
@@ -35,7 +37,7 @@ export default function Navigation() {
                         <NavDropdown.Item as={Link} to="">Resources</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/statistics">Statistics</NavDropdown.Item>
                     </NavDropdown>
-                    {parseJWT()
+                    {isAuthenticated()
                         ?<NavDropdown className={scroll ? 'text-black' : 'text-white'} title={getFullName()} id="nav-dropdown-user">
                             <NavDropdown.Item as={Link} to={'/roster/' + getCID()}>My Profile</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="">Training Center</NavDropdown.Item>
@@ -43,7 +45,7 @@ export default function Navigation() {
                             <NavDropdown.Divider />
                             <NavDropdown.Item as={Link} to="/logout">Log Out</NavDropdown.Item>
                         </NavDropdown>
-                        : <Nav.Item as={Link} to="/login" className="ml-4">
+                        : <Nav.Item as={Link} to={{ pathname: '/login', state: { from: location }}} className="ml-4">
                             <Button variant="vatsim">
                                 <span className="font-w700">Login with VATSIM</span>
                             </Button>

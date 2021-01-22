@@ -25,9 +25,28 @@ export function getCID() {
     return jwt && jwt.cid
 }
 
+export function isAuthenticated() {
+    return !!parseJWT()
+}
+
+export function isTrainingStaff() {
+    const jwt = parseJWT()
+    return jwt && jwt.is_training_staff
+}
+
 export function isStaff() {
     const jwt = parseJWT()
     return jwt && jwt.is_staff
+}
+
+export function isSeniorStaff() {
+    const jwt = parseJWT()
+    return jwt && jwt.is_senior_staff
+}
+
+export function isAdmin() {
+    const jwt = parseJWT()
+    return jwt && jwt.is_admin
 }
 
 export function asDuration(durationStr) {
