@@ -97,7 +97,6 @@ function Login(props) {
 
     useEffect(() => {
         if (auth_code) {
-            console.log(localStorage.getItem('login-referrer'))
             axiosInstance
                 .post('/auth/token/', qs.stringify({ code: auth_code }))
                 .then(res => {

@@ -6,7 +6,7 @@ import logoLight from '../img/logo-light.png'
 import { getCID, getFullName, isAuthenticated } from '../Helpers'
 import { useLocation } from 'react-router'
 
-export default function Navigation(props) {
+export default function Navigation() {
     const [scroll, setScroll] = useState(false)
     const location = useLocation()
 
@@ -34,7 +34,7 @@ export default function Navigation(props) {
                         <NavDropdown.Item as={Link} to="/roster">Roster</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="">Staff</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="">IDS</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="">Resources</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/resources">Resources</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/statistics">Statistics</NavDropdown.Item>
                     </NavDropdown>
                     {isAuthenticated()

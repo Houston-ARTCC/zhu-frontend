@@ -26,6 +26,14 @@ export default class Profile extends Component<any, any> {
         this.fetchUserDailyStatistics()
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.match.params.cid !== this.props.match.params.cid) {
+            this.fetchUser()
+            this.fetchUserConnections()
+            this.fetchUserDailyStatistics()
+        }
+    }
+
     fetchUser() {
         axiosInstance
             .get('/api/users/' + this.props.match.params.cid)
@@ -77,22 +85,6 @@ export default class Profile extends Component<any, any> {
                 <Header
                     title={this.state.user.first_name + ' ' + this.state.user.last_name}
                     subtitle={this.state.user.rating?.long + ' - ' + this.state.user.cid}
-                    // override={
-                    //     <div className="d-flex">
-                    //         <img
-                    //             className="profile-xl mr-4"
-                    //             src={'http://api.zhuartcc.devel' + this.state.user.profile}
-                    //             alt={this.state.user.first_name + ' ' + this.state.user.last_name}
-                    //         />
-                    //         <div>
-                    //             <h1 className="text-white mb-0">{this.state.user.first_name + ' ' + this.state.user.last_name}</h1>
-                    //             <h5 className="text-white font-w400 mb-3">{this.state.user.rating?.long + ' - ' + this.state.user.cid}</h5>
-                    //             <div className="mb-3">
-                    //                 {this.state.user.roles?.map(role => this.renderRole(role))}
-                    //             </div>
-                    //         </div>
-                    //     </div>
-                    // }
                 />
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>

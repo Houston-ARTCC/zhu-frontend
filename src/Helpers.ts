@@ -98,3 +98,9 @@ export function certName(certInt) {
         default: return 'Observer'
     }
 }
+
+export function formDataFromObject(object) {
+    let formData = new FormData()
+    Object.keys(object).forEach(key => formData.append(key, object[key]))
+    return formData
+}

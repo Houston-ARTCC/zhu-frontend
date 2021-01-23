@@ -263,3 +263,7 @@ html {
 .tui-full-calendar-month-week-item .tui-full-calendar-today .tui-full-calendar-weekday-grid-date-decorator {
     background: #334D6E !important;
 }
+
+.rdt_TableCol_Sortable div {
+    font-weight: bold;
+}
