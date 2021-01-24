@@ -25,6 +25,7 @@ import AdminPanel from './AdminPanel'
 import Feedback from './Feedback'
 import ARTCCCalendar from './Calendar'
 import AuthRoute from './components/AuthRoute'
+import Map from './Map'
 
 export default function App() {
     return (
@@ -46,6 +47,7 @@ export default function App() {
                 {/* Resources */}
                 <Route exact path="/resources" component={AllResources}/>
                 {/* Miscellaneous */}
+                <Route exact path="/map" component={Map}/>
                 <Route exact path="/theme" component={Theme}/>
                 <Route exact path="/privacy" component={Privacy}/>
                 <Route exact path="/statistics" component={Statistics}/>

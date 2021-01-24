@@ -267,3 +267,38 @@ html {
 .rdt_TableCol_Sortable div {
     font-weight: bold;
 }
+
+.mapboxgl-map {
+    height: 100%;
+}
+
+.mapboxgl-canvas:focus {
+    outline: none;
+}
+
+.mapboxgl-ctrl-attrib-button {
+    display: none;
+}
+
+.mapboxgl-ctrl-attrib {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 7px;
+    background-color: white;
+    opacity: .5;
+}
+
+.mapboxgl-ctrl-attrib-inner a {
+    font-size: 12px;
+    font-weight: 700;
+    color: #2d2d2d !important;
+}
+
+.mapboxgl-popup {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    margin: -10px;
+    min-width: 500px;
+}

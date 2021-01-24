@@ -26,7 +26,7 @@ export default function Navigation() {
                     <Nav.Link as={Link} to="/events" className={scroll ? 'text-black' : 'text-white'}>Events</Nav.Link>
                     <NavDropdown className={scroll ? 'text-black' : 'text-white'} title="Pilots" id="nav-dropdown-pilots">
                         <NavDropdown.Item as={Link} to="/feedback">Leave Feedback</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="">ARTCC Map</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/map">ARTCC Map</NavDropdown.Item>
                         <NavDropdown.Item href="https://simcharts.info/" target="_blank">Charts</NavDropdown.Item>
                         <NavDropdown.Item href="https://flightaware.com/statistics/ifr-route/" target="_blank">Routes</NavDropdown.Item>
                     </NavDropdown>

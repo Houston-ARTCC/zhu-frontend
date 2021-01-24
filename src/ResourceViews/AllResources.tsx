@@ -255,7 +255,7 @@ export default class AllResources extends Component<any, any> {
                                     <Dropzone maxFiles={2} onDrop={(acceptedFiles) => this.handleFileChange(acceptedFiles)}>
                                         {({ getRootProps, getInputProps }) => (
                                             <div {...getRootProps({ className: 'dropzone' })}>
-                                                <input required {...getInputProps()} />
+                                                <input {...getInputProps()} />
                                                 <FaUpload className="fill-gray mb-2" size={30}/>
                                                 <p className="text-gray mb-1">Drag and drop file here, or click to select file</p>
                                                 <p className="text-gray">Current
