@@ -26,6 +26,7 @@ import Feedback from './Feedback'
 import ARTCCCalendar from './Calendar'
 import AuthRoute from './components/AuthRoute'
 import Map from './Map'
+import Staff from './UserViews/Staff'
 
 export default function App() {
     return (
@@ -41,6 +42,7 @@ export default function App() {
                 <Route exact path="/events/:id(\d+)" component={ViewEvent}/>
                 <AuthRoute exact path="/events/:id(\d+)/edit" component={EditEvent} auth={isStaff}/>
                 {/* Roster */}
+                <Route exact path="/staff" component={Staff}/>
                 <Route exact path="/roster" component={Roster}/>
                 <Route exact path="/roster/:cid(\d+)" component={Profile}/>
                 <AuthRoute exact path="/roster/:cid(\d+)/edit" component={EditUser} auth={isStaff}/>
@@ -70,7 +72,7 @@ export default function App() {
                 </Col>
             </div>
             <div className="bg-darkgray text-center p-4 p-xl-5">
-                <h5 className="text-white font-w400 mb-3">Copyright 2021 Virtual Houston ARTCC. All Rights Reserved.</h5>
+                <h5 className="text-white font-w400 mb-3">&copy; 2021, Virtual Houston ARTCC. All Rights Reserved.</h5>
                 <div className="d-flex flex-wrap justify-content-center" id="footer-links">
                     <a href="https://vatsim.net" target="_blank" rel="noreferrer"><h6 className="text-lightgray font-w300">VATSIM</h6></a>
                     <h6 className="text-lightgray font-w300">→</h6>

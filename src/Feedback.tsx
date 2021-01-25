@@ -14,7 +14,9 @@ export default class Feedback extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
-            feedbackForm: {},
+            feedbackForm: {
+                rating: 1,
+            },
             controllers: [],
             events: [],
         }

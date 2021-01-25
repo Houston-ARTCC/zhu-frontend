@@ -196,17 +196,17 @@ export default class Home extends Component<any, any> {
                 </Parallax>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
-                        <Row className="justify-content-between mb-4">
+                        <Row className="justify-content-between mb-5">
                             <Col sm={12} xl={this.state.onlineControllers?.length > 5 ? 6 : 7} className="mb-4 mb-xl-0">
                                 <h1 className="text-black font-w700 mb-1">Virtual Houston ARTCC</h1>
-                                <h4 className="text-gray font-w500 mb-4">Part of VATUSA & the VATSIM Network.</h4>
+                                <h4 className="text-gray mb-4">Part of VATUSA & the VATSIM Network.</h4>
                                 <p>Welcome to the Virtual Houston Air Route Traffic Control Center! Encompassing an airspace of approximately 280,000
                                     square miles in parts of Texas, Louisiana, Mississippi, and Alabama, Houston has a diverse selection of
                                     destinations for you to choose from along with the professional air traffic control services to support your
                                     flight.</p>
                             </Col>
                             <Col sm={12} xl={this.state.onlineControllers?.length > 5 ? 5 : 3} className="mb-4 mb-xl-0">
-                                <h2 className="text-black font-w500 mb-3">Who's Online?</h2>
+                                <h2 className="text-black mb-3">Who's Online?</h2>
                                 <ul className={'p-0 ' + (this.state.onlineControllers?.length > 5 ? 'd-flex flex-wrap' : '')}>
                                     {this.state.onlineControllers?.length > 0
                                         ? this.state.onlineControllers.map(controller => this.renderOnlineController(controller))
@@ -218,7 +218,7 @@ export default class Home extends Component<any, any> {
                         <Row className="mb-4">
                             <Col sm={12} xl={6} className="mb-4 mb-xl-0">
                                 <h1 className="text-black font-w700 mb-1">Announcements</h1>
-                                <h4 className="text-gray font-w500 mb-4">What's happening at Houston?</h4>
+                                <h4 className="text-gray mb-4">What's happening at Houston?</h4>
                                 {this.state.announcements?.length > 0
                                     ? this.state.announcements.slice(0, 3).map(announcement => this.renderAnnouncement(announcement))
                                     : <p>There are no announcements.</p>
@@ -226,7 +226,7 @@ export default class Home extends Component<any, any> {
                             </Col>
                             <Col sm={12} xl={6} className="mb-4 mb-xl-0">
                                 <h1 className="text-black font-w700 mb-1">Events</h1>
-                                <h4 className="text-gray font-w500 mb-4">Are y'all busy?</h4>
+                                <h4 className="text-gray mb-4">Are y'all busy?</h4>
                                 {this.state.events?.length > 0
                                     ? this.state.events.slice(0, 2).map(event => this.renderEvent(event))
                                     : <p>There are no planned events.</p>
@@ -235,7 +235,7 @@ export default class Home extends Component<any, any> {
                         </Row>
                         <Row>
                             <Col className="mb-4 mb-xl-0">
-                                <h2 className="text-black font-w500 mb-3">Newest Controllers</h2>
+                                <h2 className="text-black mb-3">Newest Controllers</h2>
                                 <ul className="p-0">
                                     {this.state.newestControllers?.length > 0
                                         ? this.state.newestControllers.map((controller) => this.renderNewestController(controller))
@@ -244,7 +244,7 @@ export default class Home extends Component<any, any> {
                                 </ul>
                             </Col>
                             <Col className="mb-4 mb-xl-0">
-                                <h2 className="text-black font-w500 mb-3">Top Controllers</h2>
+                                <h2 className="text-black mb-3">Top Controllers</h2>
                                 <ul className="p-0">
                                     {this.state.topControllers?.length > 0
                                         ? this.state.topControllers.slice(0, 3).map((controller, index) => this.renderTopController(controller, index))
@@ -253,7 +253,7 @@ export default class Home extends Component<any, any> {
                                 </ul>
                             </Col>
                             <Col>
-                                <h2 className="text-black font-w500 mb-3">Top Positions</h2>
+                                <h2 className="text-black mb-3">Top Positions</h2>
                                 <ul className="p-0">
                                     {this.state.topPositions?.length > 0
                                         ? this.state.topPositions.slice(0, 3).map((position, index) => this.renderTopPosition(position, index))

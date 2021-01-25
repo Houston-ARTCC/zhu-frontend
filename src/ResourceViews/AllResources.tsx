@@ -215,6 +215,7 @@ export default class AllResources extends Component<any, any> {
                                 className="p-0 sticky-top"
                                 currentClassName="active"
                                 items={this.state.categories}
+                                offset={-150}
                             >
                                 {this.state.categories.map(category => {
                                     return (

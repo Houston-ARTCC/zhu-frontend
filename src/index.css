@@ -80,6 +80,12 @@ html {
     -ms-overflow-style: none;
     scrollbar-width: none;
     overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+section {
+    padding-top: 150px;
+    margin-top: -150px;
 }
 
 ::-webkit-scrollbar {
