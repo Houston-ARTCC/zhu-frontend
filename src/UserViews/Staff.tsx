@@ -87,8 +87,8 @@ export default class Staff extends Component<any, any> {
                             </Col>
                             <Col className="ml-5">
                                 <section className="mb-5" id="core-staff">
-                                    <h2>Core Staff</h2>
-                                    <p className="mb-3">Responsible for the bulk of ARTCC operations.</p>
+                                    <h2 className="font-w700">Core Staff</h2>
+                                    <h5 className="text-gray font-w500 mb-3">Responsible for the bulk of ARTCC operations.</h5>
                                     <Row>
                                         <Col md={6}>
                                             <Card>
@@ -159,8 +159,8 @@ export default class Staff extends Component<any, any> {
                                     </Row>
                                 </section>
                                 <section className="mb-5" id="assistant-staff">
-                                    <h2>Assistant Staff</h2>
-                                    <p className="mb-3">Assist the senior staff in their respective duties.</p>
+                                    <h2 className="font-w700">Assistant Staff</h2>
+                                    <h5 className="text-gray font-w500 mb-3">Assist the senior staff in their respective duties.</h5>
                                     <Row>
                                         {this.state.staff.ta?.assistants.map(user => this.renderUserCard(user, 'Assistant Training Administrator'))}
                                         {this.state.staff.fe?.assistants.map(user => this.renderUserCard(user, 'Assistant Facility Engineer'))}
@@ -169,16 +169,16 @@ export default class Staff extends Component<any, any> {
                                     </Row>
                                 </section>
                                 <section className="mb-5" id="training-team">
-                                    <h2>Training Team</h2>
-                                    <p className="mb-3">Responsible for mentoring and training controllers.</p>
+                                    <h2 className="font-w700">Training Team</h2>
+                                    <h5 className="text-gray font-w500 mb-3">Responsible for mentoring and training controllers.</h5>
                                     <Row>
                                         {this.state.staff.ins?.map(instructor => this.renderUserCard(instructor, 'Instructor'))}
                                         {this.state.staff.mtr?.map(mentor => this.renderUserCard(mentor, 'Mentor'))}
                                     </Row>
                                 </section>
                                 <section id="web-team">
-                                    <h2>Web Team</h2>
-                                    <p className="mb-3">Assist the webmaster with maintaining ARTCC IT services.</p>
+                                    <h2 className="font-w700">Web Team</h2>
+                                    <h5 className="text-gray font-w500 mb-3">Assist the webmaster with maintaining ARTCC IT services.</h5>
                                     <Row>
                                         {this.state.staff.web?.map(web => this.renderUserCard(web, 'Web Team'))}
                                     </Row>

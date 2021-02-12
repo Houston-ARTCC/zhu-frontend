@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { Button, Col, Container, Dropdown, Form, Modal, ProgressBar, Row } from 'react-bootstrap'
+import { EventDropdownMenu, EventDropdownToggle } from '../components/EventDropdowns'
 import { Link } from 'react-router-dom'
 import axiosInstance from '../axiosInstance'
-import Dropdown from 'react-dropdown'
-import 'react-dropdown/style.css'
 import qs from 'qs'
-import { FaTimes, FaUserTimes } from 'react-icons/all'
 import Header from '../components/Header'
 import Navigation from '../components/Navigation'
 import { withSnackbar } from 'notistack'
@@ -15,11 +13,14 @@ class EditEvent extends Component<any, any> {
         super(props)
         this.state = {
             event: {},
+            showManualAssignModal: false,
+            manualAssignPosition: {},
+            controllers: [],
         }
-        this.handleTextChange = this.handleTextChange.bind(this);
-        this.handleDateChange = this.handleDateChange.bind(this);
-        this.handleSwitchChange = this.handleSwitchChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleTextChange = this.handleTextChange.bind(this)
+        this.handleDateChange = this.handleDateChange.bind(this)
+        this.handleSwitchChange = this.handleSwitchChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     componentDidMount() {
@@ -30,6 +31,12 @@ class EditEvent extends Component<any, any> {
         axiosInstance
             .get('/api/events/' + this.props.match.params.id)
             .then(res => this.setState({ event: res.data }))
+    }
+
+    fetchControllers() {
+        axiosInstance
+            .get('/api/users/simplified')
+            .then(res => this.setState({ controllers: res.data }))
     }
 
     handleTextChange(event) {
@@ -76,12 +83,41 @@ class EditEvent extends Component<any, any> {
             })
     }
 
-    renderPosition(position) {
-        const handleAssign = (option) => {
+    getEnroutePositions() {
+        return this.state.event.positions?.filter(position => {
+            let level = position.callsign.split('_').slice(-1).pop()
+            return level === 'CTR' || level === 'FSS'
+        })
+    }
+
+    getTRACONPositions() {
+        return this.state.event.positions?.filter(position => {
+            let level = position.callsign.split('_').slice(-1).pop()
+            return level === 'APP' || level === 'DEP'
+        })
+    }
+
+    getLocalPositions() {
+        return this.state.event.positions?.filter(position => {
+            let level = position.callsign.split('_').slice(-1).pop()
+            return level === 'DEL' || level === 'GND' || level === 'TWR'
+        })
+    }
+
+    renderShift(shift, position) {
+        const handleClick = (eventKey) => {
+            if (eventKey === 'unassign') handleUnassign()
+            else if (eventKey === 'delete') handleDelete()
+            else if (eventKey === 'manual') handleManualAssign()
+            else handleAssign(eventKey)
+        }
+
+        const handleAssign = (requestId) => {
+            let request = shift.requests.find(req => req.id == requestId)
             axiosInstance
-                .patch('/api/events/position/' + position.id + '/', qs.stringify({ user: option.value }))
+                .patch('/api/events/shift/' + shift.id + '/', qs.stringify({ user: request.user.cid }))
                 .then(res => {
-                    this.props.enqueueSnackbar('Assigned ' + option.label + ' to ' + position.callsign, {
+                    this.props.enqueueSnackbar('Assigned ' + request.user.first_name + ' ' + request.user.last_name + ' to ' + position.callsign, {
                         variant: 'success',
                         autoHideDuration: 3000,
                         anchorOrigin: {
@@ -103,15 +139,9 @@ class EditEvent extends Component<any, any> {
                 })
         }
 
-        const handleDelete = () => {
-            axiosInstance
-                .delete('/api/events/position/' + position.id)
-                .then(res => this.fetchEvent())
-        }
-
         const handleUnassign = () => {
             axiosInstance
-                .patch('/api/events/position/' + position.id + '/', qs.stringify({ user: null }))
+                .patch('/api/events/shift/' + shift.id + '/', qs.stringify({ user: null }))
                 .then(res => {
                     this.props.enqueueSnackbar('Vacated ' + position.callsign, {
                         variant: 'success',
@@ -135,42 +165,67 @@ class EditEvent extends Component<any, any> {
                 })
         }
 
-        const options : any[] = []
-        position.requests.map(request => options.push({value: request.user.cid, label: request.user.first_name + ' ' + request.user.last_name}))
+        const handleManualAssign = () => {
+            this.fetchControllers()
+            this.setState({
+                manualAssignPosition: position,
+                showManualAssignModal: true
+            })
+        }
+
+        const handleDelete = () => {
+            axiosInstance
+                .delete('/api/events/shift/' + shift.id)
+                .then(res => this.fetchEvent())
+        }
 
         return (
-            <div className="text-left">
-                <div className="mb-2">
-                    <b>{position.callsign}</b>
-                    <div className="float-right">
-                        <a className="text-red mr-3" onClick={handleDelete}><FaTimes className="fill-red"/> Remove</a>
-                        <a className="text-primary" onClick={handleUnassign}><FaUserTimes className="fill-primary"/> Vacate</a>
-                    </div>
-                </div>
-                <Dropdown options={options} onChange={handleAssign} value={position.user ? {value: position.user.cid, label: position.user.first_name + ' ' + position.user.last_name} : undefined} placeholder="Select a controller"/>
-            </div>
+            <ProgressBar
+                variant={
+                    shift.user
+                        ? 'green'
+                        : 'transparent'
+                }
+                now={100 / position.shifts.length}
+                label={
+                    <Dropdown className="position-absolute" onSelect={handleClick}>
+                        <Dropdown.Toggle as={EventDropdownToggle} id="dropdown-custom-components">
+                            <span className={shift.user ? 'text-white' : 'text-black'}>
+                                {shift.user ? shift.user.first_name + ' ' + shift.user.last_name : 'Unassigned'}
+                            </span>
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu as={EventDropdownMenu}>
+                            {shift.requests.map(request => (
+                                <Dropdown.Item key={request.id} eventKey={request.id.toString()}>
+                                    {request.user.first_name + ' ' + request.user.last_name}
+                                </Dropdown.Item>
+                            ))}
+                        </Dropdown.Menu>
+                    </Dropdown>
+                }
+            />
         )
     }
 
-    getEnroutePositions() {
-        return this.state.event.positions?.filter(position => {
-            let level = position.callsign.split('_').slice(-1).pop()
-            return level === 'CTR' || level === 'FSS'
-        })
-    }
-
-    getTRACONPositions() {
-        return this.state.event.positions?.filter(position => {
-            let level = position.callsign.split('_').slice(-1).pop()
-            return level === 'APP' || level === 'DEP'
-        })
-    }
-
-    getLocalPositions() {
-        return this.state.event.positions?.filter(position => {
-            let level = position.callsign.split('_').slice(-1).pop()
-            return level === 'DEL' || level === 'GND' || level === 'TWR'
-        })
+    renderPosition(position) {
+        return (
+            <li className="mb-3">
+                <p className="mb-2">{position.callsign}</p>
+                <div>
+                    <ProgressBar>
+                        {position.shifts.length > 0
+                            ? position.shifts.map(shift => this.renderShift(shift, position))
+                            : <ProgressBar
+                                variant={'white'}
+                                now={100}
+                                label={<i className="text-black">No shifts have been posted.</i>}
+                            />
+                        }
+                    </ProgressBar>
+                </div>
+            </li>
+        )
     }
 
     render() {
@@ -227,7 +282,7 @@ class EditEvent extends Component<any, any> {
                     <Row>
                         <Col className="text-left">
                             <h3 className="text-black font-w700 mb-1">Enroute Positions</h3>
-                            <ul className="p-0">
+                            <ul className="p-0 list-unstyled">
                                 {this.getEnroutePositions()?.length > 0
                                     ? this.getEnroutePositions()?.map(position => this.renderPosition(position))
                                     : <p>No positions posted.</p>
@@ -236,7 +291,7 @@ class EditEvent extends Component<any, any> {
                         </Col>
                         <Col className="text-left">
                             <h3 className="text-black font-w700 mb-1">TRACON Positions</h3>
-                            <ul className="p-0">
+                            <ul className="p-0 list-unstyled">
                                 {this.getTRACONPositions()?.length > 0
                                     ? this.getTRACONPositions()?.map(position => this.renderPosition(position))
                                     : <p>No positions posted.</p>
@@ -245,7 +300,7 @@ class EditEvent extends Component<any, any> {
                         </Col>
                         <Col className="text-left">
                             <h3 className="text-black font-w700 mb-1">Local Positions</h3>
-                            <ul className="p-0">
+                            <ul className="p-0 list-unstyled">
                                 {this.getLocalPositions()?.length > 0
                                     ? this.getLocalPositions()?.map(position => this.renderPosition(position))
                                     : <p>No positions posted.</p>
@@ -253,6 +308,20 @@ class EditEvent extends Component<any, any> {
                             </ul>
                         </Col>
                     </Row>
+                    <Modal
+                        show={this.state.showManualAssignModal}
+                        onHide={() => this.setState({showManualAssignModal: false})}
+                        centered
+                    >
+                        <Modal.Header closeButton>
+                            <Modal.Title>Manually Assigning {this.state.manualAssignPosition.callsign}</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <select>
+                                {this.state.controllers?.map(c => <option>{c.first_name} {c.last_name}</option>)}
+                            </select>
+                        </Modal.Body>
+                    </Modal>
                 </Container>
             </div>
         )

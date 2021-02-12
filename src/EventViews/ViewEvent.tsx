@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Button, Col, Container, Row } from 'react-bootstrap'
+import { Alert, Button, Col, Container, ProgressBar, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axiosInstance from '../axiosInstance'
 import { getCID, isStaff } from '../Helpers';
@@ -30,10 +30,49 @@ class ViewEvent extends Component<any, any> {
             .then(res => this.setState({ event: res.data }))
     }
 
-    renderPosition(position) {
+    getEnroutePositions() {
+        return this.state.event.positions?.filter(position => {
+            let level = position.callsign.split('_').slice(-1).pop()
+            return level === 'CTR' || level === 'FSS'
+        })
+    }
+
+    getEnrouteShifts() {
+        let shifts: any[] = []
+        this.getEnroutePositions()?.map(position => shifts.push(...position.shifts))
+        return shifts
+    }
+
+    getTRACONPositions() {
+        return this.state.event.positions?.filter(position => {
+            let level = position.callsign.split('_').slice(-1).pop()
+            return level === 'APP' || level === 'DEP'
+        })
+    }
+
+    getTRACONShifts() {
+        let shifts: any[] = []
+        this.getTRACONPositions()?.map(position => shifts.push(...position.shifts))
+        return shifts
+    }
+
+    getLocalPositions() {
+        return this.state.event.positions?.filter(position => {
+            let level = position.callsign.split('_').slice(-1).pop()
+            return level === 'DEL' || level === 'GND' || level === 'TWR'
+        })
+    }
+
+    getLocalShifts() {
+        let shifts: any[] = []
+        this.getLocalPositions()?.map(position => shifts.push(...position.shifts))
+        return shifts
+    }
+
+    renderShift(shift, position) {
         const handleRequest = () => {
             axiosInstance
-                .post('/api/events/request/' + position.id + '/')
+                .post('/api/events/request/' + shift.id + '/')
                 .then(res => {
                     this.fetchEvent()
                     this.props.enqueueSnackbar('Requested ' + position.callsign, {
@@ -59,7 +98,7 @@ class ViewEvent extends Component<any, any> {
 
         const handleUnrequest = () => {
             axiosInstance
-                .delete('/api/events/request/' + position.id)
+                .delete('/api/events/request/' + shift.id)
                 .then(res => {
                     this.fetchEvent()
                     this.props.enqueueSnackbar('Unrequested ' + position.callsign, {
@@ -83,38 +122,56 @@ class ViewEvent extends Component<any, any> {
                 })
         }
 
+        let requested = shift.requests.some(req => req.user.cid === getCID())
         return (
-            <li className="li-flex"><b className="mr-2">{position.callsign}</b> {position.user != null
-                ? <b>{position.user.first_name} {position.user.last_name}</b>
-                : position.requests.some(request => request.user.cid === getCID())
-                    ? <Link className="text-danger" onClick={handleUnrequest}>Unrequest</Link>
-                    : <Link className="text-success" onClick={handleRequest}>Request</Link>
-            }</li>
+            <ProgressBar
+                style={shift.user ? {} : { cursor: 'pointer' }}
+                onClick={shift.user ? () => {} : requested ? handleUnrequest : handleRequest}
+                variant={
+                    shift.user
+                        ? 'green'
+                        : requested
+                            ? 'lightgray'
+                            : 'transparent'
+                }
+                now={100 / position.shifts.length}
+                striped={!shift.user && requested}
+                label={
+                    shift.user
+                        ? shift.user.first_name + ' ' + shift.user.last_name
+                        : requested
+                            ? <span className="text-darkgray">Unrequest</span>
+                            : <span className="text-black">Request</span>
+                }
+            />
         )
     }
 
-    getEnroutePositions() {
-        return this.state.event.positions?.filter(position => {
-            let level = position.callsign.split('_').slice(-1).pop()
-            return level === 'CTR' || level === 'FSS'
-        })
-    }
-
-    getTRACONPositions() {
-        return this.state.event.positions?.filter(position => {
-            let level = position.callsign.split('_').slice(-1).pop()
-            return level === 'APP' || level === 'DEP'
-        })
-    }
-
-    getLocalPositions() {
-        return this.state.event.positions?.filter(position => {
-            let level = position.callsign.split('_').slice(-1).pop()
-            return level === 'DEL' || level === 'GND' || level === 'TWR'
-        })
+    renderPosition(position) {
+        return (
+            <li className="mb-3">
+                <p className="mb-2">{position.callsign}</p>
+                <div>
+                    <ProgressBar>
+                        {position.shifts.length > 0
+                            ? position.shifts.map(shift => this.renderShift(shift, position))
+                            : <ProgressBar
+                                variant={'white'}
+                                now={100}
+                                label={<i className="text-black">No shifts have been posted.</i>}
+                            />
+                        }
+                    </ProgressBar>
+                </div>
+            </li>
+        )
     }
 
     render() {
+        const enrouteShifts = this.getEnrouteShifts()?.filter(shift => !shift.user).length
+        const TRACONShifts = this.getTRACONShifts()?.filter(shift => !shift.user).length
+        const localShifts = this.getLocalShifts()?.filter(shift => !shift.user).length
+
         return (
             <div>
                 <Navigation/>
@@ -168,8 +225,8 @@ class ViewEvent extends Component<any, any> {
                     <Row>
                         <Col className="text-left">
                             <h3 className="text-black font-w700 mb-1">Enroute Positions</h3>
-                            <h5 className="text-gray font-w500 mb-4">{this.getEnroutePositions()?.filter(position => !position.user).length} Position{this.getEnroutePositions()?.filter(position => !position.user).length === 1 ? '' : 's'} Available</h5>
-                            <ul className="p-0">
+                            <h5 className="text-gray font-w500 mb-4">{enrouteShifts} Shift{enrouteShifts === 1 ? '' : 's'} Available</h5>
+                            <ul className="p-0 list-unstyled">
                                 {this.getEnroutePositions()?.length > 0
                                     ? this.getEnroutePositions()?.map(position => this.renderPosition(position))
                                     : <p>No positions posted.</p>
@@ -178,8 +235,8 @@ class ViewEvent extends Component<any, any> {
                         </Col>
                         <Col className="text-left">
                             <h3 className="text-black font-w700 mb-1">TRACON Positions</h3>
-                            <h5 className="text-gray font-w500 mb-4">{this.getTRACONPositions()?.filter(position => !position.user).length} Position{this.getTRACONPositions()?.filter(position => !position.user).length === 1 ? '' : 's'} Available</h5>
-                            <ul className="p-0">
+                            <h5 className="text-gray font-w500 mb-4">{TRACONShifts} Shift{TRACONShifts === 1 ? '' : 's'} Available</h5>
+                            <ul className="p-0 list-unstyled">
                                 {this.getTRACONPositions()?.length > 0
                                     ? this.getTRACONPositions()?.map(position => this.renderPosition(position))
                                     : <p>No positions posted.</p>
@@ -188,8 +245,8 @@ class ViewEvent extends Component<any, any> {
                         </Col>
                         <Col className="text-left">
                             <h3 className="text-black font-w700 mb-1">Local Positions</h3>
-                            <h5 className="text-gray font-w500 mb-4">{this.getLocalPositions()?.filter(position => !position.user).length} Position{this.getLocalPositions()?.filter(position => !position.user).length === 1 ? '' : 's'} Available</h5>
-                            <ul className="p-0">
+                            <h5 className="text-gray font-w500 mb-4">{localShifts} Shift{localShifts === 1 ? '' : 's'} Available</h5>
+                            <ul className="p-0 list-unstyled">
                                 {this.getLocalPositions()?.length > 0
                                     ? this.getLocalPositions()?.map(position => this.renderPosition(position))
                                     : <p>No positions posted.</p>

@@ -58,7 +58,7 @@ export default function getPositionName(position) {
     }
     let split = position.split('_')
     let airport = airports[split[0]]
-    let level = ""
+    let level = split[1]
     switch (split[1]) {
         case 'DEL': level = 'Delivery'; break
         case 'GND': level = 'Ground'; break
@@ -67,7 +67,6 @@ export default function getPositionName(position) {
         case 'DEP': level = 'Departure'; break
         case 'CTR': level = 'Center'; break
         case 'FSS': level = 'Flight Service Station'; break
-        default: level = split[1]; break
     }
     return airport + ' ' + level
 }

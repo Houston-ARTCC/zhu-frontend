@@ -27,7 +27,10 @@ export default class AllEvents extends Component<any, any> {
     }
 
     renderEvent(event) {
-        const positions = event.positions.filter(position => !position.user).length
+        const shifts: any[] = []
+        event.positions.map(position => shifts.push(...position.shifts))
+        const availableShifts = shifts.filter(shift => !shift.user).length
+
         return (
             <Col md={6}>
                 <Link to={`/events/${event.id}`}>
@@ -50,7 +53,7 @@ export default class AllEvents extends Component<any, any> {
                                 <Col>
                                     <div className="li-flex font-w500 font-lg">
                                         <MdPersonOutline size={30} className="mr-2"/>
-                                        {positions} Position{positions === 1 ? '' : 's'} Available
+                                        {availableShifts} Shift{availableShifts === 1 ? '' : 's'} Available
                                     </div>
                                 </Col>
                             </Row>

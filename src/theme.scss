@@ -462,6 +462,7 @@ a:not(.link-unstyled):hover {
     justify-content: center;
     border: 2px $lightgray dashed;
     padding: 0 20px;
+    cursor: pointer;
     p {
         width: 100%;
         white-space: nowrap;
@@ -471,4 +472,12 @@ a:not(.link-unstyled):hover {
     &:focus {
         outline: none;
     }
+}
+
+.progress {
+    height: 1.4rem!important;
+}
+
+.progress-bar, .progress-bar span {
+    font-size: 0.8rem;
 }

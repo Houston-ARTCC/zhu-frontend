@@ -128,14 +128,14 @@ export default class Home extends Component<any, any> {
                                     <HiOutlineCalendar size={25} className="mr-2"/>
                                     <Moment local className="font-w500 font-md" format="MMMM D, YYYY">{event.start}</Moment>
                                 </div>
-                                <div className="li-flex font-w500">
+                                <div className="li-flex font-w500 mb-0">
                                     <HiOutlineClock size={25} className="mr-2"/>
                                     <Moment local tz={moment.tz.guess()} format="HH:mm z →&nbsp;" className="font-w500 font-md">{event.start}</Moment>
                                     <Moment local tz={moment.tz.guess()} format="HH:mm z" className="font-w500 font-md">{event.end}</Moment>
                                 </div>
                             </Col>
-                            <Col xs={12} lg={6} className="text-right">
-                                <img className="event-banner-sm" src={event.banner} alt={event.name}/>
+                            <Col xs={12} lg={6} className="d-flex">
+                                <img className="event-banner-sm align-self-center" src={event.banner} alt={event.name}/>
                             </Col>
                         </Row>
                     </Card.Body>
@@ -215,7 +215,7 @@ export default class Home extends Component<any, any> {
                                 </ul>
                             </Col>
                         </Row>
-                        <Row className="mb-4">
+                        <Row className="mb-5">
                             <Col sm={12} xl={6} className="mb-4 mb-xl-0">
                                 <h1 className="text-black font-w700 mb-1">Announcements</h1>
                                 <h4 className="text-gray mb-4">What's happening at Houston?</h4>
