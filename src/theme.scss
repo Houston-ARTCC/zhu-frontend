@@ -423,8 +423,7 @@ a {
 
 a:not(.link-unstyled):hover {
     text-decoration: none!important;
-    color: inherit !important;
-    opacity: 0.7;
+    opacity: 0.6;
     transition: 300ms ease-in-out;
 
     .card {
@@ -480,4 +479,16 @@ a:not(.link-unstyled):hover {
 
 .progress-bar, .progress-bar span {
     font-size: 0.8rem;
+}
+
+::selection {
+    background-color: rgba(lighten($darkblue, 30%), 0.4);
+}
+
+hr {
+    border-top: 2px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+.position-unset {
+    position: unset!important;
 }

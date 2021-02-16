@@ -64,7 +64,7 @@ class AdminPanel extends Component<any, any> {
                         >
                             <Form onSubmit={this.handleSubmitAnnouncement}>
                                 <Modal.Header closeButton>
-                                    <Modal.Title>Modal title</Modal.Title>
+                                    <Modal.Title>Create Site Announcement</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
                                         <Form.Group>

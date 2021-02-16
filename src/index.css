@@ -257,9 +257,10 @@ section {
 }
 
 .nivo-tooltip {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 5px;
     padding: 10px 20px;
+    backdrop-filter: blur(5px);
 }
 
 .tui-full-calendar-popup-detail .tui-full-calendar-popup-container {

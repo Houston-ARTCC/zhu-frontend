@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Alert, Button, Col, Container, ProgressBar, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axiosInstance from '../axiosInstance'
-import { getCID, isStaff } from '../Helpers';
+import { getCID, isMember, isStaff } from '../Helpers';
 import Header from '../components/Header'
 import Navigation from '../components/Navigation'
 import { withSnackbar } from 'notistack'
@@ -10,7 +10,7 @@ import Moment from 'react-moment'
 import moment from 'moment/moment'
 import 'moment-timezone'
 import Countdown from 'react-countdown'
-import { FaRegEyeSlash, RiPencilRuler2Line } from 'react-icons/all'
+import { FaArchive, FaFile, FaFolderOpen, FaRegEyeSlash, FaRegFolder, FaRegFolderOpen, RiPencilRuler2Line } from 'react-icons/all'
 
 class ViewEvent extends Component<any, any> {
     constructor(props) {
@@ -125,8 +125,8 @@ class ViewEvent extends Component<any, any> {
         let requested = shift.requests.some(req => req.user.cid === getCID())
         return (
             <ProgressBar
-                style={shift.user ? {} : { cursor: 'pointer' }}
-                onClick={shift.user ? () => {} : requested ? handleUnrequest : handleRequest}
+                style={shift.user || !isMember() ? {} : { cursor: 'pointer' }}
+                onClick={shift.user || !isMember() ? () => {} : requested ? handleUnrequest : handleRequest}
                 variant={
                     shift.user
                         ? 'green'
@@ -139,9 +139,11 @@ class ViewEvent extends Component<any, any> {
                 label={
                     shift.user
                         ? shift.user.first_name + ' ' + shift.user.last_name
-                        : requested
-                            ? <span className="text-darkgray">Unrequest</span>
-                            : <span className="text-black">Request</span>
+                        : !isMember()
+                            ? <span className="text-black">Unassigned</span>
+                            : requested
+                                ? <span className="text-darkgray">Unrequest</span>
+                                : <span className="text-black">Request</span>
                 }
             />
         )
@@ -178,15 +180,27 @@ class ViewEvent extends Component<any, any> {
                 <Header title={this.state.event.name} subtitle={`Presented by ${this.state.event.host}`}/>
                 <Container fluid className="text-center">
                     {this.state.event.hidden &&
-                        <Row className="justify-content-center mb-5">
+                        <Row className="justify-content-center mb-3">
                             <Col md={6}>
                                 <Alert variant="red" className="d-flex m-0">
                                     <FaRegEyeSlash className="fill-red mr-3" size={35} preserveAspectRatio="xMaxYMin"/>
                                     <div className="text-left">
                                         <h4>Event Hidden</h4>
-                                        <p className="m-0">
-                                            This event is currently hidden from controllers. <Link to={this.props.match.params.id + '/edit'} className="font-w500">Edit the event</Link> to make it visible.
-                                        </p>
+                                        <p className="m-0">This event is currently hidden from controllers. <Link
+                                            to={this.props.match.params.id + '/edit'} className="font-w500">Edit the event</Link> to make it visible.</p>
+                                    </div>
+                                </Alert>
+                            </Col>
+                        </Row>
+                    }
+                    {this.state.event.archived &&
+                        <Row className="justify-content-center mb-3">
+                            <Col md={6}>
+                                <Alert variant="purple" className="d-flex m-0">
+                                    <FaRegFolderOpen className="fill-purple mr-3" size={35} preserveAspectRatio="xMaxYMin"/>
+                                    <div className="text-left">
+                                        <h4>Event Archived</h4>
+                                        <p className="m-0">This event has passed and is now archived.</p>
                                     </div>
                                 </Alert>
                             </Col>

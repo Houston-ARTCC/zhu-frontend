@@ -11,8 +11,9 @@ import { formDataFromObject, isStaff } from '../Helpers'
 import Dropzone from 'react-dropzone'
 import ScrollSpy from 'react-scrollspy'
 import moment from 'moment'
+import { withSnackbar } from 'notistack'
 
-export default class AllResources extends Component<any, any> {
+class AllResources extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
@@ -104,6 +105,16 @@ export default class AllResources extends Component<any, any> {
                 this.setState({ showCreationModal: false })
                 this.fetchResources()
             })
+            .catch(err => {
+                this.props.enqueueSnackbar(err.toString(), {
+                    variant: 'error',
+                    autoHideDuration: 3000,
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    },
+                })
+            })
     }
 
     handleSubmitEdit(e) {
@@ -115,6 +126,16 @@ export default class AllResources extends Component<any, any> {
             .then(res => {
                 this.setState({ showEditModal: false })
                 this.fetchResources()
+            })
+            .catch(err => {
+                this.props.enqueueSnackbar(err.toString(), {
+                    variant: 'error',
+                    autoHideDuration: 3000,
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    },
+                })
             })
     }
 
@@ -227,9 +248,11 @@ export default class AllResources extends Component<any, any> {
                             </ScrollSpy>
                         </Col>
                         <Col className="ml-5">
-                            <Button className="mb-5" onClick={() => this.createResource()}>
-                                <BiPlus className="fill-white" size={20} viewBox="5 1 25 25"/> New Resource
-                            </Button>
+                            {isStaff() &&
+                                <Button className="mb-5" onClick={() => this.createResource()}>
+                                    <BiPlus className="fill-white" size={20} viewBox="5 1 25 25"/> New Resource
+                                </Button>
+                            }
                             {this.state.categories.map(category => this.renderCategory(category))}
                         </Col>
                     </Row>
@@ -327,3 +350,5 @@ export default class AllResources extends Component<any, any> {
         )
     }
 }
+
+export default withSnackbar(AllResources)

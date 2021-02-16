@@ -106,6 +106,7 @@ export default class Roster extends Component<any, any> {
                 data={this.state.users}
                 noHeader
                 highlightOnHover
+                pointerOnHover
                 defaultSortField="name"
                 sortIcon={<BsArrowDown/>}
                 onRowClicked={row => this.props.history.push('/roster/' + row.cid) }

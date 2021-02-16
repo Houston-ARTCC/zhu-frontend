@@ -3,7 +3,7 @@ import { BrowserRouter, Link } from 'react-router-dom'
 import { Route, Switch, useHistory, useLocation } from 'react-router'
 import { RiErrorWarningLine } from 'react-icons/all'
 import { Alert, Col } from 'react-bootstrap'
-import { getFullName, isStaff } from './Helpers'
+import { getFullName, isAuthenticated, isStaff } from './Helpers'
 import axiosInstance from './axiosInstance'
 import Home from './Home'
 import AllEvents from './EventViews/AllEvents'
@@ -26,6 +26,7 @@ import ARTCCCalendar from './Calendar'
 import AuthRoute from './components/AuthRoute'
 import Map from './Map'
 import Staff from './UserViews/Staff'
+import Visit from './Visit'
 
 export default function App() {
     return (
@@ -47,6 +48,8 @@ export default function App() {
                 <AuthRoute exact path="/roster/:cid(\d+)/edit" component={EditUser} auth={isStaff}/>
                 {/* Resources */}
                 <Route exact path="/resources" component={AllResources}/>
+                {/* Visiting */}
+                <AuthRoute exact path="/visit" component={Visit} auth={isAuthenticated}/>
                 {/* Miscellaneous */}
                 <Route exact path="/map" component={Map}/>
                 <Route exact path="/theme" component={Theme}/>
@@ -58,8 +61,8 @@ export default function App() {
                 <Route component={Error404}/>
             </Switch>
             <div className="d-flex justify-content-center mb-5">
-                <Col xs={10} xl={6}>
-                    <Alert variant="primary" className="d-flex m-0">
+                <Col xs={10} xl={6} className="position-unset">
+                    <Alert variant="primary" className="position-unset d-flex m-0">
                         {/* TODO: Fix icon scaling on mobile devices. */}
                         <RiErrorWarningLine className="fill-primary mr-3" size={60} preserveAspectRatio="xMaxYMin"/>
                         <p className="m-0">

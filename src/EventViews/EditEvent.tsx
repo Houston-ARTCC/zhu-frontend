@@ -231,7 +231,10 @@ class EditEvent extends Component<any, any> {
         return (
             <div>
                 <Navigation/>
-                <Header title={this.state.event.name}/>
+                <Header
+                    title={this.state.event.name}
+                    subtitle="Editing Event"
+                />
                 <Container fluid>
                     <div className="mb-3">
                         <Link to={'/events/' + this.props.match.params.id}>Return to Event</Link>
@@ -268,7 +271,7 @@ class EditEvent extends Component<any, any> {
                             </Col>
                             <Col md={7}>
                                 <Form.Group>
-                                    <Form.Label> End</Form.Label>
+                                    <Form.Label>Description</Form.Label>
                                     <Form.Control as="textarea" rows={6} name="description" value={this.state.event.description} onChange={this.handleTextChange}/>
                                 </Form.Group>
                                 <Form.Switch className="mb-3" id="hidden" name="hidden" label="Event hidden from controllers." checked={this.state.event.hidden} onChange={this.handleSwitchChange}/>

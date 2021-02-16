@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { Badge, Col, Container, Row } from 'react-bootstrap'
+import { Badge, Button, Col, Container, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import axiosInstance from '../axiosInstance'
 import Navigation from '../components/Navigation'
 import Header from '../components/Header'
 import Fade from 'react-reveal/Fade'
 import moment from 'moment'
 import DataTable from 'react-data-table-component'
-import { BsArrowDown, FaCircle } from 'react-icons/all'
-import { asDuration } from '../Helpers'
+import { BsArrowDown, RiPencilRuler2Line } from 'react-icons/all'
+import { asDuration, isStaff } from '../Helpers'
 import StatisticCalendar from '../components/StatisticCalendar'
 
 export default class Profile extends Component<any, any> {
@@ -68,14 +69,26 @@ export default class Profile extends Component<any, any> {
     }
 
     renderCertification(certification) {
-        let color
+        let color, cert
         switch (certification) {
-            case 1: color = 'yellow'; break
-            case 2: color = 'green'; break
-            case 3: color = 'red'; break
-            default: color = 'lightgray'; break
+            case 1:
+                color = 'yellow'
+                cert = 'Minor'
+                break
+            case 2:
+                color = 'green'
+                cert = 'Major'
+                break
+            case 3:
+                color = 'red'
+                cert = 'Solo'
+                break
+            default:
+                color = 'lightgray'
+                cert = 'None'
+                break
         }
-        return <FaCircle className={'fill-' + color}/>
+        return <Badge variant={color + ' rounded'}>{cert}</Badge>
     }
 
     render() {
@@ -90,17 +103,19 @@ export default class Profile extends Component<any, any> {
                     <Container fluid>
                         <Row>
                             <Col>
-                                {/*{isStaff() &&*/}
-                                {/*<Link to={this.state.user.cid + '/edit'}>*/}
-                                {/*    <Button variant="primary" className="mb-3"><RiPencilRuler2Line className="fill-white" viewBox="3 3 20 20"/> Edit User</Button>*/}
-                                {/*</Link>*/}
-                                {/*}*/}
                                 <div className="d-flex">
-                                    <img
-                                        className="profile-xl mb-3 mr-4"
-                                        src={'http://api.zhuartcc.devel' + this.state.user.profile}
-                                        alt={this.state.user.first_name + ' ' + this.state.user.last_name}
-                                    />
+                                    <div className="text-center mr-4">
+                                        <img
+                                            className="profile-xl mb-4"
+                                            src={'http://api.zhuartcc.devel' + this.state.user.profile}
+                                            alt={this.state.user.first_name + ' ' + this.state.user.last_name}
+                                        />
+                                        {isStaff() &&
+                                            <Link to={this.state.user.cid + '/edit'}>
+                                                <Button variant="primary" className="mb-3"><RiPencilRuler2Line className="fill-white" viewBox="3 3 20 20"/> Edit User</Button>
+                                            </Link>
+                                        }
+                                    </div>
                                     <div>
                                         <div className="mb-2">
                                             {this.state.user.roles?.map(role => this.renderRole(role))}
@@ -114,7 +129,15 @@ export default class Profile extends Component<any, any> {
                             </Col>
                             <Col>
                                 <div className="mb-4">
-                                    <table className="w-100 text-center">
+                                    <table className="w-100 text-center" style={{ tableLayout: 'fixed' }}>
+                                        <tr>
+                                            <th><h6>Delivery</h6></th>
+                                            <th><h6>Ground</h6></th>
+                                            <th><h6>Tower</h6></th>
+                                            <th><h6>Approach</h6></th>
+                                            <th><h6>Center</h6></th>
+                                            <th><h6>Oceanic</h6></th>
+                                        </tr>
                                         <tr>
                                             <td>{this.renderCertification(this.state.user.del_cert)}</td>
                                             <td>{this.renderCertification(this.state.user.gnd_cert)}</td>
@@ -122,14 +145,6 @@ export default class Profile extends Component<any, any> {
                                             <td>{this.renderCertification(this.state.user.app_cert)}</td>
                                             <td>{this.renderCertification(this.state.user.ctr_cert)}</td>
                                             <td>{this.renderCertification(this.state.user.ocn_cert)}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>DEL</th>
-                                            <th>GND</th>
-                                            <th>TWR</th>
-                                            <th>APP</th>
-                                            <th>CTR</th>
-                                            <th>OCN</th>
                                         </tr>
                                     </table>
                                 </div>

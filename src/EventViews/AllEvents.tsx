@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Button, Card, Col, Collapse, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axiosInstance from '../axiosInstance'
 import Header from '../components/Header'
@@ -13,6 +13,7 @@ export default class AllEvents extends Component<any, any> {
         super(props)
         this.state = {
             events: [],
+            showArchivedEvents: false,
         }
     }
 
@@ -74,8 +75,19 @@ export default class AllEvents extends Component<any, any> {
                 <Header title="Events"/>
                 <Container fluid>
                     <Row>
-                        {this.state.events.map(event => this.renderEvent(event))}
+                        {this.state.events.filter(event => !event.archived).map(event => this.renderEvent(event))}
                     </Row>
+                    <hr/>
+                    <div className="text-center mb-4">
+                        <Button variant="bg-primary" onClick={() => {this.setState({ showArchivedEvents: !this.state.showArchivedEvents})}}>
+                            View archived events
+                        </Button>
+                    </div>
+                    <Collapse in={this.state.showArchivedEvents}>
+                        <Row id="archived">
+                            {this.state.events.filter(event => event.archived).map(event => this.renderEvent(event))}
+                        </Row>
+                    </Collapse>
                 </Container>
             </div>
         )
