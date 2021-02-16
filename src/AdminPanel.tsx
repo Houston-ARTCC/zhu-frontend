@@ -7,7 +7,6 @@ import Navigation from './components/Navigation'
 import 'react-quill/dist/quill.snow.css'
 import ReactQuill from 'react-quill'
 import axiosInstance from './axiosInstance'
-import qs from 'qs'
 import { withSnackbar } from 'notistack'
 
 class AdminPanel extends Component<any, any> {
@@ -24,7 +23,7 @@ class AdminPanel extends Component<any, any> {
     handleSubmitAnnouncement(e) {
         e.preventDefault()
         axiosInstance
-            .post('/api/announcements/', qs.stringify({ title: this.state.announcementTitle, body: this.state.announcementBody }))
+            .post('/api/announcements/', { title: this.state.announcementTitle, body: this.state.announcementBody })
             .then(res => {
                 this.props.enqueueSnackbar('Announcement successfully posted!', {
                     variant: 'success',

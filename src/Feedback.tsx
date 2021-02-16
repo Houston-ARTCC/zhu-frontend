@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import axiosInstance from './axiosInstance'
 import 'react-dropdown/style.css'
-import qs from 'qs'
 import Header from './components/Header'
 import Navigation from './components/Navigation'
 import { getCID, getFullName } from './Helpers'
@@ -71,7 +70,7 @@ export default class Feedback extends Component<any, any> {
     handleSubmit(e) {
         e.preventDefault()
         axiosInstance
-            .post('/api/feedback/', qs.stringify({ ...this.state.feedbackForm }))
+            .post('/api/feedback/', this.state.feedbackForm)
             .then(res => {
             })
             .catch(err => {

@@ -6,6 +6,11 @@ export function parseJWT() {
     return null
 }
 
+export function getCID() {
+    const jwt = parseJWT()
+    return jwt && jwt.cid
+}
+
 export function getFirstName() {
     const jwt = parseJWT()
     return jwt && jwt.first_name
@@ -20,13 +25,13 @@ export function getFullName() {
     return getFirstName() + ' ' + getLastName()
 }
 
-export function getCID() {
-    const jwt = parseJWT()
-    return jwt && jwt.cid
-}
-
 export function isAuthenticated() {
     return !!parseJWT()
+}
+
+export function isMember() {
+    const jwt = parseJWT()
+    return jwt && jwt.is_member
 }
 
 export function isTrainingStaff() {

@@ -3,7 +3,6 @@ import { BrowserRouter, Link } from 'react-router-dom'
 import { Route, Switch, useHistory, useLocation } from 'react-router'
 import { RiErrorWarningLine } from 'react-icons/all'
 import { Alert, Col } from 'react-bootstrap'
-import qs from 'qs'
 import { getFullName, isStaff } from './Helpers'
 import axiosInstance from './axiosInstance'
 import Home from './Home'
@@ -102,7 +101,7 @@ function Login(props) {
     useEffect(() => {
         if (auth_code) {
             axiosInstance
-                .post('/auth/token/', qs.stringify({ code: auth_code }))
+                .post('/auth/token/', { code: auth_code })
                 .then(res => {
                     localStorage.setItem('access', res.data.access)
                     localStorage.setItem('refresh', res.data.refresh)

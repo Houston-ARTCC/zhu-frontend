@@ -2,9 +2,9 @@ import { Component } from 'react';
 import { Button, Col, Container, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axiosInstance from '../axiosInstance'
-import qs from 'qs'
+import { withSnackbar } from 'notistack'
 
-export default class EditUser extends Component<any, any> {
+class EditUser extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
@@ -31,9 +31,9 @@ export default class EditUser extends Component<any, any> {
     }
 
     handleSubmit(e) {
-        e.preventDefault();
+        e.preventDefault()
         axiosInstance
-            .put('/api/users/' + this.props.match.params.cid + '/', qs.stringify({ ...this.state.user }))
+            .patch('/api/users/' + this.props.match.params.cid + '/', this.state.user)
             .then(res => {
                 this.props.enqueueSnackbar('Changes to user details saved!', {
                     variant: 'success',
@@ -92,3 +92,5 @@ export default class EditUser extends Component<any, any> {
         )
     }
 }
+
+export default withSnackbar(EditUser)

@@ -3,7 +3,6 @@ import { Button, Col, Container, Dropdown, Form, Modal, ProgressBar, Row } from 
 import { EventDropdownMenu, EventDropdownToggle } from '../components/EventDropdowns'
 import { Link } from 'react-router-dom'
 import axiosInstance from '../axiosInstance'
-import qs from 'qs'
 import Header from '../components/Header'
 import Navigation from '../components/Navigation'
 import { withSnackbar } from 'notistack'
@@ -60,7 +59,7 @@ class EditEvent extends Component<any, any> {
     handleSubmit(e) {
         e.preventDefault();
         axiosInstance
-            .put('/api/events/' + this.props.match.params.id + '/', qs.stringify({ ...this.state.event }))
+            .put('/api/events/' + this.props.match.params.id + '/', this.state.event)
             .then(res => {
                 this.props.enqueueSnackbar('Changes to event details saved!', {
                     variant: 'success',
@@ -115,7 +114,7 @@ class EditEvent extends Component<any, any> {
         const handleAssign = (requestId) => {
             let request = shift.requests.find(req => req.id == requestId)
             axiosInstance
-                .patch('/api/events/shift/' + shift.id + '/', qs.stringify({ user: request.user.cid }))
+                .patch('/api/events/shift/' + shift.id + '/', { user: request.user.cid })
                 .then(res => {
                     this.props.enqueueSnackbar('Assigned ' + request.user.first_name + ' ' + request.user.last_name + ' to ' + position.callsign, {
                         variant: 'success',
@@ -141,7 +140,7 @@ class EditEvent extends Component<any, any> {
 
         const handleUnassign = () => {
             axiosInstance
-                .patch('/api/events/shift/' + shift.id + '/', qs.stringify({ user: null }))
+                .patch('/api/events/shift/' + shift.id + '/', { user: null })
                 .then(res => {
                     this.props.enqueueSnackbar('Vacated ' + position.callsign, {
                         variant: 'success',
