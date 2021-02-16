@@ -5,12 +5,12 @@ import axiosInstance from '../axiosInstance'
 import Navigation from '../components/Navigation'
 import Header from '../components/Header'
 import fileDownload from 'js-file-download'
-import Dropdown from 'react-dropdown'
 import DataTable from 'react-data-table-component'
 import { formDataFromObject, isStaff } from '../Helpers'
 import Dropzone from 'react-dropzone'
 import ScrollSpy from 'react-scrollspy'
 import moment from 'moment'
+import Select from 'react-select'
 import { withSnackbar } from 'notistack'
 
 class AllResources extends Component<any, any> {
@@ -273,7 +273,10 @@ class AllResources extends Component<any, any> {
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Label>Category</Form.Label>
-                                    <Dropdown options={categoryOptions} placeholder="Select a category" onChange={this.handleCategoryChange}/>
+                                    <Select
+                                        options={categoryOptions}
+                                        onChange={this.handleCategoryChange}
+                                    />
                                 </Form.Group>
                                 <Form.Group>
                                     <Dropzone maxFiles={2} onDrop={(acceptedFiles) => this.handleFileChange(acceptedFiles)}>
@@ -316,8 +319,11 @@ class AllResources extends Component<any, any> {
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Label>Category</Form.Label>
-                                    <Dropdown options={categoryOptions} value={this.state.newResource.category} placeholder="Select a category"
-                                              onChange={this.handleCategoryChange}/>
+                                    <Select
+                                        options={categoryOptions}
+                                        value={{ value: this.state.newResource.category, label: this.state.newResource.category }}
+                                        onChange={this.handleCategoryChange}
+                                    />
                                 </Form.Group>
                                 <Form.Group>
                                     <Dropzone maxFiles={2} onDrop={(acceptedFiles) => this.handleFileChange(acceptedFiles)}>

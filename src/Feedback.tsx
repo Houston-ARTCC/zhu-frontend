@@ -5,9 +5,8 @@ import 'react-dropdown/style.css'
 import Header from './components/Header'
 import Navigation from './components/Navigation'
 import { getCID, getFullName } from './Helpers'
-import Dropdown from 'react-dropdown'
-import 'react-dropdown/style.css'
 import StarRating from './components/StarRating'
+import Select from 'react-select'
 
 export default class Feedback extends Component<any, any> {
     constructor(props) {
@@ -95,7 +94,10 @@ export default class Feedback extends Component<any, any> {
                                 <Form.Row>
                                     <Form.Group as={Col}>
                                         <Form.Label>Controller's Name</Form.Label>
-                                        <Dropdown options={controllerOptions} placeholder="Select a controller" onChange={this.handleControllerChange}/>
+                                        <Select
+                                            options={controllerOptions}
+                                            onChange={this.handleControllerChange}
+                                        />
                                     </Form.Group>
                                     <Form.Group as={Col}>
                                         <Form.Label>Controller Callsign</Form.Label>
@@ -105,7 +107,10 @@ export default class Feedback extends Component<any, any> {
                                 <Form.Row>
                                     <Form.Group as={Col}>
                                         <Form.Label>Event</Form.Label>
-                                        <Dropdown options={eventOptions} placeholder="Select an event" onChange={this.handleEventChange}/>
+                                        <Select
+                                            options={eventOptions}
+                                            onChange={this.handleEventChange}
+                                        />
                                     </Form.Group>
                                     <Form.Group as={Col}>
                                         <Form.Label>Your Callsign</Form.Label>
