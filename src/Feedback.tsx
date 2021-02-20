@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import axiosInstance from './axiosInstance'
-import 'react-dropdown/style.css'
 import Header from './components/Header'
 import Navigation from './components/Navigation'
 import { getCID, getFullName } from './Helpers'
