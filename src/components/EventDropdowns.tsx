@@ -1,6 +1,6 @@
 import React from 'react'
 import { Dropdown } from 'react-bootstrap'
-import { FaPlus, FaTimes, FaUserTimes } from 'react-icons/all'
+import { RiArrowDownSLine, RiCloseLine, RiUserUnfollowLine, RiAddLine } from 'react-icons/all'
 
 type CustomToggleProps = {
     children?: React.ReactNode
@@ -25,7 +25,7 @@ export const EventDropdownToggle = React.forwardRef(
             }}
         >
             {props.children}
-            <span style={{ paddingLeft: '5px' }}>&#x25bc;</span>
+            <RiArrowDownSLine viewBox="2 4 20 20" className="ml-1 stroke-white"/>
         </a>
     )
 )
@@ -41,17 +41,17 @@ export const EventDropdownMenu = React.forwardRef(
             >
                 <div className="d-flex">
                     <Dropdown.Item className="text-center" eventKey="unassign">
-                        <FaUserTimes size={15}/> Unassign
+                        <RiUserUnfollowLine size={20}/> Unassign
                     </Dropdown.Item>
                     <Dropdown.Item className="text-center" eventKey="delete">
-                        <FaTimes size={15}/> Delete
+                        <RiCloseLine size={20}/> Delete
                     </Dropdown.Item>
                 </div>
                 <Dropdown.Divider/>
                 <ul className="list-unstyled">
                     {React.Children.toArray(props.children)}
                     <Dropdown.Divider/>
-                    <Dropdown.Item eventKey="manual"><FaPlus size={15}/> Manually Assign</Dropdown.Item>
+                    <Dropdown.Item eventKey="manual"><RiAddLine size={20}/> Manually Assign</Dropdown.Item>
                 </ul>
             </div>
         )

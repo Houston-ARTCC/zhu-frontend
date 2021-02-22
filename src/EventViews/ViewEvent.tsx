@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Button, Col, Container, ProgressBar, Row } from 'react-bootstrap'
+import { Alert, Button, Col, Container, OverlayTrigger, Popover, ProgressBar, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axiosInstance from '../axiosInstance'
 import { getCID, isMember, isStaff } from '../Helpers';
@@ -10,7 +10,7 @@ import Moment from 'react-moment'
 import moment from 'moment/moment'
 import 'moment-timezone'
 import Countdown from 'react-countdown'
-import { FaArchive, FaFile, FaFolderOpen, FaRegEyeSlash, FaRegFolder, FaRegFolderOpen, RiPencilRuler2Line } from 'react-icons/all'
+import { FaRegEyeSlash, FaRegFolderOpen, RiPencilRuler2Line } from 'react-icons/all'
 
 class ViewEvent extends Component<any, any> {
     constructor(props) {
@@ -75,7 +75,7 @@ class ViewEvent extends Component<any, any> {
                 .post('/api/events/request/' + shift.id + '/')
                 .then(res => {
                     this.fetchEvent()
-                    this.props.enqueueSnackbar('Requested ' + position.callsign, {
+                    this.props.enqueueSnackbar('Requested ' + position.callsign + ' (' + (position.shifts.indexOf(shift) + 1) + ')', {
                         variant: 'success',
                         autoHideDuration: 3000,
                         anchorOrigin: {
@@ -101,7 +101,7 @@ class ViewEvent extends Component<any, any> {
                 .delete('/api/events/request/' + shift.id)
                 .then(res => {
                     this.fetchEvent()
-                    this.props.enqueueSnackbar('Unrequested ' + position.callsign, {
+                    this.props.enqueueSnackbar('Unrequested ' + position.callsign + ' (' + (position.shifts.indexOf(shift) + 1) + ')', {
                         variant: 'success',
                         autoHideDuration: 3000,
                         anchorOrigin: {
@@ -124,28 +124,39 @@ class ViewEvent extends Component<any, any> {
 
         let requested = shift.requests.some(req => req.user.cid === getCID())
         return (
-            <ProgressBar
-                style={shift.user || !isMember() ? {} : { cursor: 'pointer' }}
-                onClick={shift.user || !isMember() ? () => {} : requested ? handleUnrequest : handleRequest}
-                variant={
-                    shift.user
-                        ? 'green'
-                        : requested
-                            ? 'lightgray'
-                            : 'transparent'
-                }
-                now={100 / position.shifts.length}
-                striped={!shift.user && requested}
-                label={
-                    shift.user
-                        ? shift.user.first_name + ' ' + shift.user.last_name
-                        : !isMember()
-                            ? <span className="text-black">Unassigned</span>
+                <ProgressBar
+                    style={shift.user || !isMember() ? {} : { cursor: 'pointer' }}
+                    onClick={shift.user || !isMember() ? () => {} : requested ? handleUnrequest : handleRequest}
+                    variant={
+                        shift.user
+                            ? 'green'
                             : requested
-                                ? <span className="text-darkgray">Unrequest</span>
-                                : <span className="text-black">Request</span>
-                }
-            />
+                                ? 'lightgray'
+                                : 'transparent'
+                    }
+                    now={100 / position.shifts.length}
+                    striped={!shift.user && requested}
+                    className="flex-grow-1"
+                    label={
+                        <OverlayTrigger placement="bottom" overlay={
+                            <Popover id="popover-basic">
+                                <Popover.Title as="h3">{position.callsign} (Shift {position.shifts.indexOf(shift) + 1})</Popover.Title>
+                                <Popover.Content>
+                                    {moment(shift.start).tz(moment.tz.guess()).format('HH:mm')} - {moment(shift.end).tz(moment.tz.guess()).format('HH:mm')}
+                                </Popover.Content>
+                            </Popover>
+                        }>
+                            {shift.user
+                                ? <span className="text-white overflow-ellipses">{shift.user.first_name} {shift.user.last_name}</span>
+                                : !isMember()
+                                    ? <span className="text-black">Unassigned</span>
+                                    : requested
+                                        ? <span className="text-darkgray">Unrequest</span>
+                                        : <span className="text-black">Request</span>
+                            }
+                        </OverlayTrigger>
+                    }
+                />
         )
     }
 
@@ -175,7 +186,7 @@ class ViewEvent extends Component<any, any> {
         const localShifts = this.getLocalShifts()?.filter(shift => !shift.user).length
 
         return (
-            <div>
+            <>
                 <Navigation/>
                 <Header title={this.state.event.name} subtitle={`Presented by ${this.state.event.host}`}/>
                 <Container fluid className="text-center">
@@ -269,7 +280,7 @@ class ViewEvent extends Component<any, any> {
                         </Col>
                     </Row>
                 </Container>
-            </div>
+            </>
         )
     }
 }

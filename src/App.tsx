@@ -94,7 +94,6 @@ export default function App() {
 }
 
 function Login(props) {
-    console.log(props)
     let { search } = useLocation()
     const history = useHistory()
     const { enqueueSnackbar } = useSnackbar()
