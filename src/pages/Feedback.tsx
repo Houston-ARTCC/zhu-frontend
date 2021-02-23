@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
-import axiosInstance from './axiosInstance'
-import Header from './components/Header'
-import Navigation from './components/Navigation'
-import { getCID, getFullName } from './Helpers'
-import StarRating from './components/StarRating'
 import Select from 'react-select'
+import Header from '../components/Header'
+import Navigation from '../components/Navigation'
+import StarRating from '../components/StarRating'
+import axiosInstance from '../helpers/axiosInstance'
+import { getCID, getFullName } from '../helpers/auth'
 
 export default class Feedback extends Component<any, any> {
     constructor(props) {

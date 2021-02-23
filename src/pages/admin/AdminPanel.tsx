@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import { Button, Container, Form, Modal } from 'react-bootstrap'
-import Fade from 'react-reveal/Fade'
-import Header from './components/Header'
-import Navigation from './components/Navigation'
-import 'react-quill/dist/quill.snow.css'
-import ReactQuill from 'react-quill'
-import axiosInstance from './axiosInstance'
 import { withSnackbar } from 'notistack'
+import Fade from 'react-reveal/Fade'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
+import Header from '../../components/Header'
+import Navigation from '../../components/Navigation'
+import axiosInstance from '../../helpers/axiosInstance'
 
 class AdminPanel extends Component<any, any> {
     constructor(props) {

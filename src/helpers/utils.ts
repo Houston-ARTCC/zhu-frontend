@@ -1,59 +1,3 @@
-export function parseJWT() {
-    const accessToken = localStorage.getItem('access')
-    if (accessToken) {
-        return JSON.parse(atob(accessToken.split('.')[1]))
-    }
-    return null
-}
-
-export function getCID() {
-    const jwt = parseJWT()
-    return jwt && jwt.cid
-}
-
-export function getFirstName() {
-    const jwt = parseJWT()
-    return jwt && jwt.first_name
-}
-
-export function getLastName() {
-    const jwt = parseJWT()
-    return jwt && jwt.last_name
-}
-
-export function getFullName() {
-    return getFirstName() + ' ' + getLastName()
-}
-
-export function isAuthenticated() {
-    return !!parseJWT()
-}
-
-export function isMember() {
-    const jwt = parseJWT()
-    return jwt && jwt.is_member
-}
-
-export function isTrainingStaff() {
-    const jwt = parseJWT()
-    return jwt && jwt.is_training_staff
-}
-
-export function isStaff() {
-    const jwt = parseJWT()
-    return jwt && jwt.is_staff
-}
-
-export function isSeniorStaff() {
-    const jwt = parseJWT()
-    return jwt && jwt.is_senior_staff
-}
-
-export function isAdmin() {
-    const jwt = parseJWT()
-    return jwt && jwt.is_admin
-}
-
 export function asDuration(durationStr) {
     if (durationStr == null) return null
     const parts = durationStr.split(/[:.]/)
@@ -101,6 +45,40 @@ export function certName(certInt) {
         case 2: return 'Ground'
         case 1: return 'Delivery'
         default: return 'Observer'
+    }
+}
+
+export function levelDisplay(levelInt) {
+    switch (levelInt) {
+        case 0: return 'Minor Ground'
+        case 1: return 'Major Ground'
+        case 2: return 'Minor Tower'
+        case 3: return 'Major Tower'
+        case 4: return 'Minor Approach'
+        case 5: return 'Major Approach'
+        case 6: return 'Center'
+        case 7: return 'Oceanic'
+        default: return 'Unknown'
+    }
+}
+
+export function typeDisplay(typeInt) {
+    switch (typeInt) {
+        case 0: return 'Classroom'
+        case 1: return 'Sweatbox'
+        case 2: return 'Online'
+        case 3: return 'OTS'
+        default: return 'Unknown'
+    }
+}
+
+export function statusDisplay(statusInt) {
+    switch (statusInt) {
+        case 0: return 'Scheduled'
+        case 1: return 'Completed'
+        case 2: return 'Cancelled'
+        case 3: return 'No-Show'
+        default: return 'Unknown'
     }
 }
 

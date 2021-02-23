@@ -1,6 +1,6 @@
 import { Redirect, Route } from 'react-router'
-import { isAuthenticated } from '../Helpers'
-import Error403 from '../ErrorViews/Error403'
+import Error403 from '../pages/errors/Error403'
+import { isAuthenticated } from '../helpers/auth'
 
 const AuthRoute = ({ component: Component, auth: AuthFunction = () => {return true}, ...rest }) => (
     <Route {...rest} render={(props) => (

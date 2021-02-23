@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import { Button, Card, Col, Container, Form, ListGroup, Modal, Row } from 'react-bootstrap'
 import { BiPlus, BiTrash, BsArrowDown, FaUpload, RiCheckFill, RiPencilRuler2Line } from 'react-icons/all'
-import axiosInstance from '../axiosInstance'
+import { Button, Card, Col, Container, Form, ListGroup, Modal, Row } from 'react-bootstrap'
+import DataTable from 'react-data-table-component'
+import fileDownload from 'js-file-download'
+import { withSnackbar } from 'notistack'
+import ScrollSpy from 'react-scrollspy'
+import Dropzone from 'react-dropzone'
+import Select from 'react-select'
+import moment from 'moment'
 import Navigation from '../components/Navigation'
 import Header from '../components/Header'
-import fileDownload from 'js-file-download'
-import DataTable from 'react-data-table-component'
-import { formDataFromObject, isStaff } from '../Helpers'
-import Dropzone from 'react-dropzone'
-import ScrollSpy from 'react-scrollspy'
-import moment from 'moment'
-import Select from 'react-select'
-import { withSnackbar } from 'notistack'
+import { isStaff } from '../helpers/auth'
+import axiosInstance from '../helpers/axiosInstance'
+import { formDataFromObject } from '../helpers/utils'
 
-class AllResources extends Component<any, any> {
+class Resources extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
@@ -357,4 +358,4 @@ class AllResources extends Component<any, any> {
     }
 }
 
-export default withSnackbar(AllResources)
+export default withSnackbar(Resources)

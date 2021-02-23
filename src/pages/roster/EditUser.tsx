@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { withSnackbar } from 'notistack'
 import { Link } from 'react-router-dom'
-import axiosInstance from '../axiosInstance'
-import Navigation from '../components/Navigation'
-import Header from '../components/Header'
 import Fade from 'react-reveal/Fade'
 import Select from 'react-select'
-import { withSnackbar } from 'notistack'
+import Header from '../../components/Header'
+import Navigation from '../../components/Navigation'
+import axiosInstance from '../../helpers/axiosInstance'
 
 class EditUser extends Component<any, any> {
     constructor(props) {

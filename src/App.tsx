@@ -1,32 +1,32 @@
 import React, { useEffect } from 'react'
-import { BrowserRouter, Link } from 'react-router-dom'
 import { Route, Switch, useHistory, useLocation } from 'react-router'
+import { BrowserRouter, Link } from 'react-router-dom'
 import { RiErrorWarningLine } from 'react-icons/all'
 import { Alert, Col } from 'react-bootstrap'
-import { getFullName, isAuthenticated, isStaff } from './Helpers'
-import axiosInstance from './axiosInstance'
-import Home from './Home'
-import AllEvents from './EventViews/AllEvents'
-import ViewEvent from './EventViews/ViewEvent'
-import EditEvent from './EventViews/EditEvent'
-import Roster from './UserViews/Roster'
-import Profile from './UserViews/Profile'
-import EditUser from './UserViews/EditUser'
-import AllResources from './ResourceViews/AllResources'
-import Theme from './Theme'
-import Error404 from './ErrorViews/Error404'
-import Privacy from './Privacy'
-import ScrollToTop from './components/ScrollToTop'
-import Statistics from './Statistics'
-import LoadingScreen from './components/LoadingScreen'
 import { useSnackbar } from 'notistack'
-import AdminPanel from './AdminPanel'
-import Feedback from './Feedback'
-import ARTCCCalendar from './Calendar'
+import ARTCCCalendar from './pages/Calendar'
+import Statistics from './pages/Statistics'
+import Resources from './pages/Resources'
+import Feedback from './pages/Feedback'
+import Privacy from './pages/Privacy'
+import Map from './pages/Map'
+import Home from './pages/Home'
+import Theme from './pages/Theme'
+import Visit from './pages/Visit'
+import Staff from './pages/roster/Staff'
+import Roster from './pages/roster/Roster'
+import Profile from './pages/roster/Profile'
+import EditUser from './pages/roster/EditUser'
+import AdminPanel from './pages/admin/AdminPanel'
+import Error404 from './pages/errors/Error404'
+import Events from './pages/events/Events'
+import EditEvent from './pages/events/EditEvent'
+import ViewEvent from './pages/events/ViewEvent'
 import AuthRoute from './components/AuthRoute'
-import Map from './Map'
-import Staff from './UserViews/Staff'
-import Visit from './Visit'
+import ScrollToTop from './components/ScrollToTop'
+import LoadingScreen from './components/LoadingScreen'
+import axiosInstance from './helpers/axiosInstance'
+import { getFullName, isAuthenticated, isStaff } from './helpers/auth'
 
 export default function App() {
     return (
@@ -38,7 +38,7 @@ export default function App() {
                 <Route exact path="/login" component={Login}/>
                 <Route exact path="/logout" component={Logout}/>
                 {/* Events */}
-                <Route exact path="/events" component={AllEvents}/>
+                <Route exact path="/events" component={Events}/>
                 <Route exact path="/events/:id(\d+)" component={ViewEvent}/>
                 <AuthRoute exact path="/events/:id(\d+)/edit" component={EditEvent} auth={isStaff}/>
                 {/* Roster */}
@@ -47,7 +47,7 @@ export default function App() {
                 <Route exact path="/roster/:cid(\d+)" component={Profile}/>
                 <AuthRoute exact path="/roster/:cid(\d+)/edit" component={EditUser} auth={isStaff}/>
                 {/* Resources */}
-                <Route exact path="/resources" component={AllResources}/>
+                <Route exact path="/resources" component={Resources}/>
                 {/* Visiting */}
                 <AuthRoute exact path="/visit" component={Visit} auth={isAuthenticated}/>
                 {/* Miscellaneous */}

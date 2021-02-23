@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import { Button, Container } from 'react-bootstrap'
-import Fade from 'react-reveal/Fade'
-import Header from './components/Header'
-import axiosInstance from './axiosInstance'
-import Navigation from './components/Navigation'
 import Calendar from '@toast-ui/react-calendar'
 import 'tui-calendar/dist/tui-calendar.css'
+import Fade from 'react-reveal/Fade'
 import moment from 'moment'
 import 'moment-timezone'
+import Header from '../components/Header'
+import Navigation from '../components/Navigation'
+import axiosInstance from '../helpers/axiosInstance'
 
 export default class ARTCCCalendar extends Component<any, any> {
     private calendarRef = React.createRef<Calendar>()

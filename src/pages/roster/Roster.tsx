@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import axiosInstance from '../axiosInstance'
-import Navigation from '../components/Navigation'
-import Header from '../components/Header'
-import Fade from 'react-reveal/Fade'
-import Switch from 'react-bootstrap/Switch'
 import { BsArrowDown, FaCircle } from 'react-icons/all'
 import DataTable from 'react-data-table-component'
-import { certLevel, certName, ratingInt } from '../Helpers'
+import Switch from 'react-bootstrap/Switch'
+import { Link } from 'react-router-dom'
+import Fade from 'react-reveal/Fade'
+import Header from '../../components/Header'
+import Navigation from '../../components/Navigation'
+import axiosInstance from '../../helpers/axiosInstance'
+import { certLevel, certName, ratingInt } from '../../helpers/utils'
 
 export default class Roster extends Component<any, any> {
     constructor(props) {

@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { Badge, Button, Col, Container, Dropdown, Form, FormGroup, Modal, ProgressBar, Row } from 'react-bootstrap'
-import { EventDropdownMenu, EventDropdownToggle } from '../components/EventDropdowns'
-import { Link } from 'react-router-dom'
-import axiosInstance from '../axiosInstance'
-import Header from '../components/Header'
-import Navigation from '../components/Navigation'
-import { withSnackbar } from 'notistack'
-import Select from 'react-select'
 import { RiAddLine } from 'react-icons/all'
+import { withSnackbar } from 'notistack'
+import { Link } from 'react-router-dom'
+import Select from 'react-select'
+import { EventDropdownMenu, EventDropdownToggle } from '../../components/EventDropdowns'
+import Navigation from '../../components/Navigation'
+import Header from '../../components/Header'
+import axiosInstance from '../../helpers/axiosInstance'
 
 class EditEvent extends Component<any, any> {
     constructor(props) {

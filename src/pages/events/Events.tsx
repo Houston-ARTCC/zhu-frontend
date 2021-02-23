@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
+import { FaRegEyeSlash, HiOutlineCalendar, HiOutlineClock, MdPersonOutline } from 'react-icons/all'
 import { Button, Card, Col, Collapse, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import axiosInstance from '../axiosInstance'
-import Header from '../components/Header'
-import Navigation from '../components/Navigation'
-import { FaRegEyeSlash, HiOutlineCalendar, HiOutlineClock, MdPersonOutline } from 'react-icons/all'
-import Moment from 'react-moment'
 import moment from 'moment/moment'
+import Moment from 'react-moment'
+import Header from '../../components/Header'
+import Navigation from '../../components/Navigation'
+import axiosInstance from '../../helpers/axiosInstance'
 
-export default class AllEvents extends Component<any, any> {
+export default class Events extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {

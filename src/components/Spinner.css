@@ -2,6 +2,19 @@
 Yoinked form https://tobiasahlin.com/spinkit/
 */
 
+.loader {
+    position: absolute;
+    z-index: 10000;
+    height: 100vh;
+    width: 100vw;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 .spinner {
     position: relative;
 }

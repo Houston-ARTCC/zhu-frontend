@@ -1,9 +1,8 @@
 import React from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container } from 'react-bootstrap'
 import Fade from 'react-reveal/Fade'
-import Header from './components/Header'
-import Navigation from './components/Navigation'
+import Header from '../components/Header'
+import Navigation from '../components/Navigation'
 
 export default function Privacy() {
     return (

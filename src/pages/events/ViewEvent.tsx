@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Alert, Button, Col, Container, OverlayTrigger, Popover, ProgressBar, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import axiosInstance from '../axiosInstance'
-import { getCID, isMember, isStaff } from '../Helpers';
-import Header from '../components/Header'
-import Navigation from '../components/Navigation'
+import { FaRegEyeSlash, FaRegFolderOpen, RiPencilRuler2Line } from 'react-icons/all'
 import { withSnackbar } from 'notistack'
+import { Link } from 'react-router-dom'
+import Countdown from 'react-countdown'
 import Moment from 'react-moment'
 import moment from 'moment/moment'
 import 'moment-timezone'
-import Countdown from 'react-countdown'
-import { FaRegEyeSlash, FaRegFolderOpen, RiPencilRuler2Line } from 'react-icons/all'
+import Header from '../../components/Header'
+import Navigation from '../../components/Navigation'
+import axiosInstance from '../../helpers/axiosInstance'
+import { getCID, isMember, isStaff } from '../../helpers/auth';
 
 class ViewEvent extends Component<any, any> {
     constructor(props) {

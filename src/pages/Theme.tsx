@@ -1,6 +1,5 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Alert, Badge, Button, Card, Col, Container, Row } from 'react-bootstrap';
+import React from 'react'
+import { Alert, Badge, Button, Card, Col, Container, Row } from 'react-bootstrap'
 
 export default function Theme() {
     return (
@@ -177,5 +176,5 @@ export default function Theme() {
                 <Alert className="mr-2" variant="white">white</Alert>
             </Row>
         </Container>
-    );
+    )
 }

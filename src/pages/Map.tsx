@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
-import { Badge, Button, Container, NavDropdown } from 'react-bootstrap'
+import { Badge, Button, Container } from 'react-bootstrap'
 import Fade from 'react-reveal/Fade'
-import Header from './components/Header'
-import Navigation from './components/Navigation'
-import mapboxgl from 'mapbox-gl'
-import axiosInstance from './axiosInstance'
 import ReactDOM from 'react-dom'
-import { Link } from '@material-ui/core'
+import mapboxgl from 'mapbox-gl'
+import Header from '../components/Header'
+import Navigation from '../components/Navigation'
+import axiosInstance from '../helpers/axiosInstance'
 
-mapboxgl.accessToken = 'pk.eyJ1IjoibWlrZXJvbWEiLCJhIjoiY2szbWI1YWJxMGVudjNjbGp1OGJ5ank4MyJ9.3jZUs_nQCehwmixhAZmKqA';
+mapboxgl.accessToken = 'pk.eyJ1IjoibWlrZXJvbWEiLCJhIjoiY2szbWI1YWJxMGVudjNjbGp1OGJ5ank4MyJ9.3jZUs_nQCehwmixhAZmKqA'
 
 export default class Map extends Component<any, any> {
-    private mapContainer: React.RefObject<HTMLDivElement>
+    mapContainer =  React.createRef<HTMLDivElement>()
     constructor(props) {
         super(props)
         this.state = {

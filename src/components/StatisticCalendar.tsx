@@ -1,6 +1,6 @@
+import React from 'react'
 import moment from 'moment'
 import { ResponsiveCalendar } from '@nivo/calendar'
-import React from 'react'
 
 export default function StatisticCalendar({data}) {
     return (

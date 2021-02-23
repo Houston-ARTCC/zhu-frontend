@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { Button, Nav, Navbar, NavDropdown } from 'react-bootstrap'
-import logoColor from '../img/logo.png'
-import logoLight from '../img/logo-light.png'
-import { getCID, getFullName, isAuthenticated } from '../Helpers'
 import { useLocation } from 'react-router'
+import { Link } from 'react-router-dom'
+import { getCID, getFullName, isAuthenticated } from '../helpers/auth'
+import logoLight from '../img/logo-light.png'
+import logoColor from '../img/logo.png'
 
 export default function Navigation() {
     const [scroll, setScroll] = useState(false)

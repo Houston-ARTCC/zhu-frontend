@@ -100,6 +100,162 @@ d888888P                                                                dP
 .fill-silver { fill: $silver !important; }
 .fill-bronze { fill: $bronze !important; }
 
+* {
+    font-family: Cera Pro, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 23px;
+    font-feature-settings: 'pnum' on, 'salt' on, 'case' on, 'kern' off;
+    color: $darkgray;
+}
+
+u, b, i, s, strong, em, time {
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+}
+
+i, em {
+    font-style: italic;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    span {
+        font-size: inherit;
+    }
+}
+
+blockquote {
+    border-left: 4px solid #ccc;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-left: 16px;
+}
+
+hr {
+    border-top: 2px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+a {
+    transition: 500ms ease-in-out;
+
+    &:not(.link-unstyled):hover {
+        text-decoration: none!important;
+        opacity: 0.6;
+        transition: 300ms ease-in-out;
+
+        .card {
+            box-shadow: $shadow-lifted;
+            transform: translateY(-5px);
+            opacity: 1;
+        }
+
+        .btn {
+            opacity: 1!important;
+        }
+    }
+}
+
+.overflow-ellipses {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.list-group-item {
+    a { transition: 0s !important; }
+    &.active {
+        background-color: $primary !important;
+        border-color: $primary !important;
+        a { color: white !important; }
+    }
+}
+
+.header {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: flex-end;
+    padding: 60px 130px;
+}
+
+@media (max-width: 767px) {
+    .header {
+        height: 300px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.header h1 {
+    font-size: 60px;
+}
+
+.dropdown-toggle {
+    color: inherit!important;
+}
+
+#notistack-snackbar, #notistack-snackbar path {
+    color: white;
+}
+
+::selection {
+    background-color: rgba(lighten($darkblue, 30%), 0.4);
+}
+
+/*
+dP                                              dP
+88                                              88
+88        .d8888b. dP    dP .d8888b. dP    dP d8888P
+88        88'  `88 88    88 88'  `88 88    88   88
+88        88.  .88 88.  .88 88.  .88 88.  .88   88
+88888888P `88888P8 `8888P88 `88888P' `88888P'   dP
+                        .88
+                    d8888P
+ */
+html {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+section {
+    padding-top: 150px;
+    margin-top: -150px;
+}
+
+.container-fluid {
+    padding: 60px 130px !important;
+}
+
+@media (max-width: $screen-sm-max) {
+    .container-fluid {
+        padding: 60px !important;
+    }
+}
+
+@media (max-width: $screen-xs-max) {
+    .container-fluid {
+        padding: 60px 40px !important;
+    }
+}
+
+.position-unset {
+    position: unset!important;
+}
+
+.li-flex {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
 /*
  888888ba             dP     dP
  88    `8b            88     88
@@ -138,6 +294,7 @@ a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
         fill: inherit;
     }
 }
+
 .badge {
     color: white !important;
     border: 2px solid transparent;
@@ -267,6 +424,7 @@ a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
         transition: 500ms;
     }
 }
+
 .navbar-shrink .btn-vatsim {
     background-color: $primary !important;
     box-shadow: 0 4px 10px rgba($primary, 0.25) !important;
@@ -311,40 +469,57 @@ d8'    88  88                     88
 .alert-lightgray { color: $lightgray !important; background-color: rgba($lightgray, 0.1) !important; }
 .alert-white { color: $white !important; background-color: rgba($white, 0.1) !important; }
 
-* {
-    font-family: Cera Pro, sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 17px;
-    line-height: 23px;
-    font-feature-settings: 'pnum' on, 'salt' on, 'case' on, 'kern' off;
-    color: $darkgray;
+/*
+8888ba.88ba                 dP          dP
+88  `8b  `8b                88          88
+88   88   88 .d8888b. .d888b88 .d8888b. 88 .d8888b.
+88   88   88 88'  `88 88'  `88 88'  `88 88 Y8ooooo.
+88   88   88 88.  .88 88.  .88 88.  .88 88       88
+dP   dP   dP `88888P' `88888P8 `88888P8 dP `88888P'
+ */
+.modal-body {
+    padding: 1.25rem !important;
 }
 
-u, b, i, s, strong, em, time {
-    color: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    font-style: inherit;
+.modal-content {
+    border-radius: 4px !important;
+    border: none!important;
 }
 
-i, em {
-    font-style: italic;
+/*
+ a88888b.                         dP
+d8'   `88                         88
+88        .d8888b. 88d888b. .d888b88 .d8888b.
+88        88'  `88 88'  `88 88'  `88 Y8ooooo.
+Y8.   .88 88.  .88 88       88.  .88       88
+ Y88888P' `88888P8 dP       `88888P8 `88888P'
+ */
+.card {
+    border-radius: 4px;
+    border: none !important;
+    box-shadow: $shadow;
+    margin-bottom: 20px;
+    transition: 500ms ease-in-out;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    span {
-        font-size: inherit;
-    }
+.card-header {
+    border: none !important;
 }
 
-blockquote {
-    border-left: 4px solid #ccc;
-    margin-bottom: 5px;
-    margin-top: 5px;
-    padding-left: 16px;
+.card-footer {
+    border: none!important;
+    background-color: white!important;
+    padding: 0!important;
 }
 
+/*
+888888ba
+88    `8b
+88     88 .d8888b. dP   .dP
+88     88 88'  `88 88   d8'
+88     88 88.  .88 88 .88'
+dP     dP `88888P8 8888P'
+ */
 #navbar {
     padding: 60px;
     transition: 600ms;
@@ -386,84 +561,6 @@ blockquote {
     }
 }
 
-
-
-.dropdown-toggle {
-    color: inherit!important;
-}
-
-.container-fluid {
-    padding: 60px 130px !important;
-}
-
-@media (max-width: $screen-sm-max) {
-    .container-fluid {
-        padding: 60px !important;
-    }
-}
-
-@media (max-width: $screen-xs-max) {
-    .container-fluid {
-        padding: 60px 40px !important;
-    }
-}
-
-.card {
-    border-radius: 4px;
-    border: none !important;
-    box-shadow: $shadow;
-    margin-bottom: 20px;
-    transition: 500ms ease-in-out;
-}
-
-.card-header {
-    border: none !important;
-}
-
-.card-footer {
-    border: none!important;
-    background-color: white!important;
-    padding: 0!important;
-}
-
-a {
-    transition: 500ms ease-in-out;
-}
-
-a:not(.link-unstyled):hover {
-    text-decoration: none!important;
-    opacity: 0.6;
-    transition: 300ms ease-in-out;
-
-    .card {
-        box-shadow: $shadow-lifted;
-        transform: translateY(-5px);
-        opacity: 1;
-    }
-
-    .btn {
-        opacity: 1!important;
-    }
-}
-
-.modal-body {
-    padding: 1.25rem !important;
-}
-
-.modal-content {
-    border-radius: 4px !important;
-    border: none!important;
-}
-
-.list-group-item {
-    a { transition: 0s !important; }
-    &.active {
-        background-color: $primary !important;
-        border-color: $primary !important;
-        a { color: white !important; }
-    }
-}
-
 .dropzone {
     width: 100%;
     height: 200px;
@@ -494,20 +591,197 @@ a:not(.link-unstyled):hover {
     font-size: 0.8rem;
 }
 
-.overflow-ellipses {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+/*
+dP
+88
+88 88d8b.d8b. .d8888b. .d8888b. .d8888b. .d8888b.
+88 88'`88'`88 88'  `88 88'  `88 88ooood8 Y8ooooo.
+88 88  88  88 88.  .88 88.  .88 88.  ...       88
+dP dP  dP  dP `88888P8 `8888P88 `88888P' `88888P'
+                            .88
+                        d8888P
+ */
+.user {
+    display: flex;
+    align-items: center;
 }
 
-::selection {
-    background-color: rgba(lighten($darkblue, 30%), 0.4);
+.profile-sm {
+    width: 35px;
+    height: 35px;
+    border-radius: 35px;
 }
 
-hr {
-    border-top: 2px solid rgba(0, 0, 0, 0.1) !important;
+.profile-md {
+    width: 45px;
+    height: 45px;
+    border-radius: 45px;
 }
 
-.position-unset {
-    position: unset!important;
+.profile-lg {
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+}
+
+.profile-xl {
+    width: 150px;
+    height: 150px;
+    border-radius: 150px;
+}
+
+.event-banner-sm {
+    width: 350px;
+}
+
+.event-banner-lg {
+    width: 100%;
+}
+
+@media (max-width: 991px) {
+    .event-banner-sm {
+        width: 100%;
+    }
+}
+
+/*
+dP     dP
+88     88
+88aaaaa88a .d8888b. 88d8b.d8b. .d8888b. 88d888b. .d8888b. .d8888b. .d8888b.
+88     88  88'  `88 88'`88'`88 88ooood8 88'  `88 88'  `88 88'  `88 88ooood8
+88     88  88.  .88 88  88  88 88.  ... 88.  .88 88.  .88 88.  .88 88.  ...
+dP     dP  `88888P' dP  dP  dP `88888P' 88Y888P' `88888P8 `8888P88 `88888P'
+                                        88                     .88
+                                        dP                 d8888P
+ */
+#root {
+    background-color: #F9F9F9;
+}
+
+#homepage-hero {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    mix-blend-mode: overlay;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+#welcome {
+    width: 50%;
+    font-size: 100px;
+}
+
+#tagline {
+    font-size: 28px;
+}
+
+@media (max-width: 767px) {
+    #welcome, #tagline { width: 90%; }
+    #welcome { font-size: 70px; }
+    #tagline { font-size: 20px; }
+}
+
+.announcment-date {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+@media (max-width: 767px) {
+    .announcment-date {
+        position: relative;
+        top: unset;
+        right: unset;
+        width: 120px;
+        margin-bottom: 10px;
+    }
+}
+
+#footer-links h6 {
+    margin: 0 5px;
+}
+
+/*
+8888ba.88ba                    dP
+88  `8b  `8b                   88
+88   88   88 .d8888b. 88d888b. 88d888b. .d8888b. dP.  .dP
+88   88   88 88'  `88 88'  `88 88'  `88 88'  `88  `8bd8'
+88   88   88 88.  .88 88.  .88 88.  .88 88.  .88  .d88b.
+dP   dP   dP `88888P8 88Y888P' 88Y8888' `88888P' dP'  `dP
+                      88
+                      dP
+ */
+.mapboxgl-map {
+    height: 100%;
+}
+
+.mapboxgl-canvas:focus {
+    outline: none;
+}
+
+.mapboxgl-ctrl-attrib-button {
+    display: none;
+}
+
+.mapboxgl-ctrl-attrib {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 7px;
+    background-color: white;
+    opacity: .5;
+}
+
+.mapboxgl-ctrl-attrib-inner a {
+    font-size: 12px;
+    font-weight: 700;
+    color: #2d2d2d !important;
+}
+
+.mapboxgl-popup {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    margin: -10px;
+    min-width: 500px;
+}
+
+/*
+d888888P                              dP   dP     dP dP
+   88                                 88   88     88 88
+   88    .d8888b. .d8888b. .d8888b. d8888P 88     88 88
+   88    88'  `88 88'  `88 Y8ooooo.   88   88     88 88
+   88    88.  .88 88.  .88       88   88   Y8.   .8P 88
+   dP    `88888P' `88888P8 `88888P'   dP   `Y88888P' dP
+ */
+.tui-full-calendar-popup-detail .tui-full-calendar-popup-container {
+    width: 350px !important;
+}
+
+.tui-full-calendar-month-week-item .tui-full-calendar-today .tui-full-calendar-weekday-grid-date-decorator {
+    background: #334D6E !important;
+}
+
+.rdt_TableCol_Sortable div {
+    font-weight: bold;
+}
+
+/*
+888888ba  oo
+88    `8b
+88     88 dP dP   .dP .d8888b.
+88     88 88 88   d8' 88'  `88
+88     88 88 88 .88'  88.  .88
+dP     dP dP 8888P'   `88888P'
+ */
+.nivo-tooltip {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    padding: 10px 20px;
+    backdrop-filter: blur(5px);
 }

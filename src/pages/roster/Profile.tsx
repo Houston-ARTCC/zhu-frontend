@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { Badge, Button, Col, Container, Row } from 'react-bootstrap'
+import { BsArrowDown, RiPencilRuler2Line } from 'react-icons/all'
+import DataTable from 'react-data-table-component'
 import { Link } from 'react-router-dom'
-import axiosInstance from '../axiosInstance'
-import Navigation from '../components/Navigation'
-import Header from '../components/Header'
 import Fade from 'react-reveal/Fade'
 import moment from 'moment'
-import DataTable from 'react-data-table-component'
-import { BsArrowDown, RiPencilRuler2Line } from 'react-icons/all'
-import { asDuration, isStaff } from '../Helpers'
-import StatisticCalendar from '../components/StatisticCalendar'
+import Header from '../../components/Header'
+import Navigation from '../../components/Navigation'
+import StatisticCalendar from '../../components/StatisticCalendar'
+import axiosInstance from '../../helpers/axiosInstance'
+import { asDuration } from '../../helpers/utils'
+import { isStaff } from '../../helpers/auth'
 
 export default class Profile extends Component<any, any> {
     constructor(props) {

@@ -3,22 +3,21 @@ import { Badge, Card, Col, Container, Modal, Row } from 'react-bootstrap'
 import { HiOutlineCalendar, HiOutlineClock, IoIosAirplane, IoTrophy } from 'react-icons/all'
 import { Parallax } from 'react-parallax'
 import Fade from 'react-reveal/Fade'
-import background from './img/homepage-bg.jpg'
-import axiosInstance from './axiosInstance'
-import { asDuration } from './Helpers'
-import Moment from 'react-moment'
-import moment from 'moment/moment'
-import 'moment-timezone'
-import Navigation from './components/Navigation'
-import parse from 'html-react-parser'
 import { Link } from 'react-router-dom'
-import getPositionName from './facilities'
+import parse from 'html-react-parser'
+import moment from 'moment/moment'
+import Moment from 'react-moment'
+import 'moment-timezone'
+import Navigation from '../components/Navigation'
+import getPositionName from '../helpers/facilities'
+import axiosInstance from '../helpers/axiosInstance'
+import { asDuration } from '../helpers/utils'
+import background from '../img/homepage-bg.jpg'
 
 export default class Home extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
-            scroll: false,
             onlineControllers: [],
             announcements: [],
             events: [],
@@ -190,9 +189,6 @@ export default class Home extends Component<any, any> {
                         <h4 className="text-white font-w500" id="tagline">From longhorns to space ships, we've got it all!</h4>
                         <h1 className="text-white font-w700" id="welcome">Welcome to Houston</h1>
                     </div>
-                    <svg width="56" height="31" viewBox="0 0 56 31" fill="none" xmlns="http://www.w3.org/2000/svg" id="hero-arrow" className={this.state.scroll ? 'hide' : ''}>
-                        <path d="M3 3L28 28L53 3" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
                 </Parallax>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
