@@ -105,7 +105,7 @@ export default class Profile extends Component<any, any> {
                         <Row>
                             <Col>
                                 <div className="d-flex">
-                                    <div className="text-center mr-4">
+                                    <div className="d-flex flex-column align-items-center mr-4">
                                         <img
                                             className="profile-xl mb-4"
                                             src={'http://api.zhuartcc.devel' + this.state.user.profile}

@@ -22,11 +22,12 @@ import Error404 from './pages/errors/Error404'
 import Events from './pages/events/Events'
 import EditEvent from './pages/events/EditEvent'
 import ViewEvent from './pages/events/ViewEvent'
+import TrainingCenter from './pages/training/TrainingCenter'
 import AuthRoute from './components/AuthRoute'
 import ScrollToTop from './components/ScrollToTop'
 import LoadingScreen from './components/LoadingScreen'
 import axiosInstance from './helpers/axiosInstance'
-import { getFullName, isAuthenticated, isStaff } from './helpers/auth'
+import { getFullName, isAuthenticated, isMember, isStaff } from './helpers/auth'
 
 export default function App() {
     return (
@@ -50,6 +51,8 @@ export default function App() {
                 <Route exact path="/resources" component={Resources}/>
                 {/* Visiting */}
                 <AuthRoute exact path="/visit" component={Visit} auth={isAuthenticated}/>
+                {/* Training */}
+                <AuthRoute exact path="/training" component={TrainingCenter} auth={isMember}/>
                 {/* Miscellaneous */}
                 <Route exact path="/map" component={Map}/>
                 <Route exact path="/theme" component={Theme}/>
