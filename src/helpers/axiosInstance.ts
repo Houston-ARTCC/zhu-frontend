@@ -21,7 +21,7 @@ axiosInstance.interceptors.response.use(
         }
 
         // Check if error occurred during token refresh
-        else if (err.response.status === 401 && originalRequest.url === process.env.REACT_APP_API_URL + 'auth/token/refresh/') {
+        else if (err.response.status === 401 && originalRequest.url === process.env.REACT_APP_API_URL + '/auth/token/refresh/') {
             window.location.href = '/login/'
             return Promise.reject(err)
         }

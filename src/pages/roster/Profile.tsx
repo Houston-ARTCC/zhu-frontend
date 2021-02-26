@@ -108,7 +108,7 @@ export default class Profile extends Component<any, any> {
                                     <div className="d-flex flex-column align-items-center mr-4">
                                         <img
                                             className="profile-xl mb-4"
-                                            src={'http://api.zhuartcc.devel' + this.state.user.profile}
+                                            src={process.env.REACT_APP_API_URL + this.state.user.profile}
                                             alt={this.state.user.first_name + ' ' + this.state.user.last_name}
                                         />
                                         {isStaff() &&

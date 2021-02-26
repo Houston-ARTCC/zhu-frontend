@@ -103,7 +103,7 @@ export default class Home extends Component<any, any> {
                         <div className="user">
                             <img
                                 className="profile-sm mr-2"
-                                src={'http://api.zhuartcc.devel' + announcement.author.profile}
+                                src={process.env.REACT_APP_API_URL + announcement.author.profile}
                                 alt={announcement.author.first_name + ' ' + announcement.author.last_name}
                             />
                             <p className="text-darkgray font-w500 m-0">{announcement.author.first_name} {announcement.author.last_name}</p>
@@ -148,7 +148,7 @@ export default class Home extends Component<any, any> {
             <li className="li-flex text-black font-w700 font-lg">
                 <img
                     className="profile-md mr-2"
-                    src={'http://api.zhuartcc.devel' + controller.profile}
+                    src={process.env.REACT_APP_API_URL + controller.profile}
                     alt={controller.first_name + ' ' + controller.last_name}
                 />
                 {controller.first_name} {controller.last_name} ({controller.initials})

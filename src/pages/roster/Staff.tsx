@@ -31,7 +31,7 @@ export default class Staff extends Component<any, any> {
             <div className="d-flex align-items-center">
                 <img
                     className="profile-lg mr-3"
-                    src={user ? 'http://api.zhuartcc.devel' + user.profile : profilePlaceholder}
+                    src={user ? process.env.REACT_APP_API_URL + user.profile : profilePlaceholder}
                     alt={user ? user.first_name + ' ' + user.last_name : 'Vacant'}
                 />
                 <div>

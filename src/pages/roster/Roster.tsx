@@ -59,7 +59,7 @@ export default class Roster extends Component<any, any> {
                 <Link to={`/roster/${user.cid}`}>
                     <Card className="mb-4">
                         <Card.Header className="text-center py-4 px-1">
-                            <img className="profile-lg mb-3" src={'http://api.zhuartcc.devel' + user.profile} alt={user.first_name + ' ' + user.last_name}/>
+                            <img className="profile-lg mb-3" src={process.env.REACT_APP_API_URL + user.profile} alt={user.first_name + ' ' + user.last_name}/>
                             <Card.Title className="mb-0">
                                 {user.first_name} {user.last_name} ({user.initials})
                             </Card.Title>
