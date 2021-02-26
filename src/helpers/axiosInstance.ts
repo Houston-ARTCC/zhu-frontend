@@ -1,9 +1,7 @@
 import axios from 'axios'
 
-const baseURL = 'http://api.zhuartcc.devel/'
-
 const axiosInstance = axios.create({
-    baseURL: baseURL,
+    baseURL: process.env.REACT_APP_API_URL,
     timeout: 5000,
     headers: {
         'Authorization': localStorage.getItem('access') && 'Bearer ' + localStorage.getItem('access'),
@@ -23,7 +21,7 @@ axiosInstance.interceptors.response.use(
         }
 
         // Check if error occurred during token refresh
-        else if (err.response.status === 401 && originalRequest.url === baseURL + 'auth/token/refresh/') {
+        else if (err.response.status === 401 && originalRequest.url === process.env.REACT_APP_API_URL + 'auth/token/refresh/') {
             window.location.href = '/login/'
             return Promise.reject(err)
         }

@@ -27,7 +27,7 @@ import AuthRoute from './components/AuthRoute'
 import ScrollToTop from './components/ScrollToTop'
 import LoadingScreen from './components/LoadingScreen'
 import axiosInstance from './helpers/axiosInstance'
-import { getFullName, isAuthenticated, isMember, isStaff } from './helpers/auth'
+import { getAuthURL, getFullName, isAuthenticated, isMember, isStaff } from './helpers/auth'
 
 export default function App() {
     return (
@@ -53,6 +53,7 @@ export default function App() {
                 <AuthRoute exact path="/visit" component={Visit} auth={isAuthenticated}/>
                 {/* Training */}
                 <AuthRoute exact path="/training" component={TrainingCenter} auth={isMember}/>
+                <AuthRoute exact path="/training/exams" component={TrainingCenter} auth={isMember}/>
                 {/* Miscellaneous */}
                 <Route exact path="/map" component={Map}/>
                 <Route exact path="/theme" component={Theme}/>
@@ -137,7 +138,7 @@ function Login(props) {
                 })
         } else {
             localStorage.setItem('login-referrer', props.location.state?.from.pathname || '/')
-            window.location.href = 'https://auth.vatsim.net/oauth/authorize?client_id=593&redirect_uri=http://www.zhuartcc.devel/login&response_type=code&scope=full_name+vatsim_details+email'
+            window.location.href = getAuthURL()
         }
     })
     return <LoadingScreen/>
