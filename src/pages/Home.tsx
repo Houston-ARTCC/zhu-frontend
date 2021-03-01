@@ -224,7 +224,7 @@ export default class Home extends Component<any, any> {
                                 <h1 className="text-black font-w700 mb-1">Events</h1>
                                 <h4 className="text-gray mb-4">Are y'all busy?</h4>
                                 {this.state.events?.length > 0
-                                    ? this.state.events.slice(0, 2).map(event => this.renderEvent(event))
+                                    ? this.state.events.filter(event => !event.hidden).slice(0, 2).map(event => this.renderEvent(event))
                                     : <p>There are no planned events.</p>
                                 }
                             </Col>

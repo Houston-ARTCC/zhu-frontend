@@ -7,14 +7,17 @@ import Moment from 'react-moment'
 import Header from '../../components/Header'
 import Navigation from '../../components/Navigation'
 import axiosInstance from '../../helpers/axiosInstance'
+import placeholder from '../../img/banner-placeholder.png'
 
 export default class Events extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
             events: [],
+            archivedEvents: [],
             showArchivedEvents: false,
         }
+        this.handleViewArchivedEvents = this.handleViewArchivedEvents.bind(this)
     }
 
     componentDidMount() {
@@ -27,11 +30,13 @@ export default class Events extends Component<any, any> {
             .then(res => this.setState({ events: res.data }))
     }
 
-    renderEvent(event) {
-        const shifts: any[] = []
-        event.positions.map(position => shifts.push(...position.shifts))
-        const availableShifts = shifts.filter(shift => !shift.user).length
+    fetchArchivedEvents() {
+        axiosInstance
+            .get('/api/events/archived')
+            .then(res => this.setState({ archivedEvents: res.data }))
+    }
 
+    renderEvent(event) {
         return (
             <Col md={6}>
                 <Link to={`/events/${event.id}`}>
@@ -54,18 +59,23 @@ export default class Events extends Component<any, any> {
                                 <Col>
                                     <div className="li-flex font-w500 font-lg">
                                         <MdPersonOutline size={30} className="mr-2"/>
-                                        {availableShifts} Shift{availableShifts === 1 ? '' : 's'} Available
+                                        {event.available_shifts} Shift{event.available_shifts === 1 ? '' : 's'} Available
                                     </div>
                                 </Col>
                             </Row>
                         </Card.Body>
                         <Card.Footer>
-                            <img className="event-banner-lg" src={event.banner} alt={event.name}/>
+                            <img className="event-banner-lg" src={event.banner || placeholder} alt={event.name}/>
                         </Card.Footer>
                     </Card>
                 </Link>
             </Col>
         )
+    }
+
+    handleViewArchivedEvents() {
+        if (this.state.archivedEvents.length < 1) this.fetchArchivedEvents()
+        this.setState({ showArchivedEvents: !this.state.showArchivedEvents})
     }
 
     render() {
@@ -75,17 +85,17 @@ export default class Events extends Component<any, any> {
                 <Header title="Events"/>
                 <Container fluid>
                     <Row>
-                        {this.state.events.filter(event => !event.archived).map(event => this.renderEvent(event))}
+                        {this.state.events.map(event => this.renderEvent(event))}
                     </Row>
                     <hr/>
                     <div className="text-center mb-4">
-                        <Button variant="bg-primary" onClick={() => {this.setState({ showArchivedEvents: !this.state.showArchivedEvents})}}>
+                        <Button variant="bg-primary" onClick={this.handleViewArchivedEvents}>
                             View archived events
                         </Button>
                     </div>
                     <Collapse in={this.state.showArchivedEvents}>
                         <Row id="archived">
-                            {this.state.events.filter(event => event.archived).map(event => this.renderEvent(event))}
+                            {this.state.archivedEvents.map(event => this.renderEvent(event))}
                         </Row>
                     </Collapse>
                 </Container>
