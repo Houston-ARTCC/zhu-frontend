@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Card, Col, Container, Form, Row } from 'react-bootstrap'
 import { BsArrowDown, FaCircle } from 'react-icons/all'
 import DataTable from 'react-data-table-component'
 import Switch from 'react-bootstrap/Switch'
@@ -16,8 +16,10 @@ export default class Roster extends Component<any, any> {
         this.state = {
             users: [],
             sortedUsers: {},
+            filter: '',
             tableView: window.innerWidth < 768,
         }
+        this.userFilter = this.userFilter.bind(this)
     }
 
     componentDidMount() {
@@ -40,6 +42,17 @@ export default class Roster extends Component<any, any> {
             sorted[certLevel(user)] = [...sorted[certLevel(user)] || [], user]
             return sorted
         }, {})
+    }
+
+    userFilter(user) {
+        let filter = this.state.filter.toLowerCase()
+        let full_name = user.first_name + ' ' + user.last_name
+        return (
+            full_name.toLowerCase().includes(filter) ||
+            user.cid.toString().includes(filter) ||
+            user.initials.toLowerCase().includes(filter) ||
+            user.rating.short.toLowerCase().includes(filter)
+        )
     }
 
     renderCertification(certification) {
@@ -103,7 +116,7 @@ export default class Roster extends Component<any, any> {
     renderUserTable() {
         return (
             <DataTable
-                data={this.state.users}
+                data={this.state.users.filter(this.userFilter)}
                 noHeader
                 highlightOnHover
                 pointerOnHover
@@ -136,6 +149,8 @@ export default class Roster extends Component<any, any> {
                         selector: 'del',
                         width: '10%',
                         center: true,
+                        sortable: true,
+                        sortFunction: (a, b) => {return a.del_cert > b.del_cert ? -1 : 1},
                         format: row => this.renderCertification(row.del_cert),
                     },
                     {
@@ -143,6 +158,8 @@ export default class Roster extends Component<any, any> {
                         selector: 'gnd',
                         width: '10%',
                         center: true,
+                        sortable: true,
+                        sortFunction: (a, b) => {return a.gnd_cert > b.gnd_cert ? -1 : 1},
                         format: row => this.renderCertification(row.gnd_cert),
                     },
                     {
@@ -150,6 +167,8 @@ export default class Roster extends Component<any, any> {
                         selector: 'twr',
                         width: '10%',
                         center: true,
+                        sortable: true,
+                        sortFunction: (a, b) => {return a.twr_cert > b.twr_cert ? -1 : 1},
                         format: row => this.renderCertification(row.twr_cert),
                     },
                     {
@@ -157,6 +176,8 @@ export default class Roster extends Component<any, any> {
                         selector: 'app',
                         width: '10%',
                         center: true,
+                        sortable: true,
+                        sortFunction: (a, b) => {return a.app_cert > b.app_cert ? -1 : 1},
                         format: row => this.renderCertification(row.app_cert),
                     },
                     {
@@ -164,6 +185,8 @@ export default class Roster extends Component<any, any> {
                         selector: 'ctr',
                         width: '10%',
                         center: true,
+                        sortable: true,
+                        sortFunction: (a, b) => {return a.ctr_cert > b.ctr_cert ? -1 : 1},
                         format: row => this.renderCertification(row.ctr_cert),
                     },
                     {
@@ -171,6 +194,8 @@ export default class Roster extends Component<any, any> {
                         selector: 'ocn',
                         width: '10%',
                         center: true,
+                        sortable: true,
+                        sortFunction: (a, b) => {return a.ocn_cert > b.ocn_cert ? -1 : 1},
                         format: row => this.renderCertification(row.ocn_cert),
                     },
                 ]}
@@ -202,14 +227,19 @@ export default class Roster extends Component<any, any> {
                 <Header title="Roster"/>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
-                        <Switch className="mb-3" checked={this.state.tableView} id="toggle-table" label="Toggle Table View" onChange={() => this.setState({tableView: !this.state.tableView})}/>
+                        <div className="d-flex justify-content-between">
+                            <Switch className="mb-3" checked={this.state.tableView} id="toggle-table" label="Toggle Table View" onChange={() => this.setState({tableView: !this.state.tableView})}/>
+                            <div>
+                                <Form.Control placeholder="Search for controller..." value={this.state.filter} onChange={event => this.setState({ filter: event.target.value })}/>
+                            </div>
+                        </div>
                         {this.state.tableView
                             ? this.renderUserTable()
-                            : Object.keys(this.state.sortedUsers).reverse().map(level =>
-                                <div className="text-center">
+                            : Object.keys(this.state.sortedUsers).reverse().filter(level => this.state.sortedUsers[level].some(this.userFilter)).map(level =>
+                                <div className="text-center mb-3">
                                     <h1 className="text-black font-w500 mb-3">{certName(parseInt(level))}</h1>
                                     <Row>
-                                        {this.state.sortedUsers[level].map(user => this.renderUserCard(user))}
+                                        {this.state.sortedUsers[level].filter(this.userFilter).map(user => this.renderUserCard(user))}
                                     </Row>
                                 </div>
                             )
