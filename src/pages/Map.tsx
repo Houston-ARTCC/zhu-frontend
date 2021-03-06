@@ -7,6 +7,8 @@ import Header from '../components/Header'
 import Navigation from '../components/Navigation'
 import axiosInstance from '../helpers/axiosInstance'
 
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 mapboxgl.accessToken = 'pk.eyJ1IjoibWlrZXJvbWEiLCJhIjoiY2szbWI1YWJxMGVudjNjbGp1OGJ5ank4MyJ9.3jZUs_nQCehwmixhAZmKqA'
 
 export default class Map extends Component<any, any> {
