@@ -7,7 +7,6 @@ import Moment from 'react-moment'
 import Header from '../../components/Header'
 import Navigation from '../../components/Navigation'
 import axiosInstance from '../../helpers/axiosInstance'
-import placeholder from '../../img/banner-placeholder.png'
 
 export default class Events extends Component<any, any> {
     constructor(props) {
@@ -64,9 +63,11 @@ export default class Events extends Component<any, any> {
                                 </Col>
                             </Row>
                         </Card.Body>
-                        <Card.Footer>
-                            <img className="event-banner-lg" src={event.banner || placeholder} alt={event.name}/>
-                        </Card.Footer>
+                        {event.banner &&
+                            <Card.Footer>
+                                <img className="event-banner-lg" src={event.banner} alt={event.name}/>
+                            </Card.Footer>
+                        }
                     </Card>
                 </Link>
             </Col>

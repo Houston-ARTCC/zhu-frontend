@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Badge, Button, Col, Container, Dropdown, Form, FormGroup, Modal, ProgressBar, Row } from 'react-bootstrap'
-import { RiAddLine } from 'react-icons/all'
+import { RiAddLine, RiDeleteBinLine } from 'react-icons/all'
 import { withSnackbar } from 'notistack'
 import { Link } from 'react-router-dom'
 import Select from 'react-select'
@@ -27,6 +27,7 @@ class EditEvent extends Component<any, any> {
         this.handleDateChange = this.handleDateChange.bind(this)
         this.handleSwitchChange = this.handleSwitchChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
     }
 
     componentDidMount() {
@@ -110,15 +111,11 @@ class EditEvent extends Component<any, any> {
             })
     }
 
-    handleAddPosition() {
+    handleDelete() {
         axiosInstance
-            .post('/api/events/' + this.props.match.params.id + '/', {
-                callsign: this.state.addPositionCallsign,
-                shifts: this.state.addPositionShifts
-            })
+            .delete('/api/events/' + this.state.event.id)
             .then(res => {
-                this.fetchEvent()
-                this.props.enqueueSnackbar('Added ' + this.state.addPositionCallsign, {
+                this.props.enqueueSnackbar('Event deleted!', {
                     variant: 'success',
                     autoHideDuration: 3000,
                     anchorOrigin: {
@@ -126,9 +123,9 @@ class EditEvent extends Component<any, any> {
                         horizontal: 'right',
                     },
                 })
+                this.props.history.push('/events')
             })
             .catch(err => {
-                console.log(err.response)
                 this.props.enqueueSnackbar(err.toString(), {
                     variant: 'error',
                     autoHideDuration: 3000,
@@ -138,6 +135,36 @@ class EditEvent extends Component<any, any> {
                     },
                 })
             })
+    }
+
+    handleAddPosition() {
+        axiosInstance
+            .post('/api/events/' + this.props.match.params.id + '/', {
+                callsign: this.state.addPositionCallsign,
+                shifts: this.state.addPositionShifts
+            })
+            .then(res => {
+                this.props.enqueueSnackbar('Added ' + this.state.addPositionCallsign, {
+                    variant: 'success',
+                    autoHideDuration: 3000,
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    },
+                })
+                this.fetchEvent()
+            })
+            .catch(err => {
+                this.props.enqueueSnackbar(err.toString(), {
+                    variant: 'error',
+                    autoHideDuration: 3000,
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    },
+                })
+            })
+            .finally(() => this.setState({ addPositionCallsign: '', addPositionShifts: 2 }))
     }
 
     assignShift(cid, name, shift, position) {
@@ -178,7 +205,7 @@ class EditEvent extends Component<any, any> {
         }
 
         const handleAssign = (requestId) => {
-            let request = shift.requests.find(req => req.id == requestId)
+            let request = shift.requests.find(req => req.id === requestId)
             this.assignShift(request.user.cid, request.user.first_name + ' ' + request.user.last_name, shift, position)
         }
 
@@ -219,7 +246,7 @@ class EditEvent extends Component<any, any> {
                             }
                         </Dropdown.Toggle>
                         <Dropdown.Menu as={EventDropdownMenu}>
-                            {shift.requests.length > 0
+                            {shift.requests?.length > 0
                                 ? shift.requests.map(request => (
                                     <Dropdown.Item key={request.id} eventKey={request.id.toString()}>
                                         {request.user.first_name + ' ' + request.user.last_name} <Badge variant="green rounded">100%</Badge>
@@ -241,9 +268,40 @@ class EditEvent extends Component<any, any> {
                 .then(res => this.fetchEvent())
         }
 
+        const handleDelete = () => {
+            axiosInstance
+                .delete('/api/events/position/' + position.id)
+                .then(res => {
+                    this.props.enqueueSnackbar('Deleted ' + position.callsign, {
+                        variant: 'success',
+                        autoHideDuration: 3000,
+                        anchorOrigin: {
+                            vertical: 'bottom',
+                            horizontal: 'right',
+                        },
+                    })
+                    this.fetchEvent()
+                })
+                .catch(err => {
+                    this.props.enqueueSnackbar(err.toString(), {
+                        variant: 'error',
+                        autoHideDuration: 3000,
+                        anchorOrigin: {
+                            vertical: 'bottom',
+                            horizontal: 'right',
+                        },
+                    })
+                })
+        }
+
         return (
             <li className="mb-3">
-                <p className="mb-2">{position.callsign}</p>
+                <div className="float-right">
+                    <Button variant="bg-red" className="btn-sm" onClick={handleDelete}>
+                        <RiDeleteBinLine viewBox="2 4 20 20"/> Delete Position
+                    </Button>
+                </div>
+                <p className="mb-3">{position.callsign}</p>
                 <div>
                     <ProgressBar>
                         {position.shifts.length > 0
@@ -323,8 +381,11 @@ class EditEvent extends Component<any, any> {
                                     Return to Event
                                 </Button>
                             </Link>
-                            <Button variant="primary" type="submit">
+                            <Button className="mr-2" variant="primary" type="submit">
                                 Save
+                            </Button>
+                            <Button variant="red" onClick={this.handleDelete}>
+                                Delete
                             </Button>
                         </div>
                     </Form>
@@ -404,7 +465,7 @@ class EditEvent extends Component<any, any> {
                     </Modal>
                     <Modal
                         show={this.state.showAddPositionModal}
-                        onHide={() => this.setState({ showAddPositionModal: false })}
+                        onHide={() => this.setState({ showAddPositionModal: false, addPositionCallsign: '', addPositionShifts: 2 })}
                         centered
                     >
                         <Modal.Header closeButton>

@@ -22,6 +22,7 @@ import Error404 from './pages/errors/Error404'
 import Events from './pages/events/Events'
 import EditEvent from './pages/events/EditEvent'
 import ViewEvent from './pages/events/ViewEvent'
+import NewEvent from './pages/events/NewEvent'
 import TrainingCenter from './pages/training/TrainingCenter'
 import AuthRoute from './components/AuthRoute'
 import ScrollToTop from './components/ScrollToTop'
@@ -42,6 +43,7 @@ export default function App() {
                 <Route exact path="/events" component={Events}/>
                 <Route exact path="/events/:id(\d+)" component={ViewEvent}/>
                 <AuthRoute exact path="/events/:id(\d+)/edit" component={EditEvent} auth={isStaff}/>
+                <AuthRoute exact path="/events/new" component={NewEvent} auth={isStaff}/>
                 {/* Roster */}
                 <Route exact path="/staff" component={Staff}/>
                 <Route exact path="/roster" component={Roster}/>

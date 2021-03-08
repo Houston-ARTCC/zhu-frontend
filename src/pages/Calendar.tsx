@@ -46,9 +46,7 @@ export default class ARTCCCalendar extends Component<any, any> {
                 calendarId: 0,
                 title: event.name,
                 location: event.host,
-                body: event.description,
                 category: 'time',
-                dueDateClass: '',
                 start: moment(event.start).toISOString(),
                 end: moment(event.end).toISOString()
             })
@@ -75,7 +73,6 @@ export default class ARTCCCalendar extends Component<any, any> {
     }
 
     render() {
-
         return (
             <div>
                 <Navigation/>
@@ -100,7 +97,7 @@ export default class ARTCCCalendar extends Component<any, any> {
                                     id: '0',
                                     name: 'Events',
                                     bgColor: '#F7685B',
-                                    borderColor: '#F7685B'
+                                    borderColor: '#bc5246'
                                 }
                             ]}
                             template={{

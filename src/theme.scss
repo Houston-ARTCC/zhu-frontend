@@ -779,22 +779,30 @@ d888888P                              dP   dP     dP dP
    88    88.  .88 88.  .88       88   88   Y8.   .8P 88
    dP    `88888P' `88888P8 `88888P'   dP   `Y88888P' dP
  */
-.tui-full-calendar-popup-detail .tui-full-calendar-popup-container {
-    width: 350px !important;
+.tui-full-calendar-weekday-schedule-title, .tui-full-calendar-timegrid-timezone-label, .tui-full-calendar-timegrid-hour span {
+    font-size: 14px;
 }
-
 .tui-full-calendar-month-week-item .tui-full-calendar-today .tui-full-calendar-weekday-grid-date-decorator {
     background: #334D6E !important;
 }
+.tui-full-calendar-popup-detail .tui-full-calendar-popup-container {
+    width: 350px !important;
+}
+.tui-full-calendar-weekday-schedule .tui-full-calendar-weekday-schedule-title {
+    color: white;
+}
+.tui-full-calendar-timegrid-timezone-label {
+    font-weight: 700;
+}
 
-/*
-888888ba  oo
-88    `8b
-88     88 dP dP   .dP .d8888b.
-88     88 88 88   d8' 88'  `88
-88     88 88 88 .88'  88.  .88
-dP     dP dP 8888P'   `88888P'
- */
+    /*
+    888888ba  oo
+    88    `8b
+    88     88 dP dP   .dP .d8888b.
+    88     88 88 88   d8' 88'  `88
+    88     88 88 88 .88'  88.  .88
+    dP     dP dP 8888P'   `88888P'
+     */
 .nivo-tooltip {
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 5px;

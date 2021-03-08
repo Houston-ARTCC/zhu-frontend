@@ -217,7 +217,7 @@ class ViewEvent extends Component<any, any> {
                             </Col>
                         </Row>
                     }
-                    <Row className="mb-5 d-flex align-items-center">
+                    <Row className="mb-5 d-flex align-items-center justify-content-center">
                         <Col md={6}>
                             <Row className="align-items-center mb-4">
                                 <Col>
@@ -243,9 +243,11 @@ class ViewEvent extends Component<any, any> {
                                 </Link>
                             }
                         </Col>
-                        <Col md={6}>
-                            <img className="event-banner-lg" src={this.state.event.banner} alt={this.state.event.name}/>
-                        </Col>
+                        {this.state.event.banner &&
+                            <Col md={6}>
+                                <img className="event-banner-lg" src={this.state.event.banner} alt={this.state.event.name}/>
+                            </Col>
+                        }
                     </Row>
                     <Row>
                         <Col className="text-left">
