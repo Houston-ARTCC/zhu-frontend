@@ -35,7 +35,6 @@ class AdminPanel extends Component<any, any> {
                 this.setState({showAnnouncementModal: false})
             })
             .catch(err => {
-                console.log(err.response)
                 this.props.enqueueSnackbar(err.toString(), {
                     variant: 'error',
                     autoHideDuration: 3000,

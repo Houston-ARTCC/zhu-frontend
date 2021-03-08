@@ -45,15 +45,15 @@ export default class Map extends Component<any, any> {
             </div>
             <div className="bg-white p-3">
                 <Badge className="badge-sm mb-1 mr-2" variant={
-                    metar.flight_rules == 'VFR'
+                    metar.flight_rules === 'VFR'
                         ? 'green'
-                        : metar.flight_rules == 'MVFR'
+                        : metar.flight_rules === 'MVFR'
                             ? 'primary'
-                            : metar.flight_rules == 'IFR'
+                            : metar.flight_rules === 'IFR'
                                 ? 'yellow'
                                 : 'red'
                 }>{metar.flight_rules}</Badge>
-                <a className="link-unstyled" href={'https://simcharts.info/?search=' + props.ICAO} target="_blank">
+                <a className="link-unstyled" href={'https://simcharts.info/?search=' + props.ICAO} target="_blank"  rel="noreferrer">
                     <Button className="btn-sm" variant="lightgray">View Charts</Button>
                 </a>
                 <p className="mb-0 font-sm">{metar.raw}</p>

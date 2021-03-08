@@ -124,7 +124,8 @@ export default class Sessions extends Component<any, any> {
                     noHeader
                     highlightOnHover
                     pointerOnHover
-                    defaultSortField="name"
+                    defaultSortField="date"
+                    defaultSortAsc={false}
                     sortIcon={<BsArrowDown/>}
                     expandableRows
                     expandableRowsComponent={<ExpandableComponent/>}
