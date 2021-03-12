@@ -29,6 +29,9 @@ import ScrollToTop from './components/ScrollToTop'
 import LoadingScreen from './components/LoadingScreen'
 import axiosInstance from './helpers/axiosInstance'
 import { getAuthURL, getFullName, isAuthenticated, isMember, isStaff } from './helpers/auth'
+import Sessions from './pages/training/Sessions'
+import RequestTraining from './pages/training/RequestTraining'
+import Exams from './pages/training/Exams'
 
 export default function App() {
     return (
@@ -54,8 +57,9 @@ export default function App() {
                 {/* Visiting */}
                 <AuthRoute exact path="/visit" component={Visit} auth={isAuthenticated}/>
                 {/* Training */}
-                <AuthRoute exact path="/training" component={TrainingCenter} auth={isMember}/>
-                <AuthRoute exact path="/training/exams" component={TrainingCenter} auth={isMember}/>
+                <AuthRoute exact path="/training" component={TrainingCenter} view={Sessions} auth={isMember}/>
+                <AuthRoute exact path="/training/request" component={TrainingCenter} view={RequestTraining} auth={isMember}/>
+                <AuthRoute exact path="/training/exams" component={TrainingCenter} view={Exams} auth={isMember}/>
                 {/* Miscellaneous */}
                 <Route exact path="/map" component={Map}/>
                 <Route exact path="/theme" component={Theme}/>

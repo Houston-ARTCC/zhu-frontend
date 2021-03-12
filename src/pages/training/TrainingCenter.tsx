@@ -2,9 +2,12 @@ import React, { Component } from 'react'
 import { Col, Container, ListGroup, Row } from 'react-bootstrap'
 import { withSnackbar } from 'notistack'
 import Fade from 'react-reveal/Fade'
-import Sessions from './Sessions'
 import Header from '../../components/Header'
 import Navigation from '../../components/Navigation'
+import { Link } from 'react-router-dom'
+import Sessions from './Sessions'
+import RequestTraining from './RequestTraining'
+import Exams from './Exams'
 
 class TrainingCenter extends Component<any, any> {
     render() {
@@ -16,12 +19,20 @@ class TrainingCenter extends Component<any, any> {
                     <Container fluid>
                         <Row>
                             <Col md={3}>
-                                <ListGroup.Item as="li" active>
-                                    Sessions
-                                </ListGroup.Item>
+                                <div style={{ top: 150 }} className="p-0 sticky-top">
+                                    <ListGroup.Item as="li" active={this.props.view.type.name === "Sessions"}>
+                                        <Link to="/training">Sessions</Link>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item as="li" active={this.props.view.type.name === "RequestTraining"}>
+                                        <Link to="/training/request">Request Training</Link>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item as="li" active={this.props.view.type.name === "Exams"}>
+                                        <Link to="/training/exams">Exams</Link>
+                                    </ListGroup.Item>
+                                </div>
                             </Col>
                             <Col className="ml-5">
-                                <Sessions/>
+                                {this.props.view}
                             </Col>
                         </Row>
                     </Container>
