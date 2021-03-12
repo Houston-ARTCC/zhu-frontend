@@ -17,6 +17,7 @@ import { Alert, Badge, Col, Row } from 'react-bootstrap'
 import axiosInstance from '../../helpers/axiosInstance'
 import parse from 'html-react-parser'
 import Moment from 'react-moment'
+import { dataTableStyle } from '../../helpers/constants'
 
 
 export default class Sessions extends Component<any, any> {
@@ -118,7 +119,7 @@ export default class Sessions extends Component<any, any> {
         }
 
         return (
-            <section id="sessions">
+            <>
                 <DataTable
                     data={this.state.sessions}
                     noHeader
@@ -185,25 +186,9 @@ export default class Sessions extends Component<any, any> {
                             maxWidth: '5%',
                         },
                     ]}
-                    customStyles={{
-                        table: {
-                            style: {
-                                backgroundColor: 'transparent',
-                            },
-                        },
-                        rows: {
-                            style: {
-                                backgroundColor: 'transparent',
-                            },
-                        },
-                        headRow: {
-                            style: {
-                                backgroundColor: 'transparent',
-                            },
-                        },
-                    }}
+                    customStyles={dataTableStyle}
                 />
-            </section>
+            </>
         )
     }
 }

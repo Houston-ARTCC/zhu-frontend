@@ -10,6 +10,7 @@ import Navigation from '../components/Navigation'
 import StatisticCalendar from '../components/StatisticCalendar'
 import { asDuration, asSeconds, ratingInt } from '../helpers/utils'
 import axiosInstance from '../helpers/axiosInstance'
+import { dataTableStyle } from '../helpers/constants'
 
 export default class Statistics extends Component<any, any> {
     constructor(props) {
@@ -104,23 +105,7 @@ export default class Statistics extends Component<any, any> {
                                     </div>
                                 },
                             ]}
-                            customStyles={{
-                                table: {
-                                    style: {
-                                        backgroundColor: 'transparent'
-                                    }
-                                },
-                                rows: {
-                                    style: {
-                                        backgroundColor: 'transparent'
-                                    },
-                                },
-                                headRow: {
-                                    style: {
-                                        backgroundColor: 'transparent'
-                                    }
-                                },
-                            }}
+                            customStyles={dataTableStyle}
                         />
                     </Container>
                 </Fade>

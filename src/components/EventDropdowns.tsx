@@ -17,7 +17,7 @@ type CustomMenuProps = {
 export const EventDropdownToggle = React.forwardRef(
     (props: CustomToggleProps, ref: React.Ref<HTMLAnchorElement>) => (
         <a
-            href=""
+            href="#!"
             ref={ref}
             onClick={e => {
                 e.preventDefault()

@@ -1,32 +1,25 @@
 import React, { Component } from 'react'
-import { Alert, Button, Col, Container, Form, Modal } from 'react-bootstrap'
+import { Button, Col, Container, Form, Modal } from 'react-bootstrap'
 import { withSnackbar } from 'notistack'
 import Fade from 'react-reveal/Fade'
 import Header from '../../components/Header'
 import Navigation from '../../components/Navigation'
 import axiosInstance from '../../helpers/axiosInstance'
 import Calendar from '@toast-ui/react-calendar'
-import moment from 'moment'
-import { RiErrorWarningLine } from 'react-icons/all'
+import TuiCalendar from '../../components/TuiCalendar'
 
 class NewEvent extends Component<any, any> {
-    private calendarRef = React.createRef<Calendar>()
-
     constructor(props) {
         super(props)
         this.state = {
             showCreationModal: false,
             event: {},
-            current: moment(),
         }
         this.handleSubmitEvent = this.handleSubmitEvent.bind(this)
         this.handleTextChange = this.handleTextChange.bind(this)
         this.handleDateChange = this.handleDateChange.bind(this)
         this.handleSwitchChange = this.handleSwitchChange.bind(this)
         this.handleCreateSchedule = this.handleCreateSchedule.bind(this)
-        this.handlePrev = this.handlePrev.bind(this)
-        this.handleToday = this.handleToday.bind(this)
-        this.handleNext = this.handleNext.bind(this)
     }
 
     handleSubmitEvent(e) {
@@ -85,24 +78,6 @@ class NewEvent extends Component<any, any> {
         })
     }
 
-    handlePrev() {
-        let cal = this.calendarRef.current?.getInstance()
-        cal?.prev()
-        this.setState({ current: moment(cal?.getDate().toDate()) })
-    }
-
-    handleToday() {
-        let cal = this.calendarRef.current?.getInstance()
-        cal?.today()
-        this.setState({ current: moment(cal?.getDate().toDate()) })
-    }
-
-    handleNext() {
-        let cal = this.calendarRef.current?.getInstance()
-        cal?.next()
-        this.setState({ current: moment(cal?.getDate().toDate()) })
-    }
-
     render() {
         return (
             <div>
@@ -110,44 +85,7 @@ class NewEvent extends Component<any, any> {
                 <Header title="New Event"/>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
-                        <div className="text-center mb-5">
-                            <h1>{this.state.current.format('MMMM YYYY')}</h1>
-                            <Button variant="lightgray" className="mr-2 btn-sm" onClick={this.handlePrev}>&lt; Previous</Button>
-                            <Button variant="lightgray" className="mr-2 btn-sm" onClick={this.handleToday}>Today</Button>
-                            <Button variant="lightgray" className="btn-sm" onClick={this.handleNext}>Next &gt;</Button>
-                        </div>
-                        <Calendar
-                            ref={this.calendarRef}
-                            height="800px"
-                            view="week"
-                            taskView={false}
-                            useDetailPopup={true}
-                            onBeforeCreateSchedule={this.handleCreateSchedule}
-                            // schedules={this.state.schedules}
-                            calendars={[
-                                {
-                                    id: '0',
-                                    name: 'Events',
-                                    bgColor: '#F7685B',
-                                    borderColor: '#F7685B'
-                                }
-                            ]}
-                            timezones={[
-                                {
-                                    timezoneName: moment.tz.guess(),
-                                    displayLabel: moment.tz.zone(moment.tz.guess())?.abbr(moment().valueOf()),
-                                    tooltip: 'Local',
-                                }, {
-                                    timezoneName: 'UTC',
-                                    displayLabel: 'UTC',
-                                    tooltip: 'UTC'
-                                }
-                            ]}
-                            theme={{
-                                'common.backgroundColor': 'transparent',
-                                'common.todayColor': 'black'
-                            }}
-                        />
+                        <TuiCalendar view="week" onCreateSchedule={this.handleCreateSchedule}/>
                         <Modal
                             size="lg"
                             show={this.state.showCreationModal}

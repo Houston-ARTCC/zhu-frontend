@@ -383,7 +383,7 @@ a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
     color: white !important;
     fill: white !important;
 
-    &.btn-white, &.btn-light-white, &.btn-outline-white, &.btn-bg-white { color: $darkgray !important; fill: $darkgray !important; }
+    &.btn-white, &.btn-light-white, &.btn-outline-white, &.btn-bg-white, &.btn-link { color: $darkgray !important; fill: $darkgray !important; }
 
     &.btn-light-primary, &.btn-outline-primary, &.btn-bg-primary { background-color: $primary !important; }
     &.btn-light-yellow, &.btn-outline-yellow, &.btn-bg-yellow { background-color: $yellow !important; }
@@ -782,17 +782,22 @@ d888888P                              dP   dP     dP dP
 .tui-full-calendar-weekday-schedule-title, .tui-full-calendar-timegrid-timezone-label, .tui-full-calendar-timegrid-hour span {
     font-size: 14px;
 }
-.tui-full-calendar-month-week-item .tui-full-calendar-today .tui-full-calendar-weekday-grid-date-decorator {
-    background: #334D6E !important;
-}
-.tui-full-calendar-popup-detail .tui-full-calendar-popup-container {
-    width: 350px !important;
-}
-.tui-full-calendar-weekday-schedule .tui-full-calendar-weekday-schedule-title {
+.tui-full-calendar-time-schedule-content-time, .tui-full-calendar-weekday-schedule-title {
     color: white;
+}
+.tui-full-calendar-time-schedule-content-time {
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+}
+.tui-full-calendar-weekday-grid-date-decorator {
+    background: #C2CFE0 !important;
 }
 .tui-full-calendar-timegrid-timezone-label {
     font-weight: 700;
+}
+.tui-full-calendar-popup-container {
+    width: 350px !important;
 }
 
     /*

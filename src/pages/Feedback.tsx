@@ -37,7 +37,7 @@ export default class Feedback extends Component<any, any> {
 
     fetchEvents() {
         axiosInstance
-            .get('/api/events')
+            .get('/api/events/archived')
             .then(res => this.setState({ events: res.data }))
     }
 
@@ -80,7 +80,7 @@ export default class Feedback extends Component<any, any> {
         const controllerOptions : any[] = []
         this.state.controllers.map(controller => controllerOptions.push({value: controller.cid, label: controller.first_name + ' ' + controller.last_name}))
         const eventOptions : any[] = []
-        this.state.events.map(event => eventOptions.push({value: event.id, label: event.name}))
+        this.state.events.slice(0, 5).map(event => eventOptions.push({value: event.id, label: event.name}))
 
         return (
             <div>

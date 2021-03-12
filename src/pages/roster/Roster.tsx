@@ -9,6 +9,7 @@ import Header from '../../components/Header'
 import Navigation from '../../components/Navigation'
 import axiosInstance from '../../helpers/axiosInstance'
 import { certLevel, certName, ratingInt } from '../../helpers/utils'
+import { dataTableStyle } from '../../helpers/constants'
 
 export default class Roster extends Component<any, any> {
     constructor(props) {
@@ -199,23 +200,7 @@ export default class Roster extends Component<any, any> {
                         format: row => this.renderCertification(row.ocn_cert),
                     },
                 ]}
-                customStyles={{
-                    table: {
-                        style: {
-                            backgroundColor: 'transparent'
-                        }
-                    },
-                    rows: {
-                        style: {
-                            backgroundColor: 'transparent'
-                        },
-                    },
-                    headRow: {
-                        style: {
-                            backgroundColor: 'transparent'
-                        }
-                    },
-                }}
+                customStyles={dataTableStyle}
             />
         )
     }

@@ -13,6 +13,7 @@ import Header from '../components/Header'
 import { isStaff } from '../helpers/auth'
 import axiosInstance from '../helpers/axiosInstance'
 import { formDataFromObject } from '../helpers/utils'
+import { dataTableStyle } from '../helpers/constants'
 
 class Resources extends Component<any, any> {
     constructor(props) {
@@ -191,27 +192,11 @@ class Resources extends Component<any, any> {
                                 {
                                     name: 'Edit',
                                     button: true,
-                                    cell: (row) => <a onClick={() => this.editResource(row)}><RiPencilRuler2Line size={20}/></a>,
+                                    cell: (row) => <Button variant="link" onClick={() => this.editResource(row)}><RiPencilRuler2Line size={20}/></Button>,
                                     omit: !isStaff(),
                                 },
                             ]}
-                            customStyles={{
-                                table: {
-                                    style: {
-                                        backgroundColor: 'transparent',
-                                    },
-                                },
-                                rows: {
-                                    style: {
-                                        backgroundColor: 'transparent',
-                                    },
-                                },
-                                headRow: {
-                                    style: {
-                                        backgroundColor: 'transparent',
-                                    },
-                                },
-                            }}
+                            customStyles={dataTableStyle}
                         />
                     </Card.Body>
                 </Card>

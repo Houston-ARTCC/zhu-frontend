@@ -11,6 +11,7 @@ import StatisticCalendar from '../../components/StatisticCalendar'
 import axiosInstance from '../../helpers/axiosInstance'
 import { asDuration } from '../../helpers/utils'
 import { isStaff } from '../../helpers/auth'
+import { dataTableStyle } from '../../helpers/constants'
 
 export default class Profile extends Component<any, any> {
     constructor(props) {
@@ -180,28 +181,7 @@ export default class Profile extends Component<any, any> {
                                             format: row => asDuration(row.duration),
                                         },
                                     ]}
-                                    customStyles={{
-                                        table: {
-                                            style: {
-                                                backgroundColor: 'transparent'
-                                            }
-                                        },
-                                        rows: {
-                                            style: {
-                                                backgroundColor: 'transparent'
-                                            },
-                                        },
-                                        headRow: {
-                                            style: {
-                                                backgroundColor: 'transparent'
-                                            }
-                                        },
-                                        pagination: {
-                                            style: {
-                                                backgroundColor: 'transparent'
-                                            }
-                                        },
-                                    }}
+                                    customStyles={dataTableStyle}
                                 />
                             </Col>
                         </Row>
