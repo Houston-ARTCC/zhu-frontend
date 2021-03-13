@@ -31,7 +31,6 @@ class EditEvent extends Component<any, any> {
     }
 
     componentDidMount() {
-        document.title = 'Houston ARTCC :: Edit Event'
         this.fetchEvent()
     }
 

@@ -24,7 +24,6 @@ export default class Roster extends Component<any, any> {
     }
 
     componentDidMount() {
-        document.title = 'Houston ARTCC :: Roster'
         this.fetchUsers()
     }
 

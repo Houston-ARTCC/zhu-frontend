@@ -30,7 +30,6 @@ class EditUser extends Component<any, any> {
             .get('/api/users/' + this.props.match.params.cid)
             .then(res => {
                 this.setState({ user: res.data })
-                document.title = 'Houston ARTCC :: Edit User'
             })
     }
 

@@ -7,6 +7,14 @@ export default class Header extends Component<any> {
         override: null,
     }
 
+    componentDidMount() {
+        document.title = 'Houston ARTCC :: ' + this.props.title
+    }
+
+    componentDidUpdate() {
+        document.title = 'Houston ARTCC :: ' + this.props.title
+    }
+
     render() {
         return (
             <div className="bg-darkblue header">

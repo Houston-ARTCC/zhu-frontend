@@ -22,8 +22,6 @@ export default class Map extends Component<any, any> {
     }
 
     componentDidMount() {
-        document.title = 'Houston ARTCC :: Map'
-
         this.fetchMETARs()
         const map = new mapboxgl.Map({
             container: this.mapContainer.current,
@@ -115,7 +113,7 @@ export default class Map extends Component<any, any> {
         return (
             <div>
                 <Navigation/>
-                <Header title="ARTCC Map"/>
+                <Header title="Map"/>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
                         <div className="position-relative" style={{height: 800}}>

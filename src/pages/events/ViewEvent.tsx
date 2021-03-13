@@ -29,7 +29,6 @@ class ViewEvent extends Component<any, any> {
             .get('/api/events/' + this.props.match.params.id)
             .then(res => {
                 this.setState({ event: res.data })
-                document.title = 'Houston ARTCC :: ' + this.state.event.name
             })
     }
 

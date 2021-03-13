@@ -21,10 +21,6 @@ class NewEvent extends Component<any, any> {
         this.handleCreateSchedule = this.handleCreateSchedule.bind(this)
     }
 
-    componentDidMount() {
-        document.title = 'Houston ARTCC :: New Event'
-    }
-
     handleSubmitEvent(e) {
         e.preventDefault()
         axiosInstance

@@ -20,7 +20,6 @@ export default class Events extends Component<any, any> {
     }
 
     componentDidMount() {
-        document.title = 'Houston ARTCC :: Events'
         this.fetchEvents()
     }
 

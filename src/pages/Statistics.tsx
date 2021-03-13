@@ -22,7 +22,6 @@ export default class Statistics extends Component<any, any> {
     }
 
     componentDidMount() {
-        document.title = 'Houston ARTCC :: Statistics'
         this.fetchUserStatistics()
         this.fetchDailyStatistics()
     }

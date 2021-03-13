@@ -7,10 +7,6 @@ import Navigation from '../../components/Navigation'
 import { Link } from 'react-router-dom'
 
 class TrainingCenter extends Component<any, any> {
-    componentDidMount() {
-        document.title = 'Houston ARTCC :: Training Center'
-    }
-
     render() {
         return (
             <>
