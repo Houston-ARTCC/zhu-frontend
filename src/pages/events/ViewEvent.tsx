@@ -11,11 +11,13 @@ import Header from '../../components/Header'
 import Navigation from '../../components/Navigation'
 import axiosInstance from '../../helpers/axiosInstance'
 import { getCID, isMember, isStaff } from '../../helpers/auth';
+import Error404 from '../errors/Error404'
 
 class ViewEvent extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
+            eventNotFound: false,
             event: {},
         }
     }
@@ -29,6 +31,11 @@ class ViewEvent extends Component<any, any> {
             .get('/api/events/' + this.props.match.params.id)
             .then(res => {
                 this.setState({ event: res.data })
+            })
+            .catch(err => {
+                if (err.response.status === 404) {
+                    this.setState({ eventNotFound: true })
+                }
             })
     }
 
@@ -183,6 +190,10 @@ class ViewEvent extends Component<any, any> {
     }
 
     render() {
+        if (this.state.eventNotFound) {
+            return <Error404/>
+        }
+
         const enrouteShifts = this.getEnrouteShifts()?.filter(shift => !shift.user).length
         const TRACONShifts = this.getTRACONShifts()?.filter(shift => !shift.user).length
         const localShifts = this.getLocalShifts()?.filter(shift => !shift.user).length
