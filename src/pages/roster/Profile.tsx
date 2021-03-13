@@ -127,9 +127,7 @@ export default class Profile extends Component<any, any> {
                                         <p className="pr-4">{this.state.user.biography ? this.state.user.biography : 'This user has not set a biography.'}</p>
                                     </div>
                                 </div>
-                                <div style={{height: 200}}>
-                                    <StatisticCalendar data={this.state.userStats}/>
-                                </div>
+                                    <StatisticCalendar data={this.state.userStats} height={200}/>
                             </Col>
                             <Col>
                                 <div className="mb-4">

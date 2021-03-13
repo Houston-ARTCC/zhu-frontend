@@ -45,9 +45,7 @@ export default class Statistics extends Component<any, any> {
                 <Header title="Controller Statistics"/>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
-                        <div style={{height: 300}}>
-                            <StatisticCalendar data={this.state.dailyStats}/>
-                        </div>
+                        <StatisticCalendar data={this.state.dailyStats} height={300}/>
                         <DataTable
                             data={this.state.userStats}
                             noHeader

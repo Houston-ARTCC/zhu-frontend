@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Alert, Button, Col, Form, Modal } from 'react-bootstrap'
+import { BsArrowDown, RiDeleteBinLine, RiQuestionLine } from 'react-icons/all'
 import DataTable from 'react-data-table-component'
 import moment from 'moment'
 import Select from 'react-select'
 import { levelDisplay, typeDisplay } from '../../helpers/utils'
 import axiosInstance from '../../helpers/axiosInstance'
-import { BsArrowDown, RiDeleteBinLine, RiErrorWarningLine } from 'react-icons/all'
 import { dataTableStyle } from '../../helpers/constants'
 import TuiCalendar from '../../components/TuiCalendar'
 
@@ -90,8 +90,8 @@ export default class RequestTraining extends Component<any, any> {
     render() {
         return (
             <>
-                <Alert variant="primary" className="position-unset d-flex">
-                    <RiErrorWarningLine className="fill-primary mr-3" size={45} preserveAspectRatio="xMaxYMin"/>
+                <Alert variant="purple" className="position-unset d-flex">
+                    <RiQuestionLine className="fill-purple mr-3" size={50} preserveAspectRatio="xMaxYMin"/>
                     <div>
                         <h5>How do I use this?</h5>
                         <p className="m-0">
