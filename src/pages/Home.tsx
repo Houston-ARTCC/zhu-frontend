@@ -31,6 +31,7 @@ export default class Home extends Component<any, any> {
     }
 
     componentDidMount() {
+        document.title = 'Welcome to Houston ARTCC!'
         this.fetchOnlineControllers()
         this.fetchAnnouncements()
         this.fetchEvents()

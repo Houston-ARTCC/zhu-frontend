@@ -8,6 +8,10 @@ import Navigation from '../components/Navigation'
 import TuiCalendar from '../components/TuiCalendar'
 
 export default class ARTCCCalendar extends Component<any, any> {
+    componentDidMount() {
+        document.title = 'Houston ARTCC :: Calendar'
+    }
+
     render() {
         return (
             <div>

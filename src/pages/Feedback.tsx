@@ -25,6 +25,7 @@ export default class Feedback extends Component<any, any> {
     }
 
     componentDidMount() {
+        document.title = 'Houston ARTCC :: Submit Feedback'
         this.fetchControllers()
         this.fetchEvents()
     }

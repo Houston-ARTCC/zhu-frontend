@@ -19,6 +19,10 @@ class AdminPanel extends Component<any, any> {
         this.handleSubmitAnnouncement = this.handleSubmitAnnouncement.bind(this)
     }
 
+    componentDidMount() {
+        document.title = 'Houston ARTCC :: Administration'
+    }
+
     handleSubmitAnnouncement(e) {
         e.preventDefault()
         axiosInstance

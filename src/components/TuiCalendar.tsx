@@ -119,7 +119,7 @@ export default class TuiCalendar extends Component<any, any> {
                     height="800px"
                     view={this.props.view}
                     taskView={false}
-                    useDetailPopup={false}
+                    useDetailPopup={true}
                     isReadOnly={this.props.isReadOnly || false}
                     onBeforeCreateSchedule={this.props.onCreateSchedule}
                     schedules={this.state.schedules}

@@ -21,6 +21,47 @@ export default class Map extends Component<any, any> {
         this.mapContainer = React.createRef()
     }
 
+    componentDidMount() {
+        document.title = 'Houston ARTCC :: Map'
+
+        this.fetchMETARs()
+        const map = new mapboxgl.Map({
+            container: this.mapContainer.current,
+            style: 'mapbox://styles/mikeroma/ckdmiombs1c291jmv6lduqxu1',
+            center: [-95, 29.4],
+            zoom: 6
+        })
+        const smallPopup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false,
+        })
+        const fullPopup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false,
+        })
+        map.on('mouseenter', 'houston-artcc-airports', (e) => {
+            map.getCanvas().style.cursor = 'pointer'
+            fullPopup.remove()
+            smallPopup
+                .setLngLat(e.features[0].geometry.coordinates.slice())
+                .setDOMContent(this.createSmallPopup(e.features[0].properties))
+                .addTo(map)
+        })
+        map.on('mouseleave', 'houston-artcc-airports', () => {
+            map.getCanvas().style.cursor = ''
+            smallPopup.remove()
+        })
+        map.on('click', () => fullPopup.remove())
+        map.on('click', 'houston-artcc-airports', (e) => {
+            map.getCanvas().style.cursor = 'pointer'
+            smallPopup.remove()
+            fullPopup
+                .setLngLat(e.features[0].geometry.coordinates.slice())
+                .setDOMContent(this.createDetailPopup(e.features[0].properties))
+                .addTo(map)
+        })
+    }
+
     createSmallPopup(props) {
         let popup = document.createElement('div')
         let contents = <div className="bg-darkblue p-3">
@@ -62,46 +103,6 @@ export default class Map extends Component<any, any> {
 
         ReactDOM.render(contents, popup)
         return popup
-    }
-
-    componentDidMount() {
-        this.fetchMETARs()
-
-        const map = new mapboxgl.Map({
-            container: this.mapContainer.current,
-            style: 'mapbox://styles/mikeroma/ckdmiombs1c291jmv6lduqxu1',
-            center: [-95, 29.4],
-            zoom: 6
-        })
-        const smallPopup = new mapboxgl.Popup({
-            closeButton: false,
-            closeOnClick: false,
-        })
-        const fullPopup = new mapboxgl.Popup({
-            closeButton: false,
-            closeOnClick: false,
-        })
-        map.on('mouseenter', 'houston-artcc-airports', (e) => {
-            map.getCanvas().style.cursor = 'pointer'
-            fullPopup.remove()
-            smallPopup
-                .setLngLat(e.features[0].geometry.coordinates.slice())
-                .setDOMContent(this.createSmallPopup(e.features[0].properties))
-                .addTo(map)
-        })
-        map.on('mouseleave', 'houston-artcc-airports', () => {
-            map.getCanvas().style.cursor = ''
-            smallPopup.remove()
-        })
-        map.on('click', () => fullPopup.remove())
-        map.on('click', 'houston-artcc-airports', (e) => {
-            map.getCanvas().style.cursor = 'pointer'
-            smallPopup.remove()
-            fullPopup
-                .setLngLat(e.features[0].geometry.coordinates.slice())
-                .setDOMContent(this.createDetailPopup(e.features[0].properties))
-                .addTo(map)
-        })
     }
 
     fetchMETARs() {

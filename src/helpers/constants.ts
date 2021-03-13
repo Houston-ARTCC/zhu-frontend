@@ -43,7 +43,7 @@ export const tuiTemplates = {
         // @ts-ignore
         let isSameDate = momentStart.date() === momentEnd.date()
 
-        return moment(momentStart).format('MMM. DD, YYYY, HH:mm z -') + ' ' +
+        return moment(momentStart).format('MMM. DD, YYYY, HH:mm z') + ' → ' +
             moment(momentEnd).format((isSameDate ? '' : 'MMM DD, YYYY, ') + 'HH:mm z')
     },
 }

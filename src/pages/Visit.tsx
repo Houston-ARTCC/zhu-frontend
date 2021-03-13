@@ -18,6 +18,10 @@ class Visit extends Component<any, any> {
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
+    componentDidMount() {
+        document.title = 'Houston ARTCC :: Visit'
+    }
+
     handleTextChange(event) {
         let modifiedForm = { ...this.state.form }
         modifiedForm[event.target.name] = event.target.value;

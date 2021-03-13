@@ -17,6 +17,7 @@ export default class Staff extends Component<any, any> {
     }
 
     componentDidMount() {
+        document.title = 'Houston ARTCC :: Staff'
         this.fetchStaff()
     }
 

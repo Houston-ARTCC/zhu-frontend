@@ -27,7 +27,10 @@ class ViewEvent extends Component<any, any> {
     fetchEvent() {
         axiosInstance
             .get('/api/events/' + this.props.match.params.id)
-            .then(res => this.setState({ event: res.data }))
+            .then(res => {
+                this.setState({ event: res.data })
+                document.title = 'Houston ARTCC :: ' + this.state.event.name
+            })
     }
 
     getEnroutePositions() {

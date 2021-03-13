@@ -28,7 +28,10 @@ class EditUser extends Component<any, any> {
     fetchUser() {
         axiosInstance
             .get('/api/users/' + this.props.match.params.cid)
-            .then(res => this.setState({ user: res.data }))
+            .then(res => {
+                this.setState({ user: res.data })
+                document.title = 'Houston ARTCC :: Edit User'
+            })
     }
 
     fetchRoles() {

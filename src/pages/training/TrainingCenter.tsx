@@ -5,11 +5,12 @@ import Fade from 'react-reveal/Fade'
 import Header from '../../components/Header'
 import Navigation from '../../components/Navigation'
 import { Link } from 'react-router-dom'
-import Sessions from './Sessions'
-import RequestTraining from './RequestTraining'
-import Exams from './Exams'
 
 class TrainingCenter extends Component<any, any> {
+    componentDidMount() {
+        document.title = 'Houston ARTCC :: Training Center'
+    }
+
     render() {
         return (
             <>

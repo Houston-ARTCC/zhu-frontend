@@ -5,7 +5,6 @@ import Fade from 'react-reveal/Fade'
 import Header from '../../components/Header'
 import Navigation from '../../components/Navigation'
 import axiosInstance from '../../helpers/axiosInstance'
-import Calendar from '@toast-ui/react-calendar'
 import TuiCalendar from '../../components/TuiCalendar'
 
 class NewEvent extends Component<any, any> {
@@ -20,6 +19,10 @@ class NewEvent extends Component<any, any> {
         this.handleDateChange = this.handleDateChange.bind(this)
         this.handleSwitchChange = this.handleSwitchChange.bind(this)
         this.handleCreateSchedule = this.handleCreateSchedule.bind(this)
+    }
+
+    componentDidMount() {
+        document.title = 'Houston ARTCC :: New Event'
     }
 
     handleSubmitEvent(e) {

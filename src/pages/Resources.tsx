@@ -33,6 +33,7 @@ class Resources extends Component<any, any> {
     }
 
     componentDidMount() {
+        document.title = 'Houston ARTCC :: Resources'
         this.fetchResources()
     }
 

@@ -5,7 +5,7 @@ import moment from 'moment'
 import Select from 'react-select'
 import { levelDisplay, typeDisplay } from '../../helpers/utils'
 import axiosInstance from '../../helpers/axiosInstance'
-import { BsArrowDown, RiErrorWarningLine } from 'react-icons/all'
+import { BsArrowDown, RiDeleteBinLine, RiErrorWarningLine } from 'react-icons/all'
 import { dataTableStyle } from '../../helpers/constants'
 import TuiCalendar from '../../components/TuiCalendar'
 
@@ -79,9 +79,28 @@ export default class RequestTraining extends Component<any, any> {
         })
     }
 
+    cancelRequest(row) {
+        axiosInstance
+            .delete('/api/training/request/' + row.id + '/')
+            .then(res => {
+                this.fetchPendingRequests()
+            })
+    }
+
     render() {
         return (
             <>
+                <Alert variant="primary" className="position-unset d-flex">
+                    <RiErrorWarningLine className="fill-primary mr-3" size={45} preserveAspectRatio="xMaxYMin"/>
+                    <div>
+                        <h5>How do I use this?</h5>
+                        <p className="m-0">
+                            To request training, indicate the range of time for which you are <b>100% available</b>. When your request is submitted, a
+                            mentor or instructor will be able to accept the request and set any time within that range that works for them. To select
+                            a time, drag your mouse across multiple boxes on the calendar below.
+                        </p>
+                    </div>
+                </Alert>
                 <DataTable
                     data={this.state.pendingRequests}
                     noHeader
@@ -92,12 +111,13 @@ export default class RequestTraining extends Component<any, any> {
                     pagination={true}
                     paginationPerPage={5}
                     paginationRowsPerPageOptions={[5, 10, 15, 20]}
+                    noDataComponent={<div className="p-4">No pending training requests</div>}
                     columns={[
                         {
                             name: 'Date',
                             selector: 'date',
                             sortable: true,
-                            format: row => moment(row.start).tz(moment.tz.guess()).format('MMM. DD, YYYY @ HH:mm z') + ' - ' + moment(row.end).tz(moment.tz.guess()).format('HH:mm z'),
+                            format: row => moment(row.start).tz(moment.tz.guess()).format('MMM. DD, YYYY @ HH:mm z') + ' → ' + moment(row.end).tz(moment.tz.guess()).format('HH:mm z'),
                             sortFunction: (a, b) => {
                                 return moment(a.start) > moment(b.start) ? 1 : -1
                             },
@@ -115,20 +135,14 @@ export default class RequestTraining extends Component<any, any> {
                             sortable: true,
                             format: row => typeDisplay(row.type),
                         },
+                        {
+                            name: 'Cancel',
+                            button: true,
+                            cell: (row) => <Button variant="link" onClick={() => this.cancelRequest(row)}><RiDeleteBinLine size={20}/></Button>,
+                        },
                     ]}
                     customStyles={dataTableStyle}
                 />
-                <Alert variant="primary" className="position-unset d-flex">
-                    <RiErrorWarningLine className="fill-primary mr-3" size={45} preserveAspectRatio="xMaxYMin"/>
-                    <div>
-                        <h5>How do I use this?</h5>
-                        <p className="m-0">
-                            To request training, indicate the range of time for which you are <b>100% available</b>. When your request is submitted, a
-                            mentor or instructor will be able to accept the request and set any time within that range that works for them. To select
-                            a time, drag your mouse across multiple boxes on the calendar below.
-                        </p>
-                    </div>
-                </Alert>
                 <TuiCalendar view="week" onCreateSchedule={this.handleCreateSchedule}/>
                 <Modal
                     size="lg"
