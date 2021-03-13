@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Alert, Button, Col, Form, Modal } from 'react-bootstrap'
+import { Alert, Button, Card, Col, Form, Modal } from 'react-bootstrap'
 import { BsArrowDown, RiDeleteBinLine, RiQuestionLine } from 'react-icons/all'
 import DataTable from 'react-data-table-component'
 import moment from 'moment'
@@ -77,6 +77,7 @@ export default class RequestTraining extends Component<any, any> {
                 end: event.end.toDate().toISOString().slice(0, -1),
             },
         })
+        event.guide.clearGuideElement()
     }
 
     cancelRequest(row) {
@@ -90,7 +91,52 @@ export default class RequestTraining extends Component<any, any> {
     render() {
         return (
             <>
-                <Alert variant="purple" className="position-unset d-flex">
+                <div className="mb-5">
+                    <Card>
+                        <Card.Body>
+                            <DataTable
+                                data={this.state.pendingRequests}
+                                noHeader
+                                highlightOnHover
+                                defaultSortField="date"
+                                defaultSortAsc={false}
+                                sortIcon={<BsArrowDown/>}
+                                noDataComponent={<div className="p-4">No pending training requests</div>}
+                                columns={[
+                                    {
+                                        name: 'Date',
+                                        selector: 'date',
+                                        sortable: true,
+                                        format: row => moment(row.start).tz(moment.tz.guess()).format('MMM. DD, YYYY @ HH:mm z') + ' → ' + moment(row.end).tz(moment.tz.guess()).format('HH:mm z'),
+                                        sortFunction: (a, b) => {
+                                            return moment(a.start) > moment(b.start) ? 1 : -1
+                                        },
+                                        minWidth: '40%',
+                                    },
+                                    {
+                                        name: 'Level',
+                                        selector: 'level',
+                                        sortable: true,
+                                        format: row => levelDisplay(row.level),
+                                    },
+                                    {
+                                        name: 'Type',
+                                        selector: 'type',
+                                        sortable: true,
+                                        format: row => typeDisplay(row.type),
+                                    },
+                                    {
+                                        name: 'Cancel',
+                                        button: true,
+                                        cell: (row) => <Button variant="link" onClick={() => this.cancelRequest(row)}><RiDeleteBinLine size={20}/></Button>,
+                                    },
+                                ]}
+                                customStyles={dataTableStyle}
+                            />
+                        </Card.Body>
+                    </Card>
+                </div>
+                <Alert variant="purple" className="position-unset d-flex mb-5">
                     <RiQuestionLine className="fill-purple mr-3" size={50} preserveAspectRatio="xMaxYMin"/>
                     <div>
                         <h5>How do I use this?</h5>
@@ -101,48 +147,6 @@ export default class RequestTraining extends Component<any, any> {
                         </p>
                     </div>
                 </Alert>
-                <DataTable
-                    data={this.state.pendingRequests}
-                    noHeader
-                    highlightOnHover
-                    defaultSortField="date"
-                    defaultSortAsc={false}
-                    sortIcon={<BsArrowDown/>}
-                    pagination={true}
-                    paginationPerPage={5}
-                    paginationRowsPerPageOptions={[5, 10, 15, 20]}
-                    noDataComponent={<div className="p-4">No pending training requests</div>}
-                    columns={[
-                        {
-                            name: 'Date',
-                            selector: 'date',
-                            sortable: true,
-                            format: row => moment(row.start).tz(moment.tz.guess()).format('MMM. DD, YYYY @ HH:mm z') + ' → ' + moment(row.end).tz(moment.tz.guess()).format('HH:mm z'),
-                            sortFunction: (a, b) => {
-                                return moment(a.start) > moment(b.start) ? 1 : -1
-                            },
-                            minWidth: '25%',
-                        },
-                        {
-                            name: 'Level',
-                            selector: 'level',
-                            sortable: true,
-                            format: row => levelDisplay(row.level),
-                        },
-                        {
-                            name: 'Type',
-                            selector: 'type',
-                            sortable: true,
-                            format: row => typeDisplay(row.type),
-                        },
-                        {
-                            name: 'Cancel',
-                            button: true,
-                            cell: (row) => <Button variant="link" onClick={() => this.cancelRequest(row)}><RiDeleteBinLine size={20}/></Button>,
-                        },
-                    ]}
-                    customStyles={dataTableStyle}
-                />
                 <TuiCalendar view="week" onCreateSchedule={this.handleCreateSchedule}/>
                 <Modal
                     size="lg"

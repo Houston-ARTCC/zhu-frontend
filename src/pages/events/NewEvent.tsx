@@ -75,6 +75,7 @@ class NewEvent extends Component<any, any> {
                 end: event.end.toDate().toISOString().slice(0, -1),
             },
         })
+        event.guide.clearGuideElement()
     }
 
     render() {

@@ -15,7 +15,7 @@ class TrainingCenter extends Component<any, any> {
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
                         <Row>
-                            <Col md={3}>
+                            <Col md={2}>
                                 <div style={{ top: 150 }} className="p-0 sticky-top">
                                     <ListGroup.Item as="li" active={this.props.view.type.name === "Sessions"}>
                                         <Link to="/training">Sessions</Link>

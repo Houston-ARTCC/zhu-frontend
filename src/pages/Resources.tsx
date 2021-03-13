@@ -215,7 +215,7 @@ class Resources extends Component<any, any> {
                 <Header title="Resources"/>
                 <Container fluid>
                     <Row>
-                        <Col md={3}>
+                        <Col md={2}>
                             <ScrollSpy
                                 as={ListGroup}
                                 style={{ top: 150 }}

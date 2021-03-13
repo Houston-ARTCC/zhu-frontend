@@ -62,7 +62,7 @@ export default class Staff extends Component<any, any> {
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
                         <Row>
-                            <Col md={3}>
+                            <Col md={2}>
                                 <ScrollSpy
                                     as={ListGroup}
                                     style={{ top: 150 }}

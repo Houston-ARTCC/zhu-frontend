@@ -444,6 +444,28 @@ a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
     }
 }
 
+.list-group-item {
+    border: none !important;
+    border-left: 3px solid transparent !important;
+
+    a, &.active a {
+        color: $darkgray !important;
+        font-size: 18px;
+    }
+
+    &.active {
+        border: none !important;
+        border-left: 3px solid $primary !important;
+        background-color: transparent !important;
+        color: $darkgray !important;
+        margin-top: 0 !important;
+
+        a {
+            font-weight: 700;
+        }
+    }
+}
+
 /*
  .d888888  dP                     dP
 d8'    88  88                     88
