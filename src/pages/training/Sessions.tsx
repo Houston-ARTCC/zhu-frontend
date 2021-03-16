@@ -12,13 +12,14 @@ import {
     RiTimeLine,
 } from 'react-icons/all'
 import moment from 'moment'
-import { levelDisplay, statusDisplay, typeDisplay } from '../../helpers/utils'
 import { Alert, Badge, Col, Row } from 'react-bootstrap'
-import axiosInstance from '../../helpers/axiosInstance'
 import parse from 'html-react-parser'
+import Fade from 'react-reveal/Fade'
 import Moment from 'react-moment'
+import axiosInstance from '../../helpers/axiosInstance'
 import { dataTableStyle } from '../../helpers/constants'
-
+import { levelDisplay, statusDisplay, typeDisplay } from '../../helpers/utils'
+import { getCID } from '../../helpers/auth'
 
 export default class Sessions extends Component<any, any> {
     constructor(props) {
@@ -35,7 +36,7 @@ export default class Sessions extends Component<any, any> {
 
     fetchSessions() {
         axiosInstance
-            .get('/api/training')
+            .get('/api/training/sessions/' + getCID() + '/')
             .then(res => this.setState({ sessions: res.data }))
     }
 
@@ -119,7 +120,7 @@ export default class Sessions extends Component<any, any> {
         }
 
         return (
-            <>
+            <Fade bottom duration={1250} distance="50px">
                 <DataTable
                     data={this.state.sessions}
                     noHeader
@@ -188,7 +189,7 @@ export default class Sessions extends Component<any, any> {
                     ]}
                     customStyles={dataTableStyle}
                 />
-            </>
+            </Fade>
         )
     }
 }

@@ -23,15 +23,19 @@ import Events from './pages/events/Events'
 import EditEvent from './pages/events/EditEvent'
 import ViewEvent from './pages/events/ViewEvent'
 import NewEvent from './pages/events/NewEvent'
+import Exams from './pages/training/Exams'
+import Sessions from './pages/training/Sessions'
 import TrainingCenter from './pages/training/TrainingCenter'
+import RequestTraining from './pages/training/RequestTraining'
+import ScheduledSessions from './pages/training/ScheduledSessions'
+import TrainingRequests from './pages/training/TrainingRequests'
+import StudentProfile from './pages/training/StudentProfile'
+import AssignExam from './pages/training/AssignExam'
 import AuthRoute from './components/AuthRoute'
 import ScrollToTop from './components/ScrollToTop'
 import LoadingScreen from './components/LoadingScreen'
 import axiosInstance from './helpers/axiosInstance'
-import { getAuthURL, getFullName, isAuthenticated, isMember, isStaff } from './helpers/auth'
-import Sessions from './pages/training/Sessions'
-import RequestTraining from './pages/training/RequestTraining'
-import Exams from './pages/training/Exams'
+import { getAuthURL, getFullName, isAuthenticated, isMember, isStaff, isTrainingStaff } from './helpers/auth'
 
 export default function App() {
     return (
@@ -58,8 +62,13 @@ export default function App() {
                 <AuthRoute exact path="/visit" component={Visit} auth={isAuthenticated}/>
                 {/* Training */}
                 <AuthRoute exact path="/training" component={TrainingCenter} view={Sessions} auth={isMember}/>
+                <AuthRoute exact path="/training/sessions" component={TrainingCenter} view={Sessions} auth={isMember}/>
                 <AuthRoute exact path="/training/request" component={TrainingCenter} view={RequestTraining} auth={isMember}/>
                 <AuthRoute exact path="/training/exams" component={TrainingCenter} view={Exams} auth={isMember}/>
+                <AuthRoute exact path="/training/schedule" component={TrainingCenter} view={ScheduledSessions} auth={isTrainingStaff}/>
+                <AuthRoute exact path="/training/requests" component={TrainingCenter} view={TrainingRequests} auth={isTrainingStaff}/>
+                <AuthRoute exact path="/training/profile" component={TrainingCenter} view={StudentProfile} auth={isTrainingStaff}/>
+                <AuthRoute exact path="/training/assign" component={TrainingCenter} view={AssignExam} auth={isTrainingStaff}/>
                 {/* Miscellaneous */}
                 <Route exact path="/map" component={Map}/>
                 <Route exact path="/theme" component={Theme}/>

@@ -1,14 +1,7 @@
 import React, { Component } from 'react'
 import Fade from 'react-reveal/Fade'
 
-
-export default class Exams extends Component<any, any> {
-    constructor(props) {
-        super(props)
-        this.state = {
-        }
-    }
-
+export default class AssignExam extends Component<any, any> {
     render() {
         return (
             <Fade bottom duration={1250} distance="50px">

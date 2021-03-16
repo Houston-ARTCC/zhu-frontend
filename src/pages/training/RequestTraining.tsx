@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { Alert, Button, Card, Col, Form, Modal } from 'react-bootstrap'
 import { BsArrowDown, RiDeleteBinLine, RiQuestionLine } from 'react-icons/all'
 import DataTable from 'react-data-table-component'
-import moment from 'moment'
+import Fade from 'react-reveal/Fade'
 import Select from 'react-select'
+import moment from 'moment'
 import { levelDisplay, typeDisplay } from '../../helpers/utils'
 import axiosInstance from '../../helpers/axiosInstance'
 import { dataTableStyle } from '../../helpers/constants'
@@ -31,7 +32,7 @@ export default class RequestTraining extends Component<any, any> {
 
     fetchPendingRequests() {
         axiosInstance
-            .get('/api/training/request/pending/')
+            .get('/api/training/request/')
             .then(res => this.setState({ pendingRequests: res.data }))
     }
 
@@ -90,7 +91,7 @@ export default class RequestTraining extends Component<any, any> {
 
     render() {
         return (
-            <>
+            <Fade bottom duration={1250} distance="50px">
                 <div className="mb-5">
                     <Card>
                         <Card.Body>
@@ -99,7 +100,6 @@ export default class RequestTraining extends Component<any, any> {
                                 noHeader
                                 highlightOnHover
                                 defaultSortField="date"
-                                defaultSortAsc={false}
                                 sortIcon={<BsArrowDown/>}
                                 noDataComponent={<div className="p-4">No pending training requests</div>}
                                 columns={[
@@ -222,7 +222,7 @@ export default class RequestTraining extends Component<any, any> {
                         </Modal.Footer>
                     </Form>
                 </Modal>
-            </>
+            </Fade>
         )
     }
 }
