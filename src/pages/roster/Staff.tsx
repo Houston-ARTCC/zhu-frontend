@@ -88,7 +88,7 @@ export default class Staff extends Component<any, any> {
                             <Col className="ml-5">
                                 <section className="mb-5" id="core-staff">
                                     <h2 className="font-w700">Core Staff</h2>
-                                    <h5 className="text-gray font-w500 mb-3">Responsible for the bulk of ARTCC operations.</h5>
+                                    <h5 className="text-gray mb-3">Responsible for the bulk of ARTCC operations.</h5>
                                     <Row>
                                         <Col md={6}>
                                             <Card>
@@ -160,7 +160,7 @@ export default class Staff extends Component<any, any> {
                                 </section>
                                 <section className="mb-5" id="assistant-staff">
                                     <h2 className="font-w700">Assistant Staff</h2>
-                                    <h5 className="text-gray font-w500 mb-3">Assist the senior staff in their respective duties.</h5>
+                                    <h5 className="text-gray mb-3">Assist the senior staff in their respective duties.</h5>
                                     <Row>
                                         {this.state.staff.ta?.assistants.map(user => this.renderUserCard(user, 'Assistant Training Administrator'))}
                                         {this.state.staff.fe?.assistants.map(user => this.renderUserCard(user, 'Assistant Facility Engineer'))}
@@ -170,7 +170,7 @@ export default class Staff extends Component<any, any> {
                                 </section>
                                 <section className="mb-5" id="training-team">
                                     <h2 className="font-w700">Training Team</h2>
-                                    <h5 className="text-gray font-w500 mb-3">Responsible for mentoring and training controllers.</h5>
+                                    <h5 className="text-gray mb-3">Responsible for mentoring and training controllers.</h5>
                                     <Row>
                                         {this.state.staff.ins?.map(instructor => this.renderUserCard(instructor, 'Instructor'))}
                                         {this.state.staff.mtr?.map(mentor => this.renderUserCard(mentor, 'Mentor'))}
@@ -178,7 +178,7 @@ export default class Staff extends Component<any, any> {
                                 </section>
                                 <section id="web-team">
                                     <h2 className="font-w700">Web Team</h2>
-                                    <h5 className="text-gray font-w500 mb-3">Assist the webmaster with maintaining ARTCC IT services.</h5>
+                                    <h5 className="text-gray mb-3">Assist the webmaster with maintaining ARTCC IT services.</h5>
                                     <Row>
                                         {this.state.staff.web?.map(web => this.renderUserCard(web, 'Web Team'))}
                                     </Row>

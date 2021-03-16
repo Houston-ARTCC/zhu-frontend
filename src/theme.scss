@@ -447,10 +447,12 @@ a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
 .list-group-item {
     border: none !important;
     border-left: 3px solid transparent !important;
+    background-color: transparent !important;
 
     a, &.active a {
         color: $darkgray !important;
         font-size: 18px;
+        transition: 250ms !important;
     }
 
     &.active {
