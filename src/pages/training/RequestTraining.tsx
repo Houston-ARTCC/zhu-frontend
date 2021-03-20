@@ -9,8 +9,9 @@ import { levelDisplay, typeDisplay } from '../../helpers/utils'
 import axiosInstance from '../../helpers/axiosInstance'
 import { dataTableStyle } from '../../helpers/constants'
 import TuiCalendar from '../../components/TuiCalendar'
+import { withSnackbar } from 'notistack'
 
-export default class RequestTraining extends Component<any, any> {
+class RequestTraining extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
@@ -43,6 +44,24 @@ export default class RequestTraining extends Component<any, any> {
             .then(res => {
                 this.setState({showCreationModal: false})
                 this.fetchPendingRequests()
+                this.props.enqueueSnackbar('Successfully requested training', {
+                    variant: 'success',
+                    autoHideDuration: 3000,
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    },
+                })
+            })
+            .catch(err => {
+                this.props.enqueueSnackbar(err.toString(), {
+                    variant: 'error',
+                    autoHideDuration: 3000,
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    },
+                })
             })
     }
 
@@ -86,6 +105,24 @@ export default class RequestTraining extends Component<any, any> {
             .delete('/api/training/request/' + row.id + '/')
             .then(res => {
                 this.fetchPendingRequests()
+                this.props.enqueueSnackbar('Successfully cancelled training request', {
+                    variant: 'success',
+                    autoHideDuration: 3000,
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    },
+                })
+            })
+            .catch(err => {
+                this.props.enqueueSnackbar(err.toString(), {
+                    variant: 'error',
+                    autoHideDuration: 3000,
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    },
+                })
             })
     }
 
@@ -104,14 +141,27 @@ export default class RequestTraining extends Component<any, any> {
                                 noDataComponent={<div className="p-4">No pending training requests</div>}
                                 columns={[
                                     {
-                                        name: 'Date',
-                                        selector: 'date',
+                                        name: 'Cancel',
+                                        button: true,
+                                        cell: (row) => <Button variant="link" onClick={() => this.cancelRequest(row)}><RiDeleteBinLine size={20}/></Button>,
+                                    },
+                                    {
+                                        name: 'Start',
+                                        selector: 'start',
                                         sortable: true,
-                                        format: row => moment(row.start).tz(moment.tz.guess()).format('MMM. DD, YYYY @ HH:mm z') + ' → ' + moment(row.end).tz(moment.tz.guess()).format('HH:mm z'),
+                                        format: row => moment(row.start).tz(moment.tz.guess()).format('MMM. DD, YYYY @ HH:mm z'),
                                         sortFunction: (a, b) => {
                                             return moment(a.start) > moment(b.start) ? 1 : -1
                                         },
-                                        minWidth: '40%',
+                                    },
+                                    {
+                                        name: 'End',
+                                        selector: 'end',
+                                        sortable: true,
+                                        format: row => moment(row.end).tz(moment.tz.guess()).format('MMM. DD, YYYY @ HH:mm z'),
+                                        sortFunction: (a, b) => {
+                                            return moment(a.start) > moment(b.start) ? 1 : -1
+                                        },
                                     },
                                     {
                                         name: 'Level',
@@ -124,11 +174,6 @@ export default class RequestTraining extends Component<any, any> {
                                         selector: 'type',
                                         sortable: true,
                                         format: row => typeDisplay(row.type),
-                                    },
-                                    {
-                                        name: 'Cancel',
-                                        button: true,
-                                        cell: (row) => <Button variant="link" onClick={() => this.cancelRequest(row)}><RiDeleteBinLine size={20}/></Button>,
                                     },
                                 ]}
                                 customStyles={dataTableStyle}
@@ -226,3 +271,5 @@ export default class RequestTraining extends Component<any, any> {
         )
     }
 }
+
+export default withSnackbar(RequestTraining)

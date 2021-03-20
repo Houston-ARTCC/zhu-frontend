@@ -25,6 +25,7 @@
     "moment-timezone": "^0.5.33",
     "node-sass": "^4.14.1",
     "notistack": "^1.0.5",
+    "rc-slider": "^9.7.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.2",
     "react-countdown": "^2.3.1",

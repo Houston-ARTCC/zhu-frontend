@@ -790,13 +790,17 @@ dP   dP   dP `88888P8 88Y888P' 88Y8888' `88888P' dP'  `dP
 .rdt_TableCol_Sortable div {
     font-weight: bold;
 }
-
 .rdt_TableRow button:disabled {
     cursor: unset;
 
     svg {
         fill: #BCC9D0;
     }
+}
+.rdt_ExpanderRow {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #0000001F;
 }
 
 /*
