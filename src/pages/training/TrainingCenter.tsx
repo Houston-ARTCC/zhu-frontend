@@ -8,12 +8,6 @@ import { Link } from 'react-router-dom'
 import { isTrainingStaff } from '../../helpers/auth'
 
 class TrainingCenter extends Component<any, any> {
-    constructor(props) {
-        super(props)
-        this.state = {
-            activeNav: 'Sessions',
-        }
-    }
     render() {
         return (
             <>
@@ -26,27 +20,18 @@ class TrainingCenter extends Component<any, any> {
                                 <div style={{ top: 150 }} className="p-0 sticky-top">
                                     <div className="mb-5">
                                         <h6 className="text-primary">Student</h6>
-                                        <ListGroup.Item as="li" active={this.state.activeNav === 'Sessions'}>
-                                            <Link
-                                                to="/training"
-                                                onClick={() => this.setState({ activeNav: 'Sessions' })}
-                                            >
+                                        <ListGroup.Item as="li" active={this.props.location.pathname === '/training'}>
+                                            <Link to="/training">
                                                 Sessions
                                             </Link>
                                         </ListGroup.Item>
-                                        <ListGroup.Item as="li" active={this.state.activeNav === 'Request Training'}>
-                                            <Link
-                                                to="/training/request"
-                                                onClick={() => this.setState({ activeNav: 'Request Training' })}
-                                            >
+                                        <ListGroup.Item as="li" active={this.props.location.pathname === '/training/request'}>
+                                            <Link to="/training/request">
                                                 Request Training
                                             </Link>
                                         </ListGroup.Item>
-                                        <ListGroup.Item as="li" active={this.state.activeNav === 'Exams'}>
-                                            <Link
-                                                to="/training/exams"
-                                                onClick={() => this.setState({ activeNav: 'Exams' })}
-                                            >
+                                        <ListGroup.Item as="li" active={this.props.location.pathname === '/training/exams'}>
+                                            <Link to="/training/exams">
                                                 Exams
                                             </Link>
                                         </ListGroup.Item>
@@ -54,35 +39,23 @@ class TrainingCenter extends Component<any, any> {
                                     {isTrainingStaff() &&
                                         <div>
                                             <h6 className="text-primary">Instructor</h6>
-                                            <ListGroup.Item as="li" active={this.state.activeNav === 'Scheduled Sessions'}>
-                                                <Link
-                                                    to="/training/schedule"
-                                                    onClick={() => this.setState({ activeNav: 'Scheduled Sessions' })}
-                                                >
+                                            <ListGroup.Item as="li" active={this.props.location.pathname === '/training/schedule'}>
+                                                <Link to="/training/schedule">
                                                     Scheduled Sessions
                                                 </Link>
                                             </ListGroup.Item>
-                                            <ListGroup.Item as="li" active={this.state.activeNav === 'Training Requests'}>
-                                                <Link
-                                                    to="/training/requests"
-                                                    onClick={() => this.setState({ activeNav: 'Training Requests' })}
-                                                >
+                                            <ListGroup.Item as="li" active={this.props.location.pathname === '/training/requests'}>
+                                                <Link to="/training/requests">
                                                     Training Requests
                                                 </Link>
                                             </ListGroup.Item>
-                                            <ListGroup.Item as="li" active={this.state.activeNav === 'Student Profile'}>
-                                                <Link
-                                                    to="/training/profile"
-                                                    onClick={() => this.setState({ activeNav: 'Student Profile' })}
-                                                >
+                                            <ListGroup.Item as="li" active={this.props.location.pathname === '/training/profile'}>
+                                                <Link to="/training/profile">
                                                     Student Profile
                                                 </Link>
                                             </ListGroup.Item>
-                                            <ListGroup.Item as="li" active={this.state.activeNav === 'Assign Exam'}>
-                                                <Link
-                                                    to="/training/assign"
-                                                    onClick={() => this.setState({ activeNav: 'Assign Exam' })}
-                                                >
+                                            <ListGroup.Item as="li" active={this.props.location.pathname === '/training/assign'}>
+                                                <Link to="/training/assign">
                                                     Assign Exam
                                                 </Link>
                                             </ListGroup.Item>
