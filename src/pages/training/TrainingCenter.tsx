@@ -54,6 +54,11 @@ class TrainingCenter extends Component<any, any> {
                                                     Student Profile
                                                 </Link>
                                             </ListGroup.Item>
+                                            <ListGroup.Item as="li" active={this.props.location.pathname === '/training/mentor'}>
+                                                <Link to="/training/mentor">
+                                                    Mentor History
+                                                </Link>
+                                            </ListGroup.Item>
                                             <ListGroup.Item as="li" active={this.props.location.pathname === '/training/assign'}>
                                                 <Link to="/training/assign">
                                                     Assign Exam

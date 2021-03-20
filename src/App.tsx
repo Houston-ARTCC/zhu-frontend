@@ -36,6 +36,7 @@ import ScrollToTop from './components/ScrollToTop'
 import LoadingScreen from './components/LoadingScreen'
 import axiosInstance from './helpers/axiosInstance'
 import { getAuthURL, getFullName, isAuthenticated, isMember, isStaff, isTrainingStaff } from './helpers/auth'
+import MentorHistory from './pages/training/MentorHistory'
 
 export default function App() {
     return (
@@ -68,6 +69,7 @@ export default function App() {
                 <AuthRoute exact path="/training/schedule" component={TrainingCenter} view={ScheduledSessions} auth={isTrainingStaff}/>
                 <AuthRoute exact path="/training/requests" component={TrainingCenter} view={TrainingRequests} auth={isTrainingStaff}/>
                 <AuthRoute exact path="/training/profile" component={TrainingCenter} view={StudentProfile} auth={isTrainingStaff}/>
+                <AuthRoute exact path="/training/mentor" component={TrainingCenter} view={MentorHistory} auth={isTrainingStaff}/>
                 <AuthRoute exact path="/training/assign" component={TrainingCenter} view={AssignExam} auth={isTrainingStaff}/>
                 {/* Miscellaneous */}
                 <Route exact path="/map" component={Map}/>

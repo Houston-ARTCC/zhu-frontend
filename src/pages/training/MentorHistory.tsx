@@ -20,32 +20,33 @@ import Spinner from '../../components/Spinner'
 import Moment from 'react-moment'
 import parse from 'html-react-parser'
 
-export default class StudentProfile extends Component<any, any> {
+export default class MentorHistory extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
-            students: [],
+            instructors: [],
+            mentors: [],
             sessions: [],
             expanded: {},
             loading: false,
         }
-        this.handleStudentChange = this.handleStudentChange.bind(this)
+        this.handleMentorChange = this.handleMentorChange.bind(this)
     }
 
     componentDidMount() {
-        this.fetchStudents()
+        this.fetchMentors()
     }
 
-    fetchStudents() {
+    fetchMentors() {
         axiosInstance
-            .get('/api/users/simplified/')
-            .then(res => this.setState({ students: res.data }))
+            .get('/api/users/staff/')
+            .then(res => this.setState({ instructors: res.data.ins, mentors: res.data.mtr }))
     }
 
-    handleStudentChange(selected) {
+    handleMentorChange(selected) {
         this.setState({ loading: true })
         axiosInstance
-            .get('/api/training/sessions/' + selected.value + '/')
+            .get('/api/training/mentor/' + selected.value + '/')
             .then(res => this.setState({ sessions: res.data, loading: false }))
     }
 
@@ -101,8 +102,20 @@ export default class StudentProfile extends Component<any, any> {
     }
 
     render() {
-        const studentOptions : any[] = []
-        this.state.students.map(students => studentOptions.push({value: students.cid, label: students.first_name + ' ' + students.last_name}))
+        const instructorOptions : any[] = []
+        this.state.instructors.map(instructor => instructorOptions.push({value: instructor.cid, label: instructor.first_name + ' ' + instructor.last_name}))
+        const mentorOptions : any[] = []
+        this.state.mentors.map(mentor => mentorOptions.push({value: mentor.cid, label: mentor.first_name + ' ' + mentor.last_name}))
+        const groupedOptions = [
+            {
+                label: 'Instructors',
+                options: instructorOptions,
+            },
+            {
+                label: 'Mentors',
+                options: mentorOptions,
+            }
+        ]
 
         const ExpandableComponent = (row) => {
             return (
@@ -135,9 +148,9 @@ export default class StudentProfile extends Component<any, any> {
             <Fade bottom duration={1250} distance="50px">
                 <div className="position-relative">
                     <Select
-                        options={studentOptions}
-                        onChange={this.handleStudentChange}
-                        placeholder="Select student..."
+                        options={groupedOptions}
+                        onChange={this.handleMentorChange}
+                        placeholder="Select mentor..."
                         className="mb-4"
                     />
                     <DataTable
@@ -185,10 +198,10 @@ export default class StudentProfile extends Component<any, any> {
                                 format: row => typeDisplay(row.type),
                             },
                             {
-                                name: 'Instructor',
-                                selector: 'instructor',
+                                name: 'Student',
+                                selector: 'student',
                                 sortable: true,
-                                format: row => row.instructor.first_name + ' ' + row.instructor.last_name,
+                                format: row => row.student.first_name + ' ' + row.student.last_name,
                                 sortFunction: (a, b) => {
                                     return a.first_name > b.first_name ? 1 : -1
                                 },
