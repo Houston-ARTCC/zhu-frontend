@@ -18,7 +18,7 @@ export default function Error404() {
                         </div>
                     </Col>
                     <Col xs={12} md={6} className="mb-5 mb-md-0">
-                        <img src={error} width="100%"/>
+                        <img src={error} alt="Error" width="100%"/>
                     </Col>
                 </Row>
             </Container>
