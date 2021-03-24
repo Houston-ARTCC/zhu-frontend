@@ -15,7 +15,7 @@ export default class ARTCCCalendar extends Component<any, any> {
                 <Header title="Calendar"/>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
-                        <TuiCalendar view="month" isReadOnly={true}/>
+                        <TuiCalendar view="month" isReadOnly={true} eventsAllDay={true}/>
                     </Container>
                 </Fade>
             </div>

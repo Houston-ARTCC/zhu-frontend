@@ -9,6 +9,7 @@ export default class Sessions extends Component<any, any> {
         super(props)
         this.state = {
             sessions: [],
+            loading: true,
         }
     }
 
@@ -19,7 +20,7 @@ export default class Sessions extends Component<any, any> {
     fetchSessions() {
         axiosInstance
             .get('/api/training/sessions/' + getCID() + '/')
-            .then(res => this.setState({ sessions: res.data }))
+            .then(res => this.setState({ sessions: res.data, loading: false }))
     }
 
     render() {

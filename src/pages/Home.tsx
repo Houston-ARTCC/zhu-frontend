@@ -58,13 +58,13 @@ export default class Home extends Component<any, any> {
     fetchAnnouncements() {
         axiosInstance
             .get('/api/announcements')
-            .then(res => this.setState({ announcements: res.data }))
+            .then(res => this.setState({ announcements: res.data.slice(0, 3) }))
     }
 
     fetchEvents() {
         axiosInstance
             .get('/api/events')
-            .then(res => this.setState({ events: res.data }))
+            .then(res => this.setState({ events: res.data.filter(event => !event.hidden).slice(0, 2) }))
     }
 
     fetchNewestControllers() {
@@ -76,13 +76,13 @@ export default class Home extends Component<any, any> {
     fetchTopControllers() {
         axiosInstance
             .get('/api/connections/top/controllers')
-            .then(res => this.setState({ topControllers: res.data }))
+            .then(res => this.setState({ topControllers: res.data.slice(0, 3) }))
     }
 
     fetchTopPositions() {
         axiosInstance
             .get('/api/connections/top/positions')
-            .then(res => this.setState({ topPositions: res.data }))
+            .then(res => this.setState({ topPositions: res.data.slice(0, 3) }))
     }
 
     renderOnlineController(controller) {
@@ -217,7 +217,7 @@ export default class Home extends Component<any, any> {
                                 <h1 className="text-black font-w700 mb-1">Announcements</h1>
                                 <h4 className="text-gray mb-4">What's happening at Houston?</h4>
                                 {this.state.announcements?.length > 0
-                                    ? this.state.announcements.slice(0, 3).map(announcement => this.renderAnnouncement(announcement))
+                                    ? this.state.announcements.map(announcement => this.renderAnnouncement(announcement))
                                     : <p>There are no announcements.</p>
                                 }
                             </Col>
@@ -225,7 +225,7 @@ export default class Home extends Component<any, any> {
                                 <h1 className="text-black font-w700 mb-1">Events</h1>
                                 <h4 className="text-gray mb-4">Are y'all busy?</h4>
                                 {this.state.events?.length > 0
-                                    ? this.state.events.filter(event => !event.hidden).slice(0, 2).map(event => this.renderEvent(event))
+                                    ? this.state.events.map(event => this.renderEvent(event))
                                     : <p>There are no planned events.</p>
                                 }
                             </Col>
@@ -244,7 +244,7 @@ export default class Home extends Component<any, any> {
                                 <h2 className="text-black mb-3">Top Controllers</h2>
                                 <ul className="p-0">
                                     {this.state.topControllers?.length > 0
-                                        ? this.state.topControllers.slice(0, 3).map((controller, index) => this.renderTopController(controller, index))
+                                        ? this.state.topControllers.map((controller, index) => this.renderTopController(controller, index))
                                         : <p>Not enough data.</p>
                                     }
                                 </ul>
@@ -253,7 +253,7 @@ export default class Home extends Component<any, any> {
                                 <h2 className="text-black mb-3">Top Positions</h2>
                                 <ul className="p-0">
                                     {this.state.topPositions?.length > 0
-                                        ? this.state.topPositions.slice(0, 3).map((position, index) => this.renderTopPosition(position, index))
+                                        ? this.state.topPositions.map((position, index) => this.renderTopPosition(position, index))
                                         : <p>Not enough data.</p>
                                     }
                                 </ul>

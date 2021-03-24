@@ -61,6 +61,7 @@ export default class TuiCalendar extends Component<any, any> {
                 customStyle: 'btn',
                 color: '#ffffff',
                 isReadOnly: true,
+                isAllDay: this.props.eventsAllDay,
                 start: moment(event.start).toISOString(),
                 end: moment(event.end).toISOString()
             })
