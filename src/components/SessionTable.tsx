@@ -8,7 +8,7 @@ import {
     RiIndeterminateCircleFill, RiPlaneLine, RiSignalTowerLine, RiTimeLine,
 } from 'react-icons/all'
 import moment from 'moment'
-import { levelDisplay, statusDisplay, typeDisplay } from '../helpers/utils'
+import { levelDisplay, sessionStatusDisplay, typeDisplay } from '../helpers/utils'
 import { dataTableStyle } from '../helpers/constants'
 import DataTable from 'react-data-table-component'
 import { Alert, Badge, Col, Row } from 'react-bootstrap'
@@ -43,7 +43,7 @@ export default class SessionTable extends Component<any, any> {
                 color = 'lightgray'
                 break
         }
-        return <Badge variant={color + ' rounded'}>{statusDisplay(status)}</Badge>
+        return <Badge variant={color + ' rounded'}>{sessionStatusDisplay(status)}</Badge>
     }
 
     renderOTSStatusIcon(status) {
@@ -122,8 +122,8 @@ export default class SessionTable extends Component<any, any> {
                 onRowExpandToggled={(state, row) => state && this.setState({ expanded: row })}
                 expandOnRowClicked
                 pagination={true}
-                paginationPerPage={5}
-                paginationRowsPerPageOptions={[5, 10, 15, 20]}
+                paginationPerPage={10}
+                paginationRowsPerPageOptions={[10, 15, 20, 25]}
                 onChangePage={() => this.setState({ expanded: {} })}
                 onSort={() => this.setState({ expanded: {} })}
                 customStyles={dataTableStyle}

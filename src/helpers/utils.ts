@@ -72,12 +72,21 @@ export function typeDisplay(typeInt) {
     }
 }
 
-export function statusDisplay(statusInt) {
+export function sessionStatusDisplay(statusInt) {
     switch (statusInt) {
         case 0: return 'Scheduled'
         case 1: return 'Completed'
         case 2: return 'Cancelled'
         case 3: return 'No-Show'
+        default: return 'Unknown'
+    }
+}
+
+export function userStatusDisplay(statusInt) {
+    switch (statusInt) {
+        case 0: return 'Active'
+        case 1: return 'LOA'
+        case 2: return 'Non-Member'
         default: return 'Unknown'
     }
 }

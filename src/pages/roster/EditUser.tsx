@@ -27,7 +27,7 @@ class EditUser extends Component<any, any> {
 
     fetchUser() {
         axiosInstance
-            .get('/api/users/' + this.props.match.params.cid)
+            .get('/api/users/' + this.props.match.params.cid + '/')
             .then(res => {
                 this.setState({ user: res.data })
             })
@@ -35,7 +35,7 @@ class EditUser extends Component<any, any> {
 
     fetchRoles() {
         axiosInstance
-            .get('/api/users/roles')
+            .get('/api/users/roles/')
             .then(res => this.setState({ roles: res.data }))
     }
 

@@ -1,19 +1,12 @@
 import React, { Component } from 'react'
 import DataTable from 'react-data-table-component'
-import {
-    BsArrowDown,
-    RiArrowRightCircleFill,
-    RiCheckboxCircleFill,
-    RiCloseCircleFill,
-    RiIndeterminateCircleFill,
-} from 'react-icons/all'
+import { BsArrowDown, RiMoreFill } from 'react-icons/all'
 import moment from 'moment'
-import { Alert, Badge } from 'react-bootstrap'
+import { Badge, Dropdown } from 'react-bootstrap'
 import Fade from 'react-reveal/Fade'
-import axiosInstance from '../../helpers/axiosInstance'
-import { dataTableStyle } from '../../helpers/constants'
-import { levelDisplay, statusDisplay, typeDisplay } from '../../helpers/utils'
-
+import axiosInstance from '../../../helpers/axiosInstance'
+import { dataTableStyle } from '../../../helpers/constants'
+import { levelDisplay, typeDisplay } from '../../../helpers/utils'
 
 export default class ScheduledSessions extends Component<any, any> {
     constructor(props) {
@@ -41,12 +34,27 @@ export default class ScheduledSessions extends Component<any, any> {
                     noHeader
                     highlightOnHover
                     defaultSortField="date"
-                    defaultSortAsc={false}
                     sortIcon={<BsArrowDown/>}
-                    pagination={true}
-                    paginationPerPage={5}
-                    paginationRowsPerPageOptions={[5, 10, 15, 20]}
                     columns={[
+                        {
+                            name: '',
+                            button: true,
+                            center: true,
+                            allowOverflow: true,
+                            cell: (row) => (
+                                <Dropdown>
+                                    <Dropdown.Toggle variant="link" id="dropdown-basic">
+                                        <RiMoreFill size={20}/>
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item onClick={() => console.log(row)}>File</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => console.log(row)}>Cancel</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => console.log(row)}>No-Show</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            ),
+                            width: '65px',
+                        },
                         {
                             name: 'Date',
                             selector: 'date',
@@ -55,7 +63,25 @@ export default class ScheduledSessions extends Component<any, any> {
                             sortFunction: (a, b) => {
                                 return moment(a.start) > moment(b.start) ? 1 : -1
                             },
-                            minWidth: '25%',
+                            minWidth: '22%',
+                        },
+                        {
+                            name: 'Student',
+                            selector: 'student',
+                            sortable: true,
+                            format: row => row.student.first_name + ' ' + row.student.last_name,
+                            sortFunction: (a, b) => {
+                                return a.first_name > b.first_name ? 1 : -1
+                            },
+                        },
+                        {
+                            name: 'Instructor',
+                            selector: 'instructor',
+                            sortable: true,
+                            format: row => row.instructor.first_name + ' ' + row.instructor.last_name,
+                            sortFunction: (a, b) => {
+                                return a.first_name > b.first_name ? 1 : -1
+                            },
                         },
                         {
                             name: 'Level',
@@ -68,15 +94,6 @@ export default class ScheduledSessions extends Component<any, any> {
                             selector: 'type',
                             sortable: true,
                             format: row => typeDisplay(row.type),
-                        },
-                        {
-                            name: 'Instructor',
-                            selector: 'instructor',
-                            sortable: true,
-                            format: row => row.instructor.first_name + ' ' + row.instructor.last_name,
-                            sortFunction: (a, b) => {
-                                return a.first_name > b.first_name ? 1 : -1
-                            },
                         },
                         {
                             name: 'Status',

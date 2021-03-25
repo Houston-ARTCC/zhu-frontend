@@ -29,7 +29,7 @@ export default class Roster extends Component<any, any> {
 
     fetchUsers() {
         axiosInstance
-            .get('/api/users')
+            .get('/api/users/')
             .then(res => {
                 this.setState({
                     users: res.data,

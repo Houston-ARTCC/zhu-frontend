@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Fade from 'react-reveal/Fade'
-import axiosInstance from '../../helpers/axiosInstance'
-import { getCID } from '../../helpers/auth'
-import SessionTable from '../../components/SessionTable'
+import axiosInstance from '../../../helpers/axiosInstance'
+import { getCID } from '../../../helpers/auth'
+import SessionTable from '../../../components/SessionTable'
 
 export default class Sessions extends Component<any, any> {
     constructor(props) {

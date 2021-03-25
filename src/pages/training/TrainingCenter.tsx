@@ -18,9 +18,9 @@ class TrainingCenter extends Component<any, any> {
                         <Row>
                             <Col md={2}>
                                 <div style={{ top: 150 }} className="p-0 sticky-top">
-                                    <div className="mb-5">
+                                    <div className="mb-4">
                                         <h6 className="text-primary">Student</h6>
-                                        <ListGroup.Item as="li" active={this.props.location.pathname === '/training'}>
+                                        <ListGroup.Item as="li" active={this.props.location.pathname === '/training' || this.props.location.pathname === '/training/sessions'}>
                                             <Link to="/training">
                                                 Sessions
                                             </Link>

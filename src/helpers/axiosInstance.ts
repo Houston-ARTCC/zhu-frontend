@@ -14,6 +14,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use(
     response => response,
     err => {
+        console.log(err.response)
         const originalRequest = err.config
 
         // Check if connection to API failed

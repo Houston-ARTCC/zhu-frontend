@@ -132,7 +132,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 blockquote {
-    border-left: 4px solid #ccc;
+    border-left: 4px solid #DBDBDB;
     margin-bottom: 5px;
     margin-top: 5px;
     padding-left: 16px;
@@ -262,6 +262,9 @@ section {
     display: flex;
     align-items: center;
     margin-bottom: 12px;
+}
+.css-26l3qy-menu {
+    z-index: 999 !important;
 }
 
 /*

@@ -51,37 +51,37 @@ export default class Home extends Component<any, any> {
 
     fetchOnlineControllers() {
         axiosInstance
-            .get('/api/connections/online')
+            .get('/api/connections/online/')
             .then(res => this.setState({ onlineControllers: res.data }))
     }
 
     fetchAnnouncements() {
         axiosInstance
-            .get('/api/announcements')
+            .get('/api/announcements/recent/')
             .then(res => this.setState({ announcements: res.data.slice(0, 3) }))
     }
 
     fetchEvents() {
         axiosInstance
-            .get('/api/events')
+            .get('/api/events/')
             .then(res => this.setState({ events: res.data.filter(event => !event.hidden).slice(0, 2) }))
     }
 
     fetchNewestControllers() {
         axiosInstance
-            .get('/api/users/newest')
+            .get('/api/users/newest/')
             .then(res => this.setState({ newestControllers: res.data }))
     }
 
     fetchTopControllers() {
         axiosInstance
-            .get('/api/connections/top/controllers')
+            .get('/api/connections/top/controllers/')
             .then(res => this.setState({ topControllers: res.data.slice(0, 3) }))
     }
 
     fetchTopPositions() {
         axiosInstance
-            .get('/api/connections/top/positions')
+            .get('/api/connections/top/positions/')
             .then(res => this.setState({ topPositions: res.data.slice(0, 3) }))
     }
 
@@ -122,13 +122,13 @@ export default class Home extends Component<any, any> {
                     <Card.Body>
                         <Row>
                             <Col xs={12} lg={6}>
-                                <h5 className="text-black font-w700 m-0">{event.name}</h5>
+                                <h5 className="text-black font-w700 mb-0">{event.name}</h5>
                                 <h6 className="text-gray font-w500 mb-3">Presented by {event.host}</h6>
                                 <div className="li-flex">
                                     <HiOutlineCalendar size={25} className="mr-2"/>
                                     <Moment local className="font-w500 font-md" format="MMMM D, YYYY">{event.start}</Moment>
                                 </div>
-                                <div className="li-flex font-w500 mb-0">
+                                <div className="li-flex mb-0">
                                     <HiOutlineClock size={25} className="mr-2"/>
                                     <Moment local tz={moment.tz.guess()} format="HH:mm z →&nbsp;" className="font-w500 font-md">{event.start}</Moment>
                                     <Moment local tz={moment.tz.guess()} format="HH:mm z" className="font-w500 font-md">{event.end}</Moment>

@@ -33,7 +33,7 @@ export default function Navigation() {
                     <NavDropdown className={scroll ? 'text-black' : 'text-white'} title="Controllers" id="nav-dropdown-controllers">
                         <NavDropdown.Item as={Link} to="/roster">Roster</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/staff">Staff</NavDropdown.Item>
-                        <NavDropdown.Item href="https://sites.google.com/view/vzhuids/home" target="_blank">IDS</NavDropdown.Item>
+                        <NavDropdown.Item href="https://vzhuids.net" target="_blank">IDS</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/resources">Resources</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/statistics">Statistics</NavDropdown.Item>
                     </NavDropdown>

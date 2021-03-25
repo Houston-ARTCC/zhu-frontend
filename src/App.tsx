@@ -17,26 +17,34 @@ import Staff from './pages/roster/Staff'
 import Roster from './pages/roster/Roster'
 import Profile from './pages/roster/Profile'
 import EditUser from './pages/roster/EditUser'
-import AdminPanel from './pages/admin/AdminPanel'
 import Error404 from './pages/errors/Error404'
 import Events from './pages/events/Events'
 import EditEvent from './pages/events/EditEvent'
 import ViewEvent from './pages/events/ViewEvent'
 import NewEvent from './pages/events/NewEvent'
-import Exams from './pages/training/Exams'
-import Sessions from './pages/training/Sessions'
 import TrainingCenter from './pages/training/TrainingCenter'
-import RequestTraining from './pages/training/RequestTraining'
-import ScheduledSessions from './pages/training/ScheduledSessions'
-import TrainingRequests from './pages/training/TrainingRequests'
-import StudentProfile from './pages/training/StudentProfile'
-import AssignExam from './pages/training/AssignExam'
+import Exams from './pages/training/views/Exams'
+import Sessions from './pages/training/views/Sessions'
+import RequestTraining from './pages/training/views/RequestTraining'
+import ScheduledSessions from './pages/training/views/ScheduledSessions'
+import TrainingRequests from './pages/training/views/TrainingRequests'
+import StudentProfile from './pages/training/views/StudentProfile'
+import AssignExam from './pages/training/views/AssignExam'
+import AdminPanel from './pages/admin/AdminPanel'
+import MentorHistory from './pages/training/views/MentorHistory'
+import Announcements from './pages/admin/views/Announcements'
+import AdminHome from './pages/admin/views/AdminHome'
+import FindUser from './pages/admin/views/FindUser'
+import RosterPurge from './pages/admin/views/RosterPurge'
+import VisitingRequests from './pages/admin/views/VisitingRequests'
+import PendingFeedback from './pages/admin/views/PendingFeedback'
+import SupportRequests from './pages/admin/views/SupportRequests'
+import Broadcast from './pages/admin/views/Broadcast'
 import AuthRoute from './components/AuthRoute'
 import ScrollToTop from './components/ScrollToTop'
 import LoadingScreen from './components/LoadingScreen'
 import axiosInstance from './helpers/axiosInstance'
-import { getAuthURL, getFullName, isAuthenticated, isMember, isStaff, isTrainingStaff } from './helpers/auth'
-import MentorHistory from './pages/training/MentorHistory'
+import { getAuthURL, getFullName, isAdmin, isAuthenticated, isMember, isSeniorStaff, isStaff, isTrainingStaff } from './helpers/auth'
 
 export default function App() {
     return (
@@ -71,13 +79,21 @@ export default function App() {
                 <AuthRoute exact path="/training/profile" component={TrainingCenter} view={StudentProfile} auth={isTrainingStaff}/>
                 <AuthRoute exact path="/training/mentor" component={TrainingCenter} view={MentorHistory} auth={isTrainingStaff}/>
                 <AuthRoute exact path="/training/assign" component={TrainingCenter} view={AssignExam} auth={isTrainingStaff}/>
+                {/* Adiministration */}
+                <AuthRoute exact path="/admin" component={AdminPanel} view={AdminHome} auth={isStaff}/>
+                <AuthRoute exact path="/admin/user" component={AdminPanel} view={FindUser} auth={isStaff}/>
+                <AuthRoute exact path="/admin/purge" component={AdminPanel} view={RosterPurge} auth={isStaff}/>
+                <AuthRoute exact path="/admin/visit" component={AdminPanel} view={VisitingRequests} auth={isAdmin}/>
+                <AuthRoute exact path="/admin/feedback" component={AdminPanel} view={PendingFeedback} auth={isSeniorStaff}/>
+                <AuthRoute exact path="/admin/support" component={AdminPanel} view={SupportRequests} auth={isStaff}/>
+                <AuthRoute exact path="/admin/announcement" component={AdminPanel} view={Announcements} auth={isStaff}/>
+                <AuthRoute exact path="/admin/broadcast" component={AdminPanel} view={Broadcast} auth={isStaff}/>
                 {/* Miscellaneous */}
                 <Route exact path="/map" component={Map}/>
                 <Route exact path="/theme" component={Theme}/>
                 <Route exact path="/privacy" component={Privacy}/>
                 <Route exact path="/statistics" component={Statistics}/>
                 <Route exact path="/calendar" component={ARTCCCalendar}/>
-                <AuthRoute exact path="/admin" component={AdminPanel} auth={isStaff}/>
                 <AuthRoute exact path="/feedback" component={Feedback}/>
                 <Route component={Error404}/>
             </Switch>

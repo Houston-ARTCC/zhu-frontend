@@ -12,6 +12,7 @@ import Navigation from '../../components/Navigation'
 import axiosInstance from '../../helpers/axiosInstance'
 import { getCID, isMember, isStaff } from '../../helpers/auth';
 import Error404 from '../errors/Error404'
+import parse from 'html-react-parser'
 
 class ViewEvent extends Component<any, any> {
     constructor(props) {
@@ -249,7 +250,12 @@ class ViewEvent extends Component<any, any> {
                                     }
                                 </Col>
                             </Row>
-                            <p>{this.state.event.description}</p>
+                            <p>
+                                {this.state.event.description
+                                    ? parse(this.state.event.description?.replace(/(?:\r\n|\r|\n)/g, '<br/>'))
+                                    : ''
+                                }
+                            </p>
                             {isStaff() &&
                                 <Link to={this.state.event.id + '/edit'}>
                                     <Button variant="primary"><RiPencilRuler2Line className="fill-white" viewBox="3 3 20 20"/> Edit Event</Button>

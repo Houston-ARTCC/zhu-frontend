@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Fade from 'react-reveal/Fade'
 import Select from 'react-select'
-import axiosInstance from '../../helpers/axiosInstance'
-import SessionTable from '../../components/SessionTable'
+import axiosInstance from '../../../helpers/axiosInstance'
+import SessionTable from '../../../components/SessionTable'
 
 export default class StudentProfile extends Component<any, any> {
     constructor(props) {
