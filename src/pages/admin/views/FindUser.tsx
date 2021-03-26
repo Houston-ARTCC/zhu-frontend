@@ -48,12 +48,14 @@ class FindUser extends Component<any, any> {
         if (!this.state.showNonMembers && user.status === 2) return false
         if (this.state.rating && user.rating.short !== this.state.rating) return false
         if (this.state.role && user.roles.every(role => role.short !== this.state.role)) return false
+
         let filter = this.state.search.toLowerCase()
         let full_name = user.first_name + ' ' + user.last_name
+
         return (
             full_name.toLowerCase().includes(filter) ||
             user.cid.toString().includes(filter) ||
-            user.initials.toLowerCase().includes(filter)
+            user.initials?.toLowerCase().includes(filter)
         )
     }
 
@@ -165,7 +167,7 @@ class FindUser extends Component<any, any> {
                                         selector: 'name',
                                         sortable: true,
                                         sortFunction: (a, b) => { return a.first_name > b.first_name ? 1 : -1 },
-                                        format: row => row.first_name + ' ' + row.last_name + ' (' + row.initials + ')',
+                                        format: row => row.first_name + ' ' + row.last_name + (row.status != 2 ? ' (' + row.initials + ')' : ''),
                                         width: '30%',
                                     },
                                     {

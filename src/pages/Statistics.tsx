@@ -49,6 +49,7 @@ export default class Statistics extends Component<any, any> {
                         <DataTable
                             data={this.state.userStats}
                             noHeader
+                            pointerOnHover
                             highlightOnHover
                             defaultSortField="name"
                             sortIcon={<BsArrowDown/>}

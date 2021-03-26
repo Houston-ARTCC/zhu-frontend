@@ -4,8 +4,6 @@ import { Alert, Button, Card, Col, Row } from 'react-bootstrap'
 import {
     HiOutlineCalendar,
     HiOutlineClock,
-    IoStar,
-    IoStarOutline,
     RiCheckboxCircleFill,
     RiCheckboxCircleLine,
     RiCloseCircleFill,

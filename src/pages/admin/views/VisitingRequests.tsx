@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Fade from 'react-reveal/Fade'
 import { Alert, Button, Card, Col, Row } from 'react-bootstrap'
-import { IoStar, IoStarOutline, RiCheckboxCircleFill, RiCheckboxCircleLine, RiCloseCircleFill, RiMailFill } from 'react-icons/all'
+import { RiCheckboxCircleFill, RiCheckboxCircleLine, RiCloseCircleFill } from 'react-icons/all'
 import axiosInstance from '../../../helpers/axiosInstance'
 import { withSnackbar } from 'notistack'
 
