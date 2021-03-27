@@ -8,7 +8,7 @@ export default class StudentProfile extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
-            students: [],
+            studentOptions: [],
             sessions: [],
             expanded: {},
             loading: false,
@@ -23,7 +23,48 @@ export default class StudentProfile extends Component<any, any> {
     fetchStudents() {
         axiosInstance
             .get('/api/users/simplified/')
-            .then(res => this.setState({ students: res.data }))
+            .then(res => {
+                let homeControllerOptions : any[] = []
+                res.data.home?.map(controller =>
+                    homeControllerOptions.push({
+                        value: controller.cid,
+                        label: controller.first_name + ' ' + controller.last_name,
+                        score: controller.event_score,
+                    })
+                )
+                let visitingControllerOptions : any[] = []
+                res.data.visiting?.map(controller =>
+                    visitingControllerOptions.push({
+                        value: controller.cid,
+                        label: controller.first_name + ' ' + controller.last_name,
+                        score: controller.event_score,
+                    })
+                )
+                let mavpControllerOptions : any[] = []
+                res.data.mavp?.map(controller =>
+                    mavpControllerOptions.push({
+                        value: controller.cid,
+                        label: controller.first_name + ' ' + controller.last_name,
+                        score: controller.event_score,
+                    })
+                )
+                let groupedOptions = [
+                    {
+                        label: 'Home Controllers',
+                        options: homeControllerOptions,
+                    },
+                    {
+                        label: 'Visiting Controllers',
+                        options: visitingControllerOptions,
+                    },
+                    {
+                        label: 'MAVP Controllers',
+                        options: mavpControllerOptions,
+                    },
+                ]
+
+                this.setState({ studentOptions: groupedOptions })
+            })
     }
 
     handleStudentChange(selected) {
@@ -34,14 +75,11 @@ export default class StudentProfile extends Component<any, any> {
     }
 
     render() {
-        const studentOptions : any[] = []
-        this.state.students.map(students => studentOptions.push({value: students.cid, label: students.first_name + ' ' + students.last_name}))
-
         return (
             <Fade bottom duration={1250} distance="50px">
                 <div className="position-relative">
                     <Select
-                        options={studentOptions}
+                        options={this.state.studentOptions}
                         onChange={this.handleStudentChange}
                         placeholder="Select student..."
                         className="mb-4"

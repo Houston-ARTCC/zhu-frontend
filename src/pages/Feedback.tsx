@@ -14,8 +14,8 @@ export default class Feedback extends Component<any, any> {
             feedbackForm: {
                 rating: 1,
             },
-            controllers: [],
-            events: [],
+            controllerOptions: [],
+            eventOptions: [],
         }
         this.handleControllerChange = this.handleControllerChange.bind(this)
         this.handleEventChange = this.handleEventChange.bind(this)
@@ -32,13 +32,32 @@ export default class Feedback extends Component<any, any> {
     fetchControllers() {
         axiosInstance
             .get('/api/users/simplified/')
-            .then(res => this.setState({ controllers: res.data }))
+            .then(res => {
+                let controllers = res.data.home.concat(res.data.visiting).concat(res.data.mavp)
+                let controllerOptions : any[] = []
+                controllers.map(controller =>
+                    controllerOptions.push({
+                        value: controller.cid,
+                        label: controller.first_name + ' ' + controller.last_name,
+                    })
+                )
+                this.setState({ controllerOptions: controllerOptions })
+            })
     }
 
     fetchEvents() {
         axiosInstance
             .get('/api/events/archived/')
-            .then(res => this.setState({ events: res.data }))
+            .then(res => {
+                let eventOptions : any[] = []
+                res.data.slice(0, 5).map(event =>
+                    eventOptions.push({
+                        value: event.id,
+                        label: event.name,
+                    })
+                )
+                this.setState({ eventOptions: eventOptions })
+            })
     }
 
     handleControllerChange(selected) {
@@ -77,11 +96,6 @@ export default class Feedback extends Component<any, any> {
     }
 
     render() {
-        const controllerOptions : any[] = []
-        this.state.controllers.map(controller => controllerOptions.push({value: controller.cid, label: controller.first_name + ' ' + controller.last_name}))
-        const eventOptions : any[] = []
-        this.state.events.slice(0, 5).map(event => eventOptions.push({value: event.id, label: event.name}))
-
         return (
             <div>
                 <Navigation/>
@@ -94,8 +108,12 @@ export default class Feedback extends Component<any, any> {
                                     <Form.Group as={Col}>
                                         <Form.Label>Controller's Name</Form.Label>
                                         <Select
-                                            options={controllerOptions}
+                                            options={this.state.controllerOptions}
                                             onChange={this.handleControllerChange}
+                                            getOptionLabel={(option) => <span>{option.label} - {option.value}</span>}
+                                            filterOption={(obj, filter) => {
+                                                return obj.data.label.toLowerCase().includes(filter.toLowerCase())
+                                            }}
                                         />
                                     </Form.Group>
                                     <Form.Group as={Col}>
@@ -107,7 +125,7 @@ export default class Feedback extends Component<any, any> {
                                     <Form.Group as={Col}>
                                         <Form.Label>Event</Form.Label>
                                         <Select
-                                            options={eventOptions}
+                                            options={this.state.eventOptions}
                                             onChange={this.handleEventChange}
                                         />
                                     </Form.Group>

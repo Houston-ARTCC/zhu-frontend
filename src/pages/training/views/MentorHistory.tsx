@@ -8,8 +8,7 @@ export default class MentorHistory extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
-            instructors: [],
-            mentors: [],
+            mentorOptions: [],
             sessions: [],
             expanded: {},
             loading: false,
@@ -24,7 +23,33 @@ export default class MentorHistory extends Component<any, any> {
     fetchMentors() {
         axiosInstance
             .get('/api/users/staff/')
-            .then(res => this.setState({ instructors: res.data.ins, mentors: res.data.mtr }))
+            .then(res => {
+                let instructorOptions : any[] = []
+                res.data.ins.map(instructor =>
+                    instructorOptions.push({
+                        value: instructor.cid,
+                        label: instructor.first_name + ' ' + instructor.last_name
+                    })
+                )
+                let mentorOptions : any[] = []
+                res.data.mtr.map(mentor =>
+                    mentorOptions.push({
+                        value: mentor.cid,
+                        label: mentor.first_name + ' ' + mentor.last_name
+                    })
+                )
+                let groupedOptions = [
+                    {
+                        label: 'Instructors',
+                        options: instructorOptions,
+                    },
+                    {
+                        label: 'Mentors',
+                        options: mentorOptions,
+                    }
+                ]
+                this.setState({ mentorOptions: groupedOptions })
+            })
     }
 
     handleMentorChange(selected) {
@@ -35,26 +60,11 @@ export default class MentorHistory extends Component<any, any> {
     }
 
     render() {
-        const instructorOptions : any[] = []
-        this.state.instructors.map(instructor => instructorOptions.push({value: instructor.cid, label: instructor.first_name + ' ' + instructor.last_name}))
-        const mentorOptions : any[] = []
-        this.state.mentors.map(mentor => mentorOptions.push({value: mentor.cid, label: mentor.first_name + ' ' + mentor.last_name}))
-        const groupedOptions = [
-            {
-                label: 'Instructors',
-                options: instructorOptions,
-            },
-            {
-                label: 'Mentors',
-                options: mentorOptions,
-            }
-        ]
-
         return (
             <Fade bottom duration={1250} distance="50px">
                 <div className="position-relative">
                     <Select
-                        options={groupedOptions}
+                        options={this.state.mentorOptions}
                         onChange={this.handleMentorChange}
                         placeholder="Select mentor..."
                         className="mb-4"

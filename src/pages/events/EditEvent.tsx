@@ -18,10 +18,10 @@ class EditEvent extends Component<any, any> {
             manualAssignPosition: {},
             manualAssignShift: {},
             manualAssignUser: {},
+            controllerOptions: [],
             showAddPositionModal: false,
             addPositionCallsign: '',
             addPositionShifts: 2,
-            controllers: [],
         }
         this.handleTextChange = this.handleTextChange.bind(this)
         this.handleDateChange = this.handleDateChange.bind(this)
@@ -43,7 +43,47 @@ class EditEvent extends Component<any, any> {
     fetchControllers() {
         axiosInstance
             .get('/api/users/scores/')
-            .then(res => this.setState({ controllers: res.data }))
+            .then(res => {
+                let homeControllerOptions : any[] = []
+                res.data.home?.map(controller =>
+                    homeControllerOptions.push({
+                        value: controller.cid,
+                        label: controller.first_name + ' ' + controller.last_name,
+                        score: controller.event_score,
+                    })
+                )
+                let visitingControllerOptions : any[] = []
+                res.data.visiting?.map(controller =>
+                    visitingControllerOptions.push({
+                        value: controller.cid,
+                        label: controller.first_name + ' ' + controller.last_name,
+                        score: controller.event_score,
+                    })
+                )
+                let mavpControllerOptions : any[] = []
+                res.data.mavp?.map(controller =>
+                    mavpControllerOptions.push({
+                        value: controller.cid,
+                        label: controller.first_name + ' ' + controller.last_name,
+                        score: controller.event_score,
+                    })
+                )
+                let groupedOptions = [
+                    {
+                        label: 'Home Controllers',
+                        options: homeControllerOptions,
+                    },
+                    {
+                        label: 'Visiting Controllers',
+                        options: visitingControllerOptions,
+                    },
+                    {
+                        label: 'MAVP Controllers',
+                        options: mavpControllerOptions,
+                    },
+                ]
+                this.setState({ controllerOptions: groupedOptions })
+            })
     }
 
     handleTextChange(event) {
@@ -336,15 +376,6 @@ class EditEvent extends Component<any, any> {
     }
 
     render() {
-        const controllerOptions : any[] = []
-        this.state.controllers.map(controller =>
-            controllerOptions.push({
-                value: controller.cid,
-                label: controller.first_name + ' ' + controller.last_name,
-                score: controller.event_score,
-            })
-        )
-
         return (
             <div>
                 <Navigation/>
@@ -460,9 +491,12 @@ class EditEvent extends Component<any, any> {
                         <Modal.Body>
                             <Select
                                 className="mb-3"
-                                options={controllerOptions}
-                                getOptionLabel={(option) => <span>{option.label} {this.renderScore(option.score)}</span>}
+                                options={this.state.controllerOptions}
                                 onChange={(value) => this.setState({ manualAssignUser: value })}
+                                getOptionLabel={(option) => <span>{option.label} {this.renderScore(option.score)}</span>}
+                                filterOption={(obj, filter) => {
+                                    return obj.data.label.toLowerCase().includes(filter.toLowerCase()) || obj.data.value.toString().includes(filter)
+                                }}
                             />
                             <Button
                                 variant="primary"

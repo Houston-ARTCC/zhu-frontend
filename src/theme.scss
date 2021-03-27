@@ -306,6 +306,19 @@ a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
     }
 }
 
+.btn-group {
+    > .btn:not(:first-child) {
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+        border-left: none !important;
+    }
+    > .btn:not(:last-child) {
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        border-right: none !important;
+    }
+}
+
 .badge {
     color: white !important;
     border: 2px solid transparent;
@@ -390,7 +403,7 @@ a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
 .btn-lightgray, .btn-light-lightgray, .badge-lightgray, .badge-light-lightgray  { box-shadow: 0 4px 10px rgba($lightgray, 0.25)!important; }
 .btn-white, .btn-light-white, .badge-white, .badge-light-white { box-shadow: 0 4px 10px rgba($white, 0.25)!important; }
 
-.btn:hover:enabled, .btn:focus:enabled {
+.btn:hover:enabled, .btn:focus:enabled, .btn.active:enabled {
     color: white !important;
     fill: white !important;
 

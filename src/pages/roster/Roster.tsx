@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Col, Container, Form, Row } from 'react-bootstrap'
+import { Button, ButtonGroup, Card, Col, Container, Form, Row } from 'react-bootstrap'
 import { BsArrowDown, FaCircle } from 'react-icons/all'
 import DataTable from 'react-data-table-component'
 import Switch from 'react-bootstrap/Switch'
@@ -15,9 +15,11 @@ export default class Roster extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
+            filter: '',
+            currentRoster: 'home',
+            allUsers: {},
             users: [],
             sortedUsers: {},
-            filter: '',
             tableView: window.innerWidth < 768,
         }
         this.userFilter = this.userFilter.bind(this)
@@ -32,8 +34,9 @@ export default class Roster extends Component<any, any> {
             .get('/api/users/')
             .then(res => {
                 this.setState({
-                    users: res.data,
-                    sortedUsers: this.sortUsers(res.data),
+                    allUsers: res.data,
+                    users: res.data.home,
+                    sortedUsers: this.sortUsers(res.data.home)
                 })
             })
     }
@@ -43,6 +46,20 @@ export default class Roster extends Component<any, any> {
             sorted[certLevel(user)] = [...sorted[certLevel(user)] || [], user]
             return sorted
         }, {})
+    }
+
+    switchRoster(roster) {
+        let users
+        if (roster === 'all') {
+            users = this.state.allUsers.home.concat(this.state.allUsers.visiting).concat(this.state.allUsers.mavp)
+        } else {
+            users = this.state.allUsers[roster]
+        }
+        this.setState({
+            currentRoster: roster,
+            users: users,
+            sortedUsers: this.sortUsers(users)
+        })
     }
 
     userFilter(user) {
@@ -212,8 +229,34 @@ export default class Roster extends Component<any, any> {
                 <Header title="Roster"/>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
-                        <div className="d-flex justify-content-between">
-                            <Switch className="mb-3" checked={this.state.tableView} id="toggle-table" label="Toggle Table View" onChange={() => this.setState({tableView: !this.state.tableView})}/>
+                        <div className="d-flex justify-content-between align-items-center mb-5">
+                            <Switch checked={this.state.tableView} id="toggle-table" label="Toggle Table View" onChange={() => this.setState({tableView: !this.state.tableView})}/>
+                            <ButtonGroup aria-label="Basic example">
+                                <Button
+                                    variant={'outline-darkblue' + (this.state.currentRoster === 'home' ? ' active' : '')}
+                                    onClick={() => this.switchRoster('home')}
+                                >
+                                    Home
+                                </Button>
+                                <Button
+                                    variant={'outline-darkblue' + (this.state.currentRoster === 'visiting' ? ' active' : '')}
+                                    onClick={() => this.switchRoster('visiting')}
+                                >
+                                    Visiting
+                                </Button>
+                                <Button
+                                    variant={'outline-darkblue' + (this.state.currentRoster === 'mavp' ? ' active' : '')}
+                                    onClick={() => this.switchRoster('mavp')}
+                                >
+                                    MAVP
+                                </Button>
+                                <Button
+                                    variant={'outline-darkblue' + (this.state.currentRoster === 'all' ? ' active' : '')}
+                                    onClick={() => this.switchRoster('all')}
+                                >
+                                    All
+                                </Button>
+                            </ButtonGroup>
                             <div>
                                 <Form.Control placeholder="Search for controller..." value={this.state.filter} onChange={event => this.setState({ filter: event.target.value })}/>
                             </div>
