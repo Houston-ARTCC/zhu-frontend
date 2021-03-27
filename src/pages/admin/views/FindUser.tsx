@@ -167,7 +167,7 @@ class FindUser extends Component<any, any> {
                                         selector: 'name',
                                         sortable: true,
                                         sortFunction: (a, b) => { return a.first_name > b.first_name ? 1 : -1 },
-                                        format: row => row.first_name + ' ' + row.last_name + (row.status != 2 ? ' (' + row.initials + ')' : ''),
+                                        format: row => row.first_name + ' ' + row.last_name + (row.status !== 2 ? ' (' + row.initials + ')' : ''),
                                         width: '30%',
                                     },
                                     {

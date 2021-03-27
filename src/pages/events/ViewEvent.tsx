@@ -29,7 +29,7 @@ class ViewEvent extends Component<any, any> {
 
     fetchEvent() {
         axiosInstance
-            .get('/api/events/' + this.props.match.params.id)
+            .get('/api/events/' + this.props.match.params.id + '/')
             .then(res => {
                 this.setState({ event: res.data })
             })
@@ -108,7 +108,7 @@ class ViewEvent extends Component<any, any> {
 
         const handleUnrequest = () => {
             axiosInstance
-                .delete('/api/events/request/' + shift.id)
+                .delete('/api/events/request/' + shift.id + '/')
                 .then(res => {
                     this.fetchEvent()
                     this.props.enqueueSnackbar('Unrequested ' + position.callsign + ' (' + (position.shifts.indexOf(shift) + 1) + ')', {

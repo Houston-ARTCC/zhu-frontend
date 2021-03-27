@@ -38,7 +38,7 @@ class Resources extends Component<any, any> {
 
     fetchResources() {
         axiosInstance
-            .get('/api/resources')
+            .get('/api/resources/')
             .then(res => {
                 this.setState({ resources: res.data })
             })

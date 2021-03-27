@@ -28,13 +28,13 @@ export default class Statistics extends Component<any, any> {
 
     fetchUserStatistics() {
         axiosInstance
-            .get('/api/connections/statistics')
+            .get('/api/connections/statistics/')
             .then(res => this.setState({ userStats: res.data }))
     }
 
     fetchDailyStatistics() {
         axiosInstance
-            .get('/api/connections/daily/' + moment().year())
+            .get('/api/connections/daily/' + moment().year() + '/')
             .then(res => this.setState({ dailyStats: res.data }))
     }
 

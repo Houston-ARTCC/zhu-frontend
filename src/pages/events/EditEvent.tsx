@@ -8,7 +8,6 @@ import { EventDropdownMenu, EventDropdownToggle } from '../../components/EventDr
 import Navigation from '../../components/Navigation'
 import Header from '../../components/Header'
 import axiosInstance from '../../helpers/axiosInstance'
-import { sessionStatusDisplay } from '../../helpers/utils'
 
 class EditEvent extends Component<any, any> {
     constructor(props) {
@@ -235,7 +234,7 @@ class EditEvent extends Component<any, any> {
 
         const handleDelete = () => {
             axiosInstance
-                .delete('/api/events/shift/' + shift.id)
+                .delete('/api/events/shift/' + shift.id + '/')
                 .then(res => this.fetchEvent())
         }
 
@@ -338,13 +337,13 @@ class EditEvent extends Component<any, any> {
 
     render() {
         const controllerOptions : any[] = []
-        this.state.controllers.map(controller => {
+        this.state.controllers.map(controller =>
             controllerOptions.push({
                 value: controller.cid,
                 label: controller.first_name + ' ' + controller.last_name,
                 score: controller.event_score,
             })
-        })
+        )
 
         return (
             <div>

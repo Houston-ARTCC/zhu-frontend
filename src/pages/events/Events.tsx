@@ -25,13 +25,13 @@ export default class Events extends Component<any, any> {
 
     fetchEvents() {
         axiosInstance
-            .get('/api/events')
+            .get('/api/events/')
             .then(res => this.setState({ events: res.data }))
     }
 
     fetchArchivedEvents() {
         axiosInstance
-            .get('/api/events/archived')
+            .get('/api/events/archived/')
             .then(res => this.setState({ archivedEvents: res.data }))
     }
 

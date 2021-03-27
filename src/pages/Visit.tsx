@@ -33,7 +33,7 @@ class Visit extends Component<any, any> {
     handleSubmit(e) {
         e.preventDefault()
         axiosInstance
-            .put('/api/visit/', this.state.form)
+            .put('/api/visit/', this.state.form + '/')
             .then(res => {
                 this.props.enqueueSnackbar('Successfully submitted visiting request!', {
                     variant: 'success',

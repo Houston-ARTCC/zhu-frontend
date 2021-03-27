@@ -39,7 +39,7 @@ export default class Profile extends Component<any, any> {
 
     fetchUser() {
         axiosInstance
-            .get('/api/users/' + this.props.match.params.cid)
+            .get('/api/users/' + this.props.match.params.cid + '/')
             .then(res => {
                 this.setState({ user: res.data })
             })
@@ -47,13 +47,13 @@ export default class Profile extends Component<any, any> {
 
     fetchUserConnections() {
         axiosInstance
-            .get('/api/connections/sessions/' + this.props.match.params.cid)
+            .get('/api/connections/sessions/' + this.props.match.params.cid + '/')
             .then(res => this.setState({ connections: res.data }))
     }
 
     fetchUserDailyStatistics() {
         axiosInstance
-            .get('/api/connections/daily/' + moment().year() + '/' + this.props.match.params.cid)
+            .get('/api/connections/daily/' + moment().year() + '/' + this.props.match.params.cid + '/')
             .then(res => this.setState({ userStats: res.data }))
     }
 

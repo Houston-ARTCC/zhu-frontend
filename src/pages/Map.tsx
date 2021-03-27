@@ -8,7 +8,7 @@ import Navigation from '../components/Navigation'
 import axiosInstance from '../helpers/axiosInstance'
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
-mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default
 mapboxgl.accessToken = 'pk.eyJ1IjoibWlrZXJvbWEiLCJhIjoiY2szbWI1YWJxMGVudjNjbGp1OGJ5ank4MyJ9.3jZUs_nQCehwmixhAZmKqA'
 
 export default class Map extends Component<any, any> {
@@ -60,6 +60,12 @@ export default class Map extends Component<any, any> {
         })
     }
 
+    fetchMETARs() {
+        axiosInstance
+            .get('/api/tmu/metar/')
+            .then(res => this.setState({ metars: res.data }))
+    }
+
     createSmallPopup(props) {
         let popup = document.createElement('div')
         let contents = <div className="bg-darkblue p-3">
@@ -101,12 +107,6 @@ export default class Map extends Component<any, any> {
 
         ReactDOM.render(contents, popup)
         return popup
-    }
-
-    fetchMETARs() {
-        axiosInstance
-            .get('/api/tmu/metar')
-            .then(res => this.setState({ metars: res.data }))
     }
 
     render() {

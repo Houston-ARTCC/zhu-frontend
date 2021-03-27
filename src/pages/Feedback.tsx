@@ -31,13 +31,13 @@ export default class Feedback extends Component<any, any> {
 
     fetchControllers() {
         axiosInstance
-            .get('/api/users/simplified')
+            .get('/api/users/simplified/')
             .then(res => this.setState({ controllers: res.data }))
     }
 
     fetchEvents() {
         axiosInstance
-            .get('/api/events/archived')
+            .get('/api/events/archived/')
             .then(res => this.setState({ events: res.data }))
     }
 

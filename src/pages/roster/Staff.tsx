@@ -22,7 +22,7 @@ export default class Staff extends Component<any, any> {
 
     fetchStaff() {
         axiosInstance
-            .get('/api/users/staff')
+            .get('/api/users/staff/')
             .then(res => this.setState({ staff: res.data }))
     }
 
