@@ -8,6 +8,7 @@ import { EventDropdownMenu, EventDropdownToggle } from '../../components/EventDr
 import Navigation from '../../components/Navigation'
 import Header from '../../components/Header'
 import axiosInstance from '../../helpers/axiosInstance'
+import { sessionStatusDisplay } from '../../helpers/utils'
 
 class EditEvent extends Component<any, any> {
     constructor(props) {
@@ -36,13 +37,13 @@ class EditEvent extends Component<any, any> {
 
     fetchEvent() {
         axiosInstance
-            .get('/api/events/' + this.props.match.params.id)
+            .get('/api/events/' + this.props.match.params.id + '/')
             .then(res => this.setState({ event: res.data }))
     }
 
     fetchControllers() {
         axiosInstance
-            .get('/api/users/simplified')
+            .get('/api/users/scores/')
             .then(res => this.setState({ controllers: res.data }))
     }
 
@@ -113,7 +114,7 @@ class EditEvent extends Component<any, any> {
 
     handleDelete() {
         axiosInstance
-            .delete('/api/events/' + this.state.event.id)
+            .delete('/api/events/' + this.state.event.id + '/')
             .then(res => {
                 this.props.enqueueSnackbar('Event deleted!', {
                     variant: 'success',
@@ -196,6 +197,16 @@ class EditEvent extends Component<any, any> {
             })
     }
 
+    renderScore(score) {
+        let color
+
+        if (score < 65) color = 'red'
+        else if (score < 90) color = 'yellow'
+        else color = 'green'
+
+        return <Badge variant={color + ' rounded'}>{score}%</Badge>
+    }
+
     renderShift(shift, position) {
         const handleClick = (eventKey) => {
             if (eventKey === 'unassign') handleUnassign()
@@ -249,7 +260,7 @@ class EditEvent extends Component<any, any> {
                             {shift.requests?.length > 0
                                 ? shift.requests.map(request => (
                                     <Dropdown.Item key={request.id} eventKey={request.id.toString()}>
-                                        {request.user.first_name + ' ' + request.user.last_name} <Badge variant="green rounded">100%</Badge>
+                                        {request.user.first_name + ' ' + request.user.last_name} {this.renderScore(request.user.event_score)}
                                     </Dropdown.Item>
                                 ))
                                 : <Dropdown.Item disabled>No requests...</Dropdown.Item>
@@ -270,7 +281,7 @@ class EditEvent extends Component<any, any> {
 
         const handleDelete = () => {
             axiosInstance
-                .delete('/api/events/position/' + position.id)
+                .delete('/api/events/position/' + position.id + '/')
                 .then(res => {
                     this.props.enqueueSnackbar('Deleted ' + position.callsign, {
                         variant: 'success',
@@ -327,7 +338,13 @@ class EditEvent extends Component<any, any> {
 
     render() {
         const controllerOptions : any[] = []
-        this.state.controllers.map(controller => controllerOptions.push({value: controller.cid, label: controller.first_name + ' ' + controller.last_name}))
+        this.state.controllers.map(controller => {
+            controllerOptions.push({
+                value: controller.cid,
+                label: controller.first_name + ' ' + controller.last_name,
+                score: controller.event_score,
+            })
+        })
 
         return (
             <div>
@@ -443,8 +460,9 @@ class EditEvent extends Component<any, any> {
                         </Modal.Header>
                         <Modal.Body>
                             <Select
-                                options={controllerOptions}
                                 className="mb-3"
+                                options={controllerOptions}
+                                getOptionLabel={(option) => <span>{option.label} {this.renderScore(option.score)}</span>}
                                 onChange={(value) => this.setState({ manualAssignUser: value })}
                             />
                             <Button
@@ -512,5 +530,3 @@ class EditEvent extends Component<any, any> {
 }
 
 export default withSnackbar(EditEvent)
-
-// TODO: Add event scores to position assignment.
