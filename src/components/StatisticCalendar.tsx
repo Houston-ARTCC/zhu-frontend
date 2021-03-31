@@ -9,8 +9,19 @@ export default function StatisticCalendar({data, height}) {
                 data={data}
                 from={moment().startOf('year').toDate()}
                 to={moment().toDate()}
-                emptyColor="#eeeeee"
-                colors={[ '#c5dcdd', '#a1b8c1', '#7c95a6', '#58718a', '#334d6e' ]}
+                emptyColor="#f0f0f0"
+                colors={[
+                    '#daebec',
+                    '#c4dee1',
+                    '#aed0d7',
+                    '#98c0cc',
+                    '#82b0c2',
+                    '#6c9eb8',
+                    '#558bad',
+                    '#497599',
+                    '#3e6184',
+                    '#334d6e',
+                ]}
                 margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
                 monthBorderColor="#F9F9F9"
                 dayBorderWidth={3}
