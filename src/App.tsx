@@ -27,8 +27,10 @@ import ScheduledSessions from './pages/training/views/ScheduledSessions'
 import TrainingRequests from './pages/training/views/TrainingRequests'
 import StudentProfile from './pages/training/views/StudentProfile'
 import AssignExam from './pages/training/views/AssignExam'
-import AdminPanel from './pages/admin/AdminPanel'
 import MentorHistory from './pages/training/views/MentorHistory'
+import LoaRequests from './pages/admin/views/LoaRequests'
+import ActionLog from './pages/admin/views/ActionLog'
+import AdminPanel from './pages/admin/AdminPanel'
 import Announcements from './pages/admin/views/Announcements'
 import AdminHome from './pages/admin/views/AdminHome'
 import FindUser from './pages/admin/views/FindUser'
@@ -37,11 +39,11 @@ import VisitingRequests from './pages/admin/views/VisitingRequests'
 import PendingFeedback from './pages/admin/views/PendingFeedback'
 import SupportRequests from './pages/admin/views/SupportRequests'
 import Broadcast from './pages/admin/views/Broadcast'
+import Footer from './components/Footer'
 import AuthRoute from './components/AuthRoute'
 import ScrollToTop from './components/ScrollToTop'
 import { Login, Logout } from './components/Auth'
 import { isAdmin, isAuthenticated, isMember, isSeniorStaff, isStaff, isTrainingStaff } from './helpers/auth'
-import Footer from './components/Footer'
 
 export default function App() {
     return (
@@ -78,11 +80,13 @@ export default function App() {
                 <AuthRoute exact path="/training/assign" component={TrainingCenter} view={AssignExam} auth={isTrainingStaff}/>
                 {/* Adiministration */}
                 <AuthRoute exact path="/admin" component={AdminPanel} view={AdminHome} auth={isStaff}/>
-                <AuthRoute exact path="/admin/user" component={AdminPanel} view={FindUser} auth={isStaff}/>
-                <AuthRoute exact path="/admin/purge" component={AdminPanel} view={RosterPurge} auth={isAdmin}/>
+                <AuthRoute exact path="/admin/log" component={AdminPanel} view={ActionLog} auth={isStaff}/>
                 <AuthRoute exact path="/admin/visit" component={AdminPanel} view={VisitingRequests} auth={isAdmin}/>
                 <AuthRoute exact path="/admin/feedback" component={AdminPanel} view={PendingFeedback} auth={isSeniorStaff}/>
                 <AuthRoute exact path="/admin/support" component={AdminPanel} view={SupportRequests} auth={isStaff}/>
+                <AuthRoute exact path="/admin/user" component={AdminPanel} view={FindUser} auth={isStaff}/>
+                <AuthRoute exact path="/admin/purge" component={AdminPanel} view={RosterPurge} auth={isAdmin}/>
+                <AuthRoute exact path="/admin/loa" component={AdminPanel} view={LoaRequests} auth={isAdmin}/>
                 <AuthRoute exact path="/admin/announcement" component={AdminPanel} view={Announcements} auth={isStaff}/>
                 <AuthRoute exact path="/admin/broadcast" component={AdminPanel} view={Broadcast} auth={isStaff}/>
                 {/* Miscellaneous */}

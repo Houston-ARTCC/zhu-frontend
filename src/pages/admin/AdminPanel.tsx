@@ -25,13 +25,16 @@ export default class AdminPanel extends Component<any, any> {
                                                 ARTCC Information
                                             </Link>
                                         </ListGroup.Item>
-                                        {isAdmin() &&
-                                            <ListGroup.Item as="li">
-                                                <a href={process.env.REACT_APP_API_URL + '/admin'} target="_blank" rel="noreferrer">
-                                                    Django Panel
-                                                </a>
-                                            </ListGroup.Item>
-                                        }
+                                        <ListGroup.Item as="li" active={this.props.location.pathname === '/admin/log'}>
+                                            <Link to="/admin/log">
+                                                Action Log
+                                            </Link>
+                                        </ListGroup.Item>
+                                        <ListGroup.Item as="li">
+                                            <a href={process.env.REACT_APP_API_URL + '/admin'} target="_blank" rel="noreferrer">
+                                                Django Panel
+                                            </a>
+                                        </ListGroup.Item>
                                     </div>
                                     <div className="mb-4">
                                         <h6 className="text-primary">Approval Queue</h6>
@@ -66,6 +69,13 @@ export default class AdminPanel extends Component<any, any> {
                                             <ListGroup.Item as="li" active={this.props.location.pathname === '/admin/purge'}>
                                                 <Link to="/admin/purge">
                                                     Roster Purge
+                                                </Link>
+                                            </ListGroup.Item>
+                                        }
+                                        {isAdmin() &&
+                                            <ListGroup.Item as="li" active={this.props.location.pathname === '/admin/loa'}>
+                                                <Link to="/admin/loa">
+                                                    LOA Requests
                                                 </Link>
                                             </ListGroup.Item>
                                         }
