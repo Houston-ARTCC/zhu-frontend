@@ -82,7 +82,7 @@ export default class SessionTable extends Component<any, any> {
                 <div className="px-5 py-3" style={{ backgroundColor: '#F9F9F9' }}>
                     {this.renderOTSStatus(row.data.ots_status)}
                     {row.data.solo_granted &&
-                    <Alert variant="green" className="font-w500"><RiCheckboxCircleFill size={25} className="fill-green mr-2"/>Solo Certification Granted</Alert>
+                        <Alert variant="green" className="font-w500"><RiCheckboxCircleFill size={25} className="fill-green mr-2"/>Solo Certification Granted</Alert>
                     }
                     <Row>
                         <Col md={4}>
@@ -99,7 +99,6 @@ export default class SessionTable extends Component<any, any> {
                         </Col>
                     </Row>
                     {row.data.notes ? parse(row.data.notes) : 'No notes provided.'}
-                    <hr/>
                 </div>
             )
         }
