@@ -79,7 +79,7 @@ export default function App() {
                 {/* Adiministration */}
                 <AuthRoute exact path="/admin" component={AdminPanel} view={AdminHome} auth={isStaff}/>
                 <AuthRoute exact path="/admin/user" component={AdminPanel} view={FindUser} auth={isStaff}/>
-                <AuthRoute exact path="/admin/purge" component={AdminPanel} view={RosterPurge} auth={isStaff}/>
+                <AuthRoute exact path="/admin/purge" component={AdminPanel} view={RosterPurge} auth={isAdmin}/>
                 <AuthRoute exact path="/admin/visit" component={AdminPanel} view={VisitingRequests} auth={isAdmin}/>
                 <AuthRoute exact path="/admin/feedback" component={AdminPanel} view={PendingFeedback} auth={isSeniorStaff}/>
                 <AuthRoute exact path="/admin/support" component={AdminPanel} view={SupportRequests} auth={isStaff}/>

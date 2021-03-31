@@ -230,8 +230,10 @@ export default class Roster extends Component<any, any> {
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
                         <div className="d-flex justify-content-between align-items-center mb-5">
-                            <Switch checked={this.state.tableView} id="toggle-table" label="Toggle Table View" onChange={() => this.setState({tableView: !this.state.tableView})}/>
-                            <ButtonGroup aria-label="Basic example">
+                            <div>
+                                <Form.Control placeholder="Search for controller..." value={this.state.filter} onChange={event => this.setState({ filter: event.target.value })}/>
+                            </div>
+                            <ButtonGroup>
                                 <Button
                                     variant={'outline-darkblue' + (this.state.currentRoster === 'home' ? ' active' : '')}
                                     onClick={() => this.switchRoster('home')}
@@ -257,9 +259,7 @@ export default class Roster extends Component<any, any> {
                                     All
                                 </Button>
                             </ButtonGroup>
-                            <div>
-                                <Form.Control placeholder="Search for controller..." value={this.state.filter} onChange={event => this.setState({ filter: event.target.value })}/>
-                            </div>
+                            <Switch checked={this.state.tableView} id="toggle-table" label="Toggle Table View" onChange={() => this.setState({tableView: !this.state.tableView})}/>
                         </div>
                         {this.state.tableView
                             ? this.renderUserTable()

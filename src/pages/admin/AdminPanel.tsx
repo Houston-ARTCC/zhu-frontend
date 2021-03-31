@@ -62,11 +62,13 @@ export default class AdminPanel extends Component<any, any> {
                                                 Find User
                                             </Link>
                                         </ListGroup.Item>
-                                        <ListGroup.Item as="li" active={this.props.location.pathname === '/admin/purge'}>
-                                            <Link to="/admin/purge">
-                                                Roster Purge
-                                            </Link>
-                                        </ListGroup.Item>
+                                        {isAdmin() &&
+                                            <ListGroup.Item as="li" active={this.props.location.pathname === '/admin/purge'}>
+                                                <Link to="/admin/purge">
+                                                    Roster Purge
+                                                </Link>
+                                            </ListGroup.Item>
+                                        }
                                     </div>
                                     <div>
                                         <h6 className="text-primary">Announcements</h6>
