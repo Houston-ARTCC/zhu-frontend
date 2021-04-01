@@ -675,15 +675,18 @@ dP     dP `88888P8 8888P'
     &.active span:nth-child(3) { transform: rotate(-45deg) translate(1px, 2px) }
 }
 
-.mobile-nav-container {
+.mobile-nav-container, .mobile-nav, .mobile-nav-padding {
     position: fixed;
     height: 100vh;
-    width: 100vw;
     z-index: -1;
     top: 0;
+}
+
+.mobile-nav-container {
+    width: 100vw;
     left: 0;
     transition: background 0.4s ease;
-    overflow: hidden;
+    display: none;
 
     &.active {
         display: block;
@@ -694,12 +697,8 @@ dP     dP `88888P8 8888P'
 
 .mobile-nav {
     background-color: white;
-    position: fixed;
-    height: 100vh;
     width: 69vw;
-    z-index: -1;
     left: 0;
-    top: 0;
     padding: 150px 40px;
     transform: translateX(-100vw);
     transition: transform 0.4s ease;
@@ -711,12 +710,8 @@ dP     dP `88888P8 8888P'
 }
 
 .mobile-nav-padding {
-    position: fixed;
-    height: 100vh;
     width: 31vw;
-    z-index: -1;
     right: 0;
-    top: 0;
 }
 
 @media (max-width: $screen-lg-min) {

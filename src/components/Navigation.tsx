@@ -36,13 +36,13 @@ export default function Navigation() {
                     <NavDropdown className={scroll ? 'text-black' : 'text-white'} title="Pilots" id="nav-dropdown-pilots">
                         <NavDropdown.Item as={Link} to="/feedback">Leave Feedback</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/map">ARTCC Map</NavDropdown.Item>
-                        <NavDropdown.Item href="https://simcharts.info/" target="_blank">Charts</NavDropdown.Item>
-                        <NavDropdown.Item href="https://flightaware.com/statistics/ifr-route/" target="_blank">Routes</NavDropdown.Item>
+                        <NavDropdown.Item href="https://simcharts.info/" target="_blank" rel="noreferrer">Charts</NavDropdown.Item>
+                        <NavDropdown.Item href="https://flightaware.com/statistics/ifr-route/" target="_blank" rel="noreferrer">Routes</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown className={scroll ? 'text-black' : 'text-white'} title="Controllers" id="nav-dropdown-controllers">
                         <NavDropdown.Item as={Link} to="/roster">Roster</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/staff">Staff</NavDropdown.Item>
-                        <NavDropdown.Item href="https://vzhuids.net" target="_blank">IDS</NavDropdown.Item>
+                        <NavDropdown.Item href="https://vzhuids.net" target="_blank" rel="noreferrer">IDS</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/resources">Resources</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/statistics">Statistics</NavDropdown.Item>
                     </NavDropdown>
@@ -88,12 +88,12 @@ export default function Navigation() {
                     <h6 className="text-darkblue font-w700 mt-4">Pilots</h6>
                     <h6><Link className="text-gray" to="/feedback">Leave Feedback</Link></h6>
                     <h6><Link className="text-gray" to="/map">ARTCC Map</Link></h6>
-                    <h6><a className="text-gray" href="https://simcharts.info/" target="_blank">Charts</a></h6>
-                    <h6><a className="text-gray" href="https://flightaware.com/statistics/ifr-route/" target="_blank">Routes</a></h6>
+                    <h6><a className="text-gray" href="https://simcharts.info/" target="_blank" rel="noreferrer">Charts</a></h6>
+                    <h6><a className="text-gray" href="https://flightaware.com/statistics/ifr-route/" target="_blank" rel="noreferrer">Routes</a></h6>
                     <h6 className="text-darkblue font-w700 mt-4">Controllers</h6>
                     <h6><Link className="text-gray" to="/roster">Roster</Link></h6>
                     <h6><Link className="text-gray" to="/staff">Staff</Link></h6>
-                    <h6><a className="text-gray" href="https://vzhuids.net" target="_blank">IDS</a></h6>
+                    <h6><a className="text-gray" href="https://vzhuids.net" target="_blank" rel="noreferrer">IDS</a></h6>
                     <h6><Link className="text-gray" to="/resources">Resources</Link></h6>
                     <h6><Link className="text-gray" to="/statistics">Statistics</Link></h6>
                     {isAuthenticated()
