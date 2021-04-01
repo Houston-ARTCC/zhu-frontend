@@ -3,7 +3,6 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { withSnackbar } from 'notistack'
 import Fade from 'react-reveal/Fade'
 import Header from '../components/Header'
-import Navigation from '../components/Navigation'
 import axiosInstance from '../helpers/axiosInstance'
 import { parseJWT } from '../helpers/auth'
 
@@ -60,7 +59,6 @@ class Visit extends Component<any, any> {
         const user = parseJWT()
         return (
             <div>
-                <Navigation/>
                 <Header title="Visit Houston"/>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>

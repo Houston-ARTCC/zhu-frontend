@@ -4,14 +4,12 @@ import { Link } from 'react-router-dom'
 import Fade from 'react-reveal/Fade'
 import 'react-quill/dist/quill.snow.css'
 import Header from '../../components/Header'
-import Navigation from '../../components/Navigation'
 import { isAdmin, isSeniorStaff } from '../../helpers/auth'
 
 export default class AdminPanel extends Component<any, any> {
     render() {
         return (
             <div>
-                <Navigation/>
                 <Header title="Site Administration"/>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Dropdown } from 'react-bootstrap'
-import { RiArrowDownSLine, RiCloseLine, RiUserUnfollowLine, RiAddLine } from 'react-icons/all'
+import { RiAddLine, RiArrowDownSLine, RiCloseLine, RiUserUnfollowLine } from 'react-icons/all'
 
 type CustomToggleProps = {
     children?: React.ReactNode

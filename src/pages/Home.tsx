@@ -8,7 +8,6 @@ import parse from 'html-react-parser'
 import moment from 'moment/moment'
 import Moment from 'react-moment'
 import 'moment-timezone'
-import Navigation from '../components/Navigation'
 import getPositionName from '../helpers/facilities'
 import axiosInstance from '../helpers/axiosInstance'
 import { asDuration } from '../helpers/utils'
@@ -184,7 +183,6 @@ export default class Home extends Component<any, any> {
     render() {
         return (
             <div>
-                <Navigation/>
                 <Parallax bgImage={background} strength={250}>
                     <div id="homepage-hero">
                         <h4 className="text-white font-w500" id="tagline">From longhorns to space ships, we've got it all!</h4>

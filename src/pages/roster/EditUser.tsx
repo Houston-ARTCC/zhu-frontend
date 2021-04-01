@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import Fade from 'react-reveal/Fade'
 import Select from 'react-select'
 import Header from '../../components/Header'
-import Navigation from '../../components/Navigation'
 import axiosInstance from '../../helpers/axiosInstance'
 
 class EditUser extends Component<any, any> {
@@ -91,7 +90,6 @@ class EditUser extends Component<any, any> {
 
         return (
             <div>
-                <Navigation/>
                 <Header
                     title={this.state.user.first_name + ' ' + this.state.user.last_name}
                     subtitle="Editing User"

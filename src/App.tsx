@@ -44,10 +44,12 @@ import AuthRoute from './components/AuthRoute'
 import ScrollToTop from './components/ScrollToTop'
 import { Login, Logout } from './components/Auth'
 import { isAdmin, isAuthenticated, isMember, isSeniorStaff, isStaff, isTrainingStaff } from './helpers/auth'
+import Navigation from './components/Navigation'
 
 export default function App() {
     return (
         <BrowserRouter>
+            <Navigation/>
             <ScrollToTop/>
             <Switch>
                 <Route exact path="/" component={Home}/>

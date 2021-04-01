@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 import Fade from 'react-reveal/Fade'
 import moment from 'moment'
 import Header from '../../components/Header'
-import Navigation from '../../components/Navigation'
 import StatisticCalendar from '../../components/StatisticCalendar'
 import axiosInstance from '../../helpers/axiosInstance'
 import { asDuration } from '../../helpers/utils'
@@ -98,7 +97,6 @@ export default class Profile extends Component<any, any> {
     render() {
         return (
             <div>
-                <Navigation/>
                 <Header
                     title={this.state.user.first_name + ' ' + this.state.user.last_name}
                     subtitle={this.state.user.rating?.long + ' - ' + this.state.user.cid}

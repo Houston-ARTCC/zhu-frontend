@@ -8,7 +8,6 @@ import Moment from 'react-moment'
 import moment from 'moment/moment'
 import 'moment-timezone'
 import Header from '../../components/Header'
-import Navigation from '../../components/Navigation'
 import axiosInstance from '../../helpers/axiosInstance'
 import { getCID, isMember, isStaff } from '../../helpers/auth';
 import Error404 from '../errors/Error404'
@@ -201,7 +200,6 @@ class ViewEvent extends Component<any, any> {
 
         return (
             <>
-                <Navigation/>
                 <Header title={this.state.event.name} subtitle={`Presented by ${this.state.event.host}`}/>
                 <Container fluid className="text-center">
                     {this.state.event.hidden &&

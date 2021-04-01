@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import Select from 'react-select'
 import Header from '../components/Header'
-import Navigation from '../components/Navigation'
 import StarRating from '../components/StarRating'
 import axiosInstance from '../helpers/axiosInstance'
 import { getCID, getFullName } from '../helpers/auth'
@@ -98,7 +97,6 @@ export default class Feedback extends Component<any, any> {
     render() {
         return (
             <div>
-                <Navigation/>
                 <Header title="Submit Feedback"/>
                 <Container fluid>
                     <Form onSubmit={this.handleSubmit}>

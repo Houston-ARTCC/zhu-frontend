@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import moment from 'moment/moment'
 import Moment from 'react-moment'
 import Header from '../../components/Header'
-import Navigation from '../../components/Navigation'
 import axiosInstance from '../../helpers/axiosInstance'
 
 export default class Events extends Component<any, any> {
@@ -82,7 +81,6 @@ export default class Events extends Component<any, any> {
     render() {
         return (
             <div>
-                <Navigation/>
                 <Header title="Events"/>
                 <Container fluid>
                     <Row>

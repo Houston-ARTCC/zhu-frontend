@@ -1,14 +1,7 @@
 import React, { Component } from 'react'
 import Fade from 'react-reveal/Fade'
 import { Alert, Button, Card, Col, Row } from 'react-bootstrap'
-import {
-    HiOutlineCalendar,
-    HiOutlineClock,
-    RiCheckboxCircleFill,
-    RiCheckboxCircleLine,
-    RiCloseCircleFill,
-    RiMailFill,
-} from 'react-icons/all'
+import { HiOutlineCalendar, HiOutlineClock, RiCheckboxCircleFill, RiCheckboxCircleLine, RiCloseCircleFill, RiMailFill } from 'react-icons/all'
 import axiosInstance from '../../../helpers/axiosInstance'
 import { withSnackbar } from 'notistack'
 import parse from 'html-react-parser'

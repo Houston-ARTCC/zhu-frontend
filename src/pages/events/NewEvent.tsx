@@ -3,7 +3,6 @@ import { Button, Col, Container, Form, Modal } from 'react-bootstrap'
 import { withSnackbar } from 'notistack'
 import Fade from 'react-reveal/Fade'
 import Header from '../../components/Header'
-import Navigation from '../../components/Navigation'
 import axiosInstance from '../../helpers/axiosInstance'
 import TuiCalendar from '../../components/TuiCalendar'
 
@@ -81,7 +80,6 @@ class NewEvent extends Component<any, any> {
     render() {
         return (
             <div>
-                <Navigation/>
                 <Header title="New Event"/>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>

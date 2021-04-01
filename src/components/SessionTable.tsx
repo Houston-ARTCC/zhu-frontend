@@ -5,7 +5,10 @@ import {
     RiCalendarLine,
     RiCheckboxCircleFill,
     RiCloseCircleFill,
-    RiIndeterminateCircleFill, RiPlaneLine, RiSignalTowerLine, RiTimeLine,
+    RiIndeterminateCircleFill,
+    RiPlaneLine,
+    RiSignalTowerLine,
+    RiTimeLine,
 } from 'react-icons/all'
 import moment from 'moment'
 import { levelDisplay, sessionStatusDisplay, typeDisplay } from '../helpers/utils'

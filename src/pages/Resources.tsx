@@ -8,7 +8,6 @@ import ScrollSpy from 'react-scrollspy'
 import Dropzone from 'react-dropzone'
 import Select from 'react-select'
 import moment from 'moment'
-import Navigation from '../components/Navigation'
 import Header from '../components/Header'
 import { isStaff } from '../helpers/auth'
 import axiosInstance from '../helpers/axiosInstance'
@@ -211,7 +210,6 @@ class Resources extends Component<any, any> {
 
         return (
             <div>
-                <Navigation/>
                 <Header title="Resources"/>
                 <Container fluid>
                     <Row>

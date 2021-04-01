@@ -6,7 +6,6 @@ import Switch from 'react-bootstrap/Switch'
 import { Link } from 'react-router-dom'
 import Fade from 'react-reveal/Fade'
 import Header from '../../components/Header'
-import Navigation from '../../components/Navigation'
 import axiosInstance from '../../helpers/axiosInstance'
 import { certLevel, certName, ratingInt } from '../../helpers/utils'
 import { dataTableStyle } from '../../helpers/constants'
@@ -225,7 +224,6 @@ export default class Roster extends Component<any, any> {
     render() {
         return (
             <div>
-                <Navigation/>
                 <Header title="Roster"/>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>

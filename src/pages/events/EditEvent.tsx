@@ -5,7 +5,6 @@ import { withSnackbar } from 'notistack'
 import { Link } from 'react-router-dom'
 import Select from 'react-select'
 import { EventDropdownMenu, EventDropdownToggle } from '../../components/EventDropdowns'
-import Navigation from '../../components/Navigation'
 import Header from '../../components/Header'
 import axiosInstance from '../../helpers/axiosInstance'
 
@@ -378,7 +377,6 @@ class EditEvent extends Component<any, any> {
     render() {
         return (
             <div>
-                <Navigation/>
                 <Header
                     title={this.state.event.name}
                     subtitle="Editing Event"

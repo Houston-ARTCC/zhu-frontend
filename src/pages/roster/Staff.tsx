@@ -4,7 +4,6 @@ import { BiEnvelope } from 'react-icons/all'
 import ScrollSpy from 'react-scrollspy'
 import Fade from 'react-reveal/Fade'
 import Header from '../../components/Header'
-import Navigation from '../../components/Navigation'
 import axiosInstance from '../../helpers/axiosInstance'
 import profilePlaceholder from '../../img/profile.png'
 
@@ -57,7 +56,6 @@ export default class Staff extends Component<any, any> {
     render() {
         return (
             <div>
-                <Navigation/>
                 <Header title="Staff"/>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>

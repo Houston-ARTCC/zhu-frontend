@@ -6,7 +6,6 @@ import Fade from 'react-reveal/Fade'
 import Moment from 'react-moment'
 import moment from 'moment'
 import Header from '../components/Header'
-import Navigation from '../components/Navigation'
 import StatisticCalendar from '../components/StatisticCalendar'
 import { asDuration, asSeconds, ratingInt } from '../helpers/utils'
 import axiosInstance from '../helpers/axiosInstance'
@@ -74,7 +73,6 @@ export default class Statistics extends Component<any, any> {
     render() {
         return (
             <div>
-                <Navigation/>
                 <Header title="Controller Statistics"/>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>

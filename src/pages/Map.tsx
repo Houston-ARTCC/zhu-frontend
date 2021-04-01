@@ -4,7 +4,6 @@ import Fade from 'react-reveal/Fade'
 import ReactDOM from 'react-dom'
 import mapboxgl from 'mapbox-gl'
 import Header from '../components/Header'
-import Navigation from '../components/Navigation'
 import axiosInstance from '../helpers/axiosInstance'
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
@@ -112,7 +111,6 @@ export default class Map extends Component<any, any> {
     render() {
         return (
             <div>
-                <Navigation/>
                 <Header title="Map"/>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>

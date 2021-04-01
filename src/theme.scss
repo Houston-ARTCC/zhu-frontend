@@ -139,7 +139,7 @@ blockquote {
 }
 
 hr {
-    border-top: 2px solid rgba(0, 0, 0, 0.1) !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
 }
 
 a {
@@ -216,6 +216,60 @@ a {
     background-color: rgba(lighten($darkblue, 30%), 0.4);
 }
 
+.dropzone {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    border: 2px $lightgray dashed;
+    padding: 0 20px;
+    cursor: pointer;
+    p {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    &:focus {
+        outline: none;
+    }
+}
+
+.progress {
+    height: 1.4rem!important;
+}
+
+.progress-bar, .progress-bar span {
+    font-size: 0.8rem;
+}
+
+.list-group-item {
+    border: none !important;
+    border-left: 3px solid transparent !important;
+    background-color: transparent !important;
+
+    a, &.active a {
+        color: $darkgray !important;
+        font-size: 18px;
+        transition: 250ms !important;
+    }
+
+    &.active {
+        border: none !important;
+        border-left: 3px solid $primary !important;
+        background-color: transparent !important;
+        color: $darkgray !important;
+        margin-top: 0 !important;
+
+        a {
+            font-weight: 700;
+        }
+    }
+}
+
 /*
 dP                                              dP
 88                                              88
@@ -227,10 +281,12 @@ dP                                              dP
                     d8888P
  */
 html {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
     overflow-x: hidden;
     scroll-behavior: smooth;
+}
+
+body {
+    width: 100vw;
 }
 
 section {
@@ -265,6 +321,11 @@ section {
 }
 .css-26l3qy-menu {
     z-index: 999 !important;
+}
+
+.no-scroll {
+    overflow: hidden !important;
+    position: relative !important;
 }
 
 /*
@@ -449,7 +510,7 @@ a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
     }
 }
 
-.navbar-shrink .btn-vatsim {
+.navbar-shrink .btn-vatsim, .mobile-nav .btn-vatsim {
     background-color: $primary !important;
     box-shadow: 0 4px 10px rgba($primary, 0.25) !important;
     transition: 500ms;
@@ -461,30 +522,6 @@ a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
         -webkit-background-clip: unset;
         -webkit-text-fill-color: unset;
         transition: 500ms;
-    }
-}
-
-.list-group-item {
-    border: none !important;
-    border-left: 3px solid transparent !important;
-    background-color: transparent !important;
-
-    a, &.active a {
-        color: $darkgray !important;
-        font-size: 18px;
-        transition: 250ms !important;
-    }
-
-    &.active {
-        border: none !important;
-        border-left: 3px solid $primary !important;
-        background-color: transparent !important;
-        color: $darkgray !important;
-        margin-top: 0 !important;
-
-        a {
-            font-weight: 700;
-        }
     }
 }
 
@@ -580,63 +617,127 @@ dP     dP `88888P8 8888P'
         background-color: $white;
         transition: 600ms;
     }
-
-    .navbar-brand {
-        margin: 0;
-        padding: 0;
-        text-align: center;
-
-        img {
-            height: 45px;
-        }
-
-        h6 {
-            font-size: 21px;
-            line-height: 30px;
-        }
-    }
-
-    .navbar-nav {
-        margin-left: auto;
-    }
-
-    .nav-link {
-        margin: 0 2.75em;
-        text-align: center;
-        font-weight: 500;
-        color: $white;
-        transition: 500ms;
-    }
 }
 
-.dropzone {
-    width: 100%;
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.navbar-brand {
+    margin: 0;
+    padding: 0;
     text-align: center;
-    justify-content: center;
-    border: 2px $lightgray dashed;
-    padding: 0 20px;
-    cursor: pointer;
-    p {
-        width: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+
+    img {
+        height: 45px;
     }
-    &:focus {
-        outline: none;
+
+    h6 {
+        font-size: 21px;
+        line-height: 30px;
     }
 }
 
-.progress {
-    height: 1.4rem!important;
+.navbar-nav {
+    margin-left: auto;
 }
 
-.progress-bar, .progress-bar span {
-    font-size: 0.8rem;
+.nav-link {
+    margin: 0 2.75em;
+    text-align: center;
+    font-weight: 500;
+    color: $white;
+    transition: 500ms;
+}
+
+.navbar-toggle {
+    background-color: white;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 40px;
+    display: none;
+}
+
+.hamburger {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    span {
+        background-color: $darkgray;
+        width: 80%;
+        height: 2px;
+        margin: 3px 0;
+        display: block;
+        transition: all .4s ease;
+        transform-origin: 0 0;
+    }
+
+    &.active span:nth-child(1) { transform: rotate(45deg) translate(3px, -2px) }
+    &.active span:nth-child(2) { transform: scaleX(0) }
+    &.active span:nth-child(3) { transform: rotate(-45deg) translate(1px, 2px) }
+}
+
+.mobile-nav-container {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    transition: background 0.4s ease;
+    overflow: hidden;
+
+    &.active {
+        display: block;
+        background-color: rgba(black, 0.5);
+        transition: background 0.4s ease;
+    }
+}
+
+.mobile-nav {
+    background-color: white;
+    position: fixed;
+    height: 100vh;
+    width: 69vw;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    padding: 150px 40px;
+    transform: translateX(-100vw);
+    transition: transform 0.4s ease;
+
+    &.active {
+        transform: translateX(0);
+        transition: transform 0.4s ease;
+    }
+}
+
+.mobile-nav-padding {
+    position: fixed;
+    height: 100vh;
+    width: 31vw;
+    z-index: -1;
+    right: 0;
+    top: 0;
+}
+
+@media (max-width: $screen-lg-min) {
+    #navbar {
+        padding: 40px;
+
+        &.navbar-shrink {
+            padding: 30px 40px !important;
+            background-color: $white;
+            transition: 600ms;
+        }
+
+        .navbar-brand {
+            img { height: 35px }
+            h6 { font-size: 16px }
+        }
+
+        .navbar-toggle {
+            display: block;
+        }
+    }
 }
 
 /*
