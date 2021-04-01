@@ -2,11 +2,12 @@ import React from 'react'
 import moment from 'moment'
 import { ResponsiveCalendar } from '@nivo/calendar'
 
-export default function StatisticCalendar({data, height}) {
+export default function StatisticCalendar({data, height, vertical}) {
     return (
         <div className="nivo-calendar" style={{height: height}}>
             <ResponsiveCalendar
                 data={data}
+                direction={vertical ? 'vertical' : 'horizontal'}
                 from={moment().startOf('year').toDate()}
                 to={moment().toDate()}
                 emptyColor="#f0f0f0"

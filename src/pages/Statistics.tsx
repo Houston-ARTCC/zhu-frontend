@@ -76,12 +76,12 @@ export default class Statistics extends Component<any, any> {
                 <Header title="Controller Statistics"/>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
-                        <StatisticCalendar data={this.state.dailyStats} height={300}/>
-                        <div className="d-flex justify-content-between align-items-center mb-5">
-                            <div>
+                        <StatisticCalendar data={this.state.dailyStats} height={window.innerWidth < 768 ? 1000 : 300} vertical={window.innerWidth < 768}/>
+                        <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-2">
+                            <div className="mb-4">
                                 <Form.Control placeholder="Search for controller..." value={this.state.filter} onChange={event => this.setState({ filter: event.target.value })}/>
                             </div>
-                            <ButtonGroup>
+                            <ButtonGroup className="mb-4">
                                 <Button
                                     variant={'outline-darkblue' + (this.state.currentRoster === 'home' ? ' active' : '')}
                                     onClick={() => this.switchRoster('home')}
@@ -151,7 +151,8 @@ export default class Statistics extends Component<any, any> {
                                             }
                                         />
                                         {asDuration(row.prev_prev_hours)}
-                                    </div>
+                                    </div>,
+                                    minWidth: '150px',
                                 },
                                 {
                                     name: <Moment tz="UTC" format="MMMM" subtract={{ months: 1 }}>{new Date()}</Moment>,
@@ -169,7 +170,8 @@ export default class Statistics extends Component<any, any> {
                                             }
                                         />
                                         {asDuration(row.prev_hours)}
-                                    </div>
+                                    </div>,
+                                    minWidth: '150px',
                                 },
                                 {
                                     name: <Moment tz="UTC" format="MMMM">{new Date()}</Moment>,
@@ -187,7 +189,8 @@ export default class Statistics extends Component<any, any> {
                                             }
                                         />
                                         {asDuration(row.curr_hours)}
-                                    </div>
+                                    </div>,
+                                    minWidth: '150px',
                                 },
                             ]}
                             customStyles={dataTableStyle}

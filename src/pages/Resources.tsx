@@ -216,8 +216,8 @@ class Resources extends Component<any, any> {
                         <Col md={2}>
                             <ScrollSpy
                                 as={ListGroup}
-                                style={{ top: 150 }}
-                                className="p-0 sticky-top"
+                                style={{ top: 150, zIndex: 0 }}
+                                className="p-0 mb-4 sticky-top"
                                 currentClassName="active"
                                 items={this.state.categories}
                                 offset={-150}
@@ -231,7 +231,7 @@ class Resources extends Component<any, any> {
                                 })}
                             </ScrollSpy>
                         </Col>
-                        <Col className="ml-5">
+                        <Col className="ml-0 ml-md-5">
                             {isStaff() &&
                                 <Button className="mb-5" onClick={() => this.createResource()}>
                                     <BiPlus className="fill-white" size={20} viewBox="5 1 25 25"/> New Resource

@@ -232,13 +232,13 @@ class ViewEvent extends Component<any, any> {
                     <Row className="mb-5 d-flex align-items-center justify-content-center">
                         <Col md={6}>
                             <Row className="align-items-center mb-4">
-                                <Col>
+                                <Col xs={12} md={6} className="mb-2">
                                     <h4 className="text-black font-w500">Start</h4>
                                     <Moment local tz={moment.tz.guess()} format="MMM DD, YYYY, HH:mm z" element="h5" className="font-w400">{this.state.event.start}</Moment>
                                     <h4 className="text-black font-w500">End</h4>
                                     <Moment local tz={moment.tz.guess()} format="MMM DD, YYYY, HH:mm z" element="h5" className="font-w400">{this.state.event.end}</Moment>
                                 </Col>
-                                <Col>
+                                <Col xs={12} md={6}>
                                     <h4 className="text-black font-w500">Time Until Event</h4>
                                     {new Date(this.state.event.end) < new Date()
                                         ? <h5 className="font-w400">Event has ended.</h5>
@@ -256,7 +256,7 @@ class ViewEvent extends Component<any, any> {
                             </p>
                             {isStaff() &&
                                 <Link to={this.state.event.id + '/edit'}>
-                                    <Button variant="primary"><RiPencilRuler2Line className="fill-white" viewBox="3 3 20 20"/> Edit Event</Button>
+                                    <Button variant="primary" className="mb-4"><RiPencilRuler2Line className="fill-white" viewBox="3 3 20 20"/> Edit Event</Button>
                                 </Link>
                             }
                         </Col>
@@ -267,9 +267,9 @@ class ViewEvent extends Component<any, any> {
                         }
                     </Row>
                     <Row>
-                        <Col className="text-left">
+                        <Col className="text-center text-md-left mb-4" xs={12} md={4}>
                             <h3 className="text-black font-w700 mb-1">Enroute Positions</h3>
-                            <h5 className="text-gray font-w500 mb-4">{enrouteShifts} Shift{enrouteShifts === 1 ? '' : 's'} Available</h5>
+                            <h5 className="text-gray font-w500 mb-3">{enrouteShifts} Shift{enrouteShifts === 1 ? '' : 's'} Available</h5>
                             <ul className="p-0 list-unstyled">
                                 {this.getEnroutePositions()?.length > 0
                                     ? this.getEnroutePositions()?.map(position => this.renderPosition(position))
@@ -277,9 +277,9 @@ class ViewEvent extends Component<any, any> {
                                 }
                             </ul>
                         </Col>
-                        <Col className="text-left">
+                        <Col className="text-center text-md-left mb-4" xs={12} md={4}>
                             <h3 className="text-black font-w700 mb-1">TRACON Positions</h3>
-                            <h5 className="text-gray font-w500 mb-4">{TRACONShifts} Shift{TRACONShifts === 1 ? '' : 's'} Available</h5>
+                            <h5 className="text-gray font-w500 mb-3">{TRACONShifts} Shift{TRACONShifts === 1 ? '' : 's'} Available</h5>
                             <ul className="p-0 list-unstyled">
                                 {this.getTRACONPositions()?.length > 0
                                     ? this.getTRACONPositions()?.map(position => this.renderPosition(position))
@@ -287,9 +287,9 @@ class ViewEvent extends Component<any, any> {
                                 }
                             </ul>
                         </Col>
-                        <Col className="text-left">
+                        <Col className="text-center text-md-left mb-4" xs={12} md={4}>
                             <h3 className="text-black font-w700 mb-1">Local Positions</h3>
-                            <h5 className="text-gray font-w500 mb-4">{localShifts} Shift{localShifts === 1 ? '' : 's'} Available</h5>
+                            <h5 className="text-gray font-w500 mb-3">{localShifts} Shift{localShifts === 1 ? '' : 's'} Available</h5>
                             <ul className="p-0 list-unstyled">
                                 {this.getLocalPositions()?.length > 0
                                     ? this.getLocalPositions()?.map(position => this.renderPosition(position))

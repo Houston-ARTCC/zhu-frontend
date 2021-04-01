@@ -212,7 +212,7 @@ export default class Home extends Component<any, any> {
                         </Row>
                         <Row className="mb-5">
                             <Col sm={12} xl={6} className="mb-4 mb-xl-0">
-                                <h1 className="text-black font-w700 mb-1">Announcements</h1>
+                                <h1 className="text-black font-w700 mb-1 text-break">Announcements</h1>
                                 <h4 className="text-gray mb-4">What's happening at Houston?</h4>
                                 {this.state.announcements?.length > 0
                                     ? this.state.announcements.map(announcement => this.renderAnnouncement(announcement))

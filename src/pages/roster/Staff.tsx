@@ -64,7 +64,7 @@ export default class Staff extends Component<any, any> {
                                 <ScrollSpy
                                     as={ListGroup}
                                     style={{ top: 150 }}
-                                    className="p-0 sticky-top"
+                                    className="p-0 mb-3 sticky-top"
                                     currentClassName="active"
                                     items={['core-staff', 'assistant-staff', 'training-team', 'web-team']}
                                     offset={-150}
@@ -83,7 +83,7 @@ export default class Staff extends Component<any, any> {
                                     </ListGroup.Item>
                                 </ScrollSpy>
                             </Col>
-                            <Col className="ml-5">
+                            <Col className="ml-0 ml-md-5">
                                 <section className="mb-5" id="core-staff">
                                     <h2 className="font-w700">Core Staff</h2>
                                     <h5 className="text-gray mb-3">Responsible for the bulk of ARTCC operations.</h5>

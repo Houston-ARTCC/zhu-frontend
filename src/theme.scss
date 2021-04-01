@@ -686,10 +686,10 @@ dP     dP `88888P8 8888P'
     width: 100vw;
     left: 0;
     transition: background 0.4s ease;
-    display: none;
+    pointer-events: none;
 
     &.active {
-        display: block;
+        pointer-events: unset;
         background-color: rgba(black, 0.5);
         transition: background 0.4s ease;
     }

@@ -15,7 +15,7 @@ export default class AdminPanel extends Component<any, any> {
                     <Container fluid>
                         <Row>
                             <Col md={2}>
-                                <div style={{ top: 150 }} className="p-0 sticky-top">
+                                <div style={{ top: 150 }} className="mb-5 p-0 sticky-top">
                                     <div className="mb-4">
                                         <h6 className="text-primary">General</h6>
                                         <ListGroup.Item as="li" active={this.props.location.pathname === '/admin'}>
@@ -93,7 +93,7 @@ export default class AdminPanel extends Component<any, any> {
                                     </div>
                                 </div>
                             </Col>
-                            <Col className="ml-5">
+                            <Col className="ml-0 ml-md-5">
                                 {this.props.view}
                             </Col>
                         </Row>

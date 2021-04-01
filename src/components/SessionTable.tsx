@@ -79,46 +79,45 @@ export default class SessionTable extends Component<any, any> {
         return <Alert variant={color} className="font-w500">{this.renderOTSStatusIcon(status)}{text}</Alert>
     }
 
-    render() {
-        const ExpandableSession = (row) => {
-            return (
-                <div className="px-5 py-3" style={{ backgroundColor: '#F9F9F9' }}>
-                    {this.renderOTSStatus(row.data.ots_status)}
-                    {row.data.solo_granted &&
-                        <Alert variant="green" className="font-w500"><RiCheckboxCircleFill size={25} className="fill-green mr-2"/>Solo Certification Granted</Alert>
-                    }
-                    <Row>
-                        <Col md={4}>
-                            <p><RiCalendarLine size={25} className="mr-2"/><Moment local className="font-w500" format="MMMM D, YYYY">{row.data.start}</Moment></p>
-                            <p>
-                                <RiTimeLine size={25} className="mr-2"/>
-                                <Moment local tz={moment.tz.guess()} format="HH:mm z →&nbsp;" className="font-w500">{row.data.start}</Moment>
-                                <Moment local tz={moment.tz.guess()} format="HH:mm z" className="font-w500">{row.data.end}</Moment>
-                            </p>
-                        </Col>
-                        <Col md={4}>
-                            <p className="font-w500"><RiSignalTowerLine size={25} className="mr-2"/>{row.data.position}</p>
-                            <p className="font-w500"><RiPlaneLine size={25} className="mr-2"/>{row.data.movements} Movements</p>
-                        </Col>
-                    </Row>
-                    {row.data.notes ? parse(row.data.notes) : 'No notes provided.'}
-                </div>
-            )
-        }
+    ExpandableSession = (row) => {
+        return (
+            <div className="px-5 py-3" style={{ backgroundColor: '#F9F9F9' }}>
+                {this.renderOTSStatus(row.data.ots_status)}
+                {row.data.solo_granted &&
+                    <Alert variant="green" className="font-w500"><RiCheckboxCircleFill size={25} className="fill-green mr-2"/>Solo Certification Granted</Alert>
+                }
+                <Row>
+                    <Col md={4}>
+                        <p><RiCalendarLine size={25} className="mr-2"/><Moment local className="font-w500" format="MMMM D, YYYY">{row.data.start}</Moment></p>
+                        <p>
+                            <RiTimeLine size={25} className="mr-2"/>
+                            <Moment local tz={moment.tz.guess()} format="HH:mm z →&nbsp;" className="font-w500">{row.data.start}</Moment>
+                            <Moment local tz={moment.tz.guess()} format="HH:mm z" className="font-w500">{row.data.end}</Moment>
+                        </p>
+                    </Col>
+                    <Col md={4}>
+                        <p className="font-w500"><RiSignalTowerLine size={25} className="mr-2"/>{row.data.position}</p>
+                        <p className="font-w500"><RiPlaneLine size={25} className="mr-2"/>{row.data.movements} Movements</p>
+                    </Col>
+                </Row>
+                {row.data.notes ? parse(row.data.notes) : 'No notes provided.'}
+            </div>
+        )
+    }
 
+    render() {
         return (
             <DataTable
                 data={this.props.data}
                 noHeader
                 highlightOnHover
-                pointerOnHover
                 defaultSortField="date"
                 defaultSortAsc={false}
                 sortIcon={<BsArrowDown/>}
                 progressPending={this.props.loading}
                 progressComponent={<Spinner/>}
                 expandableRows
-                expandableRowsComponent={<ExpandableSession/>}
+                expandableRowsComponent={<this.ExpandableSession/>}
                 expandableRowDisabled={row => row.status !== 1}
                 expandableRowExpanded={row => row.id === this.state.expanded.id}
                 onRowExpandToggled={(state, row) => state && this.setState({ expanded: row })}

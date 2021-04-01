@@ -15,7 +15,7 @@ class TrainingCenter extends Component<any, any> {
                     <Container fluid>
                         <Row>
                             <Col md={2}>
-                                <div style={{ top: 150 }} className="p-0 sticky-top">
+                                <div style={{ top: 150 }} className="p-0 mb-5 sticky-top">
                                     <div className="mb-4">
                                         <h6 className="text-primary">Student</h6>
                                         <ListGroup.Item as="li" active={this.props.location.pathname === '/training' || this.props.location.pathname === '/training/sessions'}>
@@ -66,7 +66,7 @@ class TrainingCenter extends Component<any, any> {
                                     }
                                 </div>
                             </Col>
-                            <Col className="ml-5">
+                            <Col className="ml-0 ml-md-5">
                                 {this.props.view}
                             </Col>
                         </Row>
