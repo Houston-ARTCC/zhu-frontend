@@ -43,10 +43,12 @@ import Footer from './components/Footer'
 import AuthRoute from './components/AuthRoute'
 import ScrollToTop from './components/ScrollToTop'
 import { Login, Logout } from './components/Auth'
-import { isAdmin, isAuthenticated, isMember, isSeniorStaff, isStaff, isTrainingStaff } from './helpers/auth'
 import Navigation from './components/Navigation'
+import { applyTheme } from './helpers/themeManager'
+import { isAdmin, isAuthenticated, isMember, isSeniorStaff, isStaff, isTrainingStaff } from './helpers/auth'
 
 export default function App() {
+    applyTheme()
     return (
         <BrowserRouter>
             <Navigation/>

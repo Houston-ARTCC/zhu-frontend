@@ -39,6 +39,7 @@ class Announcements extends Component<any, any> {
         axiosInstance
             .post('/api/announcements/', { title: this.state.announcementTitle, body: this.state.announcementBody })
             .then(res => {
+                this.fetchAnnouncements()
                 this.props.enqueueSnackbar('Announcement successfully posted!', {
                     variant: 'success',
                     autoHideDuration: 3000,

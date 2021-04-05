@@ -1,0 +1,41 @@
+/*
+dP     dP                   oo          dP       dP
+88     88                               88       88
+88    .8P .d8888b. 88d888b. dP .d8888b. 88d888b. 88 .d8888b. .d8888b.
+88    d8' 88'  `88 88'  `88 88 88'  `88 88'  `88 88 88ooood8 Y8ooooo.
+88  .d8P  88.  .88 88       88 88.  .88 88.  .88 88 88.  ...       88
+888888'   `88888P8 dP       dP `88888P8 88Y8888' dP `88888P' `88888P'
+ */
+$primary: #109CF1;
+$yellow: #FFB946;
+$red: #F7685B;
+$green: #2ED47A;
+$purple: #885AF8;
+$darkblue: #334D6E;
+$black: #1A1A1D;
+$mutedblack: #404047;
+$darkgray: #323C47;
+$midgray: #8B949F;
+$gray: #90A0B7;
+$lightgray: #C2CFE0;
+$smokegray: #DFE1E7;
+$white: #FFFFFF;
+
+$gold: #FFB800;
+$silver: #BDBDBD;
+$bronze: #B4651D;
+
+$shadow: 2px 2px 20px rgba(152, 152, 152, 0.25);
+$shadow-lifted: 4px 4px 30px rgba(126, 126, 126, 0.25);
+
+$dark-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+$dark-shadow-lifted: 4px 4px 30px rgba(0, 0, 0, 0.3);
+
+$theme-transition: background-color 300ms ease-in-out;
+
+$screen-sm-min: 768px;
+$screen-xs-max: ($screen-sm-min - 1);
+$screen-md-min: 992px;
+$screen-sm-max: ($screen-md-min - 1);
+$screen-lg-min: 1200px;
+$screen-md-max: ($screen-lg-min - 1);

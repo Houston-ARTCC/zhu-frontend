@@ -1,36 +1,4 @@
-/*
-dP     dP                   oo          dP       dP
-88     88                               88       88
-88    .8P .d8888b. 88d888b. dP .d8888b. 88d888b. 88 .d8888b. .d8888b.
-88    d8' 88'  `88 88'  `88 88 88'  `88 88'  `88 88 88ooood8 Y8ooooo.
-88  .d8P  88.  .88 88       88 88.  .88 88.  .88 88 88.  ...       88
-888888'   `88888P8 dP       dP `88888P8 88Y8888' dP `88888P' `88888P'
- */
-$primary: #109CF1;
-$yellow: #FFB946;
-$red: #F7685B;
-$green: #2ED47A;
-$purple: #885AF8;
-$black: #192A3E;
-$darkgray: #323C47;
-$darkblue: #334D6E;
-$gray: #90A0B7;
-$lightgray: #C2CFE0;
-$white: #FFFFFF;
-
-$gold: #FFB800;
-$silver: #BDBDBD;
-$bronze: #B4651D;
-
-$shadow: 2px 2px 20px rgba(152, 152, 152, 0.25);
-$shadow-lifted: 4px 4px 30px rgba(126, 126, 126, 0.25);
-
-$screen-sm-min: 768px;
-$screen-xs-max: ($screen-sm-min - 1);
-$screen-md-min: 992px;
-$screen-sm-max: ($screen-md-min - 1);
-$screen-lg-min: 1200px;
-$screen-md-max: ($screen-lg-min - 1);
+@import 'variables';
 
 /*
 d888888P                                                                dP
@@ -108,6 +76,7 @@ d888888P                                                                dP
     line-height: 23px;
     font-feature-settings: 'pnum' on, 'salt' on, 'case' on, 'kern' off;
     color: $darkgray;
+    transition: $theme-transition;
 }
 
 u, b, i, s, strong, em, time {
@@ -205,7 +174,11 @@ a {
 }
 
 .dropdown-toggle {
-    color: inherit!important;
+    color: inherit !important;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    background-color: $primary;
 }
 
 #notistack-snackbar, #notistack-snackbar path {
@@ -214,6 +187,72 @@ a {
 
 ::selection {
     background-color: rgba(lighten($darkblue, 30%), 0.4);
+}
+
+.progress {
+    height: 1.4rem!important;
+}
+
+.progress-bar, .progress-bar span {
+    font-size: 0.8rem;
+}
+
+.list-group-item {
+    border: none !important;
+    border-left: 3px solid transparent !important;
+    background-color: transparent !important;
+    transition: border-left-color .3s ease-out;
+
+    a, &.active a {
+        color: $darkgray !important;
+        font-size: 18px;
+        transition: 250ms !important;
+    }
+
+    &.active {
+        border: none !important;
+        border-left: 3px solid $primary !important;
+        background-color: transparent !important;
+        color: $darkgray !important;
+        margin-top: 0 !important;
+        transition: border-left-color .3s ease-in;
+
+        a {
+            font-weight: 700;
+        }
+    }
+}
+
+/*
+ 88888888b
+ 88
+a88aaaa    .d8888b. 88d888b. 88d8b.d8b. .d8888b.
+ 88        88'  `88 88'  `88 88'`88'`88 Y8ooooo.
+ 88        88.  .88 88       88  88  88       88
+ dP        `88888P' dP       dP  dP  dP `88888P'
+ */
+.form-control, .css-yk16xz-control, .css-1pahdxg-control, .custom-control-label::before {
+    background-color: transparent !important;
+    transition: border .2s, box-shadow .2s !important;
+
+    &:disabled {
+        background-color: rgba(black, 0.1) !important;
+    }
+}
+
+.css-9gakcf-option {
+    background-color: $primary !important;
+}
+
+.form-control:focus, .css-1pahdxg-control {
+    border: 1px $primary solid !important;
+    box-shadow: 0 0 0 1px $primary !important;
+    transition: border .2s, box-shadow .2s !important;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: $primary !important;
+    border-color: $primary !important;
 }
 
 .dropzone {
@@ -235,38 +274,6 @@ a {
     }
     &:focus {
         outline: none;
-    }
-}
-
-.progress {
-    height: 1.4rem!important;
-}
-
-.progress-bar, .progress-bar span {
-    font-size: 0.8rem;
-}
-
-.list-group-item {
-    border: none !important;
-    border-left: 3px solid transparent !important;
-    background-color: transparent !important;
-
-    a, &.active a {
-        color: $darkgray !important;
-        font-size: 18px;
-        transition: 250ms !important;
-    }
-
-    &.active {
-        border: none !important;
-        border-left: 3px solid $primary !important;
-        background-color: transparent !important;
-        color: $darkgray !important;
-        margin-top: 0 !important;
-
-        a {
-            font-weight: 700;
-        }
     }
 }
 
@@ -535,7 +542,7 @@ d8'    88  88                     88
  */
 .alert {
     border: none !important;
-    border-radius: 8px;
+    border-radius: 5px;
     padding: 20px !important;
 
     * {
@@ -565,10 +572,13 @@ dP   dP   dP `88888P' `88888P8 `88888P8 dP `88888P'
 .modal-body {
     padding: 1.25rem !important;
 }
-
 .modal-content {
     border-radius: 4px !important;
     border: none!important;
+}
+.modal-header, .modal-footer {
+    background-color: #f2f2f2;
+    border: none;
 }
 
 /*
@@ -584,13 +594,11 @@ Y8.   .88 88.  .88 88       88.  .88       88
     border: none !important;
     box-shadow: $shadow;
     margin-bottom: 20px;
-    transition: 500ms ease-in-out;
+    transition: 500ms ease-out;
 }
-
 .card-header {
     border: none !important;
 }
-
 .card-footer {
     border: none!important;
     background-color: white!important;
@@ -944,18 +952,22 @@ d888888P                              dP   dP     dP dP
 .tui-full-calendar-timegrid-timezone-label {
     font-weight: 700;
 }
+.tui-full-calendar-month-more, .tui-full-calendar-popup-container {
+    box-shadow: $shadow-lifted;
+    border-color: transparent !important;
+}
 .tui-full-calendar-popup-container {
-    width: 350px !important;
+    width: 400px !important;
 }
 
-    /*
-    888888ba  oo
-    88    `8b
-    88     88 dP dP   .dP .d8888b.
-    88     88 88 88   d8' 88'  `88
-    88     88 88 88 .88'  88.  .88
-    dP     dP dP 8888P'   `88888P'
-     */
+/*
+888888ba  oo
+88    `8b
+88     88 dP dP   .dP .d8888b.
+88     88 88 88   d8' 88'  `88
+88     88 88 88 .88'  88.  .88
+dP     dP dP 8888P'   `88888P'
+ */
 .nivo-tooltip {
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 5px;

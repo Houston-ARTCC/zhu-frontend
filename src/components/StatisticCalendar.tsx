@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import { ResponsiveCalendar } from '@nivo/calendar'
+import { getTheme } from '../helpers/themeManager'
 
 export default function StatisticCalendar({data, height, vertical}) {
     return (
@@ -10,12 +11,15 @@ export default function StatisticCalendar({data, height, vertical}) {
                 direction={vertical ? 'vertical' : 'horizontal'}
                 from={moment().startOf('year').toDate()}
                 to={moment().toDate()}
-                emptyColor="#f0f0f0"
-                colors={['#daebec', '#c4dee1', '#aed0d7', '#98c0cc', '#82b0c2', '#6c9eb8', '#558bad', '#497599', '#3e6184', '#334d6e']}
+                emptyColor={getTheme() === 'dark' ? '#2f2f32' : '#f0f0f0'}
+                colors={getTheme() === 'dark'
+                    ? ['#393c4f', '#3c445f', '#3e4d71', '#3e5884', '#3e6598', '#3c76ad', '#388ac4', '#3f9fd2', '#47b4dc', '#51c8e6']
+                    : ['#daebec', '#c4dee1', '#aed0d7', '#98c0cc', '#82b0c2', '#6c9eb8', '#558bad', '#497599', '#3e6184', '#334d6e']
+                }
                 margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
-                monthBorderColor="#F9F9F9"
+                monthBorderColor={getTheme() === 'dark' ? '#212124' : '#F9F9F9'}
                 dayBorderWidth={3}
-                dayBorderColor="#F9F9F9"
+                dayBorderColor={getTheme() === 'dark' ? '#212124' : '#F9F9F9'}
                 theme={{
                     'fontSize': 14
                 }}

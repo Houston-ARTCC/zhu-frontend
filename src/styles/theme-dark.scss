@@ -1,0 +1,223 @@
+@import 'variables';
+
+body.dark {
+    * {
+        color: $smokegray;
+        transition: $theme-transition;
+    }
+
+    .bg-darkblue { background-color: darken($black, 2%) !important; }
+    .bg-darkgray { background-color: $black !important; }
+
+    .text-black { color: $white !important; }
+    .text-darkblue { color: $white !important; }
+    .text-darkgray { color: $smokegray !important; }
+    .text-gray { color: $midgray !important; }
+
+    .fill-lightgray { fill: lighten($black, 25%) !important; }
+
+    a {
+        transition: 500ms ease-in-out;
+
+        &:not(.link-unstyled):hover {
+            .card {
+                transition: 500ms ease-in-out;
+                box-shadow: $dark-shadow-lifted;
+            }
+        }
+    }
+
+    .list-group-item {
+        a, &.active a {
+            color: $smokegray !important;
+        }
+    }
+
+    .dropdown-menu {
+        background-color: darken($black, 5%);
+    }
+
+    .dropdown-item {
+        &:focus, &:hover {
+            color: $smokegray;
+            background-color: $mutedblack;
+        }
+    }
+
+    .css-1wa3eu0-placeholder, .css-18ng2q5-group, .form-control::placeholder {
+        color: lighten($mutedblack, 8%);
+    }
+
+    .form-control, .css-yk16xz-control {
+        border-color: $mutedblack;
+
+        &:disabled {
+            background-color: rgba(white, 0.1) !important;
+        }
+    }
+
+    .form-control:focus {
+        color: #DFE1E7;
+    }
+
+    .css-26l3qy-menu {
+        background-color: $black;
+    }
+
+    .css-1n7v3ny-option {
+        background-color: $mutedblack;
+    }
+
+    .dropzone {
+        border-color: $mutedblack;
+        p {
+            color: lighten($mutedblack, 15%) !important;
+            b {
+                color: lighten($mutedblack, 30%) !important;
+            }
+        }
+        svg {
+            fill: lighten($mutedblack, 15%) !important;
+        }
+    }
+
+    .alert * {
+        color: inherit;
+    }
+
+    .modal-header, .modal-footer {
+        background-color: #1B1B1D;
+    }
+
+    .modal-content {
+        background-color: #212124;
+    }
+
+    .fade {
+        transition: opacity .15s linear;
+    }
+
+    .card {
+        box-shadow: $dark-shadow;
+        background-color: $black;
+        transition: 500ms ease-out;
+    }
+
+    .card-header {
+        background-color: darken($black, 1.5%);
+    }
+
+    .btn, .badge {
+        color: #212124 !important;
+
+        &:not(.btn-link) svg {
+            fill: #212124 !important;
+        }
+    }
+
+    .btn:hover, .btn:focus {
+        color: #212124 !important;
+    }
+
+    .badge-darkblue {
+        background-color: lighten($darkblue, 10%) !important;
+    }
+
+    .btn-light-primary, .btn-outline-primary, .btn-bg-primary, .badge-light-primary, .badge-outline-primary { color: $primary !important; fill: $primary !important; }
+    .btn-light-yellow, .btn-outline-yellow, .btn-bg-yellow, .badge-light-yellow, .badge-outline-yellow { color: $yellow !important; fill: $yellow !important; }
+    .btn-light-red, .btn-outline-red, .btn-bg-red, .badge-light-red, .badge-outline-red { color: $red !important; fill: $red !important; }
+    .btn-light-green, .btn-outline-green, .btn-bg-green, .badge-light-green, .badge-outline-green { color: $green !important; fill: $green !important; }
+    .btn-light-purple, .btn-outline-purple, .btn-bg-purple, .badge-light-purple, .badge-outline-purple { color: $purple !important; fill: $purple !important; }
+    .btn-light-black, .btn-outline-black, .btn-bg-black, .badge-light-black, .badge-outline-black { color: $black !important; fill: $black !important; }
+    .btn-light-darkgray, .btn-outline-darkgray, .btn-bg-darkgray, .badge-light-darkgray, .badge-outline-darkgray { color: $darkgray !important; fill: $darkgray !important; }
+    .btn-light-darkblue, .btn-outline-darkblue, .btn-bg-darkblue, .badge-light-darkblue, .badge-outline-darkblue { color: $darkblue !important; fill: $darkblue !important; }
+    .btn-light-gray, .btn-outline-gray, .btn-bg-gray, .badge-light-gray, .badge-outline-gray { color: $gray !important; fill: $gray !important; }
+    .btn-light-lightgray, .btn-outline-lightgray, .btn-bg-lightgray, .badge-light-lightgray, .badge-outline-lightgray { color: $lightgray !important; fill: $lightgray !important; }
+    .btn-light-white, .btn-outline-white, .btn-bg-white, .badge-light-white, .badge-outline-white { color: $darkgray !important; fill: $darkgray !important; }
+    .btn-white, .badge-white { color: $darkgray !important; fill: $darkgray !important; }
+
+    #navbar {
+        &.navbar-shrink {
+            background-color: $black;
+        }
+    }
+
+    .mobile-nav {
+        background-color: $black;
+        transition: transform 0.4s ease;
+    }
+
+    .navbar-toggle {
+        background-color: $black;
+    }
+
+    .hamburger span {
+        background-color: white;
+        transition: all .4s ease;
+    }
+
+    #root {
+        background-color: #212124;
+    }
+
+    #homepage-hero {
+        mix-blend-mode: color-dodge;
+    }
+
+    #welcome, #tagline {
+        color: #B8B8B8 !important;
+    }
+
+    .nivo-tooltip {
+        background-color: rgba(14, 14, 14, 0.5);
+    }
+    .nivo-calendar text {
+        fill: $smokegray !important;
+    }
+
+    .rdt_TableRow {
+        border-bottom-color: $mutedblack !important;
+        &:hover {
+            background-color: $mutedblack !important;
+        }
+    }
+
+    .sc-giIncl, .sc-hKgILt {
+        button svg {
+            fill: $smokegray;
+        }
+        button:disabled svg {
+            fill: $mutedblack;
+        }
+    }
+
+    .tui-full-calendar-month-dayname, .tui-full-calendar-month-dayname-item,
+    .tui-full-calendar-weekday-border, .tui-full-calendar-weekday-grid-line,
+    .tui-full-calendar-dayname-container, .tui-full-calendar-timegrid-gridline,
+    .tui-full-calendar-timegrid-sticky-container, .tui-full-calendar-left,
+    .tui-full-calendar-timegrid-timezone-label-container, .tui-full-calendar-splitter,
+    .tui-full-calendar-timegrid-timezone, .tui-full-calendar-time-date, {
+        border-color: $mutedblack !important;
+    }
+    .tui-full-calendar-timegrid-timezone-label-container,
+    .tui-full-calendar-timegrid-timezone {
+        background-color: #212124 !important;
+    }
+    .tui-full-calendar-month-dayname-item:not(:first-child) span {
+        color: $smokegray !important;
+    }
+    .tui-full-calendar-month-more, .tui-full-calendar-popup-container {
+        background-color: $black !important;
+        box-shadow: $dark-shadow-lifted;
+    }
+    .tui-full-calendar-popup-arrow-fill {
+        border-right-color: $black;
+        border-left-color: $black;
+    }
+    .tui-full-calendar-weekday-schedule-title {
+        color: $smokegray !important;
+    }
+    .tui-full-calendar-weekday-grid-date-decorator {
+        background-color: lighten($mutedblack, 10%) !important;
+    }
+}

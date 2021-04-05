@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom'
 import mapboxgl from 'mapbox-gl'
 import Header from '../components/Header'
 import axiosInstance from '../helpers/axiosInstance'
+import { getTheme } from '../helpers/themeManager'
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default
@@ -24,7 +25,9 @@ export default class Map extends Component<any, any> {
         this.fetchMETARs()
         const map = new mapboxgl.Map({
             container: this.mapContainer.current,
-            style: 'mapbox://styles/mikeroma/ckdmiombs1c291jmv6lduqxu1',
+            style: getTheme() === 'dark'
+                ? 'mapbox://styles/mikeroma/ckn16l5lr1qe017o83xehwdcu'
+                : 'mapbox://styles/mikeroma/ckdmiombs1c291jmv6lduqxu1',
             center: [-95, 29.4],
             zoom: 6
         })

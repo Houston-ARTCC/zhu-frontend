@@ -81,7 +81,7 @@ export default class SessionTable extends Component<any, any> {
 
     ExpandableSession = (row) => {
         return (
-            <div className="px-5 py-3" style={{ backgroundColor: '#F9F9F9' }}>
+            <div className="px-5 py-3" style={{ backgroundColor: 'transparent' }}>
                 {this.renderOTSStatus(row.data.ots_status)}
                 {row.data.solo_granted &&
                     <Alert variant="green" className="font-w500"><RiCheckboxCircleFill size={25} className="fill-green mr-2"/>Solo Certification Granted</Alert>

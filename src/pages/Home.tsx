@@ -12,6 +12,8 @@ import getPositionName from '../helpers/facilities'
 import axiosInstance from '../helpers/axiosInstance'
 import { asDuration } from '../helpers/utils'
 import background from '../img/homepage-bg.jpg'
+import backgroundDark from '../img/homepage-bg-dark.jpg'
+import { getTheme } from '../helpers/themeManager'
 
 export default class Home extends Component<any, any> {
     constructor(props) {
@@ -86,8 +88,8 @@ export default class Home extends Component<any, any> {
 
     renderOnlineController(controller) {
         return (
-            <li className="li-flex text-black font-w700 font-lg" style={this.state.onlineControllers?.length > 5 ? {width: '50%'} : {}}>
-                <Badge variant="primary" className="font-w700 mr-2">{controller.callsign}</Badge>
+            <li className="li-flex font-w500" style={this.state.onlineControllers?.length > 5 && window.innerWidth >= 768 ? {width: '50%'} : {}}>
+                <Badge variant="primary" className="mr-2">{controller.callsign}</Badge>
                 {controller.user.first_name} {controller.user.last_name}
             </li>
         )
@@ -145,7 +147,7 @@ export default class Home extends Component<any, any> {
 
     renderNewestController(controller) {
         return (
-            <li className="li-flex text-black font-w700 font-lg">
+            <li className="li-flex text-darkgray font-w500 font-lg">
                 <img
                     className="profile-md mr-2"
                     src={process.env.REACT_APP_API_URL + controller.profile}
@@ -160,9 +162,9 @@ export default class Home extends Component<any, any> {
         return (
             <li className="li-flex">
                 <IoTrophy className={`fill-${index === 0 ? 'gold' : index === 1 ? 'silver' : 'bronze'} mr-2`} size={45}/>
-                <div className="text-black font-w700 font-lg">
+                <div className="text-darkgray font-w500 font-lg">
                     {controller.first_name} {controller.last_name}
-                    <br/><span className="text-gray font-w500">{asDuration(controller.hours)}</span>
+                    <br/><span className="text-gray">{asDuration(controller.hours)}</span>
                 </div>
             </li>
         )
@@ -172,9 +174,9 @@ export default class Home extends Component<any, any> {
         return (
             <li className="li-flex">
                 <IoIosAirplane className={`fill-${index === 0 ? 'gold' : index === 1 ? 'silver' : 'bronze'} mr-2`} size={45}/>
-                <div className="text-black font-w700 font-lg">
+                <div className="text-darkgray font-w500 font-lg">
                     {getPositionName(position.position)}
-                    <br/><span className="text-gray font-w500">{asDuration(position.hours)}</span>
+                    <br/><span className="text-gray">{asDuration(position.hours)}</span>
                 </div>
             </li>
         )
@@ -183,7 +185,7 @@ export default class Home extends Component<any, any> {
     render() {
         return (
             <div>
-                <Parallax bgImage={background} strength={250}>
+                <Parallax bgImage={getTheme() === 'dark' ? backgroundDark : background} strength={250}>
                     <div id="homepage-hero">
                         <h4 className="text-white font-w500" id="tagline">From longhorns to space ships, we've got it all!</h4>
                         <h1 className="text-white font-w700" id="welcome">Welcome to Houston</h1>
@@ -191,7 +193,7 @@ export default class Home extends Component<any, any> {
                 </Parallax>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
-                        <Row className="justify-content-between mb-5">
+                        <Row className="justify-content-between mb-3">
                             <Col sm={12} xl={this.state.onlineControllers?.length > 5 ? 6 : 7} className="mb-4 mb-xl-0">
                                 <h1 className="text-black font-w700 mb-1">Virtual Houston ARTCC</h1>
                                 <h4 className="text-gray mb-4">Part of VATUSA & the VATSIM Network.</h4>
@@ -212,7 +214,7 @@ export default class Home extends Component<any, any> {
                         </Row>
                         <Row className="mb-5">
                             <Col sm={12} xl={6} className="mb-4 mb-xl-0">
-                                <h1 className="text-black font-w700 mb-1 text-break">Announcements</h1>
+                                <h1 className="text-black mb-1 text-break">Announcements</h1>
                                 <h4 className="text-gray mb-4">What's happening at Houston?</h4>
                                 {this.state.announcements?.length > 0
                                     ? this.state.announcements.map(announcement => this.renderAnnouncement(announcement))
@@ -220,7 +222,7 @@ export default class Home extends Component<any, any> {
                                 }
                             </Col>
                             <Col sm={12} xl={6} className="mb-4 mb-xl-0">
-                                <h1 className="text-black font-w700 mb-1">Events</h1>
+                                <h1 className="text-black mb-1">Events</h1>
                                 <h4 className="text-gray mb-4">Are y'all busy?</h4>
                                 {this.state.events?.length > 0
                                     ? this.state.events.map(event => this.renderEvent(event))

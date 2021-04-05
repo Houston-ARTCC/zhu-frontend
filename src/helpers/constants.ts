@@ -4,14 +4,14 @@ export const tuiCalendars = [
     {
         id: '0',
         name: 'Events',
-        bgColor: '#334d6e',
-        borderColor: '#233b56'
+        bgColor: '#109CF1',
+        borderColor: '#157fbe'
     },
     {
         id: '1',
         name: 'Training Sessions',
         bgColor: '#f7685b',
-        borderColor: '#F7685B'
+        borderColor: '#b14e45'
     },
     {
         id: '2',
@@ -49,8 +49,16 @@ export const tuiTemplates = {
 }
 
 export const tuiTheme = {
+    'week.today.backgroundColor': 'rgba(16, 156, 241, 0.1)',
+    'week.currentTime.color': '#109CF1',
+    'week.currentTimeLinePast.border': '1px dashed #109CF1',
+    'week.currentTimeLineBullet.backgroundColor': '#109CF1',
+    'week.currentTimeLineToday.border': '1px solid #109CF1',
+    'week.creationGuide.color': '#109CF1',
     'common.backgroundColor': 'transparent',
-    'common.todayColor': 'black'
+    'common.todayColor': 'black',
+    'common.creationGuide.backgroundColor': 'rgba(16, 156, 241, 0.1)',
+    'common.creationGuide.border': '1px solid #109CF1',
 }
 
 export const dataTableStyle = {
@@ -62,6 +70,11 @@ export const dataTableStyle = {
     rows: {
         style: {
             backgroundColor: 'transparent',
+            borderBottomColor: '#e5e5e5!important',
+            '&:hover': {
+                backgroundColor: '#e5e5e5!important',
+                outline: 'none!important'
+            },
         },
     },
     headRow: {
@@ -71,7 +84,22 @@ export const dataTableStyle = {
     },
     pagination: {
         style: {
-            backgroundColor: 'transparent'
-        }
+            backgroundColor: 'transparent',
+        },
+    },
+    header: {
+        style: {
+            backgroundColor: 'transparent',
+        },
+    },
+    noData: {
+        style: {
+            backgroundColor: 'transparent',
+        },
+    },
+    expanderRow: {
+        style: {
+            backgroundColor: 'transparent',
+        },
     },
 }
