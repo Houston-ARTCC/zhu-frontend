@@ -1,13 +1,5 @@
 export function applyTheme() {
-    let theme = getTheme()
-
-    if (theme === null) {
-        theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-            ? 'dark'
-            : 'light'
-    }
-
-    document.body.className = theme
+    document.body.className = getTheme()
 }
 
 export function setTheme(theme) {
@@ -16,5 +8,11 @@ export function setTheme(theme) {
 }
 
 export function getTheme() {
-    return localStorage.getItem('theme')
+    return localStorage.getItem('theme') || getSystemTheme()
+}
+
+export function getSystemTheme() {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light'
 }
