@@ -32,5 +32,5 @@ jobs:
         server: ${{ secrets.FTP_HOST }}
         username: ${{ secrets.SSH_USER }}
         password: ${{ secrets.SSH_PASSWORD }}
-        local-dir: /build/
-        server-dir: /home/zhuartcc/beta.zhuartcc.org/zhu-frontend/build/
+        local-dir: ./build/
+        server-dir: ./beta.zhuartcc.org/zhu-frontend/build/
