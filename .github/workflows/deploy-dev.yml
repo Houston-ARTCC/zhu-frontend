@@ -19,6 +19,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: Create .env file
+      run: |
+        touch .env
+        echo REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }} >> .env
+        echo REACT_APP_VATSIM_CONNECT_CLIENT_ID=${{ secrets.REACT_APP_VATSIM_CONNECT_CLIENT_ID_DEV }} >> .env
+        echo REACT_APP_VATSIM_CONNECT_REDIRECT_URI=${{ secrets.REACT_APP_VATSIM_CONNECT_REDIRECT_URI_DEV }} >> .env
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
