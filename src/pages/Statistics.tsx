@@ -10,6 +10,7 @@ import StatisticCalendar from '../components/StatisticCalendar'
 import { asDuration, asSeconds, ratingInt } from '../helpers/utils'
 import axiosInstance from '../helpers/axiosInstance'
 import { dataTableStyle } from '../helpers/constants'
+import Spinner from '../components/Spinner'
 
 export default class Statistics extends Component<any, any> {
     constructor(props) {
@@ -20,6 +21,7 @@ export default class Statistics extends Component<any, any> {
             allUserStats: {},
             userStats: [],
             dailyStats: [],
+            loading: true,
         }
         this.userFilter = this.userFilter.bind(this)
     }
@@ -42,6 +44,7 @@ export default class Statistics extends Component<any, any> {
                 this.setState({
                     allUserStats: res.data,
                     userStats: res.data.home,
+                    loading: false,
                 })
             })
     }
@@ -115,6 +118,8 @@ export default class Statistics extends Component<any, any> {
                             highlightOnHover
                             defaultSortField="name"
                             sortIcon={<BsArrowDown/>}
+                            progressPending={this.props.loading}
+                            progressComponent={<Spinner/>}
                             onRowClicked={row => this.props.history.push('/roster/' + row.cid) }
                             columns={[
                                 {

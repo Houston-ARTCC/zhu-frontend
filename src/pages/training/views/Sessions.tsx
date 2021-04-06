@@ -26,7 +26,7 @@ export default class Sessions extends Component<any, any> {
     render() {
         return (
             <Fade bottom duration={1250} distance="50px">
-                <SessionTable data={this.state.sessions}/>
+                <SessionTable data={this.state.sessions} loading={this.state.loading}/>
             </Fade>
         )
     }

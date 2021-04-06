@@ -13,6 +13,7 @@ import { isStaff } from '../helpers/auth'
 import axiosInstance from '../helpers/axiosInstance'
 import { formDataFromObject } from '../helpers/utils'
 import { dataTableStyle } from '../helpers/constants'
+import Spinner from '../components/Spinner'
 
 class Resources extends Component<any, any> {
     constructor(props) {
@@ -23,6 +24,7 @@ class Resources extends Component<any, any> {
             showEditModal: false,
             showCreationModal: false,
             newResource: {},
+            loading: true,
         }
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
@@ -39,7 +41,7 @@ class Resources extends Component<any, any> {
         axiosInstance
             .get('/api/resources/')
             .then(res => {
-                this.setState({ resources: res.data })
+                this.setState({ resources: res.data, loading: false })
             })
     }
 
@@ -162,6 +164,8 @@ class Resources extends Component<any, any> {
                             noDataComponent="No resources for this category"
                             defaultSortField="name"
                             sortIcon={<BsArrowDown/>}
+                            progressPending={this.props.loading}
+                            progressComponent={<Spinner/>}
                             onRowClicked={row => this.handleDownload(process.env.REACT_APP_API_URL + row.path, row.name + row.extension)}
                             columns={[
                                 {

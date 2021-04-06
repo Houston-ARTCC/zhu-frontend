@@ -8,6 +8,7 @@ import { dataTableStyle } from '../../../helpers/constants'
 import DataTable from 'react-data-table-component'
 import axiosInstance from '../../../helpers/axiosInstance'
 import { withRouter } from 'react-router'
+import Spinner from '../../../components/Spinner'
 
 class FindUser extends Component<any, any> {
     constructor(props) {
@@ -19,6 +20,7 @@ class FindUser extends Component<any, any> {
             rating: '',
             role: '',
             showNonMembers: false,
+            loading: true,
         }
         this.userFilter = this.userFilter.bind(this)
         this.handleRatingChange = this.handleRatingChange.bind(this)
@@ -34,7 +36,7 @@ class FindUser extends Component<any, any> {
         axiosInstance
             .get('/api/users/all/')
             .then(res => {
-                this.setState({ users: res.data })
+                this.setState({ users: res.data, loading: false })
             })
     }
 
@@ -159,6 +161,8 @@ class FindUser extends Component<any, any> {
                                 pagination={true}
                                 paginationPerPage={10}
                                 paginationRowsPerPageOptions={[10, 15, 20, 25]}
+                                progressPending={this.props.loading}
+                                progressComponent={<Spinner/>}
                                 onRowClicked={row => this.props.history.push('/roster/' + row.cid) }
                                 customStyles={dataTableStyle}
                                 columns={[
