@@ -27,10 +27,12 @@ jobs:
     - run: npm run build
     
     - name: Upload built app
-      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      uses: sand4rt/ftp-deployer@v1.3
       with:
-        server: ${{ secrets.FTP_HOST }}
+        sftp: true
+        host: ${{ secrets.SSH_HOST }} # e.g. ftp.host.com or sftp.host.com
         username: ${{ secrets.SSH_USER }}
         password: ${{ secrets.SSH_PASSWORD }}
-        local-dir: ./build/
-        server-dir: ./beta.zhuartcc.org/zhu-frontend/build/
+        remote_folder: ./beta.zhuartcc.org/zhu-frontend/build/
+        local_folder: ./build/
+        cleanup: true
