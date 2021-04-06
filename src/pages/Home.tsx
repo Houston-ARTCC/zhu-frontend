@@ -277,3 +277,5 @@ export default class Home extends Component<any, any> {
         );
     }
 }
+
+// TODO: Add scroll indicator below main header.

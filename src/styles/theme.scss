@@ -201,7 +201,6 @@ a {
     border: none !important;
     border-left: 3px solid transparent !important;
     background-color: transparent !important;
-    transition: border-left-color .3s ease-out;
 
     a, &.active a {
         color: $darkgray !important;
@@ -215,7 +214,6 @@ a {
         background-color: transparent !important;
         color: $darkgray !important;
         margin-top: 0 !important;
-        transition: border-left-color .3s ease-in;
 
         a {
             font-weight: 700;
@@ -231,13 +229,18 @@ a88aaaa    .d8888b. 88d888b. 88d8b.d8b. .d8888b.
  88        88.  .88 88       88  88  88       88
  dP        `88888P' dP       dP  dP  dP `88888P'
  */
-.form-control, .css-yk16xz-control, .css-1pahdxg-control, .custom-control-label::before {
-    background-color: transparent !important;
+.form-control {
+    background-color: #FAFAFA !important;
     transition: border .2s, box-shadow .2s !important;
 
-    &:disabled {
+    &:disabled, &:read-only {
         background-color: rgba(black, 0.1) !important;
     }
+}
+
+.css-yk16xz-control, .css-1pahdxg-control, .custom-control-label::before {
+    background-color: #FAFAFA !important;
+    transition: border .2s, box-shadow .2s !important;
 }
 
 .css-9gakcf-option {

@@ -1,6 +1,8 @@
 @import 'variables';
 
 body.dark {
+    background-color: $black !important;
+
     * {
         color: $smokegray;
         transition: $theme-transition;
@@ -48,12 +50,22 @@ body.dark {
         color: lighten($mutedblack, 8%);
     }
 
-    .form-control, .css-yk16xz-control {
+    .form-control {
+        background-color: #2D2D30 !important;
         border-color: $mutedblack;
 
-        &:disabled {
-            background-color: rgba(white, 0.1) !important;
+        &:disabled, &:read-only {
+            background-color: rgba(white, 0.2) !important;
         }
+    }
+
+    .css-yk16xz-control {
+        background-color: #2D2D30 !important;
+        border-color: $mutedblack;
+    }
+
+    .css-1pahdxg-control {
+        background-color: #2D2D30 !important;
     }
 
     .form-control:focus {
