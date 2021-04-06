@@ -118,7 +118,7 @@ export default class Statistics extends Component<any, any> {
                             highlightOnHover
                             defaultSortField="name"
                             sortIcon={<BsArrowDown/>}
-                            progressPending={this.props.loading}
+                            progressPending={this.state.loading}
                             progressComponent={<Spinner/>}
                             onRowClicked={row => this.props.history.push('/roster/' + row.cid) }
                             columns={[

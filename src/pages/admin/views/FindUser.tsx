@@ -161,7 +161,7 @@ class FindUser extends Component<any, any> {
                                 pagination={true}
                                 paginationPerPage={10}
                                 paginationRowsPerPageOptions={[10, 15, 20, 25]}
-                                progressPending={this.props.loading}
+                                progressPending={this.state.loading}
                                 progressComponent={<Spinner/>}
                                 onRowClicked={row => this.props.history.push('/roster/' + row.cid) }
                                 customStyles={dataTableStyle}

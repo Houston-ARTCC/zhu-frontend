@@ -164,7 +164,7 @@ class Resources extends Component<any, any> {
                             noDataComponent="No resources for this category"
                             defaultSortField="name"
                             sortIcon={<BsArrowDown/>}
-                            progressPending={this.props.loading}
+                            progressPending={this.state.loading}
                             progressComponent={<Spinner/>}
                             onRowClicked={row => this.handleDownload(process.env.REACT_APP_API_URL + row.path, row.name + row.extension)}
                             columns={[
