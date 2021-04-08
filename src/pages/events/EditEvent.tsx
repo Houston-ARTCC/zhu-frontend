@@ -254,7 +254,7 @@ class EditEvent extends Component<any, any> {
         }
 
         const handleAssign = (requestId) => {
-            let request = shift.requests.find(req => req.id === requestId)
+            let request = shift.requests.find(req => req.id === parseInt(requestId))
             this.assignShift(request.user.cid, request.user.first_name + ' ' + request.user.last_name, shift, position)
         }
 

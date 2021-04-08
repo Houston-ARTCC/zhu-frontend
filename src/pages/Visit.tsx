@@ -5,16 +5,38 @@ import Fade from 'react-reveal/Fade'
 import Header from '../components/Header'
 import axiosInstance from '../helpers/axiosInstance'
 import { parseJWT } from '../helpers/auth'
+import { RiCheckFill, RiCloseFill } from 'react-icons/all'
 
 class Visit extends Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
             form: {},
+            ratingCheck: false,
+            ratingTimeCheck: false,
+            ratingHoursCheck: false,
+            membershipCheck: false,
+            isEligible: false,
         }
         this.handleTextChange = this.handleTextChange.bind(this)
         this.handleSwitchChange = this.handleSwitchChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    componentDidMount() {
+        this.checkEligibility()
+    }
+
+    checkEligibility() {
+        axiosInstance
+            .get('/api/visit/eligible/')
+            .then(res => this.setState({
+                ratingCheck: res.data.rating_check,
+                ratingTimeCheck: res.data.rating_time_check,
+                ratingHoursCheck: res.data.rating_hours_check,
+                membershipCheck: res.data.membership_check,
+                isEligible: res.data.is_eligible,
+            }))
     }
 
     handleTextChange(event) {
@@ -62,9 +84,33 @@ class Visit extends Component<any, any> {
                 <Header title="Visit Houston"/>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
-                        <p>Hello and thank you for your interest in visiting the virtual Houston ARTCC!</p>
-                        <p>If you would like to leave your current facility and join Houston as a home controller, you must instead submit a <a href="https://www.vatusa.net/my/profile">transfer request through VATUSA</a>.</p>
-                        <Form onSubmit={this.handleSubmit}>
+                        <p>Hello and thank you for your interest in becoming a visiting controller at the virtual Houston ARTCC! Onced trained, visiting controllers are able to control the same positions and fields as home controllers. If you would like to leave your current facility and join Houston as a home controller, you must instead submit a <a href="https://www.vatusa.net/my/profile">transfer request through VATUSA</a>.</p>
+                        <p className="mb-5">As per the VATSIM Transfer and Visiting Controller Policy, <b>we are not able to provide rating training to visiting controllers</b>. You must contact your home facility's training department for rating training. The Houston ARTCC training department will only provide local procedure training and major endorsement checkouts.</p>
+                        <h4>Visiting Checklist</h4>
+                        <ul className="list-unstyled mb-5">
+                            <li>
+                                {this.state.ratingCheck ? <RiCheckFill size={23} className="mr-2 fill-green"/> : <RiCloseFill size={23} className="mr-2 fill-red"/>}
+                                You hold an S2 controller rating or greater
+                            </li>
+                            <li>
+                                {this.state.ratingTimeCheck ? <RiCheckFill size={23} className="mr-2 fill-green"/> : <RiCloseFill size={23} className="mr-2 fill-red"/>}
+                                You have held your current rating for at least 90 days
+                            </li>
+                            <li>
+                                {this.state.ratingHoursCheck ? <RiCheckFill size={23} className="mr-2 fill-green"/> : <RiCloseFill size={23} className="mr-2 fill-red"/>}
+                                You have at least 50 hours of controlling time at current rating
+                            </li>
+                            <li>
+                                {this.state.membershipCheck ? <RiCheckFill size={23} className="mr-2 fill-green"/> : <RiCloseFill size={23} className="mr-2 fill-red"/>}
+                                You are not an active MAVP, visiting, or home controller at Houston
+                            </li>
+                            <hr className="w-25 mx-0 my-2"/>
+                            <li>
+                                {this.state.isEligible ? <RiCheckFill size={23} className="mr-2 fill-green"/> : <RiCloseFill size={23} className="mr-2 fill-red"/>}
+                                You are eligible to apply as a visiting controller at Houston
+                            </li>
+                        </ul>
+                        <Form onSubmit={this.handleSubmit} style={this.state.isEligible ? {} : { opacity: '50%', pointerEvents: 'none' }}>
                             <Row>
                                 <Col>
                                     <Form.Row>
@@ -86,9 +132,13 @@ class Visit extends Component<any, any> {
                                             <Form.Label>Email</Form.Label>
                                             <Form.Control required type="email" value={user.email} readOnly/>
                                         </Form.Group>
-                                        <Form.Group as={Col}>
+                                        <Form.Group as={Col} md={3}>
                                             <Form.Label>Home Facility</Form.Label>
                                             <Form.Control required type="text" value={user.facility} readOnly/>
+                                        </Form.Group>
+                                        <Form.Group as={Col} md={3}>
+                                            <Form.Label>Rating</Form.Label>
+                                            <Form.Control required type="text" value={user.rating} readOnly/>
                                         </Form.Group>
                                     </Form.Row>
                                     <Form.Switch required className="mb-3" id="emails" name="emails" label="I agree to receive notification emails from Houston ARTCC." onChange={this.handleSwitchChange}/>

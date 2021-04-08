@@ -33,6 +33,11 @@ export function getFullName() {
     return getFirstName() + ' ' + getLastName()
 }
 
+export function getRating() {
+    const jwt = parseJWT()
+    return jwt && jwt.rating
+}
+
 export function isAuthenticated() {
     return !!parseJWT()
 }
