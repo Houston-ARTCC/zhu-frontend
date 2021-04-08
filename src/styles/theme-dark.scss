@@ -10,6 +10,7 @@ body.dark {
 
     .bg-darkblue { background-color: darken($black, 2%) !important; }
     .bg-darkgray { background-color: $black !important; }
+    .bg-lightgray { background-color: lighten($black, 5%) !important; }
 
     .text-black { color: $white !important; }
     .text-darkblue { color: $white !important; }
@@ -20,6 +21,8 @@ body.dark {
 
     a {
         transition: 500ms ease-in-out;
+
+        &:not([class]) { color: $primary; }
 
         &:not(.link-unstyled):hover {
             .card {
@@ -46,30 +49,45 @@ body.dark {
         }
     }
 
+    .progress {
+        background-color: $black;
+    }
+
+    .popover {
+        background-color: lighten($black, 5%);
+        box-shadow: $dark-shadow-lifted;
+    }
+
+    .popover-header {
+        background-color: #1B1B1D;
+    }
+
     .css-1wa3eu0-placeholder, .css-18ng2q5-group, .form-control::placeholder {
         color: lighten($mutedblack, 8%);
     }
 
     .form-control {
-        background-color: #2D2D30 !important;
-        border-color: $mutedblack;
+        background-color: #2A2A2D !important;
+        border-color: $mutedblack !important;
 
         &:disabled, &:read-only {
-            background-color: rgba(white, 0.2) !important;
+            background-color: rgba($smokegray, 0.2) !important;
         }
     }
 
     .css-yk16xz-control {
-        background-color: #2D2D30 !important;
+        background-color: #2A2A2D !important;
         border-color: $mutedblack;
     }
 
     .css-1pahdxg-control {
-        background-color: #2D2D30 !important;
+        background-color: #2A2A2D !important;
     }
 
     .form-control:focus {
         color: #DFE1E7;
+        border: 1px $primary solid !important;
+        box-shadow: 0 0 0 1px $primary !important;
     }
 
     .css-26l3qy-menu {

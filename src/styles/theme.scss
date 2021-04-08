@@ -114,6 +114,8 @@ hr {
 a {
     transition: 500ms ease-in-out;
 
+    &:not([class]) { color: $primary; }
+
     &:not(.link-unstyled):hover {
         text-decoration: none!important;
         opacity: 0.6;
@@ -197,6 +199,25 @@ a {
     font-size: 0.8rem;
 }
 
+.popover {
+    border-radius: 2px !important;
+    border: none !important;
+    box-shadow: $shadow-lifted;
+}
+
+.popover-header {
+    background-color: #f2f2f2;
+    border: none;
+}
+
+.popover-header::before {
+    display: none !important;
+}
+
+.popover .arrow {
+    display: none !important;
+}
+
 .list-group-item {
     border: none !important;
     border-left: 3px solid transparent !important;
@@ -232,9 +253,10 @@ a88aaaa    .d8888b. 88d888b. 88d8b.d8b. .d8888b.
 .form-control {
     background-color: #FAFAFA !important;
     transition: border .2s, box-shadow .2s !important;
+    border-color: $smokegray !important;
 
     &:disabled, &:read-only {
-        background-color: rgba(black, 0.1) !important;
+        background-color: rgba($smokegray, 0.4) !important;
     }
 }
 
@@ -574,10 +596,11 @@ dP   dP   dP `88888P' `88888P8 `88888P8 dP `88888P'
  */
 .modal-body {
     padding: 1.25rem !important;
+    border: none !important;
 }
 .modal-content {
-    border-radius: 4px !important;
-    border: none!important;
+    border-radius: 2px !important;
+    border: none !important;
 }
 .modal-header, .modal-footer {
     background-color: #f2f2f2;
