@@ -19,6 +19,12 @@ export const tuiCalendars = [
         bgColor: '#b0b0b0',
         borderColor: '#9f9f9f'
     },
+    {
+        id: '3',
+        name: 'Controller Bookings',
+        bgColor: '#75d65a',
+        borderColor: '#59ba3c'
+    },
 ]
 
 export const tuiTimezones = [

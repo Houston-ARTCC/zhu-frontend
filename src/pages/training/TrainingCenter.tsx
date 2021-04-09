@@ -4,7 +4,7 @@ import Fade from 'react-reveal/Fade'
 import Header from '../../components/Header'
 import { Link } from 'react-router-dom'
 import { isTrainingStaff } from '../../helpers/auth'
-import { useHistory, useLocation } from 'react-router'
+import { useLocation } from 'react-router'
 
 export default function TrainingCenter({ view }) {
     const location = useLocation()

@@ -14,6 +14,7 @@ export default class TuiCalendar extends Component<any, any> {
         this.state = {
             events: [],
             sessions: [],
+            bookings: [],
             schedules: [],
             requested: [],
             current: moment(),
@@ -31,21 +32,16 @@ export default class TuiCalendar extends Component<any, any> {
         let year = this.state.current.year()
         let month = this.state.current.month() + 1
         if (!this.state.requested.includes(year.toString() + month.toString())) {
-            Promise.all([
-                axiosInstance
-                    .get('/api/calendar/events/' + year + '/' + month + '/')
-                    .then(res => {
-                        this.setState({ events: res.data })
-                    }),
-                axiosInstance
-                    .get('/api/calendar/training/' + year + '/' + month + '/')
-                    .then(res => {
-                        this.setState({ sessions: res.data })
-                    })
-            ]).then(() => {
-                this.setState({ requested: [...this.state.requested, year.toString() + month.toString()] })
-                this.createSchedules()
-            })
+            axiosInstance
+                .get('/api/calendar/' + year + '/' + month + '/')
+                .then(res => {
+                    this.setState({
+                        requested: [...this.state.requested, year.toString() + month.toString()],
+                        events: res.data.events,
+                        sessions: res.data.sessions,
+                        bookings: res.data.bookings,
+                    }, () => this.createSchedules())
+                })
         }
     }
 
@@ -75,7 +71,19 @@ export default class TuiCalendar extends Component<any, any> {
                 end: session.end,
             })
         })
-        this.setState({schedules: schedules})
+        this.state.bookings.forEach(booking => {
+            schedules.push({
+                id: booking.id,
+                calendarId: 3,
+                title: booking.callsign + ' [' + booking.user.first_name + ' ' + booking.user.last_name + ']',
+                location: booking.callsign,
+                category: 'time',
+                isReadOnly: true,
+                start: booking.start,
+                end: booking.end,
+            })
+        })
+        this.setState({ schedules: schedules })
     }
 
     handlePrev() {

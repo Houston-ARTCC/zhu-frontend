@@ -5,7 +5,7 @@ import Fade from 'react-reveal/Fade'
 import 'react-quill/dist/quill.snow.css'
 import Header from '../../components/Header'
 import { isAdmin, isSeniorStaff } from '../../helpers/auth'
-import { useHistory, useLocation } from 'react-router'
+import { useLocation } from 'react-router'
 
 export default function AdminPanel({ view }) {
     const location = useLocation()
