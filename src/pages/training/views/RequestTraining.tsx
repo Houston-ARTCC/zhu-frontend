@@ -18,6 +18,7 @@ class RequestTraining extends Component<any, any> {
             showCreationModal: false,
             sessionRequest: {},
             pendingRequests: [],
+            pendingRequestsSchedules: [],
         }
         this.handleSubmitRequest = this.handleSubmitRequest.bind(this)
         this.handleTextChange = this.handleTextChange.bind(this)
@@ -34,7 +35,28 @@ class RequestTraining extends Component<any, any> {
     fetchPendingRequests() {
         axiosInstance
             .get('/api/training/request/')
-            .then(res => this.setState({ pendingRequests: res.data }))
+            .then(res => {
+                this.setState({ pendingRequests: res.data }, () => this.createPendingRequestsSchedules())
+            })
+    }
+
+    createPendingRequestsSchedules() {
+        let schedules: object[] = []
+        this.state.pendingRequests.forEach(request => {
+            schedules.push({
+                id: request.id,
+                calendarId: 2,
+                title: 'Training Request (Pending)',
+                category: 'time',
+                customStyle: 'btn',
+                color: '#ffffff',
+                isReadOnly: true,
+                isPending: true,
+                start: request.start,
+                end: request.end,
+            })
+        })
+        this.setState({pendingRequestsSchedules: schedules})
     }
 
     handleSubmitRequest(e) {
@@ -192,7 +214,7 @@ class RequestTraining extends Component<any, any> {
                         </p>
                     </div>
                 </Alert>
-                <TuiCalendar view="week" onCreateSchedule={this.handleCreateSchedule}/>
+                <TuiCalendar view="week" onCreateSchedule={this.handleCreateSchedule} additionalSchedules={this.state.pendingRequestsSchedules}/>
                 <Modal
                     size="lg"
                     show={this.state.showCreationModal}

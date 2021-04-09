@@ -11,13 +11,13 @@ export const tuiCalendars = [
         id: '1',
         name: 'Training Sessions',
         bgColor: '#f7685b',
-        borderColor: '#b14e45'
+        borderColor: '#cb4f40'
     },
     {
         id: '2',
         name: 'Training Requests',
-        bgColor: '#949494',
-        borderColor: '#7e7e7e'
+        bgColor: '#b0b0b0',
+        borderColor: '#9f9f9f'
     },
 ]
 

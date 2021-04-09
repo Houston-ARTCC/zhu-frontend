@@ -58,12 +58,9 @@ export default class TuiCalendar extends Component<any, any> {
                 title: event.name,
                 location: event.host,
                 category: 'time',
-                customStyle: 'btn',
-                color: '#ffffff',
                 isReadOnly: true,
-                isAllDay: this.props.eventsAllDay,
-                start: moment(event.start).toISOString(),
-                end: moment(event.end).toISOString()
+                start: event.start,
+                end: event.end,
             })
         })
         this.state.sessions.forEach(session => {
@@ -74,8 +71,8 @@ export default class TuiCalendar extends Component<any, any> {
                 location: session.position,
                 category: 'time',
                 isReadOnly: true,
-                start: moment(session.start).toISOString(),
-                end: moment(session.end).toISOString()
+                start: session.start,
+                end: session.end,
             })
         })
         this.setState({schedules: schedules})
@@ -123,7 +120,7 @@ export default class TuiCalendar extends Component<any, any> {
                     useDetailPopup={true}
                     isReadOnly={this.props.isReadOnly || false}
                     onBeforeCreateSchedule={this.props.onCreateSchedule}
-                    schedules={this.state.schedules}
+                    schedules={this.state.schedules.concat(this.props.additionalSchedules || [])}
                     calendars={tuiCalendars}
                     timezones={tuiTimezones}
                     template={tuiTemplates}
