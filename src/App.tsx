@@ -8,8 +8,8 @@ import Feedback from './pages/Feedback'
 import Privacy from './pages/Privacy'
 import Map from './pages/Map'
 import Home from './pages/Home'
-import Theme from './pages/Theme'
 import Visit from './pages/Visit'
+import Settings from './pages/Settings'
 import Staff from './pages/roster/Staff'
 import Roster from './pages/roster/Roster'
 import Profile from './pages/roster/Profile'
@@ -95,11 +95,11 @@ export default function App() {
                 <AuthRoute exact path="/admin/broadcast" component={AdminPanel} view={Broadcast} auth={isStaff}/>
                 {/* Miscellaneous */}
                 <Route exact path="/map" component={Map}/>
-                <Route exact path="/theme" component={Theme}/>
                 <Route exact path="/privacy" component={Privacy}/>
                 <Route exact path="/statistics" component={Statistics}/>
                 <Route exact path="/calendar" component={ARTCCCalendar}/>
                 <AuthRoute exact path="/feedback" component={Feedback}/>
+                <AuthRoute exact path="/settings" component={Settings} auth={isAuthenticated}/>
                 <Route component={Error404}/>
             </Switch>
             <Footer/>

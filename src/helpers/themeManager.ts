@@ -8,7 +8,8 @@ export function setTheme(theme) {
 }
 
 export function getTheme() {
-    return localStorage.getItem('theme') || getSystemTheme()
+    let theme = localStorage.getItem('theme')
+    return theme === 'default' ? getSystemTheme() : theme || getSystemTheme()
 }
 
 export function getSystemTheme() {

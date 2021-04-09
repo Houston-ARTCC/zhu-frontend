@@ -59,6 +59,7 @@ export default function Navigation() {
                                 <NavDropdown.Item as={Link} to="/admin">Administration</NavDropdown.Item>
                             }
                             <NavDropdown.Divider />
+                            <NavDropdown.Item as={Link} to="/settings">Settings</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/logout">Log Out</NavDropdown.Item>
                         </NavDropdown>
                         : <Nav.Item as={Link} to={{ pathname: '/login', state: { from: location }}} className="ml-4">

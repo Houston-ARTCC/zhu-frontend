@@ -19,6 +19,10 @@ body.dark {
 
     .fill-lightgray { fill: lighten($black, 25%) !important; }
 
+    hr, .dropdown-divider {
+        border-top: 1px solid $mutedblack !important;
+    }
+
     a {
         transition: 500ms ease-in-out;
 
@@ -77,7 +81,7 @@ body.dark {
 
     .css-yk16xz-control {
         background-color: #2A2A2D !important;
-        border-color: $mutedblack;
+        border-color: $mutedblack !important;
     }
 
     .css-1pahdxg-control {
