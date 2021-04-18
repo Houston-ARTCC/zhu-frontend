@@ -20,7 +20,7 @@ class VisitingRequests extends Component<any, any> {
     fetchRequests() {
         axiosInstance
             .get('/api/visit/')
-            .then(res => this.setState({ requests: res.data }))
+            .then(res => this.setState({ requests: res.data }, () => this.props.updateNotifs()))
     }
 
     approveRequest(request) {

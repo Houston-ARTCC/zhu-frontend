@@ -51,7 +51,7 @@ axiosInstance.interceptors.response.use(
                             return Promise.reject(err)
                         })
                 } else {
-                    window.location.href = '/login'
+                    window.location.href = '/login/'
                     return Promise.reject(err)
                 }
             }

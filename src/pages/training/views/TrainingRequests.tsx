@@ -39,7 +39,7 @@ class TrainingRequests extends Component<any, any> {
                 end: this.state.end,
                 position: this.state.position,
             })
-            .then(res => this.setState({ requests: res.data }))
+            .then(res => this.setState({ requests: res.data }, () => this.props.updateNotifs()))
     }
 
     handleClickRequest(row) {

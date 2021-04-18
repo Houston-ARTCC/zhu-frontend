@@ -20,7 +20,7 @@ class PendingFeedback extends Component<any, any> {
     fetchFeedback() {
         axiosInstance
             .get('/api/feedback/')
-            .then(res => this.setState({ feedback: res.data }))
+            .then(res => this.setState({ feedback: res.data }, () => this.props.updateNotifs()))
     }
 
     approveFeedback(feedback) {

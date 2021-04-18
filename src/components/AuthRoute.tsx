@@ -7,7 +7,7 @@ const AuthRoute = ({ component: Comp, auth: AuthFunction = () => {return true}, 
     <Route {...rest} render={(props) => (
         isAuthenticated()
             ? AuthFunction()
-                ? <Comp view={<View/>} {...props}/>
+                ? <Comp view={View} {...props}/>
                 : <Error403/>
             : <Redirect to={{ pathname: '/login', state: { from: props.location }}}/>
     )}/>

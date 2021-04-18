@@ -1,14 +1,35 @@
-import React from 'react'
-import { Col, Container, ListGroup, Row } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import { Badge, Col, Container, ListGroup, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Fade from 'react-reveal/Fade'
 import 'react-quill/dist/quill.snow.css'
 import Header from '../../components/Header'
 import { isAdmin, isSeniorStaff } from '../../helpers/auth'
 import { useLocation } from 'react-router'
+import axiosInstance from '../../helpers/axiosInstance'
 
-export default function AdminPanel({ view }) {
+export default function AdminPanel(props) {
     const location = useLocation()
+
+    const [visitingNotifs, setVisitingNotifs] = useState(0)
+    const [feedbackNotifs, setFeedbackNotifs] = useState(0)
+    const [supportNotifs, setSupportNotifs] = useState(0)
+    const [loaNotifs, setLoaNotifs] = useState(0)
+
+    useEffect(() => {
+        updateNotifs()
+    })
+
+    function updateNotifs() {
+        axiosInstance
+            .get('/api/administration/notifications/')
+            .then(res => {
+                setVisitingNotifs(res.data.visiting_applications)
+                setFeedbackNotifs(res.data.pending_feedback)
+                setSupportNotifs(res.data.support_requests)
+                setLoaNotifs(res.data.loa_requests)
+            })
+    }
 
     return (
         <div>
@@ -41,20 +62,20 @@ export default function AdminPanel({ view }) {
                                     {isAdmin() &&
                                         <ListGroup.Item as="li" active={location.pathname === '/admin/visit'}>
                                             <Link to="/admin/visit">
-                                                Visiting Requests
+                                                Visiting Requests {visitingNotifs > 0 && <Badge variant="red rounded">{visitingNotifs}</Badge>}
                                             </Link>
                                         </ListGroup.Item>
                                     }
                                     {isSeniorStaff() &&
                                         <ListGroup.Item as="li" active={location.pathname === '/admin/feedback'}>
                                             <Link to="/admin/feedback">
-                                                Pending Feedback
+                                                Pending Feedback {feedbackNotifs > 0 && <Badge variant="red rounded">{feedbackNotifs}</Badge>}
                                             </Link>
                                         </ListGroup.Item>
                                     }
                                     <ListGroup.Item as="li" active={location.pathname === '/admin/support'}>
                                         <Link to="/admin/support">
-                                            Event Support
+                                            Event Support {supportNotifs > 0 && <Badge variant="red rounded">{supportNotifs}</Badge>}
                                         </Link>
                                     </ListGroup.Item>
                                 </div>
@@ -75,7 +96,7 @@ export default function AdminPanel({ view }) {
                                     {isAdmin() &&
                                         <ListGroup.Item as="li" active={location.pathname === '/admin/loa'}>
                                             <Link to="/admin/loa">
-                                                LOA Requests
+                                                LOA Requests {loaNotifs > 0 && <Badge variant="red rounded">{loaNotifs}</Badge>}
                                             </Link>
                                         </ListGroup.Item>
                                     }
@@ -96,7 +117,7 @@ export default function AdminPanel({ view }) {
                             </div>
                         </Col>
                         <Col className="ml-0 ml-md-5">
-                            {view}
+                            <props.view updateNotifs={updateNotifs}/>
                         </Col>
                     </Row>
                 </Container>

@@ -1,13 +1,28 @@
-import React from 'react'
-import { Col, Container, ListGroup, Row } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import { Badge, Col, Container, ListGroup, Row } from 'react-bootstrap'
 import Fade from 'react-reveal/Fade'
 import Header from '../../components/Header'
 import { Link } from 'react-router-dom'
 import { isTrainingStaff } from '../../helpers/auth'
 import { useLocation } from 'react-router'
+import axiosInstance from '../../helpers/axiosInstance'
 
-export default function TrainingCenter({ view }) {
+export default function TrainingCenter(props) {
     const location = useLocation()
+
+    const [requestNotifs, setRequestNotifs] = useState(0)
+
+    useEffect(() => {
+        updateNotifs()
+    })
+
+    function updateNotifs() {
+        axiosInstance
+            .get('/api/training/notifications/')
+            .then(res => {
+                setRequestNotifs(res.data.training_requests)
+            })
+    }
 
     return (
         <>
@@ -45,7 +60,7 @@ export default function TrainingCenter({ view }) {
                                         </ListGroup.Item>
                                         <ListGroup.Item as="li" active={location.pathname === '/training/requests'}>
                                             <Link to="/training/requests">
-                                                Training Requests
+                                                Training Requests {requestNotifs > 0 && <Badge variant="red rounded">{requestNotifs}</Badge>}
                                             </Link>
                                         </ListGroup.Item>
                                         <ListGroup.Item as="li" active={location.pathname === '/training/profile'}>
@@ -68,7 +83,7 @@ export default function TrainingCenter({ view }) {
                             </div>
                         </Col>
                         <Col className="ml-0 ml-md-5">
-                            {view}
+                            <props.view updateNotifs={updateNotifs}/>
                         </Col>
                     </Row>
                 </Container>

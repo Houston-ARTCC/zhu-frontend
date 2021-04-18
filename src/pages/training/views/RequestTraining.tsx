@@ -36,7 +36,10 @@ class RequestTraining extends Component<any, any> {
         axiosInstance
             .get('/api/training/request/')
             .then(res => {
-                this.setState({ pendingRequests: res.data }, () => this.createPendingRequestsSchedules())
+                this.setState({ pendingRequests: res.data }, () => {
+                    this.props.updateNotifs()
+                    this.createPendingRequestsSchedules()
+                })
             })
     }
 
