@@ -56,7 +56,8 @@ class RosterPurge extends Component<any, any> {
         })
     }
 
-    purgeSelectedUsers() {
+    purgeSelectedUsers(e) {
+        e.preventDefault()
         this.state.selected.forEach(user => this.deleteUser(user))
         this.setState({ showConfirmModal: false, toggledClearRows: true })
         this.fetchUserStatistics()
@@ -72,11 +73,7 @@ class RosterPurge extends Component<any, any> {
             .catch(err => console.log(err.response))
 
         axios
-            .delete(baseVatusaUrl + user.cid, {
-                data: {
-                    reason: this.state.reason
-                }
-            })
+            .delete(baseVatusaUrl + user.cid, { data: { reason: this.state.reason } })
             .catch(err => console.log(err.response))
     }
 
@@ -195,32 +192,36 @@ class RosterPurge extends Component<any, any> {
                     backdrop="static"
                     centered
                 >
-                    <Modal.Header closeButton>
-                        <Modal.Title>Confirm Roster Removal</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <p>Confirming this action will automatically remove the following users from the VATUSA and local Houston ARTCC roster. <b>This action cannot be undone!</b></p>
-                        <div className="mb-3">
-                            {this.state.selected.map(user => <p className="mb-0 text-center"><code>{user.first_name} {user.last_name}</code></p>)}
-                        </div>
-                        <FormGroup>
-                            <Form.Label>VATUSA will be sent the following as the reason for removal:</Form.Label>
-                            <Form.Control
-                                as="textarea"
-                                name="reason"
-                                required
-                                rows={2}
-                                value={this.state.reason}
-                                onChange={event => this.setState({ reason: event.target.value })}
-                            />
-                        </FormGroup>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="lightgray" onClick={() => this.setState({ showConfirmModal: false })}>
-                            Cancel
-                        </Button>
-                        <Button variant="primary" onClick={this.purgeSelectedUsers}>Confirm</Button>
-                    </Modal.Footer>
+                    <Form>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Confirm Roster Removal</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <p>Confirming this action will automatically remove the following users from the VATUSA and local Houston ARTCC roster. <b>This action cannot be undone!</b></p>
+                            <div className="mb-3">
+                                {this.state.selected.map(user => <p className="mb-0 text-center"><code>{user.first_name} {user.last_name}</code></p>)}
+                            </div>
+                            <FormGroup>
+                                <Form.Label>VATUSA will be sent the following as the reason for removal:</Form.Label>
+                                <Form.Control
+                                    as="textarea"
+                                    name="reason"
+                                    required
+                                    rows={2}
+                                    value={this.state.reason}
+                                    onChange={event => this.setState({ reason: event.target.value })}
+                                />
+                            </FormGroup>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="lightgray" onClick={() => this.setState({ showConfirmModal: false })}>
+                                Cancel
+                            </Button>
+                            <Button variant="primary" type="submit" onClick={this.purgeSelectedUsers}>
+                                Confirm
+                            </Button>
+                        </Modal.Footer>
+                    </Form>
                 </Modal>
             </>
         )
