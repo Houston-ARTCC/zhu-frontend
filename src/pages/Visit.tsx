@@ -16,6 +16,7 @@ class Visit extends Component<any, any> {
             ratingTimeCheck: false,
             ratingHoursCheck: false,
             membershipCheck: false,
+            pendingApplicationCheck: false,
             isEligible: false,
         }
         this.handleTextChange = this.handleTextChange.bind(this)
@@ -35,6 +36,7 @@ class Visit extends Component<any, any> {
                 ratingTimeCheck: res.data.rating_time_check,
                 ratingHoursCheck: res.data.rating_hours_check,
                 membershipCheck: res.data.membership_check,
+                pendingApplicationCheck: res.data.pending_application_check,
                 isEligible: res.data.is_eligible,
             }))
     }
@@ -54,7 +56,7 @@ class Visit extends Component<any, any> {
     handleSubmit(e) {
         e.preventDefault()
         axiosInstance
-            .put('/api/visit/', this.state.form + '/')
+            .post('/api/visit/', this.state.form)
             .then(res => {
                 this.props.enqueueSnackbar('Successfully submitted visiting request!', {
                     variant: 'success',
@@ -103,6 +105,10 @@ class Visit extends Component<any, any> {
                             <li>
                                 {this.state.membershipCheck ? <RiCheckFill size={23} className="mr-2 fill-green"/> : <RiCloseFill size={23} className="mr-2 fill-red"/>}
                                 You are not an active MAVP, visiting, or home controller at Houston
+                            </li>
+                            <li>
+                                {this.state.pendingApplicationCheck ? <RiCheckFill size={23} className="mr-2 fill-green"/> : <RiCloseFill size={23} className="mr-2 fill-red"/>}
+                                You do not have any pending visiting applications
                             </li>
                             <hr className="w-25 mx-0 my-2"/>
                             <li>
