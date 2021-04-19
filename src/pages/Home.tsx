@@ -193,7 +193,7 @@ export default class Home extends Component<any, any> {
                 </Parallax>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
-                        <Row className="justify-content-between mb-3">
+                        <Row className="justify-content-between mb-5">
                             <Col sm={12} xl={this.state.onlineControllers?.length > 5 ? 6 : 7} className="mb-4 mb-xl-0">
                                 <h1 className="text-black font-w700 mb-1">Virtual Houston ARTCC</h1>
                                 <h4 className="text-gray mb-4">Part of VATUSA & the VATSIM Network.</h4>
@@ -214,16 +214,16 @@ export default class Home extends Component<any, any> {
                         </Row>
                         <Row className="mb-5">
                             <Col sm={12} xl={6} className="mb-4 mb-xl-0">
-                                <h1 className="text-black mb-1 text-break">Announcements</h1>
-                                <h4 className="text-gray mb-4">What's happening at Houston?</h4>
+                                <h2 className="text-black mb-1 text-break">Announcements</h2>
+                                <h6 className="text-gray mb-4">What's happening at Houston?</h6>
                                 {this.state.announcements?.length > 0
                                     ? this.state.announcements.map(announcement => this.renderAnnouncement(announcement))
                                     : <p>There are no announcements.</p>
                                 }
                             </Col>
                             <Col sm={12} xl={6} className="mb-4 mb-xl-0">
-                                <h1 className="text-black mb-1">Events</h1>
-                                <h4 className="text-gray mb-4">Are y'all busy?</h4>
+                                <h2 className="text-black mb-1">Events</h2>
+                                <h6 className="text-gray mb-4">Are y'all busy?</h6>
                                 {this.state.events?.length > 0
                                     ? this.state.events.map(event => this.renderEvent(event))
                                     : <p>There are no planned events.</p>

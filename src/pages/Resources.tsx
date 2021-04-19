@@ -152,8 +152,8 @@ class Resources extends Component<any, any> {
         let resources = this.state.resources[category.toLowerCase()]?.length
         return (
             <section className="mb-5" id={category}>
-                <h3 className="text-black font-w700 mb-0">{category}</h3>
-                <h5 className="text-gray font-w500 mb-3">{resources} Resource{resources !== 1 ? 's' : ''}</h5>
+                <h2 className="text-black mb-1">{category}</h2>
+                <h6 className="text-gray mb-4">{resources} Resource{resources !== 1 ? 's' : ''}</h6>
                 <Card>
                     <Card.Body>
                         <DataTable

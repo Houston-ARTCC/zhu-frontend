@@ -47,8 +47,8 @@ export default function Staff() {
                         </Col>
                         <Col className="ml-0 ml-md-5">
                             <section className="mb-5" id="core-staff">
-                                <h2 className="font-w700">Core Staff</h2>
-                                <h5 className="text-gray mb-3">Responsible for the bulk of ARTCC operations.</h5>
+                                <h2 className="text-black mb-1">Core Staff</h2>
+                                <h6 className="text-gray mb-4">Responsible for the bulk of ARTCC operations.</h6>
                                 <Row>
                                     <Col md={6}>
                                         <Card>
@@ -119,8 +119,8 @@ export default function Staff() {
                                 </Row>
                             </section>
                             <section className="mb-5" id="assistant-staff">
-                                <h2 className="font-w700">Assistant Staff</h2>
-                                <h5 className="text-gray mb-3">Assist the senior staff in their respective duties.</h5>
+                                <h2 className="text-black mb-1">Assistant Staff</h2>
+                                <h6 className="text-gray mb-4">Assist the senior staff in their respective duties.</h6>
                                 <Row>
                                     {staff?.ta?.assistants.map(user => renderUserCard(user, 'Assistant Training Administrator'))}
                                     {staff?.fe?.assistants.map(user => renderUserCard(user, 'Assistant Facility Engineer'))}
@@ -129,16 +129,16 @@ export default function Staff() {
                                 </Row>
                             </section>
                             <section className="mb-5" id="training-team">
-                                <h2 className="font-w700">Training Team</h2>
-                                <h5 className="text-gray mb-3">Responsible for mentoring and training controllers.</h5>
+                                <h2 className="text-black mb-1">Training Team</h2>
+                                <h6 className="text-gray mb-4">Responsible for mentoring and training controllers.</h6>
                                 <Row>
                                     {staff?.ins?.map(instructor => renderUserCard(instructor, 'Instructor'))}
                                     {staff?.mtr?.map(mentor => renderUserCard(mentor, 'Mentor'))}
                                 </Row>
                             </section>
                             <section id="web-team">
-                                <h2 className="font-w700">Web Team</h2>
-                                <h5 className="text-gray mb-3">Assist the webmaster with maintaining ARTCC IT services.</h5>
+                                <h2 className="text-black mb-1">Web Team</h2>
+                                <h6 className="text-gray mb-4">Assist the webmaster with maintaining ARTCC IT services.</h6>
                                 <Row>
                                     {staff?.web?.map(web => renderUserCard(web, 'Web Team'))}
                                 </Row>
