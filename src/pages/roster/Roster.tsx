@@ -89,7 +89,7 @@ export default class Roster extends Component<any, any> {
                 <Link to={`/roster/${user.cid}`}>
                     <Card className="mb-4">
                         <Card.Header className="text-center py-4 px-1">
-                            <img className="profile-lg mb-3" src={process.env.REACT_APP_API_URL + user.profile} alt={user.first_name + ' ' + user.last_name}/>
+                            <img className="profile-lg mb-2" src={process.env.REACT_APP_API_URL + user.profile} alt={user.first_name + ' ' + user.last_name}/>
                             <Card.Title className="mb-0 text-black">
                                 {user.first_name} {user.last_name} ({user.initials})
                             </Card.Title>
@@ -262,8 +262,8 @@ export default class Roster extends Component<any, any> {
                         {this.state.tableView
                             ? this.renderUserTable()
                             : Object.keys(this.state.sortedUsers).reverse().filter(level => this.state.sortedUsers[level].some(this.userFilter)).map(level =>
-                                <div className="text-center mb-3">
-                                    <h1 className="text-black font-w500 mb-3">{certName(parseInt(level))}</h1>
+                                <div className="text-center mb-5">
+                                    <h1 className="text-black font-w500 mb-4">{certName(parseInt(level))}</h1>
                                     <Row>
                                         {this.state.sortedUsers[level].filter(this.userFilter).map(user => this.renderUserCard(user))}
                                     </Row>

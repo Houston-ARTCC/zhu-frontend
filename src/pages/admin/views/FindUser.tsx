@@ -141,14 +141,12 @@ class FindUser extends Component<any, any> {
                                 options={roleOptions}
                                 onChange={this.handleRoleChange}
                             />
-                            <div className="position-relative">
-                                <Form.Switch
-                                    id="show-non-members"
-                                    label="Show non-members."
-                                    checked={this.state.showNonMembers}
-                                    onChange={() => this.setState({ showNonMembers: !this.state.showNonMembers })}
-                                />
-                            </div>
+                            <Form.Switch
+                                id="show-non-members"
+                                label="Show non-members."
+                                checked={this.state.showNonMembers}
+                                onChange={() => this.setState({ showNonMembers: !this.state.showNonMembers })}
+                            />
                         </Col>
                         <Col>
                             <DataTable

@@ -160,7 +160,7 @@ function renderUser(user, title) {
                 alt={user ? user.first_name + ' ' + user.last_name : 'Vacant'}
             />
             <div>
-                <h4 className="mb-1 text-black">{user ? user.first_name + ' ' + user.last_name : 'Vacant'}</h4>
+                <h4 className="text-black mb-0">{user ? user.first_name + ' ' + user.last_name : 'Vacant'}</h4>
                 <p className="text-gray m-0">{title}</p>
             </div>
         </div>
