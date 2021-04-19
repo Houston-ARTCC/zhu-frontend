@@ -163,6 +163,9 @@ class RequestTraining extends Component<any, any> {
                                 highlightOnHover
                                 defaultSortField="date"
                                 sortIcon={<BsArrowDown/>}
+                                pagination={true}
+                                paginationPerPage={5}
+                                paginationRowsPerPageOptions={[5, 10, 15, 20]}
                                 noDataComponent={<div className="p-4">No pending training requests</div>}
                                 columns={[
                                     {

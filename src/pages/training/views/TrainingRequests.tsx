@@ -132,6 +132,9 @@ class TrainingRequests extends Component<any, any> {
                         expandableRowExpanded={row => row.remarks}
                         defaultSortField="start"
                         sortIcon={<BsArrowDown/>}
+                        pagination={true}
+                        paginationPerPage={10}
+                        paginationRowsPerPageOptions={[10, 15, 20, 25]}
                         noDataComponent={<div className="p-4">No pending training requests</div>}
                         onRowClicked={this.handleClickRequest}
                         conditionalRowStyles={[
