@@ -7,7 +7,7 @@ import Moment from 'react-moment'
 import moment from 'moment'
 import Header from '../components/Header'
 import StatisticCalendar from '../components/StatisticCalendar'
-import { asDuration, asSeconds, ratingInt } from '../helpers/utils'
+import { formatDurationStr, durationStrAsSeconds, ratingInt } from '../helpers/utils'
 import axiosInstance from '../helpers/axiosInstance'
 import { dataTableStyle } from '../helpers/constants'
 import Spinner from '../components/Spinner'
@@ -144,18 +144,18 @@ export default class Statistics extends Component<any, any> {
                                     name: <Moment tz="UTC" format="MMMM" subtract={{ months: 2 }}>{new Date()}</Moment>,
                                     selector: 'prev_prev_hours',
                                     sortable: true,
-                                    sortFunction: (a, b) => {return asSeconds(a.prev_prev_hours) > asSeconds(b.prev_prev_hours) ? 1 : -1},
+                                    sortFunction: (a, b) => {return durationStrAsSeconds(a.prev_prev_hours) > durationStrAsSeconds(b.prev_prev_hours) ? 1 : -1},
                                     cell: row => <div>
                                         <HiCheck
                                             size={25}
                                             className={
-                                                (asSeconds(row.activity_requirement) !== 0 && asSeconds(row.prev_prev_hours) >= asSeconds(row.activity_requirement)
+                                                (durationStrAsSeconds(row.activity_requirement) !== 0 && durationStrAsSeconds(row.prev_prev_hours) >= durationStrAsSeconds(row.activity_requirement)
                                                     ? 'fill-green'
                                                     : 'fill-transparent'
                                                 ) + ' mr-2'
                                             }
                                         />
-                                        {asDuration(row.prev_prev_hours)}
+                                        {formatDurationStr(row.prev_prev_hours)}
                                     </div>,
                                     minWidth: '150px',
                                 },
@@ -163,18 +163,18 @@ export default class Statistics extends Component<any, any> {
                                     name: <Moment tz="UTC" format="MMMM" subtract={{ months: 1 }}>{new Date()}</Moment>,
                                     selector: 'prev_hours',
                                     sortable: true,
-                                    sortFunction: (a, b) => {return asSeconds(a.prev_hours) > asSeconds(b.prev_hours) ? 1 : -1},
+                                    sortFunction: (a, b) => {return durationStrAsSeconds(a.prev_hours) > durationStrAsSeconds(b.prev_hours) ? 1 : -1},
                                     cell: row => <div>
                                         <HiCheck
                                             size={25}
                                             className={
-                                                (asSeconds(row.activity_requirement) !== 0 && asSeconds(row.prev_hours) >= asSeconds(row.activity_requirement)
+                                                (durationStrAsSeconds(row.activity_requirement) !== 0 && durationStrAsSeconds(row.prev_hours) >= durationStrAsSeconds(row.activity_requirement)
                                                     ? 'fill-green'
                                                     : 'fill-transparent'
                                                 ) + ' mr-2'
                                             }
                                         />
-                                        {asDuration(row.prev_hours)}
+                                        {formatDurationStr(row.prev_hours)}
                                     </div>,
                                     minWidth: '150px',
                                 },
@@ -182,18 +182,18 @@ export default class Statistics extends Component<any, any> {
                                     name: <Moment tz="UTC" format="MMMM">{new Date()}</Moment>,
                                     selector: 'curr_hours',
                                     sortable: true,
-                                    sortFunction: (a, b) => {return asSeconds(a.curr_hours) > asSeconds(b.curr_hours) ? 1 : -1},
+                                    sortFunction: (a, b) => {return durationStrAsSeconds(a.curr_hours) > durationStrAsSeconds(b.curr_hours) ? 1 : -1},
                                     cell: row => <div>
                                         <HiCheck
                                             size={25}
                                             className={
-                                                (asSeconds(row.activity_requirement) !== 0 && asSeconds(row.curr_hours) >= asSeconds(row.activity_requirement)
+                                                (durationStrAsSeconds(row.activity_requirement) !== 0 && durationStrAsSeconds(row.curr_hours) >= durationStrAsSeconds(row.activity_requirement)
                                                     ? 'fill-green'
                                                     : 'fill-transparent'
                                                 ) + ' mr-2'
                                             }
                                         />
-                                        {asDuration(row.curr_hours)}
+                                        {formatDurationStr(row.curr_hours)}
                                     </div>,
                                     minWidth: '150px',
                                 },

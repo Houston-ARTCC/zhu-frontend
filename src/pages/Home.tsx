@@ -10,7 +10,7 @@ import Moment from 'react-moment'
 import 'moment-timezone'
 import getPositionName from '../helpers/facilities'
 import axiosInstance from '../helpers/axiosInstance'
-import { asDuration } from '../helpers/utils'
+import { formatDurationStr } from '../helpers/utils'
 import background from '../img/homepage-bg.jpg'
 import backgroundDark from '../img/homepage-bg-dark.jpg'
 import { getTheme } from '../helpers/themeManager'
@@ -164,7 +164,7 @@ export default class Home extends Component<any, any> {
                 <IoTrophy className={`fill-${index === 0 ? 'gold' : index === 1 ? 'silver' : 'bronze'} mr-2`} size={45}/>
                 <div className="text-darkgray font-w500 font-lg">
                     {controller.first_name} {controller.last_name}
-                    <br/><span className="text-gray">{asDuration(controller.hours)}</span>
+                    <br/><span className="text-gray">{formatDurationStr(controller.hours)}</span>
                 </div>
             </li>
         )
@@ -176,7 +176,7 @@ export default class Home extends Component<any, any> {
                 <IoIosAirplane className={`fill-${index === 0 ? 'gold' : index === 1 ? 'silver' : 'bronze'} mr-2`} size={45}/>
                 <div className="text-darkgray font-w500 font-lg">
                     {getPositionName(position.position)}
-                    <br/><span className="text-gray">{asDuration(position.hours)}</span>
+                    <br/><span className="text-gray">{formatDurationStr(position.hours)}</span>
                 </div>
             </li>
         )

@@ -32,7 +32,19 @@ export default function Navigation() {
             <Navbar.Collapse>
                 <Nav className={scroll ? 'text-black' : 'text-white'}>
                     <Nav.Link as={Link} to="/calendar" className={scroll ? 'text-black' : 'text-white'}>Calendar</Nav.Link>
-                    <Nav.Link as={Link} to="/events" className={scroll ? 'text-black' : 'text-white'}>Events</Nav.Link>
+                    {isAuthenticated()
+                        ? <NavDropdown className={scroll ? 'text-black' : 'text-white'} title="Events" id="nav-dropdown-events">
+                            <NavDropdown.Item as={Link} to="/events">Events</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/events/scores">Event Scores</NavDropdown.Item>
+                            {isStaff() &&
+                            <>
+                                <NavDropdown.Divider/>
+                                <NavDropdown.Item as={Link} to="/events/new">New Event</NavDropdown.Item>
+                            </>
+                            }
+                        </NavDropdown>
+                        : <Nav.Link as={Link} to="/events" className={scroll ? 'text-black' : 'text-white'}>Events</Nav.Link>
+                    }
                     <NavDropdown className={scroll ? 'text-black' : 'text-white'} title="Pilots" id="nav-dropdown-pilots">
                         <NavDropdown.Item as={Link} to="/feedback">Leave Feedback</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/map">ARTCC Map</NavDropdown.Item>
@@ -58,7 +70,7 @@ export default function Navigation() {
                             {isStaff() &&
                                 <NavDropdown.Item as={Link} to="/admin">Administration</NavDropdown.Item>
                             }
-                            <NavDropdown.Divider />
+                            <NavDropdown.Divider/>
                             <NavDropdown.Item as={Link} to="/settings">Settings</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/logout">Log Out</NavDropdown.Item>
                         </NavDropdown>

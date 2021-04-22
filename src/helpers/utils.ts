@@ -1,13 +1,20 @@
-export function asDuration(durationStr) {
+export function durationStrAsSeconds(durationStr) {
+    if (durationStr == null) return 0
+    const parts = durationStr.split(/[:.]/)
+    return parseInt(parts[0]) * 3600 + parseInt(parts[1]) * 60 + parseInt(parts[2])
+}
+
+export function formatDurationStr(durationStr) {
     if (durationStr == null) return null
     const parts = durationStr.split(/[:.]/)
     return `${parts[0]}h ${parts[1]}m`
 }
 
-export function asSeconds(durationStr) {
-    if (durationStr == null) return 0
-    const parts = durationStr.split(/[:.]/)
-    return parseInt(parts[0]) * 3600 + parseInt(parts[1]) * 60 + parseInt(parts[2])
+export function formatSeconds(seconds) {
+    const hours = Math.floor(seconds / 3600)
+    seconds = seconds % 3600
+    const minutes = Math.floor(seconds / 60)
+    return `${hours.toString()}h ${minutes.toString()}m`
 }
 
 export function ratingInt(ratingStr) {

@@ -86,6 +86,11 @@ export default function AdminPanel(props) {
                                             Find User
                                         </Link>
                                     </ListGroup.Item>
+                                    <ListGroup.Item as="li" active={location.pathname === '/admin/scores'}>
+                                        <Link to="/admin/scores">
+                                            Event Scores
+                                        </Link>
+                                    </ListGroup.Item>
                                     {isAdmin() &&
                                         <ListGroup.Item as="li" active={location.pathname === '/admin/purge'}>
                                             <Link to="/admin/purge">

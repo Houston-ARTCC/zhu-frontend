@@ -19,6 +19,7 @@ import Events from './pages/events/Events'
 import EditEvent from './pages/events/EditEvent'
 import ViewEvent from './pages/events/ViewEvent'
 import NewEvent from './pages/events/NewEvent'
+import EventScores from './pages/events/EventScores'
 import TrainingCenter from './pages/training/TrainingCenter'
 import Exams from './pages/training/views/Exams'
 import Sessions from './pages/training/views/Sessions'
@@ -35,6 +36,7 @@ import Announcements from './pages/admin/views/Announcements'
 import AdminHome from './pages/admin/views/AdminHome'
 import FindUser from './pages/admin/views/FindUser'
 import RosterPurge from './pages/admin/views/RosterPurge'
+import FindEventScores from './pages/admin/views/FindEventScores'
 import VisitingRequests from './pages/admin/views/VisitingRequests'
 import PendingFeedback from './pages/admin/views/PendingFeedback'
 import SupportRequests from './pages/admin/views/SupportRequests'
@@ -63,6 +65,7 @@ export default function App() {
                 <Route exact path="/events/:id(\d+)" component={ViewEvent}/>
                 <AuthRoute exact path="/events/:id(\d+)/edit" component={EditEvent} auth={isStaff}/>
                 <AuthRoute exact path="/events/new" component={NewEvent} auth={isStaff}/>
+                <AuthRoute exact path="/events/scores" component={EventScores} auth={isMember}/>
                 {/* Roster */}
                 <Route exact path="/staff" component={Staff}/>
                 <Route exact path="/roster" component={Roster}/>
@@ -89,6 +92,7 @@ export default function App() {
                 <AuthRoute exact path="/admin/feedback" component={AdminPanel} view={PendingFeedback} auth={isSeniorStaff}/>
                 <AuthRoute exact path="/admin/support" component={AdminPanel} view={SupportRequests} auth={isStaff}/>
                 <AuthRoute exact path="/admin/user" component={AdminPanel} view={FindUser} auth={isStaff}/>
+                <AuthRoute exact path="/admin/scores" component={AdminPanel} view={FindEventScores} auth={isStaff}/>
                 <AuthRoute exact path="/admin/purge" component={AdminPanel} view={RosterPurge} auth={isAdmin}/>
                 <AuthRoute exact path="/admin/loa" component={AdminPanel} view={LoaRequests} auth={isAdmin}/>
                 <AuthRoute exact path="/admin/announcement" component={AdminPanel} view={Announcements} auth={isStaff}/>

@@ -7,6 +7,7 @@ import Select from 'react-select'
 import { EventDropdownMenu, EventDropdownToggle } from '../../components/EventDropdowns'
 import Header from '../../components/Header'
 import axiosInstance from '../../helpers/axiosInstance'
+import EventScoreBadge from '../../components/EventScoreBadge'
 
 class EditEvent extends Component<any, any> {
     constructor(props) {
@@ -235,16 +236,6 @@ class EditEvent extends Component<any, any> {
             })
     }
 
-    renderScore(score) {
-        let color
-
-        if (score < 65) color = 'red'
-        else if (score < 90) color = 'yellow'
-        else color = 'green'
-
-        return <Badge variant={color + ' rounded'}>{score}%</Badge>
-    }
-
     renderShift(shift, position) {
         const handleClick = (eventKey) => {
             if (eventKey === 'unassign') handleUnassign()
@@ -298,7 +289,7 @@ class EditEvent extends Component<any, any> {
                             {shift.requests?.length > 0
                                 ? shift.requests.map(request => (
                                     <Dropdown.Item key={request.id} eventKey={request.id.toString()}>
-                                        {request.user.first_name + ' ' + request.user.last_name} {this.renderScore(request.user.event_score)}
+                                        {request.user.first_name + ' ' + request.user.last_name} {<EventScoreBadge score={request.user.event_score}/>}
                                     </Dropdown.Item>
                                 ))
                                 : <Dropdown.Item disabled>No requests...</Dropdown.Item>
@@ -491,7 +482,7 @@ class EditEvent extends Component<any, any> {
                                 className="mb-3"
                                 options={this.state.controllerOptions}
                                 onChange={(value) => this.setState({ manualAssignUser: value })}
-                                getOptionLabel={(option) => <span>{option.label} {this.renderScore(option.score)}</span>}
+                                getOptionLabel={(option) => <span>{option.label} {<EventScoreBadge score={option.score}/>}</span>}
                                 filterOption={(obj, filter) => {
                                     return obj.data.label.toLowerCase().includes(filter.toLowerCase()) || obj.data.value.toString().includes(filter)
                                 }}
