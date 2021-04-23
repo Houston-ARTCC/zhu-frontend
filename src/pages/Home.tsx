@@ -26,9 +26,9 @@ export default class Home extends Component<any, any> {
             topControllers: [],
             topPositions: [],
             showAnnouncementModal: false,
-            activeAnnouncement: {}
+            activeAnnouncement: {},
+            showBetaModal: false,
         }
-        this.onScroll = this.onScroll.bind(this)
     }
 
     componentDidMount() {
@@ -39,15 +39,11 @@ export default class Home extends Component<any, any> {
         this.fetchNewestControllers()
         this.fetchTopControllers()
         this.fetchTopPositions()
-        window.addEventListener('scroll', this.onScroll);
-    }
 
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.onScroll);
-    }
-
-    onScroll() {
-        this.setState({scroll: true})
+        if ((window.location.hostname == 'beta.zhuartcc.org' || window.location.hostname == 'www.zhuartcc.devel') && !localStorage.getItem('hasVisited')) {
+            localStorage.setItem('hasVisited', 'true')
+            this.setState({ showBetaModal: true })
+        }
     }
 
     fetchOnlineControllers() {
@@ -184,7 +180,7 @@ export default class Home extends Component<any, any> {
 
     render() {
         return (
-            <div>
+            <>
                 <Parallax bgImage={getTheme() === 'dark' ? backgroundDark : background} strength={250}>
                     <div id="homepage-hero">
                         <h4 className="text-white font-w500" id="tagline">From longhorns to space ships, we've got it all!</h4>
@@ -259,21 +255,41 @@ export default class Home extends Component<any, any> {
                                 </ul>
                             </Col>
                         </Row>
-                        <Modal
-                            size="lg"
-                            show={this.state.showAnnouncementModal}
-                            onHide={() => this.setState({showAnnouncementModal: false})}
-                        >
-                            <Modal.Header closeButton>
-                                <Modal.Title>{this.state.activeAnnouncement.title}</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                {this.state.activeAnnouncement.body ? parse(this.state.activeAnnouncement.body) : ''}
-                            </Modal.Body>
-                        </Modal>
                     </Container>
                 </Fade>
-            </div>
+                <Modal
+                    size="lg"
+                    show={this.state.showAnnouncementModal}
+                    onHide={() => this.setState({showAnnouncementModal: false})}
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title>{this.state.activeAnnouncement.title}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        {this.state.activeAnnouncement.body ? parse(this.state.activeAnnouncement.body) : ''}
+                    </Modal.Body>
+                </Modal>
+                <Modal
+                    size="lg"
+                    show={this.state.showBetaModal}
+                    centered
+                    onHide={() => this.setState({ showBetaModal: false })}
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title>Welcome to the Beta Website</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>Hi there!</p>
+                        <p>Thanks for checking out the fancy new beta website for the Houston ARTCC! <b>However, please note that this website is a sandbox environment!</b></p>
+                        <p>This means that all information on this website is not up to date and does not reflect current facility operations, statistics, and data. Additionally, any information that you enter will not be officially recorded.</p>
+                        <p>For current controller resources, training requests, feedback, and event position requests, please visit to the production website at <a href="https://zhuartcc.org">https://zhuartcc.org</a>.</p>
+                        <p>This website will remain online for beta testing of new features and I encourage all of you to continue to look for errors or bugs.</p>
+                        <p className="mb-0"><b>Michael Romashov</b></p>
+                        <p className="mb-0"><b>wm@zhuartcc.org</b></p>
+                        <p><b>Webmaster</b></p>
+                    </Modal.Body>
+                </Modal>
+            </>
         );
     }
 }
