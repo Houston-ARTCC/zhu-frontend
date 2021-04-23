@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Badge, Button, Col, Container, Dropdown, Form, FormGroup, Modal, ProgressBar, Row } from 'react-bootstrap'
+import { Button, Col, Container, Dropdown, Form, FormGroup, Modal, ProgressBar, Row } from 'react-bootstrap'
 import { RiAddLine, RiDeleteBinLine } from 'react-icons/all'
 import { withSnackbar } from 'notistack'
 import { Link } from 'react-router-dom'

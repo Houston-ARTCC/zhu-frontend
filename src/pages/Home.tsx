@@ -40,7 +40,7 @@ export default class Home extends Component<any, any> {
         this.fetchTopControllers()
         this.fetchTopPositions()
 
-        if ((window.location.hostname == 'beta.zhuartcc.org' || window.location.hostname == 'www.zhuartcc.devel') && !localStorage.getItem('hasVisited')) {
+        if ((window.location.hostname === 'beta.zhuartcc.org' || window.location.hostname === 'www.zhuartcc.devel') && !localStorage.getItem('hasVisited')) {
             localStorage.setItem('hasVisited', 'true')
             this.setState({ showBetaModal: true })
         }

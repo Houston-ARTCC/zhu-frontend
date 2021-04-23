@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Fade from 'react-reveal/Fade'
 import Select from 'react-select'
 import axiosInstance from '../../../helpers/axiosInstance'
-import SessionTable from '../../../components/SessionTable'
 import EventScoreTable from '../../../components/EventScoreTable'
 
 export default class FindEventScores extends Component<any, any> {

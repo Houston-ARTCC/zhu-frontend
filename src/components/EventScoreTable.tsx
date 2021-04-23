@@ -14,7 +14,7 @@ export default function EventScoreTable({ cid }) {
     const [scores, setScores] = useState([])
 
     useEffect(() => {
-        if (cid != undefined) {
+        if (cid !== undefined) {
             setLoading(true)
             axiosInstance
                 .get('/api/users/' + cid + '/scores/')
