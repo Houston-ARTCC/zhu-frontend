@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Nav, Navbar, NavDropdown } from 'react-bootstrap'
+import { Button, Collapse, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { useLocation } from 'react-router'
 import { Link } from 'react-router-dom'
 import logoLight from '../img/logo-light.png'
@@ -9,6 +9,7 @@ import { getCID, getFullName, isAuthenticated, isMember, isStaff } from '../help
 export default function Navigation() {
     const [scroll, setScroll] = useState(false)
     const [mobileNav, setMobileNav] = useState(false)
+    const [activeDropdown, setActiveDropdown] = useState('')
     const location = useLocation()
 
     useEffect(() => window.addEventListener('scroll', () => setScroll(window.scrollY > 50)), [])
@@ -32,15 +33,16 @@ export default function Navigation() {
             <Navbar.Collapse>
                 <Nav className={scroll ? 'text-black' : 'text-white'}>
                     <Nav.Link as={Link} to="/calendar" className={scroll ? 'text-black' : 'text-white'}>Calendar</Nav.Link>
-                    {isAuthenticated()
+                    {isMember()
                         ? <NavDropdown className={scroll ? 'text-black' : 'text-white'} title="Events" id="nav-dropdown-events">
                             <NavDropdown.Item as={Link} to="/events">Events</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/events/scores">Event Scores</NavDropdown.Item>
                             {isStaff() &&
-                            <>
-                                <NavDropdown.Divider/>
-                                <NavDropdown.Item as={Link} to="/events/new">New Event</NavDropdown.Item>
-                            </>
+                                <>
+                                    <NavDropdown.Divider/>
+                                    <NavDropdown.Item as={Link} to="/events/new">New Event</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="/events/presets">Position Presets</NavDropdown.Item>
+                                </>
                             }
                         </NavDropdown>
                         : <Nav.Link as={Link} to="/events" className={scroll ? 'text-black' : 'text-white'}>Events</Nav.Link>
@@ -97,18 +99,43 @@ export default function Navigation() {
             <div className={'mobile-nav-container' + (mobileNav ? ' active' : '')}>
                 <div className={'mobile-nav' + (mobileNav ? ' active' : '')}>
                     <h6><Link className="text-darkblue font-w700" to="/calendar">Calendar</Link></h6>
-                    <h6 className="mt-4"><Link className="text-darkblue font-w700" to="/events">Events</Link></h6>
-                    <h6 className="text-darkblue font-w700 mt-4">Pilots</h6>
-                    <h6><Link className="text-gray" to="/feedback">Leave Feedback</Link></h6>
-                    <h6><Link className="text-gray" to="/map">ARTCC Map</Link></h6>
-                    <h6><a className="text-gray" href="https://simcharts.info/" target="_blank" rel="noreferrer">Charts</a></h6>
-                    <h6><a className="text-gray" href="https://flightaware.com/statistics/ifr-route/" target="_blank" rel="noreferrer">Routes</a></h6>
-                    <h6 className="text-darkblue font-w700 mt-4">Controllers</h6>
-                    <h6><Link className="text-gray" to="/roster">Roster</Link></h6>
-                    <h6><Link className="text-gray" to="/staff">Staff</Link></h6>
-                    <h6><a className="text-gray" href="https://vzhuids.net" target="_blank" rel="noreferrer">IDS</a></h6>
-                    <h6><Link className="text-gray" to="/resources">Resources</Link></h6>
-                    <h6><Link className="text-gray" to="/statistics">Statistics</Link></h6>
+                    {isMember()
+                        ? <>
+                            <h6 className="text-darkblue font-w700 mt-4" onClick={() => setActiveDropdown(activeDropdown === 'events' ? '' : 'events')}>Events</h6>
+                            <Collapse in={activeDropdown === 'events'}>
+                                <div>
+                                    <h6><Link className="text-gray" to="/events">Events</Link></h6>
+                                    <h6><Link className="text-gray" to="/events/scores">Event Scores</Link></h6>
+                                    {isStaff() &&
+                                        <>
+                                            <h6><Link className="text-gray" to="/events/new">New Event</Link></h6>
+                                            <h6><Link className="text-gray" to="/events/presets">Position Presets</Link></h6>
+                                        </>
+                                    }
+                                </div>
+                            </Collapse>
+                        </>
+                        : <h6 className="mt-4"><Link className="text-darkblue font-w700" to="/events">Events</Link></h6>
+                    }
+                    <h6 className="text-darkblue font-w700 mt-4" onClick={() => setActiveDropdown(activeDropdown === 'pilots' ? '' : 'pilots')}>Pilots</h6>
+                    <Collapse in={activeDropdown === 'pilots'}>
+                        <div>
+                            <h6><Link className="text-gray" to="/feedback">Leave Feedback</Link></h6>
+                            <h6><Link className="text-gray" to="/map">ARTCC Map</Link></h6>
+                            <h6><a className="text-gray" href="https://simcharts.info/" target="_blank" rel="noreferrer">Charts</a></h6>
+                            <h6><a className="text-gray" href="https://flightaware.com/statistics/ifr-route/" target="_blank" rel="noreferrer">Routes</a></h6>
+                        </div>
+                    </Collapse>
+                    <h6 className="text-darkblue font-w700 mt-4" onClick={() => setActiveDropdown(activeDropdown === 'controllers' ? '' : 'controllers')}>Controllers</h6>
+                    <Collapse in={activeDropdown === 'controllers'}>
+                        <div>
+                            <h6><Link className="text-gray" to="/roster">Roster</Link></h6>
+                            <h6><Link className="text-gray" to="/staff">Staff</Link></h6>
+                            <h6><a className="text-gray" href="https://vzhuids.net" target="_blank" rel="noreferrer">IDS</a></h6>
+                            <h6><Link className="text-gray" to="/resources">Resources</Link></h6>
+                            <h6><Link className="text-gray" to="/statistics">Statistics</Link></h6>
+                        </div>
+                    </Collapse>
                     {isAuthenticated()
                         ? <>
                             <h6 className="text-darkblue font-w700 mt-4">{getFullName()}</h6>
@@ -125,8 +152,8 @@ export default function Navigation() {
                             <h6><Link className="text-gray" to="/logout">Log Out</Link></h6>
                         </>
                         : <Link to={{ pathname: '/login', state: { from: location }}}>
-                            <Button variant="vatsim" className="px-2 mt-4">
-                                <span className="font-w700">Login with VATSIM</span>
+                            <Button variant="vatsim" className="mt-4">
+                                <span className="font-w700 font-sm">Login with VATSIM</span>
                             </Button>
                         </Link>
                     }
