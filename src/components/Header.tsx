@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Container } from 'react-bootstrap'
 
 export default class Header extends Component<any> {
     static defaultProps = {
@@ -17,7 +18,7 @@ export default class Header extends Component<any> {
 
     render() {
         return (
-            <div className="bg-darkblue header">
+            <Container fluid className="bg-darkblue header">
                 {this.props.override ? this.props.override :
                     <>
                         <div className="d-none d-md-block">
@@ -30,7 +31,7 @@ export default class Header extends Component<any> {
                         </div>
                     </>
                 }
-            </div>
+            </Container>
         )
     }
 }

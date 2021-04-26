@@ -254,4 +254,7 @@ body.dark {
     .tui-full-calendar-weekday-grid-date-decorator {
         background-color: lighten($mutedblack, 10%) !important;
     }
+    .tui-full-calendar-timegrid-timezone-label-container {
+        background-color: $black !important;
+    }
 }

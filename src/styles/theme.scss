@@ -320,6 +320,7 @@ html {
 
 body {
     width: 100vw;
+    background-color: #F9F9F9;
 }
 
 section {
@@ -328,7 +329,7 @@ section {
 }
 
 .container-fluid {
-    padding: 60px 130px !important;
+    padding: 60px 10% !important;
 }
 
 @media (max-width: $screen-sm-max) {
@@ -340,6 +341,12 @@ section {
 @media (max-width: $screen-xs-max) {
     .container-fluid {
         padding: 60px 40px !important;
+    }
+}
+
+@media (min-width: $screen-xl-min) {
+    .container-fluid {
+        padding: 60px 20% !important;
     }
 }
 
@@ -658,6 +665,16 @@ dP     dP `88888P8 8888P'
     }
 }
 
+@media (min-width: $screen-xl-min) {
+    #navbar {
+        padding: 60px 20%;
+
+        &.navbar-shrink {
+            padding: 30px 20% !important;
+        }
+    }
+}
+
 .navbar-brand {
     margin: 0;
     padding: 0;
@@ -837,10 +854,6 @@ dP     dP  `88888P' dP  dP  dP `88888P' 88Y888P' `88888P8 `8888P88 `88888P'
                                         88                     .88
                                         dP                 d8888P
  */
-#root {
-    background-color: #F9F9F9;
-}
-
 #homepage-hero {
     height: 100vh;
     width: 100%;
@@ -989,6 +1002,12 @@ d888888P                              dP   dP     dP dP
 }
 .tui-full-calendar-popup-container {
     width: 400px !important;
+}
+.tui-full-calendar-timegrid-timezone {
+    background-color: transparent !important;
+}
+.tui-full-calendar-timegrid-timezone-label-container {
+    background-color: #F9F9F9 !important;
 }
 
 /*
