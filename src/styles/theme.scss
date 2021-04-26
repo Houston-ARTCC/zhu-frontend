@@ -652,14 +652,14 @@ Y8.   .88 88.  .88 88       88.  .88       88
 dP     dP `88888P8 8888P'
  */
 #navbar {
-    padding: 60px;
+    padding: 60px 10%;
     transition: 600ms;
     width: 100vw;
     position: fixed !important;
     z-index: 1000;
 
     &.navbar-shrink {
-        padding: 30px 60px !important;
+        padding: 30px 10% !important;
         background-color: $white;
         transition: 600ms;
     }
@@ -819,9 +819,9 @@ dP dP  dP  dP `88888P8 `8888P88 `88888P' `88888P'
 }
 
 .profile-lg {
-    width: 60px;
-    height: 60px;
-    border-radius: 60px;
+    width: 70px;
+    height: 70px;
+    border-radius: 70px;
 }
 
 .profile-xl {
