@@ -26,8 +26,8 @@ export default class Map extends Component<any, any> {
         const map = new mapboxgl.Map({
             container: this.mapContainer.current,
             style: getTheme() === 'dark'
-                ? 'mapbox://styles/mikeroma/ckn16l5lr1qe017o83xehwdcu'
-                : 'mapbox://styles/mikeroma/ckdmiombs1c291jmv6lduqxu1',
+                ? 'mapbox://styles/mikeroma/cknyyool032px17n1ljciyroy'
+                : 'mapbox://styles/mikeroma/cknyy7hnt32ch17n1u1d7xon4',
             center: [-95, 29.4],
             zoom: 6
         })
