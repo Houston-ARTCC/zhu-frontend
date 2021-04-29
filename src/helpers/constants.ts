@@ -108,4 +108,9 @@ export const dataTableStyle = {
             backgroundColor: 'transparent',
         },
     },
+    progress: {
+        style: {
+            backgroundColor: 'transparent',
+        },
+    }
 }

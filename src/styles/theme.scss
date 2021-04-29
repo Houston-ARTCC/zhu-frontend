@@ -947,6 +947,10 @@ dP   dP   dP `88888P8 88Y888P' 88Y8888' `88888P' dP'  `dP
     min-width: 500px;
 }
 
+.mapboxgl-popup-content {
+    background-color: white;
+}
+
 /*
 888888ba             dP            d888888P          dP       dP
 88    `8b            88               88             88       88
@@ -1027,4 +1031,25 @@ dP     dP dP 8888P'   `88888P'
 .nivo-calendar text {
     font-family: Cera Pro, sans-serif !important;
     font-weight: 500;
+}
+
+/*
+.d88888b  dP oo       dP
+88.    "' 88          88
+`Y88888b. 88 dP .d888b88 .d8888b. 88d888b.
+      `8b 88 88 88'  `88 88ooood8 88'  `88
+d8'   .8P 88 88 88.  .88 88.  ... 88
+ Y88888P  dP dP `88888P8 `88888P' dP
+ */
+.rc-slider-rail {
+    background-color: #dfe7ee;
+}
+.rc-slider-track {
+    background-color: $darkblue;
+}
+.rc-slider-dot-active, .rc-slider-handle, .rc-slider-handle-dragging {
+    border-color: $darkblue !important;
+}
+.rc-slider-handle-dragging {
+    box-shadow: 0 0 0 5px rgba($darkblue, 0.5) !important;
 }

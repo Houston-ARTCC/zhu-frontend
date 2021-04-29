@@ -256,7 +256,7 @@ class ViewEvent extends Component<any, any> {
                             </p>
                             {isStaff() &&
                                 <Link to={this.state.event.id + '/edit'}>
-                                    <Button variant="primary" className="mb-4"><RiPencilRuler2Line className="fill-white" viewBox="3 3 20 20"/> Edit Event</Button>
+                                    <Button variant="primary" className="mb-4"><RiPencilRuler2Line viewBox="3 3 20 20"/> Edit Event</Button>
                                 </Link>
                             }
                         </Col>

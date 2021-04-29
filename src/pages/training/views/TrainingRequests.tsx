@@ -215,11 +215,6 @@ class TrainingRequests extends Component<any, any> {
                                     min={moment(this.state.request.start).valueOf()}
                                     max={moment(this.state.request.end).valueOf()}
                                     defaultValue={[moment(this.state.request.start).valueOf(), moment(this.state.request.end).valueOf()]}
-                                    handleStyle={[{ borderColor: '#81a4c8' }, { borderColor: '#81a4c8' }]}
-                                    railStyle={{ backgroundColor: '#dfe7ee' }}
-                                    trackStyle={[{ backgroundColor: '#81a4c8' }]}
-                                    activeDotStyle={{ borderColor: '#81a4c8' }}
-                                    dotStyle={{ borderColor: '#dfe7ee' }}
                                     onChange={(val) => {
                                         let newRequest = {...this.state.modifiedRequest}
                                         newRequest['start'] = moment(val[0])

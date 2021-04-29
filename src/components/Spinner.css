@@ -15,6 +15,10 @@ Yoinked form https://tobiasahlin.com/spinkit/
     text-align: center;
 }
 
+body.dark .loader {
+    background-color: #1A1A1D;
+}
+
 .spinner {
     position: relative;
 }
@@ -36,6 +40,10 @@ Yoinked form https://tobiasahlin.com/spinkit/
 .double-bounce2 {
     -webkit-animation-delay: -1.0s;
     animation-delay: -1.0s;
+}
+
+body.dark .double-bounce1, body.dark .double-bounce2 {
+    background-color: #109CF1;
 }
 
 @-webkit-keyframes sk-bounce {

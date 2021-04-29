@@ -10,7 +10,7 @@ export default function Footer() {
                 <Col xs={10} xl={6} className="position-unset">
                     <Alert variant="primary" className="position-unset d-flex m-0">
                         {/* TODO: Fix icon scaling on mobile devices. */}
-                        <RiErrorWarningLine className="fill-primary mr-3" size={60} preserveAspectRatio="xMaxYMin"/>
+                        <div><RiErrorWarningLine className="fill-primary mr-3" size={25}/></div>
                         <p className="m-0">
                             <b>Disclaimer!</b> All information on this website is for flight simulation use only and is not to be used for
                             real world navigation or flight. This site is not affiliated with ICAO, the FAA, the actual Houston ARTCC, or

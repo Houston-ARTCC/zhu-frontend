@@ -90,7 +90,7 @@ export default class Map extends Component<any, any> {
                 <Badge className="badge-sm mr-2" variant="white">{props.ICAO}</Badge>
                 <h5 className="text-white ml-1 mb-0">{props.Name}</h5>
             </div>
-            <div className="bg-white p-3">
+            <div className="p-3">
                 <Badge className="badge-sm mb-1 mr-2" variant={
                     metar.flight_rules === 'VFR'
                         ? 'green'

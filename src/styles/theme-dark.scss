@@ -141,12 +141,12 @@ body.dark {
         background-color: darken($black, 1.5%);
     }
 
+    .fill-darkblue {
+        fill: $primary !important;
+    }
+
     .btn, .badge {
         color: #212124 !important;
-
-        &:not(.btn-link) svg {
-            fill: #212124 !important;
-        }
     }
 
     .btn:hover, .btn:focus {
@@ -154,7 +154,7 @@ body.dark {
     }
 
     .badge-darkblue {
-        background-color: lighten($darkblue, 10%) !important;
+        background-color: $primary !important;
     }
 
     .btn-light-primary, .btn-outline-primary, .btn-bg-primary, .badge-light-primary, .badge-outline-primary { color: $primary !important; fill: $primary !important; }
@@ -202,6 +202,10 @@ body.dark {
         color: #B8B8B8 !important;
     }
 
+    .mapboxgl-popup-content {
+        background-color: #212124;
+    }
+
     .nivo-tooltip {
         background-color: rgba(14, 14, 14, 0.5);
     }
@@ -209,7 +213,7 @@ body.dark {
         fill: $smokegray !important;
     }
 
-    .rdt_TableRow {
+    .rdt_TableHeadRow, .rdt_TableRow {
         border-bottom-color: $mutedblack !important;
         &:hover {
             background-color: $mutedblack !important;
@@ -255,6 +259,25 @@ body.dark {
         background-color: lighten($mutedblack, 10%) !important;
     }
     .tui-full-calendar-timegrid-timezone-label-container {
-        background-color: $black !important;
+        background-color: #212124 !important;
+    }
+    .rc-slider-rail {
+        background-color: lighten($mutedblack, 10%);
+    }
+    .rc-slider-dot {
+        border-color: lighten($mutedblack, 10%);
+        background-color: #212124;
+    }
+    .rc-slider-track {
+        background-color: $primary !important;
+    }
+    .rc-slider-dot-active, .rc-slider-handle, .rc-slider-handle-dragging {
+        border-color: $primary !important;
+    }
+    .rc-slider-handle {
+        background-color: #212124;
+    }
+    .rc-slider-handle-dragging {
+        box-shadow: 0 0 0 5px rgba($primary, 0.5) !important;
     }
 }
