@@ -6,7 +6,7 @@ import EventScoreTable from '../../../components/EventScoreTable'
 
 export default function FindEventScores() {
     const [userOptions, setUserOptions] = useState<any>([])
-    const [currentUser, setCurrentUser] = useState({})
+    const [currentUser, setCurrentUser] = useState(undefined)
 
     useEffect(() => fetchUsers(), [])
 

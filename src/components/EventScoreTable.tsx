@@ -28,13 +28,14 @@ export default function EventScoreTable({ cid }) {
     return (
         <DataTable
             data={scores['scores']?.filter(score => score.event != null)}
+            noHeader={!cid}
             defaultSortField="date"
             defaultSortAsc={false}
             progressPending={loading}
             progressComponent={<Spinner/>}
             sortIcon={<BsArrowDown/>}
             customStyles={dataTableStyle}
-            title={cid != null &&
+            title={
                 <>
                     <h3 className="mb-3">Overall Score: <EventScoreBadge score={scores['event_score']} large={true}/></h3>
                     <h6 className="mb-0">Note:</h6>
