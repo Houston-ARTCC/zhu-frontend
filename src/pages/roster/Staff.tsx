@@ -14,7 +14,7 @@ export default function Staff() {
         axiosInstance
             .get('/api/users/staff/')
             .then(res => setStaff(res.data))
-    })
+    }, [])
 
     return (
         <div>

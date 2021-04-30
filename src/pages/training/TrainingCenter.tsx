@@ -14,7 +14,7 @@ export default function TrainingCenter(props) {
 
     useEffect(() => {
         updateNotifs()
-    })
+    }, [])
 
     const updateNotifs = () => {
         axiosInstance
