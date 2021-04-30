@@ -15,7 +15,7 @@ export default function Settings() {
     ]
 
     return (
-        <div>
+        <>
             <Header title="Settings"/>
             <Fade bottom duration={1250} distance="50px">
                 <Container fluid>
@@ -26,6 +26,6 @@ export default function Settings() {
                     />
                 </Container>
             </Fade>
-        </div>
+        </>
     )
 }

@@ -1,57 +1,42 @@
-import React, { Component } from 'react'
+import { useEffect, useState } from 'react'
 import { Badge, Col, Form, Row } from 'react-bootstrap'
 import Fade from 'react-reveal/Fade'
 import Select from 'react-select'
 import { BsArrowDown } from 'react-icons/all'
 import { ratingInt, userStatusDisplay } from '../../../helpers/utils'
-import { dataTableStyle } from '../../../helpers/constants'
+import { dataTableStyle, roleOptions } from '../../../helpers/constants'
 import DataTable from 'react-data-table-component'
 import axiosInstance from '../../../helpers/axiosInstance'
-import { withRouter } from 'react-router'
 import Spinner from '../../../components/Spinner'
+import { useHistory } from 'react-router'
 
-class FindUser extends Component<any, any> {
-    constructor(props) {
-        super(props)
-        this.state = {
-            users: [],
-            roles: [],
-            search: '',
-            rating: '',
-            role: '',
-            showNonMembers: false,
-            loading: true,
-        }
-        this.userFilter = this.userFilter.bind(this)
-        this.handleRatingChange = this.handleRatingChange.bind(this)
-        this.handleRoleChange = this.handleRoleChange.bind(this)
-    }
+export default function FindUser() {
+    const [users, setUsers] = useState<any>([])
+    const [search, setSearch] = useState('')
+    const [rating, setRating] = useState('')
+    const [role, setRole] = useState('')
+    const [showNonMembers, setShowNonMembers] = useState(false)
+    const [loading, setLoading] = useState(true)
 
-    componentDidMount() {
-        this.fetchUsers()
-        this.fetchRoles()
-    }
+    const history = useHistory()
 
-    fetchUsers() {
+    useEffect(() => fetchUsers(), [])
+
+    const fetchUsers = () => {
         axiosInstance
             .get('/api/users/all/')
             .then(res => {
-                this.setState({ users: res.data, loading: false })
+                setUsers(res.data)
+                setLoading(false)
             })
     }
 
-    fetchRoles() {
-        axiosInstance
-            .get('/api/users/roles/')
-            .then(res => this.setState({ roles: res.data }))
-    }
+    const userFilter = (user) => {
+        if (!showNonMembers && user.status === 2) return false
+        if (rating && user.rating.short !== rating) return false
+        if (role && user.roles.every(userRole => userRole.short !== role)) return false
 
-    userFilter(user) {
-        if (!this.state.showNonMembers && user.status === 2) return false
-        if (this.state.rating && user.rating.short !== this.state.rating) return false
-        if (this.state.role && user.roles.every(role => role.short !== this.state.role)) return false
-
-        let filter = this.state.search.toLowerCase()
+        let filter = search.toLowerCase()
         let full_name = user.first_name + ' ' + user.last_name
 
         return (
@@ -61,15 +46,11 @@ class FindUser extends Component<any, any> {
         )
     }
 
-    handleRatingChange(selected) {
-        this.setState({ rating: selected?.label })
-    }
+    const handleRatingChange = (selected) => setRating(selected?.label)
 
-    handleRoleChange(selected) {
-        this.setState({ role: selected?.value })
-    }
+    const handleRoleChange = (selected) => setRole(selected?.value)
 
-    renderStatus(status) {
+    const Status = ({ status }) => {
         let color
         switch (status) {
             case 0:
@@ -88,121 +69,109 @@ class FindUser extends Component<any, any> {
         return <Badge variant={color + ' rounded'}>{userStatusDisplay(status)}</Badge>
     }
 
-    renderRole(role) {
-        let color
-        switch(role.short) {
-            case 'HC':
-            case 'VC':
-            case 'MC': color = 'darkblue'; break
-            default: return
-        }
-        return (
-            <Badge variant={color + ' rounded'} className="mr-2">{role.long}</Badge>
-        )
+    const Role = ({ role }) => {
+        if (role.short === 'HC' || role.short === 'VC' || role.short === 'MC')
+            return <Badge variant="darkblue rounded" className="mr-2">{role.long}</Badge>
+        return <></>
     }
 
-    render() {
-        const roleOptions : any[] = []
-        this.state.roles.map(role => roleOptions.push({id: role.id, value: role.short, label: role.long}))
-
-        return (
-            <Fade bottom duration={1250} distance="50px">
-                <div className="position-relative">
-                    <Row>
-                        <Col md={3}>
-                            <Form.Control
-                                placeholder="Search"
-                                value={this.state.search}
-                                className="mb-3"
-                                onChange={event => this.setState({ search: event.target.value })}
-                            />
-                            <Select
-                                onChange={this.handleRatingChange}
-                                isClearable={true}
-                                placeholder="Rating"
-                                className="mb-3"
-                                options={[
-                                    { value: 0, label: 'OBS' },
-                                    { value: 1, label: 'S1' },
-                                    { value: 2, label: 'S2' },
-                                    { value: 3, label: 'S3' },
-                                    { value: 4, label: 'C1' },
-                                    { value: 5, label: 'C3' },
-                                    { value: 6, label: 'I1' },
-                                    { value: 7, label: 'I3' },
-                                    { value: 8, label: 'SUP' },
-                                    { value: 9, label: 'ADM' },
-                                ]}
-                            />
-                            <Select
-                                isClearable={true}
-                                placeholder="Role"
-                                className="mb-3"
-                                options={roleOptions}
-                                onChange={this.handleRoleChange}
-                            />
-                            <Form.Switch
-                                id="show-non-members"
-                                label="Show non-members."
-                                checked={this.state.showNonMembers}
-                                onChange={() => this.setState({ showNonMembers: !this.state.showNonMembers })}
-                            />
-                        </Col>
-                        <Col>
-                            <DataTable
-                                data={this.state.users.filter(this.userFilter)}
-                                noHeader
-                                highlightOnHover
-                                pointerOnHover
-                                defaultSortField="name"
-                                sortIcon={<BsArrowDown/>}
-                                pagination={true}
-                                paginationPerPage={10}
-                                paginationRowsPerPageOptions={[10, 15, 20, 25]}
-                                progressPending={this.state.loading}
-                                progressComponent={<Spinner/>}
-                                onRowClicked={row => this.props.history.push('/roster/' + row.cid) }
-                                customStyles={dataTableStyle}
-                                columns={[
-                                    {
-                                        name: 'Name',
-                                        selector: 'name',
-                                        sortable: true,
-                                        sortFunction: (a, b) => { return a.first_name > b.first_name ? 1 : -1 },
-                                        format: row => row.first_name + ' ' + row.last_name + (row.status !== 2 ? ' (' + row.initials + ')' : ''),
-                                        width: '30%',
-                                    },
-                                    {
-                                        name: 'CID',
-                                        selector: 'cid',
-                                        sortable: true,
-                                    },
-                                    {
-                                        name: 'Rating',
-                                        selector: 'rating',
-                                        sortable: true,
-                                        sortFunction: (a, b) => { return ratingInt(a.rating.short) > ratingInt(b.rating.short) ? 1 : -1 },
-                                        format: row => row.rating.short,
-                                    },
-                                    {
-                                        name: 'Status',
-                                        selector: 'status',
-                                        sortable: true,
-                                        format: row => this.renderStatus(row.status),
-                                    },
-                                    {
-                                        name: 'Main Role',
-                                        selector: 'main_role',
-                                        format: row => row.roles?.map(role => this.renderRole(role)),
-                                    },
-                                ]}
-                            />
-                        </Col>
-                    </Row>
-                </div>
-            </Fade>
-        )
-    }
+    return (
+        <Fade bottom duration={1250} distance="50px">
+            <div className="position-relative">
+                <Row>
+                    <Col md={3}>
+                        <Form.Control
+                            placeholder="Search"
+                            value={search}
+                            className="mb-3"
+                            onChange={event => setSearch(event.target.value)}
+                        />
+                        <Select
+                            onChange={handleRatingChange}
+                            isClearable={true}
+                            placeholder="Rating"
+                            className="mb-3"
+                            options={[
+                                { value: 0, label: 'OBS' },
+                                { value: 1, label: 'S1' },
+                                { value: 2, label: 'S2' },
+                                { value: 3, label: 'S3' },
+                                { value: 4, label: 'C1' },
+                                { value: 5, label: 'C3' },
+                                { value: 6, label: 'I1' },
+                                { value: 7, label: 'I3' },
+                                { value: 8, label: 'SUP' },
+                                { value: 9, label: 'ADM' },
+                            ]}
+                        />
+                        <Select
+                            isClearable={true}
+                            placeholder="Role"
+                            className="mb-3"
+                            options={roleOptions}
+                            onChange={handleRoleChange}
+                        />
+                        <Form.Switch
+                            id="show-non-members"
+                            label="Show non-members."
+                            checked={showNonMembers}
+                            onChange={() => setShowNonMembers(!showNonMembers)}
+                        />
+                    </Col>
+                    <Col>
+                        <DataTable
+                            data={users.filter(userFilter)}
+                            noHeader
+                            highlightOnHover
+                            pointerOnHover
+                            defaultSortField="name"
+                            sortIcon={<BsArrowDown/>}
+                            pagination={true}
+                            paginationPerPage={10}
+                            paginationRowsPerPageOptions={[10, 15, 20, 25]}
+                            progressPending={loading}
+                            progressComponent={<Spinner/>}
+                            onRowClicked={row => history.push('/roster/' + row.cid) }
+                            customStyles={dataTableStyle}
+                            columns={[
+                                {
+                                    name: 'Name',
+                                    selector: 'name',
+                                    sortable: true,
+                                    sortFunction: (a, b) => { return a.first_name > b.first_name ? 1 : -1 },
+                                    format: row => row.first_name + ' ' + row.last_name + (row.status !== 2 ? ' (' + row.initials + ')' : ''),
+                                    width: '30%',
+                                },
+                                {
+                                    name: 'CID',
+                                    selector: 'cid',
+                                    sortable: true,
+                                },
+                                {
+                                    name: 'Rating',
+                                    selector: 'rating',
+                                    sortable: true,
+                                    sortFunction: (a, b) => { return ratingInt(a.rating.short) > ratingInt(b.rating.short) ? 1 : -1 },
+                                    format: row => row.rating.short,
+                                },
+                                {
+                                    name: 'Status',
+                                    selector: 'status',
+                                    sortable: true,
+                                    format: row => <Status status={row.status}/>,
+                                    width: '15%',
+                                },
+                                {
+                                    name: 'Main Role',
+                                    selector: 'main_role',
+                                    format: row => row.roles?.map(role => <Role role={role}/>),
+                                    width: '25%',
+                                },
+                            ]}
+                        />
+                    </Col>
+                </Row>
+            </div>
+        </Fade>
+    )
 }
-
-export default withRouter(FindUser)

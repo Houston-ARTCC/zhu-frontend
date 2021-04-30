@@ -1,6 +1,6 @@
 import { useHistory, useLocation } from 'react-router'
 import { useSnackbar } from 'notistack'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import axiosInstance from '../helpers/axiosInstance'
 import { getAuthURL, getFullName } from '../helpers/auth'
 import LoadingScreen from './LoadingScreen'

@@ -3,9 +3,9 @@ import moment from 'moment'
 import { ResponsiveCalendar } from '@nivo/calendar'
 import { getTheme } from '../helpers/themeManager'
 
-export default function StatisticCalendar({data, height, vertical}) {
+export default function StatisticCalendar({ data, height, vertical }) {
     return (
-        <div className="nivo-calendar" style={{height: height}}>
+        <div className="nivo-calendar" style={{ height: height }}>
             <ResponsiveCalendar
                 data={data}
                 direction={vertical ? 'vertical' : 'horizontal'}
@@ -20,12 +20,8 @@ export default function StatisticCalendar({data, height, vertical}) {
                 monthBorderColor={getTheme() === 'dark' ? '#212124' : '#F9F9F9'}
                 dayBorderWidth={3}
                 dayBorderColor={getTheme() === 'dark' ? '#212124' : '#F9F9F9'}
-                theme={{
-                    'fontSize': 14
-                }}
-                tooltip={(obj) =>
-                    <div className="nivo-tooltip"><b>{obj.day} :</b> {obj.value ? Math.floor(obj.value * 100) / 100 : 0} hours</div>
-                }
+                theme={{ 'fontSize': 14 }}
+                tooltip={(obj) => <div className="nivo-tooltip"><b>{obj.day} :</b> {obj.value ? Math.floor(obj.value * 100) / 100 : 0} hours</div>}
             />
         </div>
     )

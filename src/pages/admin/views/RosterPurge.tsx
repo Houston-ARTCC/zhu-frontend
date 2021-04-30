@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { BsArrowDown, HiCheck, RiDeleteBinLine } from 'react-icons/all'
 import { Button, ButtonGroup, Form, FormGroup, Modal } from 'react-bootstrap'
@@ -8,63 +8,49 @@ import { formatDurationStr, durationStrAsSeconds, ratingInt } from '../../../hel
 import axiosInstance from '../../../helpers/axiosInstance'
 import { dataTableStyle } from '../../../helpers/constants'
 import axios from 'axios'
-import { withSnackbar } from 'notistack'
 
-class RosterPurge extends Component<any, any> {
-    constructor(props) {
-        super(props)
-        this.state = {
-            filter: '',
-            reason: 'Removed for inactivity.',
-            showConfirmModal: false,
-            toggledClearRows: false,
-            currentRoster: 'home',
-            allUserStats: {},
-            userStats: [],
-            selected: [],
-        }
-        this.purgeSelectedUsers = this.purgeSelectedUsers.bind(this)
-        this.deleteUser = this.deleteUser.bind(this)
-    }
+export default function RosterPurge() {
+    const [reason, setReason] = useState('Removed for inactivity.')
+    const [showConfirmModal, setShowConfirmModal] = useState(false)
+    const [toggledClearRows, setToggledClearRows] = useState(false)
+    const [currentRoster, setCurrentRoster] = useState('home')
+    const [allUserStats, setAllUserStats] = useState<any>({})
+    const [userStats, setUserStats] = useState<any>([])
+    const [selected, setSelected] = useState<any>([])
 
-    componentDidMount() {
-        this.fetchUserStatistics()
-    }
+    useEffect(() => fetchUserStatistics(), [])
 
-    fetchUserStatistics() {
+    const fetchUserStatistics = () => {
         axiosInstance
             .get('/api/connections/statistics/')
             .then(res => {
-                this.setState({
-                    allUserStats: res.data,
-                    userStats: res.data.home.filter((user) => durationStrAsSeconds(user.curr_hours) < durationStrAsSeconds(user.activity_requirement)),
-                })
+                setAllUserStats(res.data)
+                setUserStats(res.data.home.filter((user) => durationStrAsSeconds(user.curr_hours) < durationStrAsSeconds(user.activity_requirement)))
             })
     }
 
-    switchRoster(roster) {
+    const switchRoster = (roster) => {
         let userStats
         if (roster === 'all') {
-            userStats = this.state.allUserStats.home.concat(this.state.allUserStats.visiting).concat(this.state.allUserStats.mavp)
+            userStats = allUserStats.home.concat(allUserStats.visiting).concat(allUserStats.mavp)
         } else {
-            userStats = this.state.allUserStats[roster]
+            userStats = allUserStats[roster]
         }
-        this.setState({
-            currentRoster: roster,
-            toggledClearRows: !this.state.toggledClearRows,
-            userStats: userStats.filter((user) => durationStrAsSeconds(user.curr_hours) < durationStrAsSeconds(user.activity_requirement)),
-        })
+        setCurrentRoster(roster)
+        setToggledClearRows(!toggledClearRows)
+        setUserStats(userStats.filter((user) => durationStrAsSeconds(user.curr_hours) < durationStrAsSeconds(user.activity_requirement)))
     }
 
-    purgeSelectedUsers(e) {
+    const purgeSelectedUsers = (e) => {
         e.preventDefault()
-        this.state.selected.forEach(user => this.deleteUser(user))
-        this.setState({ showConfirmModal: false, toggledClearRows: true })
-        this.fetchUserStatistics()
+        selected.forEach(user => deleteUser(user))
+        setShowConfirmModal(false)
+        setToggledClearRows(true)
+        fetchUserStatistics()
     }
 
-    deleteUser(user) {
-        let baseVatusaUrl = this.state.currentRoster === 'home'
+    const deleteUser = (user) => {
+        let baseVatusaUrl = currentRoster === 'home'
             ? 'https://api.vatusa.net/v2/facility/ZHU/roster/'
             : 'https://api.vatusa.net/v2/facility/ZHU/roster/manageVisitor/'
 
@@ -73,159 +59,155 @@ class RosterPurge extends Component<any, any> {
             .catch(err => console.log(err.response))
 
         axios
-            .delete(baseVatusaUrl + user.cid, { data: { reason: this.state.reason } })
+            .delete(baseVatusaUrl + user.cid, { data: { reason: reason } })
             .catch(err => console.log(err.response))
     }
 
-    render() {
-        return (
-            <>
-                <Fade bottom duration={1250} distance="50px">
-                    <div className="d-flex justify-content-between align-items-center mb-5">
-                        <ButtonGroup>
-                            <Button
-                                variant={'outline-darkblue' + (this.state.currentRoster === 'home' ? ' active' : '')}
-                                onClick={() => this.switchRoster('home')}
-                            >
-                                Home
-                            </Button>
-                            <Button
-                                variant={'outline-darkblue' + (this.state.currentRoster === 'visiting' ? ' active' : '')}
-                                onClick={() => this.switchRoster('visiting')}
-                            >
-                                Visiting
-                            </Button>
-                        </ButtonGroup>
-                    </div>
-                    <DataTable
-                        data={this.state.userStats}
-                        title={<h5>{this.state.currentRoster === 'home' ? 'Home Controllers' : 'Visiting Controllers'}</h5>}
-                        selectableRows
-                        selectableRowsHighlight
-                        onSelectedRowsChange={(state) => this.setState({ selected: state.selectedRows })}
-                        clearSelectedRows={this.state.toggledClearRows}
-                        contextActions={<Button onClick={() => this.setState({ showConfirmModal: true })} variant="red"><RiDeleteBinLine className="fill-white"/> Purge</Button>}
-                        defaultSortField="name"
-                        sortIcon={<BsArrowDown/>}
-                        columns={[
-                            {
-                                name: 'Name',
-                                selector: 'name',
-                                sortable: true,
-                                sortFunction: (a, b) => {return a.first_name > b.first_name ? 1 : -1},
-                                format: row => row.first_name + ' ' + row.last_name + ' (' + row.initials + ')',
-                            },
-                            {
-                                name: 'CID',
-                                selector: 'cid',
-                                sortable: true,
-                            },
-                            {
-                                name: 'Rating',
-                                selector: 'rating',
-                                sortFunction: (a, b) => {return ratingInt(a.rating) > ratingInt(b.rating) ? 1 : -1},
-                                sortable: true,
-                            },
-                            {
-                                name: <Moment tz="UTC" format="MMMM" subtract={{ months: 2 }}>{new Date()}</Moment>,
-                                selector: 'prev_prev_hours',
-                                sortable: true,
-                                sortFunction: (a, b) => {return durationStrAsSeconds(a.prev_prev_hours) > durationStrAsSeconds(b.prev_prev_hours) ? 1 : -1},
-                                cell: row => <div>
-                                    <HiCheck
-                                        size={25}
-                                        className={
-                                            (durationStrAsSeconds(row.activity_requirement) !== 0 && durationStrAsSeconds(row.prev_prev_hours) >= durationStrAsSeconds(row.activity_requirement)
-                                                    ? 'fill-green'
-                                                    : 'fill-transparent'
-                                            ) + ' mr-2'
-                                        }
-                                    />
-                                    {formatDurationStr(row.prev_prev_hours)}
-                                </div>
-                            },
-                            {
-                                name: <Moment tz="UTC" format="MMMM" subtract={{ months: 1 }}>{new Date()}</Moment>,
-                                selector: 'prev_hours',
-                                sortable: true,
-                                sortFunction: (a, b) => {return durationStrAsSeconds(a.prev_hours) > durationStrAsSeconds(b.prev_hours) ? 1 : -1},
-                                cell: row => <div>
-                                    <HiCheck
-                                        size={25}
-                                        className={
-                                            (durationStrAsSeconds(row.activity_requirement) !== 0 && durationStrAsSeconds(row.prev_hours) >= durationStrAsSeconds(row.activity_requirement)
-                                                    ? 'fill-green'
-                                                    : 'fill-transparent'
-                                            ) + ' mr-2'
-                                        }
-                                    />
-                                    {formatDurationStr(row.prev_hours)}
-                                </div>
-                            },
-                            {
-                                name: <Moment tz="UTC" format="MMMM">{new Date()}</Moment>,
-                                selector: 'curr_hours',
-                                sortable: true,
-                                sortFunction: (a, b) => {return durationStrAsSeconds(a.curr_hours) > durationStrAsSeconds(b.curr_hours) ? 1 : -1},
-                                cell: row => <div>
-                                    <HiCheck
-                                        size={25}
-                                        className={
-                                            (durationStrAsSeconds(row.activity_requirement) !== 0 && durationStrAsSeconds(row.curr_hours) >= durationStrAsSeconds(row.activity_requirement)
-                                                    ? 'fill-green'
-                                                    : 'fill-transparent'
-                                            ) + ' mr-2'
-                                        }
-                                    />
-                                    {formatDurationStr(row.curr_hours)}
-                                </div>
-                            },
-                        ]}
-                        customStyles={dataTableStyle}
-                    />
-                </Fade>
-                <Modal
-                    size="lg"
-                    show={this.state.showConfirmModal}
-                    onHide={() => this.setState({ showConfirmModal: false })}
-                    keyboard={false}
-                    backdrop="static"
-                    centered
-                >
-                    <Form>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Confirm Roster Removal</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <p>Confirming this action will automatically remove the following users from the VATUSA and local Houston ARTCC roster. <b>This action cannot be undone!</b></p>
-                            <div className="mb-3">
-                                {this.state.selected.map(user => <p className="mb-0 text-center"><code>{user.first_name} {user.last_name}</code></p>)}
-                            </div>
-                            <FormGroup>
-                                <Form.Label>VATUSA will be sent the following as the reason for removal:</Form.Label>
-                                <Form.Control
-                                    as="textarea"
-                                    name="reason"
-                                    required
-                                    rows={2}
-                                    value={this.state.reason}
-                                    onChange={event => this.setState({ reason: event.target.value })}
+    return (
+        <>
+            <Fade bottom duration={1250} distance="50px">
+                <div className="d-flex justify-content-between align-items-center mb-5">
+                    <ButtonGroup>
+                        <Button
+                            variant={'outline-darkblue' + (currentRoster === 'home' ? ' active' : '')}
+                            onClick={() => switchRoster('home')}
+                        >
+                            Home
+                        </Button>
+                        <Button
+                            variant={'outline-darkblue' + (currentRoster === 'visiting' ? ' active' : '')}
+                            onClick={() => switchRoster('visiting')}
+                        >
+                            Visiting
+                        </Button>
+                    </ButtonGroup>
+                </div>
+                <DataTable
+                    data={userStats}
+                    title={<h5>{currentRoster === 'home' ? 'Home Controllers' : 'Visiting Controllers'}</h5>}
+                    selectableRows
+                    selectableRowsHighlight
+                    onSelectedRowsChange={(state) => setSelected(state.selectedRows)}
+                    clearSelectedRows={toggledClearRows}
+                    contextActions={<Button onClick={() => setShowConfirmModal(true)} variant="red"><RiDeleteBinLine className="fill-white"/> Purge</Button>}
+                    defaultSortField="name"
+                    sortIcon={<BsArrowDown/>}
+                    columns={[
+                        {
+                            name: 'Name',
+                            selector: 'name',
+                            sortable: true,
+                            sortFunction: (a, b) => {return a.first_name > b.first_name ? 1 : -1},
+                            format: row => row.first_name + ' ' + row.last_name + ' (' + row.initials + ')',
+                        },
+                        {
+                            name: 'CID',
+                            selector: 'cid',
+                            sortable: true,
+                        },
+                        {
+                            name: 'Rating',
+                            selector: 'rating',
+                            sortFunction: (a, b) => {return ratingInt(a.rating) > ratingInt(b.rating) ? 1 : -1},
+                            sortable: true,
+                        },
+                        {
+                            name: <Moment tz="UTC" format="MMMM" subtract={{ months: 2 }}>{new Date()}</Moment>,
+                            selector: 'prev_prev_hours',
+                            sortable: true,
+                            sortFunction: (a, b) => {return durationStrAsSeconds(a.prev_prev_hours) > durationStrAsSeconds(b.prev_prev_hours) ? 1 : -1},
+                            cell: row => <div>
+                                <HiCheck
+                                    size={25}
+                                    className={
+                                        (durationStrAsSeconds(row.activity_requirement) !== 0 && durationStrAsSeconds(row.prev_prev_hours) >= durationStrAsSeconds(row.activity_requirement)
+                                                ? 'fill-green'
+                                                : 'fill-transparent'
+                                        ) + ' mr-2'
+                                    }
                                 />
-                            </FormGroup>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="lightgray" onClick={() => this.setState({ showConfirmModal: false })}>
-                                Cancel
-                            </Button>
-                            <Button variant="primary" type="submit" onClick={this.purgeSelectedUsers}>
-                                Confirm
-                            </Button>
-                        </Modal.Footer>
-                    </Form>
-                </Modal>
-            </>
-        )
-    }
+                                {formatDurationStr(row.prev_prev_hours)}
+                            </div>
+                        },
+                        {
+                            name: <Moment tz="UTC" format="MMMM" subtract={{ months: 1 }}>{new Date()}</Moment>,
+                            selector: 'prev_hours',
+                            sortable: true,
+                            sortFunction: (a, b) => {return durationStrAsSeconds(a.prev_hours) > durationStrAsSeconds(b.prev_hours) ? 1 : -1},
+                            cell: row => <div>
+                                <HiCheck
+                                    size={25}
+                                    className={
+                                        (durationStrAsSeconds(row.activity_requirement) !== 0 && durationStrAsSeconds(row.prev_hours) >= durationStrAsSeconds(row.activity_requirement)
+                                                ? 'fill-green'
+                                                : 'fill-transparent'
+                                        ) + ' mr-2'
+                                    }
+                                />
+                                {formatDurationStr(row.prev_hours)}
+                            </div>
+                        },
+                        {
+                            name: <Moment tz="UTC" format="MMMM">{new Date()}</Moment>,
+                            selector: 'curr_hours',
+                            sortable: true,
+                            sortFunction: (a, b) => {return durationStrAsSeconds(a.curr_hours) > durationStrAsSeconds(b.curr_hours) ? 1 : -1},
+                            cell: row => <div>
+                                <HiCheck
+                                    size={25}
+                                    className={
+                                        (durationStrAsSeconds(row.activity_requirement) !== 0 && durationStrAsSeconds(row.curr_hours) >= durationStrAsSeconds(row.activity_requirement)
+                                                ? 'fill-green'
+                                                : 'fill-transparent'
+                                        ) + ' mr-2'
+                                    }
+                                />
+                                {formatDurationStr(row.curr_hours)}
+                            </div>
+                        },
+                    ]}
+                    customStyles={dataTableStyle}
+                />
+            </Fade>
+            <Modal
+                size="lg"
+                show={showConfirmModal}
+                onHide={() => setShowConfirmModal(false)}
+                keyboard={false}
+                backdrop="static"
+                centered
+            >
+                <Form>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Confirm Roster Removal</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>Confirming action will automatically remove the following users from the VATUSA and local Houston ARTCC roster. <b>This action cannot be undone!</b></p>
+                        <div className="mb-3">
+                            {selected.map(user => <p className="mb-0 text-center"><code>{user.first_name} {user.last_name}</code></p>)}
+                        </div>
+                        <FormGroup>
+                            <Form.Label>VATUSA will be sent the following as the reason for removal:</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                name="reason"
+                                required
+                                rows={2}
+                                value={reason}
+                                onChange={event => setReason(event.target.value)}
+                            />
+                        </FormGroup>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="lightgray" onClick={() => setShowConfirmModal(false)}>
+                            Cancel
+                        </Button>
+                        <Button variant="primary" type="submit" onClick={purgeSelectedUsers}>
+                            Confirm
+                        </Button>
+                    </Modal.Footer>
+                </Form>
+            </Modal>
+        </>
+    )
 }
-
-export default withSnackbar(RosterPurge)

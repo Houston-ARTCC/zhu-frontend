@@ -16,11 +16,9 @@ export default function AdminPanel(props) {
     const [supportNotifs, setSupportNotifs] = useState(0)
     const [loaNotifs, setLoaNotifs] = useState(0)
 
-    useEffect(() => {
-        updateNotifs()
-    })
+    useEffect(() => updateNotifs(), [])
 
-    function updateNotifs() {
+    const updateNotifs = () => {
         axiosInstance
             .get('/api/administration/notifications/')
             .then(res => {

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Route, Switch } from 'react-router'
 import { BrowserRouter } from 'react-router-dom'
 import ARTCCCalendar from './pages/Calendar'
@@ -29,7 +28,7 @@ import TrainingRequests from './pages/training/views/TrainingRequests'
 import StudentProfile from './pages/training/views/StudentProfile'
 import AssignExam from './pages/training/views/AssignExam'
 import MentorHistory from './pages/training/views/MentorHistory'
-import LoaRequests from './pages/admin/views/LoaRequests'
+import LOARequests from './pages/admin/views/LOARequests'
 import ActionLog from './pages/admin/views/ActionLog'
 import AdminPanel from './pages/admin/AdminPanel'
 import Announcements from './pages/admin/views/Announcements'
@@ -63,18 +62,18 @@ export default function App() {
                 {/* Events */}
                 <Route exact path="/events" component={Events}/>
                 <Route exact path="/events/:id(\d+)" component={ViewEvent}/>
-                <AuthRoute exact path="/events/:id(\d+)/edit" component={EditEvent} auth={isStaff}/>
-                <AuthRoute exact path="/events/new" component={NewEvent} auth={isStaff}/>
-                <AuthRoute exact path="/events/scores" component={EventScores} auth={isMember}/>
+                <AuthRoute exact path="/events/:id(\d+)/edit" component={EditEvent} view={null} auth={isStaff}/>
+                <AuthRoute exact path="/events/new" component={NewEvent} view={null} auth={isStaff}/>
+                <AuthRoute exact path="/events/scores" component={EventScores} view={null} auth={isMember}/>
                 {/* Roster */}
                 <Route exact path="/staff" component={Staff}/>
                 <Route exact path="/roster" component={Roster}/>
                 <Route exact path="/roster/:cid(\d+)" component={Profile}/>
-                <AuthRoute exact path="/roster/:cid(\d+)/edit" component={EditUser} auth={isStaff}/>
+                <AuthRoute exact path="/roster/:cid(\d+)/edit" component={EditUser} view={null} auth={isStaff}/>
                 {/* Resources */}
                 <Route exact path="/resources" component={Resources}/>
                 {/* Visiting */}
-                <AuthRoute exact path="/visit" component={Visit} auth={isAuthenticated}/>
+                <AuthRoute exact path="/visit" component={Visit} view={null} auth={isAuthenticated}/>
                 {/* Training */}
                 <AuthRoute exact path="/training" component={TrainingCenter} view={Sessions} auth={isMember}/>
                 <AuthRoute exact path="/training/sessions" component={TrainingCenter} view={Sessions} auth={isMember}/>
@@ -94,7 +93,7 @@ export default function App() {
                 <AuthRoute exact path="/admin/user" component={AdminPanel} view={FindUser} auth={isStaff}/>
                 <AuthRoute exact path="/admin/scores" component={AdminPanel} view={FindEventScores} auth={isStaff}/>
                 <AuthRoute exact path="/admin/purge" component={AdminPanel} view={RosterPurge} auth={isAdmin}/>
-                <AuthRoute exact path="/admin/loa" component={AdminPanel} view={LoaRequests} auth={isAdmin}/>
+                <AuthRoute exact path="/admin/loa" component={AdminPanel} view={LOARequests} auth={isAdmin}/>
                 <AuthRoute exact path="/admin/announcement" component={AdminPanel} view={Announcements} auth={isStaff}/>
                 <AuthRoute exact path="/admin/broadcast" component={AdminPanel} view={Broadcast} auth={isStaff}/>
                 {/* Miscellaneous */}
@@ -102,8 +101,8 @@ export default function App() {
                 <Route exact path="/privacy" component={Privacy}/>
                 <Route exact path="/statistics" component={Statistics}/>
                 <Route exact path="/calendar" component={ARTCCCalendar}/>
-                <AuthRoute exact path="/feedback" component={Feedback}/>
-                <AuthRoute exact path="/settings" component={Settings} auth={isAuthenticated}/>
+                <AuthRoute exact path="/feedback" component={Feedback} view={null} auth={isAuthenticated}/>
+                <AuthRoute exact path="/settings" component={Settings} view={null} auth={isAuthenticated}/>
                 <Route component={Error404}/>
             </Switch>
             <Footer/>

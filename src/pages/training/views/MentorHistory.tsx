@@ -1,77 +1,60 @@
-import React, { Component } from 'react'
+import { useEffect, useState } from 'react'
 import Fade from 'react-reveal/Fade'
 import Select from 'react-select'
 import axiosInstance from '../../../helpers/axiosInstance'
 import SessionTable from '../../../components/SessionTable'
 
-export default class MentorHistory extends Component<any, any> {
-    constructor(props) {
-        super(props)
-        this.state = {
-            mentorOptions: [],
-            sessions: [],
-            expanded: {},
-            loading: false,
-        }
-        this.handleMentorChange = this.handleMentorChange.bind(this)
-    }
+export default function MentorHistory() {
+    const [mentorOptions, setMentorOptions] = useState<any>([])
+    const [sessions, setSessions] = useState([])
+    const [loading, setLoading] = useState(false)
 
-    componentDidMount() {
-        this.fetchMentors()
-    }
+    useEffect(() => fetchMentors(), [])
 
-    fetchMentors() {
+    const fetchMentors = () => {
         axiosInstance
             .get('/api/users/staff/')
             .then(res => {
-                let instructorOptions : any[] = []
-                res.data.ins.map(instructor =>
-                    instructorOptions.push({
-                        value: instructor.cid,
-                        label: instructor.first_name + ' ' + instructor.last_name
-                    })
-                )
-                let mentorOptions : any[] = []
-                res.data.mtr.map(mentor =>
-                    mentorOptions.push({
-                        value: mentor.cid,
-                        label: mentor.first_name + ' ' + mentor.last_name
-                    })
-                )
-                let groupedOptions = [
+                setMentorOptions([
                     {
                         label: 'Instructors',
-                        options: instructorOptions,
+                        options: res.data.ins.map(instructor => ({
+                            value: instructor.cid,
+                            label: instructor.first_name + ' ' + instructor.last_name
+                        })),
                     },
                     {
                         label: 'Mentors',
-                        options: mentorOptions,
+                        options: res.data.mtr.map(mentor => ({
+                            value: mentor.cid,
+                            label: mentor.first_name + ' ' + mentor.last_name
+                        })),
                     }
-                ]
-                this.setState({ mentorOptions: groupedOptions })
+                ])
             })
     }
 
-    handleMentorChange(selected) {
-        this.setState({ loading: true })
+    const handleMentorChange = (selected) => {
+        setLoading(true)
         axiosInstance
             .get('/api/training/mentor/' + selected.value + '/')
-            .then(res => this.setState({ sessions: res.data, loading: false }))
+            .then(res => {
+                setSessions(res.data)
+                setLoading(false)
+            })
     }
 
-    render() {
-        return (
-            <Fade bottom duration={1250} distance="50px">
-                <div className="position-relative">
-                    <Select
-                        options={this.state.mentorOptions}
-                        onChange={this.handleMentorChange}
-                        placeholder="Select mentor..."
-                        className="mb-4"
-                    />
-                    <SessionTable data={this.state.sessions} loading={this.state.loading}/>
-                </div>
-            </Fade>
-        )
-    }
+    return (
+        <Fade bottom duration={1250} distance="50px">
+            <div className="position-relative">
+                <Select
+                    options={mentorOptions}
+                    onChange={handleMentorChange}
+                    placeholder="Select mentor..."
+                    className="mb-4"
+                />
+                <SessionTable data={sessions} loading={loading}/>
+            </div>
+        </Fade>
+    )
 }

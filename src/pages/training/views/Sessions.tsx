@@ -1,33 +1,27 @@
-import React, { Component } from 'react'
+import { useEffect, useState } from 'react'
 import Fade from 'react-reveal/Fade'
 import axiosInstance from '../../../helpers/axiosInstance'
 import { getCID } from '../../../helpers/auth'
 import SessionTable from '../../../components/SessionTable'
 
-export default class Sessions extends Component<any, any> {
-    constructor(props) {
-        super(props)
-        this.state = {
-            sessions: [],
-            loading: true,
-        }
-    }
+export default function Sessions() {
+    const [sessions, setSessions] = useState([])
+    const [loading, setLoading] = useState(true)
 
-    componentDidMount() {
-        this.fetchSessions()
-    }
+    useEffect(() => fetchSessions(), [])
 
-    fetchSessions() {
+    const fetchSessions = () => {
         axiosInstance
             .get('/api/training/sessions/' + getCID() + '/')
-            .then(res => this.setState({ sessions: res.data, loading: false }))
+            .then(res => {
+                setSessions(res.data)
+                setLoading(false)
+            })
     }
 
-    render() {
-        return (
-            <Fade bottom duration={1250} distance="50px">
-                <SessionTable data={this.state.sessions} loading={this.state.loading}/>
-            </Fade>
-        )
-    }
+    return (
+        <Fade bottom duration={1250} distance="50px">
+            <SessionTable data={sessions} loading={loading}/>
+        </Fade>
+    )
 }

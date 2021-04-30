@@ -8,13 +8,13 @@ import TuiCalendar from '../components/TuiCalendar'
 
 export default function ARTCCCalendar() {
     return (
-        <div>
+        <>
             <Header title="Calendar"/>
             <Fade bottom duration={1250} distance="50px">
                 <Container fluid>
                     <TuiCalendar view="month" isReadOnly={true} eventsAllDay={true}/>
                 </Container>
             </Fade>
-        </div>
+        </>
     )
 }

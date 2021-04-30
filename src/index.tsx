@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { SnackbarProvider } from 'notistack'
+import App from './App'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/theme.scss'
 import './styles/theme-dark.scss'
 

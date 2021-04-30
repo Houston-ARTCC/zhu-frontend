@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import { useEffect, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
-import { withSnackbar } from 'notistack'
+import { useSnackbar } from 'notistack'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import axiosInstance from '../../../helpers/axiosInstance'
@@ -10,37 +10,31 @@ import { dataTableStyle } from '../../../helpers/constants'
 import DataTable from 'react-data-table-component'
 import parse from 'html-react-parser'
 
-class Announcements extends Component<any, any> {
-    constructor(props) {
-        super(props)
-        this.state = {
-            announcements: [],
-            showAnnouncementModal: false,
-            activeAnnouncement: {},
-            showCreateModal: false,
-            announcementTitle: '',
-            announcementBody: '',
-        }
-        this.handleSubmitAnnouncement = this.handleSubmitAnnouncement.bind(this)
-    }
+export default function Announcements() {
+    const [announcements, setAnnouncements] = useState<any>([])
+    const [showAnnouncementModal, setShowAnnouncementModal] = useState(false)
+    const [activeAnnouncement, setActiveAnnouncement] = useState<any>({})
+    const [showCreateModal, setShowCreateModal] = useState(false)
+    const [announcementTitle, setAnnouncementTitle] = useState('')
+    const [announcementBody, setAnnouncementBody] = useState('')
 
-    componentDidMount() {
-        this.fetchAnnouncements()
-    }
+    const { enqueueSnackbar } = useSnackbar()
 
-    fetchAnnouncements() {
+    useEffect(() => fetchAnnouncements(), [])
+
+    const fetchAnnouncements = () => {
         axiosInstance
             .get('/api/announcements/')
-            .then(res => this.setState({ announcements: res.data }))
+            .then(res => setAnnouncements(res.data))
     }
 
-    handleSubmitAnnouncement(e) {
+    const handleSubmitAnnouncement= (e) => {
         e.preventDefault()
         axiosInstance
-            .post('/api/announcements/', { title: this.state.announcementTitle, body: this.state.announcementBody })
+            .post('/api/announcements/', { title: announcementTitle, body: announcementBody })
             .then(res => {
-                this.fetchAnnouncements()
-                this.props.enqueueSnackbar('Announcement successfully posted!', {
+                fetchAnnouncements()
+                enqueueSnackbar('Announcement successfully posted!', {
                     variant: 'success',
                     autoHideDuration: 3000,
                     anchorOrigin: {
@@ -48,10 +42,10 @@ class Announcements extends Component<any, any> {
                         horizontal: 'right',
                     },
                 })
-                this.setState({showCreateModal: false})
+                setShowCreateModal(false)
             })
             .catch(err => {
-                this.props.enqueueSnackbar(err.toString(), {
+                enqueueSnackbar(err.toString(), {
                     variant: 'error',
                     autoHideDuration: 3000,
                     anchorOrigin: {
@@ -62,105 +56,104 @@ class Announcements extends Component<any, any> {
             })
     }
 
-    render() {
-        return (
-            <>
-                <Button className="mb-3" onClick={() => this.setState({showCreateModal: true})}>Post Announcement</Button>
-                <DataTable
-                    data={this.state.announcements}
-                    noHeader
-                    pointerOnHover
-                    highlightOnHover
-                    defaultSortField="date"
-                    sortIcon={<BsArrowDown/>}
-                    customStyles={dataTableStyle}
-                    onRowClicked={row => this.setState({showAnnouncementModal: true, activeAnnouncement: row})}
-                    columns={[
-                        {
-                            name: 'Title',
-                            selector: 'title',
-                            sortable: true,
+    return (
+        <>
+            <Button className="mb-3" onClick={() => setShowCreateModal(true)}>Post Announcement</Button>
+            <DataTable
+                data={announcements}
+                noHeader
+                pointerOnHover
+                highlightOnHover
+                defaultSortField="date"
+                sortIcon={<BsArrowDown/>}
+                customStyles={dataTableStyle}
+                onRowClicked={row => {
+                    setShowAnnouncementModal(true)
+                    setActiveAnnouncement(row)
+                }}
+                columns={[
+                    {
+                        name: 'Title',
+                        selector: 'title',
+                        sortable: true,
+                    },
+                    {
+                        name: 'Author',
+                        selector: 'author',
+                        sortable: true,
+                        format: row => row.author.first_name + ' ' + row.author.last_name,
+                        sortFunction: (a, b) => {
+                            return a.first_name > b.first_name ? 1 : -1
                         },
-                        {
-                            name: 'Author',
-                            selector: 'author',
-                            sortable: true,
-                            format: row => row.author.first_name + ' ' + row.author.last_name,
-                            sortFunction: (a, b) => {
-                                return a.first_name > b.first_name ? 1 : -1
-                            },
+                    },
+                    {
+                        name: 'Posted',
+                        selector: 'posted',
+                        sortable: true,
+                        format: row => moment(row.end).tz(moment.tz.guess()).format('MMM. DD, YYYY @ HH:mm z'),
+                        sortFunction: (a, b) => {
+                            return moment(a.start) > moment(b.start) ? 1 : -1
                         },
-                        {
-                            name: 'Posted',
-                            selector: 'posted',
-                            sortable: true,
-                            format: row => moment(row.end).tz(moment.tz.guess()).format('MMM. DD, YYYY @ HH:mm z'),
-                            sortFunction: (a, b) => {
-                                return moment(a.start) > moment(b.start) ? 1 : -1
-                            },
-                        },
-                    ]}
-                />
-                <Modal
-                    size="lg"
-                    show={this.state.showAnnouncementModal}
-                    onHide={() => this.setState({showAnnouncementModal: false})}
-                >
+                    },
+                ]}
+            />
+            <Modal
+                size="lg"
+                show={showAnnouncementModal}
+                onHide={() => setShowAnnouncementModal(false)}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>{activeAnnouncement.title}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {activeAnnouncement.body ? parse(activeAnnouncement.body) : ''}
+                </Modal.Body>
+            </Modal>
+            <Modal
+                size="lg"
+                show={showCreateModal}
+                onHide={() => setShowCreateModal(false)}
+                keyboard={false}
+            >
+                <Form onSubmit={handleSubmitAnnouncement}>
                     <Modal.Header closeButton>
-                        <Modal.Title>{this.state.activeAnnouncement.title}</Modal.Title>
+                        <Modal.Title>Create Site Announcement</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        {this.state.activeAnnouncement.body ? parse(this.state.activeAnnouncement.body) : ''}
+                            <Form.Group>
+                                <Form.Label>Title</Form.Label>
+                                <Form.Control
+                                    required
+                                    type="text"
+                                    value={announcementTitle}
+                                    onChange={event => setAnnouncementTitle(event.target.value)}
+                                />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Body</Form.Label>
+                                <ReactQuill
+                                    value={announcementBody}
+                                    onChange={body => setAnnouncementBody(body)}
+                                    modules={{
+                                        toolbar: [
+                                            [{'header': [1, 2, 3, 4, 5, 6, false] }],
+                                            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                                            [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+                                            ['link', 'image', 'code-block'],
+                                            ['clean']
+                                        ],
+                                    }}
+                                />
+                            </Form.Group>
                     </Modal.Body>
-                </Modal>
-                <Modal
-                    size="lg"
-                    show={this.state.showCreateModal}
-                    onHide={() => this.setState({showCreateModal: false})}
-                    keyboard={false}
-                >
-                    <Form onSubmit={this.handleSubmitAnnouncement}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Create Site Announcement</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                                <Form.Group>
-                                    <Form.Label>Title</Form.Label>
-                                    <Form.Control
-                                        required
-                                        type="text"
-                                        value={this.state.announcementTitle}
-                                        onChange={event => this.setState({announcementTitle: event.target.value })}
-                                    />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>Body</Form.Label>
-                                    <ReactQuill
-                                        value={this.state.announcementBody}
-                                        onChange={body => this.setState({announcementBody: body })}
-                                        modules={{
-                                            toolbar: [
-                                                [{'header': [1, 2, 3, 4, 5, 6, false] }],
-                                                ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-                                                [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-                                                ['link', 'image', 'code-block'],
-                                                ['clean']
-                                            ],
-                                        }}
-                                    />
-                                </Form.Group>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="lightgray" onClick={() => this.setState({showCreateModal: false})}>
-                                Cancel
-                            </Button>
-                            <Button variant="primary" type="submit">Submit</Button>
-                        </Modal.Footer>
-                    </Form>
-                </Modal>
-            </>
-        )
-    }
+                    <Modal.Footer>
+                        <Button variant="lightgray" onClick={() => setShowCreateModal(false)}>
+                            Cancel
+                        </Button>
+                        <Button variant="primary" type="submit">Submit</Button>
+                    </Modal.Footer>
+                </Form>
+            </Modal>
+        </>
+    )
 }
-
-export default withSnackbar(Announcements)

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import DataTable from 'react-data-table-component'
 import { BsArrowDown, HiCheck } from 'react-icons/all'
 import { Button, ButtonGroup, Container, Form } from 'react-bootstrap'
@@ -75,7 +75,7 @@ export default class Statistics extends Component<any, any> {
 
     render() {
         return (
-            <div>
+            <>
                 <Header title="Controller Statistics"/>
                 <Fade bottom duration={1250} distance="50px">
                     <Container fluid>
@@ -202,7 +202,7 @@ export default class Statistics extends Component<any, any> {
                         />
                     </Container>
                 </Fade>
-            </div>
+            </>
         )
     }
 }

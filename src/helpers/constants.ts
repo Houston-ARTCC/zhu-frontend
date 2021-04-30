@@ -114,3 +114,70 @@ export const dataTableStyle = {
         },
     }
 }
+
+export const roleOptions = [
+    {
+        "value": "ATM",
+        "label": "Air Traffic Manager"
+    },
+    {
+        "value": "DATM",
+        "label": "Deputy Air Traffic Manager"
+    },
+    {
+        "value": "TA",
+        "label": "Training Administrator"
+    },
+    {
+        "value": "ATA",
+        "label": "Assistant Training Administrator"
+    },
+    {
+        "value": "FE",
+        "label": "Facility Engineer"
+    },
+    {
+        "value": "AFE",
+        "label": "Assistant Facility Engineer"
+    },
+    {
+        "value": "EC",
+        "label": "Events Coordinator"
+    },
+    {
+        "value": "AEC",
+        "label": "Assistant Events Coordinator"
+    },
+    {
+        "value": "WM",
+        "label": "Webmaster"
+    },
+    {
+        "value": "AWM",
+        "label": "Assistant Webmaster"
+    },
+    {
+        "value": "INS",
+        "label": "Instructor"
+    },
+    {
+        "value": "MTR",
+        "label": "Mentor"
+    },
+    {
+        "value": "WEB",
+        "label": "Web Team"
+    },
+    {
+        "value": "HC",
+        "label": "Home Controller"
+    },
+    {
+        "value": "VC",
+        "label": "Visiting Controller"
+    },
+    {
+        "value": "MC",
+        "label": "MAVP Controller"
+    }
+]

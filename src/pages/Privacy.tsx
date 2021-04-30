@@ -1,11 +1,10 @@
-import React from 'react'
 import { Container } from 'react-bootstrap'
 import Fade from 'react-reveal/Fade'
 import Header from '../components/Header'
 
 export default function Privacy() {
     return (
-        <div>
+        <>
             <Header title="Privacy Policy"/>
             <Fade bottom duration={1250} distance="50px">
                 <Container fluid>
@@ -68,6 +67,6 @@ export default function Privacy() {
                     <p>Note Virtual Houston ARTCC cannot guarantee that information collected by parties outside of Virtual Houston ARTCC will be purged in the process.</p>
                 </Container>
             </Fade>
-        </div>
+        </>
     )
 }

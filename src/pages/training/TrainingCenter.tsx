@@ -8,15 +8,15 @@ import { useLocation } from 'react-router'
 import axiosInstance from '../../helpers/axiosInstance'
 
 export default function TrainingCenter(props) {
-    const location = useLocation()
-
     const [requestNotifs, setRequestNotifs] = useState(0)
+
+    const location = useLocation()
 
     useEffect(() => {
         updateNotifs()
     })
 
-    function updateNotifs() {
+    const updateNotifs = () => {
         axiosInstance
             .get('/api/training/notifications/')
             .then(res => {

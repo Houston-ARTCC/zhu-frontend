@@ -72,8 +72,8 @@ export default class Map extends Component<any, any> {
         let popup = document.createElement('div')
         let contents = <div className="bg-darkblue p-3">
             <div className="d-flex flex-row align-items-center mb-2">
-                <Badge className="badge-sm mr-2" variant="white">{props.ICAO}</Badge>
-                <h5 className="text-white ml-1 mb-0">{props.Name}</h5>
+                <Badge className="badge-sm mr-2" variant="white">{props.icao}</Badge>
+                <h5 className="text-white ml-1 mb-0">{props.name}</h5>
             </div>
             <p className="text-white font-sm m-0">Click to view more info</p>
         </div>
@@ -83,12 +83,12 @@ export default class Map extends Component<any, any> {
     }
 
     createDetailPopup(props) {
-        let metar = this.state.metars.find(metar => metar.station === props.ICAO)
+        let metar = this.state.metars.find(metar => metar.station === props.icao)
         let popup = document.createElement('div')
         let contents = <div>
             <div className="bg-darkblue p-3 d-flex flex-row align-items-center">
-                <Badge className="badge-sm mr-2" variant="white">{props.ICAO}</Badge>
-                <h5 className="text-white ml-1 mb-0">{props.Name}</h5>
+                <Badge className="badge-sm mr-2" variant="white">{props.icao}</Badge>
+                <h5 className="text-white ml-1 mb-0">{props.name}</h5>
             </div>
             <div className="p-3">
                 <Badge className="badge-sm mb-1 mr-2" variant={
@@ -100,7 +100,7 @@ export default class Map extends Component<any, any> {
                                 ? 'yellow'
                                 : 'red'
                 }>{metar.flight_rules}</Badge>
-                <a className="link-unstyled" href={'https://simcharts.info/?search=' + props.ICAO} target="_blank"  rel="noreferrer">
+                <a className="link-unstyled" href={'https://simcharts.info/?search=' + props.icao} target="_blank"  rel="noreferrer">
                     <Button className="btn-sm" variant="lightgray">View Charts</Button>
                 </a>
                 <p className="mb-0 font-sm">{metar.raw}</p>
