@@ -19,6 +19,7 @@ import EditEvent from './pages/events/EditEvent'
 import ViewEvent from './pages/events/ViewEvent'
 import NewEvent from './pages/events/NewEvent'
 import EventScores from './pages/events/EventScores'
+import FileSession from './pages/training/FileSession'
 import TrainingCenter from './pages/training/TrainingCenter'
 import Exams from './pages/training/views/Exams'
 import Sessions from './pages/training/views/Sessions'
@@ -79,11 +80,12 @@ export default function App() {
                 <AuthRoute exact path="/training/sessions" component={TrainingCenter} view={Sessions} auth={isMember}/>
                 <AuthRoute exact path="/training/request" component={TrainingCenter} view={RequestTraining} auth={isMember}/>
                 <AuthRoute exact path="/training/exams" component={TrainingCenter} view={Exams} auth={isMember}/>
-                <AuthRoute exact path="/training/schedule" component={TrainingCenter} view={ScheduledSessions} auth={isTrainingStaff}/>
+                <AuthRoute exact path="/training/scheduled" component={TrainingCenter} view={ScheduledSessions} auth={isTrainingStaff}/>
                 <AuthRoute exact path="/training/requests" component={TrainingCenter} view={TrainingRequests} auth={isTrainingStaff}/>
                 <AuthRoute exact path="/training/profile" component={TrainingCenter} view={StudentProfile} auth={isTrainingStaff}/>
                 <AuthRoute exact path="/training/mentor" component={TrainingCenter} view={MentorHistory} auth={isTrainingStaff}/>
                 <AuthRoute exact path="/training/assign" component={TrainingCenter} view={AssignExam} auth={isTrainingStaff}/>
+                <AuthRoute exact path="/training/session/:id(\d+)" component={FileSession} view={null} auth={isTrainingStaff}/>
                 {/* Adiministration */}
                 <AuthRoute exact path="/admin" component={AdminPanel} view={AdminHome} auth={isStaff}/>
                 <AuthRoute exact path="/admin/log" component={AdminPanel} view={ActionLog} auth={isStaff}/>

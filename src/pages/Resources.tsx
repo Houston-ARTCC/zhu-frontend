@@ -188,8 +188,7 @@ export default function Resources() {
         </section>
     )
 
-    const categoryOptions: any[] = []
-    categories.map(category => categoryOptions.push({ value: category, label: category }))
+    const categoryOptions = categories.map(category => ({ value: category, label: category }))
 
     return (
         <>

@@ -10,6 +10,7 @@ import { getCID, isMember, isStaff } from '../../helpers/auth';
 import Error404 from '../errors/Error404'
 import parse from 'html-react-parser'
 import { format } from 'date-fns-tz'
+import Fade from 'react-reveal/Fade'
 
 class ViewEvent extends Component<any, any> {
     constructor(props) {
@@ -154,7 +155,7 @@ class ViewEvent extends Component<any, any> {
                             </Popover>
                         }>
                             {shift.user
-                                ? <span className="text-white overflow-ellipses">{shift.user.first_name} {shift.user.last_name}</span>
+                                ? <span className="overflow-ellipses">{shift.user.first_name} {shift.user.last_name}</span>
                                 : !isMember()
                                     ? <span className="text-black">Unassigned</span>
                                     : requested
@@ -198,105 +199,110 @@ class ViewEvent extends Component<any, any> {
 
         return (
             <>
-                <Header title={this.state.event.name} subtitle={`Presented by ${this.state.event.host}`}/>
-                <Container fluid className="text-center">
-                    {this.state.event.hidden &&
-                        <Row className="justify-content-center mb-3">
-                            <Col md={6}>
-                                <Alert variant="red" className="d-flex m-0">
-                                    <FaRegEyeSlash className="fill-red mr-3" size={35} preserveAspectRatio="xMaxYMin"/>
-                                    <div className="text-left">
-                                        <h4>Event Hidden</h4>
-                                        <p className="m-0">This event is currently hidden from controllers. <Link
-                                            to={this.props.match.params.id + '/edit'} className="font-w500">Edit the event</Link> to make it visible.</p>
-                                    </div>
-                                </Alert>
-                            </Col>
-                        </Row>
-                    }
-                    {this.state.event.archived &&
-                        <Row className="justify-content-center mb-3">
-                            <Col md={6}>
-                                <Alert variant="purple" className="d-flex m-0">
-                                    <FaRegFolderOpen className="fill-purple mr-3" size={35} preserveAspectRatio="xMaxYMin"/>
-                                    <div className="text-left">
-                                        <h4>Event Archived</h4>
-                                        <p className="m-0">This event has passed and is now archived.</p>
-                                    </div>
-                                </Alert>
-                            </Col>
-                        </Row>
-                    }
-                    <Row className="mb-5 d-flex align-items-center justify-content-center">
-                        <Col md={6}>
-                            <Row className="align-items-center mb-4">
-                                <Col xs={12} md={6} className="mb-2">
-                                    <h4 className="text-black font-w500">Start</h4>
-                                    <h5 className="font-w400">{this.state.event.start && format(new Date(this.state.event.start), 'MMM d, Y, kk:mm zzz')}</h5>
-                                    <h4 className="text-black font-w500">End</h4>
-                                    <h5 className="font-w400">{this.state.event.start && format(new Date(this.state.event.end), 'MMM d, Y, kk:mm zzz')}</h5>
-                                </Col>
-                                <Col xs={12} md={6}>
-                                    <h4 className="text-black font-w500">Time Until Event</h4>
-                                    {new Date(this.state.event.end) < new Date()
-                                        ? <h5 className="font-w400">Event has ended.</h5>
-                                        : <Countdown date={new Date(this.state.event.start)} renderer={
-                                            ({ days, hours, minutes, seconds, completed }) => completed ? <h5 className="font-w400">Event has begun!</h5> : <h5 className="font-w400">{days}d {hours}h {minutes}m {seconds}s</h5>
-                                        }/>
-                                    }
+                <Header
+                    title={this.state.event.name}
+                    subtitle={`Presented by ${this.state.event.host}`}
+                />
+                <Fade bottom duration={1250} distance="50px">
+                    <Container fluid className="text-center">
+                        {this.state.event.hidden &&
+                            <Row className="justify-content-center mb-3">
+                                <Col md={6}>
+                                    <Alert variant="red" className="d-flex m-0">
+                                        <FaRegEyeSlash className="fill-red mr-3" size={35} preserveAspectRatio="xMaxYMin"/>
+                                        <div className="text-left">
+                                            <h4>Event Hidden</h4>
+                                            <p className="m-0">This event is currently hidden from controllers. <Link
+                                                to={this.props.match.params.id + '/edit'} className="font-w500">Edit the event</Link> to make it visible.</p>
+                                        </div>
+                                    </Alert>
                                 </Col>
                             </Row>
-                            <p>
-                                {this.state.event.description
-                                    ? parse(this.state.event.description?.replace(/(?:\r\n|\r|\n)/g, '<br/>'))
-                                    : ''
-                                }
-                            </p>
-                            {isStaff() &&
-                                <Link to={this.state.event.id + '/edit'}>
-                                    <Button variant="primary" className="mb-4"><RiPencilRuler2Line viewBox="3 3 20 20"/> Edit Event</Button>
-                                </Link>
-                            }
-                        </Col>
-                        {this.state.event.banner &&
-                            <Col md={6}>
-                                <img className="event-banner-lg" src={this.state.event.banner} alt={this.state.event.name}/>
-                            </Col>
                         }
-                    </Row>
-                    <Row>
-                        <Col className="text-center text-md-left mb-4" xs={12} md={4}>
-                            <h3 className="text-black font-w700 mb-1">Enroute Positions</h3>
-                            <h5 className="text-gray font-w500 mb-3">{enrouteShifts} Shift{enrouteShifts === 1 ? '' : 's'} Available</h5>
-                            <ul className="p-0 list-unstyled">
-                                {this.getEnroutePositions()?.length > 0
-                                    ? this.getEnroutePositions()?.map(position => this.renderPosition(position))
-                                    : <p>No positions posted.</p>
+                        {this.state.event.archived &&
+                            <Row className="justify-content-center mb-3">
+                                <Col md={6}>
+                                    <Alert variant="purple" className="d-flex m-0">
+                                        <FaRegFolderOpen className="fill-purple mr-3" size={35} preserveAspectRatio="xMaxYMin"/>
+                                        <div className="text-left">
+                                            <h4>Event Archived</h4>
+                                            <p className="m-0">This event has passed and is now archived.</p>
+                                        </div>
+                                    </Alert>
+                                </Col>
+                            </Row>
+                        }
+                        <Row className="mb-5 d-flex align-items-center justify-content-center">
+                            <Col md={6}>
+                                <Row className="align-items-center mb-4">
+                                    <Col xs={12} md={6} className="mb-2">
+                                        <h4 className="text-black font-w500">Start</h4>
+                                        <h5 className="font-w400">{this.state.event.start && format(new Date(this.state.event.start), 'MMM d, Y, kk:mm zzz')}</h5>
+                                        <h4 className="text-black font-w500">End</h4>
+                                        <h5 className="font-w400">{this.state.event.start && format(new Date(this.state.event.end), 'MMM d, Y, kk:mm zzz')}</h5>
+                                    </Col>
+                                    <Col xs={12} md={6}>
+                                        <h4 className="text-black font-w500">Time Until Event</h4>
+                                        {new Date(this.state.event.end) < new Date()
+                                            ? <h5 className="font-w400">Event has ended.</h5>
+                                            : <Countdown date={new Date(this.state.event.start)} renderer={
+                                                ({ days, hours, minutes, seconds, completed }) => completed ? <h5 className="font-w400">Event has begun!</h5> : <h5 className="font-w400">{days}d {hours}h {minutes}m {seconds}s</h5>
+                                            }/>
+                                        }
+                                    </Col>
+                                </Row>
+                                <p>
+                                    {this.state.event.description
+                                        ? parse(this.state.event.description?.replace(/(?:\r\n|\r|\n)/g, '<br/>'))
+                                        : ''
+                                    }
+                                </p>
+                                {isStaff() &&
+                                    <Link to={this.state.event.id + '/edit'}>
+                                        <Button variant="primary" className="mb-4"><RiPencilRuler2Line viewBox="3 3 20 20"/> Edit Event</Button>
+                                    </Link>
                                 }
-                            </ul>
-                        </Col>
-                        <Col className="text-center text-md-left mb-4" xs={12} md={4}>
-                            <h3 className="text-black font-w700 mb-1">TRACON Positions</h3>
-                            <h5 className="text-gray font-w500 mb-3">{TRACONShifts} Shift{TRACONShifts === 1 ? '' : 's'} Available</h5>
-                            <ul className="p-0 list-unstyled">
-                                {this.getTRACONPositions()?.length > 0
-                                    ? this.getTRACONPositions()?.map(position => this.renderPosition(position))
-                                    : <p>No positions posted.</p>
-                                }
-                            </ul>
-                        </Col>
-                        <Col className="text-center text-md-left mb-4" xs={12} md={4}>
-                            <h3 className="text-black font-w700 mb-1">Local Positions</h3>
-                            <h5 className="text-gray font-w500 mb-3">{localShifts} Shift{localShifts === 1 ? '' : 's'} Available</h5>
-                            <ul className="p-0 list-unstyled">
-                                {this.getLocalPositions()?.length > 0
-                                    ? this.getLocalPositions()?.map(position => this.renderPosition(position))
-                                    : <p>No positions posted.</p>
-                                }
-                            </ul>
-                        </Col>
-                    </Row>
-                </Container>
+                            </Col>
+                            {this.state.event.banner &&
+                                <Col md={6}>
+                                    <img className="event-banner-lg" src={this.state.event.banner} alt={this.state.event.name}/>
+                                </Col>
+                            }
+                        </Row>
+                        <Row>
+                            <Col className="text-center text-md-left mb-4" xs={12} md={4}>
+                                <h3 className="text-black font-w700 mb-1">Enroute Positions</h3>
+                                <h5 className="text-gray font-w500 mb-3">{enrouteShifts} Shift{enrouteShifts === 1 ? '' : 's'} Available</h5>
+                                <ul className="p-0 list-unstyled">
+                                    {this.getEnroutePositions()?.length > 0
+                                        ? this.getEnroutePositions()?.map(position => this.renderPosition(position))
+                                        : <p>No positions posted.</p>
+                                    }
+                                </ul>
+                            </Col>
+                            <Col className="text-center text-md-left mb-4" xs={12} md={4}>
+                                <h3 className="text-black font-w700 mb-1">TRACON Positions</h3>
+                                <h5 className="text-gray font-w500 mb-3">{TRACONShifts} Shift{TRACONShifts === 1 ? '' : 's'} Available</h5>
+                                <ul className="p-0 list-unstyled">
+                                    {this.getTRACONPositions()?.length > 0
+                                        ? this.getTRACONPositions()?.map(position => this.renderPosition(position))
+                                        : <p>No positions posted.</p>
+                                    }
+                                </ul>
+                            </Col>
+                            <Col className="text-center text-md-left mb-4" xs={12} md={4}>
+                                <h3 className="text-black font-w700 mb-1">Local Positions</h3>
+                                <h5 className="text-gray font-w500 mb-3">{localShifts} Shift{localShifts === 1 ? '' : 's'} Available</h5>
+                                <ul className="p-0 list-unstyled">
+                                    {this.getLocalPositions()?.length > 0
+                                        ? this.getLocalPositions()?.map(position => this.renderPosition(position))
+                                        : <p>No positions posted.</p>
+                                    }
+                                </ul>
+                            </Col>
+                        </Row>
+                    </Container>
+                </Fade>
             </>
         )
     }

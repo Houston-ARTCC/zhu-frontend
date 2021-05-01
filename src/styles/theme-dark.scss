@@ -57,6 +57,11 @@ body.dark {
         background-color: $black;
     }
 
+    .progress-bar.bg-green {
+        span { color: $black; }
+        svg { fill: $black; }
+    }
+
     .popover {
         background-color: lighten($black, 5%);
         box-shadow: $dark-shadow-lifted;
@@ -71,7 +76,7 @@ body.dark {
     }
 
     .form-control {
-        background-color: #2A2A2D !important;
+        background-color: #252528 !important;
         border-color: $mutedblack !important;
 
         &:disabled, &:read-only {
@@ -80,12 +85,12 @@ body.dark {
     }
 
     .css-yk16xz-control {
-        background-color: #2A2A2D !important;
+        background-color: #252528 !important;
         border-color: $mutedblack !important;
     }
 
     .css-1pahdxg-control {
-        background-color: #2A2A2D !important;
+        background-color: #252528 !important;
     }
 
     .form-control:focus {
@@ -279,5 +284,13 @@ body.dark {
     }
     .rc-slider-handle-dragging {
         box-shadow: 0 0 0 5px rgba($primary, 0.5) !important;
+    }
+    .ql-container.ql-snow, .ql-toolbar.ql-snow {
+        border-color: #404047;
+        background-color: #252528;
+    }
+    .ql-picker-options {
+        background-color: $black;
+        border-color: $black !important;
     }
 }

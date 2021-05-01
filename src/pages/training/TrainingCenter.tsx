@@ -53,8 +53,8 @@ export default function TrainingCenter(props) {
                                 {isTrainingStaff() &&
                                     <div>
                                         <h6 className="text-primary">Instructor</h6>
-                                        <ListGroup.Item as="li" active={location.pathname === '/training/schedule'}>
-                                            <Link to="/training/schedule">
+                                        <ListGroup.Item as="li" active={location.pathname === '/training/scheduled'}>
+                                            <Link to="/training/scheduled">
                                                 Scheduled Sessions
                                             </Link>
                                         </ListGroup.Item>

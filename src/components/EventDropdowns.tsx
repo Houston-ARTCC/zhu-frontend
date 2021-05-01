@@ -25,7 +25,7 @@ export const EventDropdownToggle = React.forwardRef(
             }}
         >
             {props.children}
-            <RiArrowDownSLine viewBox="2 4 20 20" className="ml-1 stroke-white"/>
+            <RiArrowDownSLine viewBox="2 4 20 20" className="ml-1"/>
         </a>
     )
 )

@@ -197,6 +197,12 @@ a {
 
 .progress-bar, .progress-bar span {
     font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.progress-bar.bg-green {
+    span { color: white; }
+    svg { fill: white; }
 }
 
 .popover {
@@ -264,6 +270,10 @@ a88aaaa    .d8888b. 88d888b. 88d8b.d8b. .d8888b.
     border-color: $smokegray !important;
     background-color: #FAFAFA !important;
     transition: border .2s, box-shadow .2s !important;
+}
+
+.css-yk16xz-control, .css-1pahdxg-control {
+    height: calc(1.5em + .75rem + 2px);
 }
 
 .css-9gakcf-option {
@@ -366,6 +376,10 @@ section {
 .no-scroll {
     overflow: hidden !important;
     position: relative !important;
+}
+
+.overflow-visible {
+    overflow: visible !important;
 }
 
 /*

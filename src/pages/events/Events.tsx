@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import Header from '../../components/Header'
 import axiosInstance from '../../helpers/axiosInstance'
 import { format } from 'date-fns-tz'
+import Fade from 'react-reveal/Fade'
 
 export default function Events() {
     const [events, setEvents] = useState([])
@@ -70,22 +71,24 @@ export default function Events() {
     return (
         <div>
             <Header title="Events"/>
-            <Container fluid>
-                <Row>
-                    {events.map(event => <Event event={event}/>)}
-                </Row>
-                <hr/>
-                <div className="text-center mb-4">
-                    <Button variant="bg-primary" onClick={handleViewArchivedEvents}>
-                        View archived events
-                    </Button>
-                </div>
-                <Collapse in={showArchivedEvents}>
-                    <Row id="archived">
-                        {archivedEvents.map(event => <Event event={event}/>)}
+            <Fade bottom duration={1250} distance="50px">
+                <Container fluid>
+                    <Row>
+                        {events.map(event => <Event event={event}/>)}
                     </Row>
-                </Collapse>
-            </Container>
+                    <hr/>
+                    <div className="text-center mb-4">
+                        <Button variant="bg-primary" onClick={handleViewArchivedEvents}>
+                            View archived events
+                        </Button>
+                    </div>
+                    <Collapse in={showArchivedEvents}>
+                        <Row id="archived">
+                            {archivedEvents.map(event => <Event event={event}/>)}
+                        </Row>
+                    </Collapse>
+                </Container>
+            </Fade>
         </div>
     )
 }

@@ -112,7 +112,7 @@ export default function RosterPurge() {
                             sortable: true,
                         },
                         {
-                            name: format(subMonths(new Date(), 2), 'MMMM'),
+                            name: format(subMonths(new Date(new Date().getUTCFullYear(), new Date().getUTCMonth()), 2), 'MMMM'),
                             selector: 'prev_prev_hours',
                             sortable: true,
                             sortFunction: (a, b) => {return durationStrAsSeconds(a.prev_prev_hours) > durationStrAsSeconds(b.prev_prev_hours) ? 1 : -1},
@@ -130,7 +130,7 @@ export default function RosterPurge() {
                             </div>
                         },
                         {
-                            name: format(subMonths(new Date(), 1), 'MMMM'),
+                            name: format(subMonths(new Date(new Date().getUTCFullYear(), new Date().getUTCMonth()), 1), 'MMMM'),
                             selector: 'prev_hours',
                             sortable: true,
                             sortFunction: (a, b) => {return durationStrAsSeconds(a.prev_hours) > durationStrAsSeconds(b.prev_hours) ? 1 : -1},
@@ -148,7 +148,7 @@ export default function RosterPurge() {
                             </div>
                         },
                         {
-                            name: format(new Date(), 'MMMM'),
+                            name: format(new Date(new Date().getUTCFullYear(), new Date().getUTCMonth()), 'MMMM'),
                             selector: 'curr_hours',
                             sortable: true,
                             sortFunction: (a, b) => {return durationStrAsSeconds(a.curr_hours) > durationStrAsSeconds(b.curr_hours) ? 1 : -1},

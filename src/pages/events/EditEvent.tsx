@@ -8,6 +8,7 @@ import { EventDropdownMenu, EventDropdownToggle } from '../../components/EventDr
 import Header from '../../components/Header'
 import axiosInstance from '../../helpers/axiosInstance'
 import EventScoreBadge from '../../components/EventScoreBadge'
+import Fade from 'react-reveal/Fade'
 
 class EditEvent extends Component<any, any> {
     constructor(props) {
@@ -281,7 +282,7 @@ class EditEvent extends Component<any, any> {
                     <Dropdown className={'position-absolute ' + (shift.user ? 'stroke-white' : 'stroke-black')} onSelect={handleClick}>
                         <Dropdown.Toggle as={EventDropdownToggle} id="dropdown-custom-components">
                             {shift.user
-                                ? <span className="text-white">{shift.user.first_name} {shift.user.last_name}</span>
+                                ? <span>{shift.user.first_name} {shift.user.last_name}</span>
                                 : <span className="text-black">Unassigned</span>
                             }
                         </Dropdown.Toggle>
@@ -372,180 +373,182 @@ class EditEvent extends Component<any, any> {
                     title={this.state.event.name}
                     subtitle="Editing Event"
                 />
-                <Container fluid>
-                    <Form onSubmit={this.handleSubmit} className="mb-5">
+                <Fade bottom duration={1250} distance="50px">
+                    <Container fluid>
+                        <Form onSubmit={this.handleSubmit} className="mb-5">
+                            <Row>
+                                <Col md={5}>
+                                    <Form.Row>
+                                        <Form.Group as={Col}>
+                                            <Form.Label>Event Name</Form.Label>
+                                            <Form.Control required type="text" name="name" value={this.state.event.name} onChange={this.handleTextChange}/>
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group as={Col}>
+                                            <Form.Label>Event Host</Form.Label>
+                                            <Form.Control required type="text" name="host" value={this.state.event.host} onChange={this.handleTextChange}/>
+                                        </Form.Group>
+                                        <Form.Group as={Col}>
+                                            <Form.Label>Banner URL</Form.Label>
+                                            <Form.Control required type="text" name="banner" value={this.state.event.banner} onChange={this.handleTextChange}/>
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group as={Col}>
+                                            <Form.Label>Start</Form.Label>
+                                            <Form.Control required type="datetime-local" name="start" value={this.state.event.start?.slice(0, -1)} onChange={this.handleDateChange}/>
+                                        </Form.Group>
+                                        <Form.Group as={Col}>
+                                            <Form.Label>End</Form.Label>
+                                            <Form.Control required type="datetime-local" name="end" value={this.state.event.end?.slice(0, -1)} onChange={this.handleDateChange}/>
+                                        </Form.Group>
+                                    </Form.Row>
+                                </Col>
+                                <Col md={7}>
+                                    <Form.Group>
+                                        <Form.Label>Description</Form.Label>
+                                        <Form.Control as="textarea" rows={6} name="description" value={this.state.event.description} onChange={this.handleTextChange}/>
+                                    </Form.Group>
+                                    <Form.Switch className="mb-3" id="hidden" name="hidden" label="Event hidden from controllers." checked={this.state.event.hidden} onChange={this.handleSwitchChange}/>
+                                </Col>
+                            </Row>
+                            <div className="mb-3">
+                                <Link to={'/events/' + this.props.match.params.id} className="link-unstyled">
+                                    <Button className="mr-2" variant="lightgray" type="submit">
+                                        Return to Event
+                                    </Button>
+                                </Link>
+                                <Button className="mr-2" variant="primary" type="submit">
+                                    Save
+                                </Button>
+                                <Button variant="red" onClick={this.handleDelete}>
+                                    Delete
+                                </Button>
+                            </div>
+                        </Form>
                         <Row>
-                            <Col md={5}>
-                                <Form.Row>
-                                    <Form.Group as={Col}>
-                                        <Form.Label>Event Name</Form.Label>
-                                        <Form.Control required type="text" name="name" value={this.state.event.name} onChange={this.handleTextChange}/>
-                                    </Form.Group>
-                                </Form.Row>
-                                <Form.Row>
-                                    <Form.Group as={Col}>
-                                        <Form.Label>Event Host</Form.Label>
-                                        <Form.Control required type="text" name="host" value={this.state.event.host} onChange={this.handleTextChange}/>
-                                    </Form.Group>
-                                    <Form.Group as={Col}>
-                                        <Form.Label>Banner URL</Form.Label>
-                                        <Form.Control required type="text" name="banner" value={this.state.event.banner} onChange={this.handleTextChange}/>
-                                    </Form.Group>
-                                </Form.Row>
-                                <Form.Row>
-                                    <Form.Group as={Col}>
-                                        <Form.Label>Start</Form.Label>
-                                        <Form.Control required type="datetime-local" name="start" value={this.state.event.start?.slice(0, -1)} onChange={this.handleDateChange}/>
-                                    </Form.Group>
-                                    <Form.Group as={Col}>
-                                        <Form.Label>End</Form.Label>
-                                        <Form.Control required type="datetime-local" name="end" value={this.state.event.end?.slice(0, -1)} onChange={this.handleDateChange}/>
-                                    </Form.Group>
-                                </Form.Row>
+                            <Col className="text-left">
+                                <div className="float-right mt-1">
+                                    <Button variant="bg-primary" className="btn-sm" onClick={() => this.setState({ showAddPositionModal: true })}>
+                                        <RiAddLine viewBox="2 4 20 20"/> Add Position
+                                    </Button>
+                                </div>
+                                <h3 className="text-black font-w700 mb-1">Enroute Positions</h3>
+                                <ul className="p-0 list-unstyled">
+                                    {this.getEnroutePositions()?.length > 0
+                                        ? this.getEnroutePositions()?.map(position => this.renderPosition(position))
+                                        : <p>No positions posted.</p>
+                                    }
+                                </ul>
                             </Col>
-                            <Col md={7}>
-                                <Form.Group>
-                                    <Form.Label>Description</Form.Label>
-                                    <Form.Control as="textarea" rows={6} name="description" value={this.state.event.description} onChange={this.handleTextChange}/>
-                                </Form.Group>
-                                <Form.Switch className="mb-3" id="hidden" name="hidden" label="Event hidden from controllers." checked={this.state.event.hidden} onChange={this.handleSwitchChange}/>
+                            <Col className="text-left">
+                                <div className="float-right mt-1">
+                                    <Button variant="bg-primary" className="btn-sm" onClick={() => this.setState({ showAddPositionModal: true })}>
+                                        <RiAddLine viewBox="2 4 20 20"/> Add Position
+                                    </Button>
+                                </div>
+                                <h3 className="text-black font-w700 mb-1">TRACON Positions</h3>
+                                <ul className="p-0 list-unstyled">
+                                    {this.getTRACONPositions()?.length > 0
+                                        ? this.getTRACONPositions()?.map(position => this.renderPosition(position))
+                                        : <p>No positions posted.</p>
+                                    }
+                                </ul>
+                            </Col>
+                            <Col className="text-left">
+                                <div className="float-right mt-1">
+                                    <Button variant="bg-primary" className="btn-sm" onClick={() => this.setState({ showAddPositionModal: true })}>
+                                        <RiAddLine viewBox="2 4 20 20"/> Add Position
+                                    </Button>
+                                </div>
+                                <h3 className="text-black font-w700 mb-1">Local Positions</h3>
+                                <ul className="p-0 list-unstyled">
+                                    {this.getLocalPositions()?.length > 0
+                                        ? this.getLocalPositions()?.map(position => this.renderPosition(position))
+                                        : <p>No positions posted.</p>
+                                    }
+                                </ul>
                             </Col>
                         </Row>
-                        <div className="mb-3">
-                            <Link to={'/events/' + this.props.match.params.id} className="link-unstyled">
-                                <Button className="mr-2" variant="lightgray" type="submit">
-                                    Return to Event
+                        <Modal
+                            show={this.state.showManualAssignModal}
+                            onHide={() => this.setState({ showManualAssignModal: false })}
+                            centered
+                        >
+                            <Modal.Header closeButton>
+                                <Modal.Title>Manually Assigning {this.state.manualAssignPosition.callsign} ({(this.state.manualAssignPosition.shifts?.indexOf(this.state.manualAssignShift) + 1)})</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Select
+                                    className="mb-3"
+                                    options={this.state.controllerOptions}
+                                    onChange={(value) => this.setState({ manualAssignUser: value })}
+                                    getOptionLabel={(option) => <span>{option.label} {<EventScoreBadge score={option.score}/>}</span>}
+                                    filterOption={(obj, filter) => {
+                                        return obj.data.label.toLowerCase().includes(filter.toLowerCase()) || obj.data.value.toString().includes(filter)
+                                    }}
+                                />
+                                <Button
+                                    variant="primary"
+                                    onClick={() => {
+                                        this.assignShift(
+                                            this.state.manualAssignUser.value,
+                                            this.state.manualAssignUser.label,
+                                            this.state.manualAssignShift,
+                                            this.state.manualAssignPosition,
+                                        )
+                                        this.setState({ showManualAssignModal: false })
+                                    }}
+                                >
+                                    Assign
                                 </Button>
-                            </Link>
-                            <Button className="mr-2" variant="primary" type="submit">
-                                Save
-                            </Button>
-                            <Button variant="red" onClick={this.handleDelete}>
-                                Delete
-                            </Button>
-                        </div>
-                    </Form>
-                    <Row>
-                        <Col className="text-left">
-                            <div className="float-right mt-1">
-                                <Button variant="bg-primary" className="btn-sm" onClick={() => this.setState({ showAddPositionModal: true })}>
-                                    <RiAddLine viewBox="2 4 20 20"/> Add Position
-                                </Button>
-                            </div>
-                            <h3 className="text-black font-w700 mb-1">Enroute Positions</h3>
-                            <ul className="p-0 list-unstyled">
-                                {this.getEnroutePositions()?.length > 0
-                                    ? this.getEnroutePositions()?.map(position => this.renderPosition(position))
-                                    : <p>No positions posted.</p>
-                                }
-                            </ul>
-                        </Col>
-                        <Col className="text-left">
-                            <div className="float-right mt-1">
-                                <Button variant="bg-primary" className="btn-sm" onClick={() => this.setState({ showAddPositionModal: true })}>
-                                    <RiAddLine viewBox="2 4 20 20"/> Add Position
-                                </Button>
-                            </div>
-                            <h3 className="text-black font-w700 mb-1">TRACON Positions</h3>
-                            <ul className="p-0 list-unstyled">
-                                {this.getTRACONPositions()?.length > 0
-                                    ? this.getTRACONPositions()?.map(position => this.renderPosition(position))
-                                    : <p>No positions posted.</p>
-                                }
-                            </ul>
-                        </Col>
-                        <Col className="text-left">
-                            <div className="float-right mt-1">
-                                <Button variant="bg-primary" className="btn-sm" onClick={() => this.setState({ showAddPositionModal: true })}>
-                                    <RiAddLine viewBox="2 4 20 20"/> Add Position
-                                </Button>
-                            </div>
-                            <h3 className="text-black font-w700 mb-1">Local Positions</h3>
-                            <ul className="p-0 list-unstyled">
-                                {this.getLocalPositions()?.length > 0
-                                    ? this.getLocalPositions()?.map(position => this.renderPosition(position))
-                                    : <p>No positions posted.</p>
-                                }
-                            </ul>
-                        </Col>
-                    </Row>
-                    <Modal
-                        show={this.state.showManualAssignModal}
-                        onHide={() => this.setState({ showManualAssignModal: false })}
-                        centered
-                    >
-                        <Modal.Header closeButton>
-                            <Modal.Title>Manually Assigning {this.state.manualAssignPosition.callsign} ({(this.state.manualAssignPosition.shifts?.indexOf(this.state.manualAssignShift) + 1)})</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Select
-                                className="mb-3"
-                                options={this.state.controllerOptions}
-                                onChange={(value) => this.setState({ manualAssignUser: value })}
-                                getOptionLabel={(option) => <span>{option.label} {<EventScoreBadge score={option.score}/>}</span>}
-                                filterOption={(obj, filter) => {
-                                    return obj.data.label.toLowerCase().includes(filter.toLowerCase()) || obj.data.value.toString().includes(filter)
-                                }}
-                            />
-                            <Button
-                                variant="primary"
-                                onClick={() => {
-                                    this.assignShift(
-                                        this.state.manualAssignUser.value,
-                                        this.state.manualAssignUser.label,
-                                        this.state.manualAssignShift,
-                                        this.state.manualAssignPosition,
-                                    )
-                                    this.setState({ showManualAssignModal: false })
-                                }}
-                            >
-                                Assign
-                            </Button>
-                        </Modal.Body>
-                    </Modal>
-                    <Modal
-                        show={this.state.showAddPositionModal}
-                        onHide={() => this.setState({ showAddPositionModal: false, addPositionCallsign: '', addPositionShifts: 2 })}
-                        centered
-                    >
-                        <Modal.Header closeButton>
-                            <Modal.Title>Adding Position</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Form.Row>
-                                <FormGroup className="mb-0" as={Col}>
-                                    <Form.Label>Callsign</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        value={this.state.addPositionCallsign}
-                                        onChange={(event) => this.setState({ addPositionCallsign: event.target.value })}
-                                    />
-                                </FormGroup>
-                                <FormGroup className="mb-0" as={Col} md={3}>
-                                    <Form.Label>No. of Shifts</Form.Label>
-                                    <Form.Control
-                                        type="number"
-                                        min={0}
-                                        max={10}
-                                        onChange={(event) => this.setState({ addPositionShifts: event.target.value })}
-                                        value={this.state.addPositionShifts}
-                                    />
-                                </FormGroup>
-                                <FormGroup className="mb-0 d-flex align-items-end" as={Col}>
-                                    <Button
-                                        variant="primary"
-                                        onClick={() => {
-                                            this.handleAddPosition()
-                                            this.setState({ showAddPositionModal: false })
-                                        }}
-                                    >
-                                        Add
-                                    </Button>
-                                </FormGroup>
-                            </Form.Row>
-                        </Modal.Body>
-                    </Modal>
-                </Container>
+                            </Modal.Body>
+                        </Modal>
+                        <Modal
+                            show={this.state.showAddPositionModal}
+                            onHide={() => this.setState({ showAddPositionModal: false, addPositionCallsign: '', addPositionShifts: 2 })}
+                            centered
+                        >
+                            <Modal.Header closeButton>
+                                <Modal.Title>Adding Position</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Form.Row>
+                                    <FormGroup className="mb-0" as={Col}>
+                                        <Form.Label>Callsign</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            value={this.state.addPositionCallsign}
+                                            onChange={(event) => this.setState({ addPositionCallsign: event.target.value })}
+                                        />
+                                    </FormGroup>
+                                    <FormGroup className="mb-0" as={Col} md={3}>
+                                        <Form.Label>No. of Shifts</Form.Label>
+                                        <Form.Control
+                                            type="number"
+                                            min={0}
+                                            max={10}
+                                            onChange={(event) => this.setState({ addPositionShifts: event.target.value })}
+                                            value={this.state.addPositionShifts}
+                                        />
+                                    </FormGroup>
+                                    <FormGroup className="mb-0 d-flex align-items-end" as={Col}>
+                                        <Button
+                                            variant="primary"
+                                            onClick={() => {
+                                                this.handleAddPosition()
+                                                this.setState({ showAddPositionModal: false })
+                                            }}
+                                        >
+                                            Add
+                                        </Button>
+                                    </FormGroup>
+                                </Form.Row>
+                            </Modal.Body>
+                        </Modal>
+                    </Container>
+                </Fade>
             </div>
         )
     }

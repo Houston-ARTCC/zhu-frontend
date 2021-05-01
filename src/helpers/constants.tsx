@@ -1,4 +1,5 @@
 import { format } from 'date-fns-tz'
+import { RiArrowRightCircleFill, RiCheckboxCircleFill, RiCloseCircleFill, RiIndeterminateCircleFill } from 'react-icons/all'
 
 export const tuiCalendars = [
     {
@@ -107,69 +108,46 @@ export const dataTableStyle = {
     }
 }
 
+export const trainingTypeOptions = [
+    { value: 0, label: 'Classroom' },
+    { value: 1, label: 'Sweatbox' },
+    { value: 2, label: 'Online' },
+    { value: 3, label: 'OTS' },
+]
+
+export const trainingLevelOptions = [
+    { value: 0, label: 'Minor Ground' },
+    { value: 1, label: 'Major Ground' },
+    { value: 2, label: 'Minor Tower' },
+    { value: 3, label: 'Major Tower' },
+    { value: 4, label: 'Minor Approach' },
+    { value: 5, label: 'Major Approach' },
+    { value: 6, label: 'Center' },
+    { value: 7, label: 'Oceanic' },
+]
+
+export const trainingOTSStatusOptions = [
+    { value: 0, label: <><RiIndeterminateCircleFill size={20}/> Non-OTS</> },
+    { value: 1, label: <><RiCheckboxCircleFill size={20}/> Passed</> },
+    { value: 2, label: <><RiCloseCircleFill size={20}/> Failed</> },
+    { value: 3, label: <><RiArrowRightCircleFill size={20}/> Recommended</> },
+]
+
 export const roleOptions = [
-    {
-        "value": "ATM",
-        "label": "Air Traffic Manager"
-    },
-    {
-        "value": "DATM",
-        "label": "Deputy Air Traffic Manager"
-    },
-    {
-        "value": "TA",
-        "label": "Training Administrator"
-    },
-    {
-        "value": "ATA",
-        "label": "Assistant Training Administrator"
-    },
-    {
-        "value": "FE",
-        "label": "Facility Engineer"
-    },
-    {
-        "value": "AFE",
-        "label": "Assistant Facility Engineer"
-    },
-    {
-        "value": "EC",
-        "label": "Events Coordinator"
-    },
-    {
-        "value": "AEC",
-        "label": "Assistant Events Coordinator"
-    },
-    {
-        "value": "WM",
-        "label": "Webmaster"
-    },
-    {
-        "value": "AWM",
-        "label": "Assistant Webmaster"
-    },
-    {
-        "value": "INS",
-        "label": "Instructor"
-    },
-    {
-        "value": "MTR",
-        "label": "Mentor"
-    },
-    {
-        "value": "WEB",
-        "label": "Web Team"
-    },
-    {
-        "value": "HC",
-        "label": "Home Controller"
-    },
-    {
-        "value": "VC",
-        "label": "Visiting Controller"
-    },
-    {
-        "value": "MC",
-        "label": "MAVP Controller"
-    }
+    { "value": "ATM", "label": "Air Traffic Manager" },
+    { "value": "DATM", "label": "Deputy Air Traffic Manager" },
+    { "value": "TA", "label": "Training Administrator" },
+    { "value": "ATA", "label": "Assistant Training Administrator" },
+    { "value": "FE", "label": "Facility Engineer" },
+    { "value": "AFE", "label": "Assistant Facility Engineer" },
+    { "value": "EC", "label": "Events Coordinator" },
+    { "value": "AEC", "label": "Assistant Events Coordinator" },
+    { "value": "WM", "label": "Webmaster" },
+    { "value": "AWM", "label": "Assistant Webmaster" },
+    { "value": "INS", "label": "Instructor" },
+    { "value": "MTR", "label": "Mentor" },
+    { "value": "WEB", "label": "Web Team" },
+    { "value": "HC", "label": "Home Controller" },
+    { "value": "VC", "label": "Visiting Controller" },
+    { "value": "MC", "label": "MAVP Controller" },
 ]
