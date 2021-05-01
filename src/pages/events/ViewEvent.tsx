@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { Alert, Button, Col, Container, OverlayTrigger, Popover, ProgressBar, Row } from 'react-bootstrap'
-import { FaRegEyeSlash, FaRegFolderOpen, HiOutlineClock, RiPencilRuler2Line } from 'react-icons/all'
+import { FaRegEyeSlash, FaRegFolderOpen, RiPencilRuler2Line } from 'react-icons/all'
 import { withSnackbar } from 'notistack'
 import { Link } from 'react-router-dom'
 import Countdown from 'react-countdown'

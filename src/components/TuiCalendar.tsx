@@ -6,20 +6,20 @@ import axiosInstance from '../helpers/axiosInstance'
 import { typeDisplay } from '../helpers/utils'
 import { format, subMonths, addMonths, addDays } from 'date-fns'
 
-export default function TuiCalendar({ view = 'month', isReadOnly = false, onCreateSchedule = ({}) => {}, additionalSchedules = undefined }) {
+export default function TuiCalendar({ view = 'month', isReadOnly = false, onCreateSchedule = (event) => {}, additionalSchedules = undefined }) {
     const [events, setEvents] = useState<any>([])
     const [sessions, setSessions] = useState<any>([])
     const [bookings, setBookings] = useState<any>([])
     const [schedules, setSchedules] = useState<any>([])
-    const [requested, setRequested] = useState<any>([])
+    const [requested] = useState<any>([])
     const [current, setCurrent] = useState(new Date())
 
     const calendarRef = useRef<Calendar>(null)
 
-    useEffect(() => fetchCalendar(), [])
-    useEffect(() => createEventSchedules(), [events])
-    useEffect(() => createSessionSchedules(), [sessions])
-    useEffect(() => createBookingSchedules(), [bookings])
+    useEffect(() => fetchCalendar(), []) // eslint-disable-line react-hooks/exhaustive-deps
+    useEffect(() => createEventSchedules(), [events]) // eslint-disable-line react-hooks/exhaustive-deps
+    useEffect(() => createSessionSchedules(), [sessions]) // eslint-disable-line react-hooks/exhaustive-deps
+    useEffect(() => createBookingSchedules(), [bookings]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const fetchCalendar = () => {
         let prev = subMonths(current, 1)
