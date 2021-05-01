@@ -3,11 +3,11 @@ import DataTable from 'react-data-table-component'
 import { BsArrowDown, HiCheck, RiDeleteBinLine } from 'react-icons/all'
 import { Button, ButtonGroup, Form, FormGroup, Modal } from 'react-bootstrap'
 import Fade from 'react-reveal/Fade'
-import Moment from 'react-moment'
 import { formatDurationStr, durationStrAsSeconds, ratingInt } from '../../../helpers/utils'
 import axiosInstance from '../../../helpers/axiosInstance'
 import { dataTableStyle } from '../../../helpers/constants'
 import axios from 'axios'
+import { format, subMonths } from 'date-fns'
 
 export default function RosterPurge() {
     const [reason, setReason] = useState('Removed for inactivity.')
@@ -112,7 +112,7 @@ export default function RosterPurge() {
                             sortable: true,
                         },
                         {
-                            name: <Moment tz="UTC" format="MMMM" subtract={{ months: 2 }}>{new Date()}</Moment>,
+                            name: format(subMonths(new Date(), 2), 'MMMM'),
                             selector: 'prev_prev_hours',
                             sortable: true,
                             sortFunction: (a, b) => {return durationStrAsSeconds(a.prev_prev_hours) > durationStrAsSeconds(b.prev_prev_hours) ? 1 : -1},
@@ -130,7 +130,7 @@ export default function RosterPurge() {
                             </div>
                         },
                         {
-                            name: <Moment tz="UTC" format="MMMM" subtract={{ months: 1 }}>{new Date()}</Moment>,
+                            name: format(subMonths(new Date(), 1), 'MMMM'),
                             selector: 'prev_hours',
                             sortable: true,
                             sortFunction: (a, b) => {return durationStrAsSeconds(a.prev_hours) > durationStrAsSeconds(b.prev_hours) ? 1 : -1},
@@ -148,7 +148,7 @@ export default function RosterPurge() {
                             </div>
                         },
                         {
-                            name: <Moment tz="UTC" format="MMMM">{new Date()}</Moment>,
+                            name: format(new Date(), 'MMMM'),
                             selector: 'curr_hours',
                             sortable: true,
                             sortFunction: (a, b) => {return durationStrAsSeconds(a.curr_hours) > durationStrAsSeconds(b.curr_hours) ? 1 : -1},

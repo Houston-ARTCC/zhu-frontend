@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Alert, Button, Col, Container, OverlayTrigger, Popover, ProgressBar, Row } from 'react-bootstrap'
-import { FaRegEyeSlash, FaRegFolderOpen, RiPencilRuler2Line } from 'react-icons/all'
+import { FaRegEyeSlash, FaRegFolderOpen, HiOutlineClock, RiPencilRuler2Line } from 'react-icons/all'
 import { withSnackbar } from 'notistack'
 import { Link } from 'react-router-dom'
 import Countdown from 'react-countdown'
-import Moment from 'react-moment'
-import moment from 'moment/moment'
-import 'moment-timezone'
 import Header from '../../components/Header'
 import axiosInstance from '../../helpers/axiosInstance'
 import { getCID, isMember, isStaff } from '../../helpers/auth';
 import Error404 from '../errors/Error404'
 import parse from 'html-react-parser'
+import { format } from 'date-fns-tz'
 
 class ViewEvent extends Component<any, any> {
     constructor(props) {
@@ -151,7 +149,7 @@ class ViewEvent extends Component<any, any> {
                             <Popover id="popover-basic">
                                 <Popover.Title as="h3">{position.callsign} (Shift {position.shifts.indexOf(shift) + 1})</Popover.Title>
                                 <Popover.Content>
-                                    {moment(shift.start).tz(moment.tz.guess()).format('HH:mm')} - {moment(shift.end).tz(moment.tz.guess()).format('HH:mm')}
+                                    {format(new Date(shift.start), 'kk:mm')} - {format(new Date(shift.end), 'kk:mm')}
                                 </Popover.Content>
                             </Popover>
                         }>
@@ -234,9 +232,9 @@ class ViewEvent extends Component<any, any> {
                             <Row className="align-items-center mb-4">
                                 <Col xs={12} md={6} className="mb-2">
                                     <h4 className="text-black font-w500">Start</h4>
-                                    <Moment local tz={moment.tz.guess()} format="MMM DD, YYYY, HH:mm z" element="h5" className="font-w400">{this.state.event.start}</Moment>
+                                    <h5 className="font-w400">{this.state.event.start && format(new Date(this.state.event.start), 'MMM d, Y, kk:mm zzz')}</h5>
                                     <h4 className="text-black font-w500">End</h4>
-                                    <Moment local tz={moment.tz.guess()} format="MMM DD, YYYY, HH:mm z" element="h5" className="font-w400">{this.state.event.end}</Moment>
+                                    <h5 className="font-w400">{this.state.event.start && format(new Date(this.state.event.end), 'MMM d, Y, kk:mm zzz')}</h5>
                                 </Col>
                                 <Col xs={12} md={6}>
                                     <h4 className="text-black font-w500">Time Until Event</h4>

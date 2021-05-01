@@ -5,10 +5,10 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import axiosInstance from '../../../helpers/axiosInstance'
 import { BsArrowDown } from 'react-icons/all'
-import moment from 'moment'
 import { dataTableStyle } from '../../../helpers/constants'
 import DataTable from 'react-data-table-component'
 import parse from 'html-react-parser'
+import { format } from 'date-fns-tz'
 
 export default function Announcements() {
     const [announcements, setAnnouncements] = useState<any>([])
@@ -90,10 +90,8 @@ export default function Announcements() {
                         name: 'Posted',
                         selector: 'posted',
                         sortable: true,
-                        format: row => moment(row.end).tz(moment.tz.guess()).format('MMM. DD, YYYY @ HH:mm z'),
-                        sortFunction: (a, b) => {
-                            return moment(a.start) > moment(b.start) ? 1 : -1
-                        },
+                        format: row => format(new Date(row.posted), 'MMM d, Y @ kk:mm zzz'),
+                        sortFunction: (a, b) => new Date(a.start) > new Date(b.start) ? 1 : -1,
                     },
                 ]}
             />

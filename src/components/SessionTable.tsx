@@ -10,14 +10,13 @@ import {
     RiSignalTowerLine,
     RiTimeLine,
 } from 'react-icons/all'
-import moment from 'moment'
 import { levelDisplay, sessionStatusDisplay, typeDisplay } from '../helpers/utils'
 import { dataTableStyle } from '../helpers/constants'
 import DataTable from 'react-data-table-component'
 import { Alert, Badge, Col, Row } from 'react-bootstrap'
 import Spinner from './Spinner'
-import Moment from 'react-moment'
 import parse from 'html-react-parser'
+import { format } from 'date-fns-tz'
 
 export default function SessionTable({ data, loading }) {
     const [expanded, setExpanded] = useState<any>({})
@@ -49,10 +48,8 @@ export default function SessionTable({ data, loading }) {
                     name: 'Date',
                     selector: 'date',
                     sortable: true,
-                    format: row => moment(row.start).tz(moment.tz.guess()).format('MMM. DD, YYYY @ HH:mm z'),
-                    sortFunction: (a, b) => {
-                        return moment(a.start) > moment(b.start) ? 1 : -1
-                    },
+                    format: row => format(new Date(row.start), 'MMM d, Y @ kk:mm zzz'),
+                    sortFunction: (a, b) => new Date(a.start) > new Date(b.start) ? 1 : -1,
                     minWidth: '20%',
                 },
                 {
@@ -60,9 +57,7 @@ export default function SessionTable({ data, loading }) {
                     selector: 'instructor',
                     sortable: true,
                     format: row => row.instructor.first_name + ' ' + row.instructor.last_name,
-                    sortFunction: (a, b) => {
-                        return a.first_name > b.first_name ? 1 : -1
-                    },
+                    sortFunction: (a, b) => a.first_name > b.first_name ? 1 : -1,
                     minWidth: '16%',
                 },
                 {
@@ -70,9 +65,7 @@ export default function SessionTable({ data, loading }) {
                     selector: 'student',
                     sortable: true,
                     format: row => row.student.first_name + ' ' + row.student.last_name,
-                    sortFunction: (a, b) => {
-                        return a.first_name > b.first_name ? 1 : -1
-                    },
+                    sortFunction: (a, b) => a.first_name > b.first_name ? 1 : -1,
                     minWidth: '16%',
                 },
                 {
@@ -167,11 +160,14 @@ const ExpandableSession = (row) => {
             }
             <Row>
                 <Col md={4}>
-                    <p><RiCalendarLine size={25} className="mr-2"/><Moment local className="font-w500" format="MMMM D, YYYY">{row.data.start}</Moment></p>
+                    <p>
+                        <RiCalendarLine size={25} className="mr-2"/>
+                        <span className="font-w500">{format(new Date(row.data.start), 'MMM d, Y')}</span>
+                    </p>
                     <p>
                         <RiTimeLine size={25} className="mr-2"/>
-                        <Moment local tz={moment.tz.guess()} format="HH:mm z →&nbsp;" className="font-w500">{row.data.start}</Moment>
-                        <Moment local tz={moment.tz.guess()} format="HH:mm z" className="font-w500">{row.data.end}</Moment>
+                        <span className="font-w500">{format(new Date(row.data.start), 'kk:mm zzz')} →&nbsp;</span>
+                        <span className="font-w500">{format(new Date(row.data.end), 'kk:mm zzz')}</span>
                     </p>
                 </Col>
                 <Col md={4}>

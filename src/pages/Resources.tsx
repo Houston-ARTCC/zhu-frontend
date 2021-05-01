@@ -6,7 +6,6 @@ import { useSnackbar } from 'notistack'
 import ScrollSpy from 'react-scrollspy'
 import Dropzone from 'react-dropzone'
 import Select from 'react-select'
-import moment from 'moment'
 import Header from '../components/Header'
 import { isStaff } from '../helpers/auth'
 import axiosInstance from '../helpers/axiosInstance'
@@ -14,6 +13,7 @@ import { formDataFromObject } from '../helpers/utils'
 import { dataTableStyle } from '../helpers/constants'
 import Spinner from '../components/Spinner'
 import { useEffect, useState } from 'react'
+import { format } from 'date-fns-tz'
 
 export default function Resources() {
     const [resources, setResources] = useState<any>({})
@@ -171,10 +171,8 @@ export default function Resources() {
                                 name: 'Updated',
                                 selector: 'updated',
                                 sortable: true,
-                                sortFunction: (a, b) => {
-                                    return moment(a.updated) > moment(b.updated) ? 1 : -1
-                                },
-                                format: row => moment.utc(row.updated).format('MMM. DD, YYYY'),
+                                sortFunction: (a, b) => new Date(a.updated) > new Date(b.updated) ? 1 : -1,
+                                format: row => format(new Date(row.updated), 'MMM d, Y'),
                             },
                             {
                                 name: 'Edit',

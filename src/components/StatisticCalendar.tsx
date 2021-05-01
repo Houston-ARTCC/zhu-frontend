@@ -1,5 +1,3 @@
-import React from 'react'
-import moment from 'moment'
 import { ResponsiveCalendar } from '@nivo/calendar'
 import { getTheme } from '../helpers/themeManager'
 
@@ -9,8 +7,8 @@ export default function StatisticCalendar({ data, height, vertical }) {
             <ResponsiveCalendar
                 data={data}
                 direction={vertical ? 'vertical' : 'horizontal'}
-                from={moment().startOf('year').toDate()}
-                to={moment().toDate()}
+                from={new Date(new Date().getFullYear(), 0, 1)}
+                to={new Date()}
                 emptyColor={getTheme() === 'dark' ? '#2f2f32' : '#f0f0f0'}
                 colors={getTheme() === 'dark'
                     ? ['#393c4f', '#3c445f', '#3e4d71', '#3e5884', '#3e6598', '#3c76ad', '#388ac4', '#3f9fd2', '#47b4dc', '#51c8e6']

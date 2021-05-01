@@ -4,12 +4,12 @@ import { BsArrowDown, RiDeleteBinLine, RiQuestionLine } from 'react-icons/all'
 import DataTable from 'react-data-table-component'
 import Fade from 'react-reveal/Fade'
 import Select from 'react-select'
-import moment from 'moment'
 import { levelDisplay, typeDisplay } from '../../../helpers/utils'
 import axiosInstance from '../../../helpers/axiosInstance'
 import { dataTableStyle } from '../../../helpers/constants'
 import TuiCalendar from '../../../components/TuiCalendar'
 import { useSnackbar } from 'notistack'
+import { format } from 'date-fns-tz'
 
 export default function RequestTraining({ updateNotifs }) {
     const [showCreationModal, setShowCreationModal] = useState(false)
@@ -160,19 +160,15 @@ export default function RequestTraining({ updateNotifs }) {
                                     name: 'Start',
                                     selector: 'start',
                                     sortable: true,
-                                    format: row => moment(row.start).tz(moment.tz.guess()).format('MMM. DD, YYYY @ HH:mm z'),
-                                    sortFunction: (a, b) => {
-                                        return moment(a.start) > moment(b.start) ? 1 : -1
-                                    },
+                                    format: row => format(new Date(row.start), 'MMM d, Y @ kk:mm zzz'),
+                                    sortFunction: (a, b) => new Date(a.start) > new Date(b.start) ? 1 : -1,
                                 },
                                 {
                                     name: 'End',
                                     selector: 'end',
                                     sortable: true,
-                                    format: row => moment(row.end).tz(moment.tz.guess()).format('MMM. DD, YYYY @ HH:mm z'),
-                                    sortFunction: (a, b) => {
-                                        return moment(a.start) > moment(b.start) ? 1 : -1
-                                    },
+                                    format: row => format(new Date(row.end), 'MMM d, Y @ kk:mm zzz'),
+                                    sortFunction: (a, b) => new Date(a.end) > new Date(b.end) ? 1 : -1,
                                 },
                                 {
                                     name: 'Level',

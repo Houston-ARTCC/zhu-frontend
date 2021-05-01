@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Badge, Button, Col, Container, Row } from 'react-bootstrap'
 import { BsArrowDown, FaCircle, IoStar, IoStarOutline, RiCalendarEventLine, RiPencilRuler2Line, RiPlaneLine } from 'react-icons/all'
 import DataTable from 'react-data-table-component'
 import { Link } from 'react-router-dom'
 import Fade from 'react-reveal/Fade'
-import moment from 'moment'
 import Header from '../../components/Header'
 import StatisticCalendar from '../../components/StatisticCalendar'
 import axiosInstance from '../../helpers/axiosInstance'
 import { formatDurationStr } from '../../helpers/utils'
 import { isStaff } from '../../helpers/auth'
 import { dataTableStyle } from '../../helpers/constants'
+import { format } from 'date-fns'
 
 export default class Profile extends Component<any, any> {
     constructor(props) {
@@ -53,7 +53,7 @@ export default class Profile extends Component<any, any> {
 
     fetchUserDailyStatistics() {
         axiosInstance
-            .get('/api/connections/daily/' + moment().year() + '/' + this.props.match.params.cid + '/')
+            .get('/api/connections/daily/' + new Date().getFullYear() + '/' + this.props.match.params.cid + '/')
             .then(res => this.setState({ userStats: res.data }))
     }
 
@@ -114,9 +114,9 @@ export default class Profile extends Component<any, any> {
 
     ExpandableFeedback = (row) => {
         return (
-            <div className="px-5 py-3" style={{ backgroundColor: '#F9F9F9' }}>
-                <p className="font-w500"><RiPlaneLine size={25} className="mr-2"/>{row.data.pilot_callsign}</p>
-                <p className="font-w500"><RiCalendarEventLine size={25} className="mr-2"/>{row.data.event ? row.data.event.name : 'N/A'}</p>
+            <div className="px-5 py-3">
+                {row.data.pilot_callsign && <p className="font-w500"><RiPlaneLine size={25} className="mr-2"/>{row.data.pilot_callsign}</p>}
+                {row.data.event && <p className="font-w500"><RiCalendarEventLine size={25} className="mr-2"/>{row.data.event.name}</p>}
                 {row.data.comments}
             </div>
         )
@@ -208,8 +208,8 @@ export default class Profile extends Component<any, any> {
                                                 name: 'Date',
                                                 selector: 'date',
                                                 sortable: true,
-                                                sortFunction: (a, b) => {return moment(a.start) > moment(b.start) ? 1 : -1},
-                                                format: row => moment.utc(row.start).format('MMM. DD, YYYY'),
+                                                sortFunction: (a, b) => new Date(a.start) > new Date(b.start) ? 1 : -1,
+                                                format: row => format(new Date(row.start), 'MMM d, Y'),
                                             },
                                             {
                                                 name: 'Callsign',
@@ -220,7 +220,7 @@ export default class Profile extends Component<any, any> {
                                                 name: 'Duration',
                                                 selector: 'duration',
                                                 sortable: true,
-                                                sortFunction: (a, b) => {return a.duration > b.duration ? 1 : -1},
+                                                sortFunction: (a, b) => a.duration > b.duration ? 1 : -1,
                                                 format: row => formatDurationStr(row.duration),
                                             },
                                         ]}
@@ -250,8 +250,8 @@ export default class Profile extends Component<any, any> {
                                                 name: 'Date',
                                                 selector: 'date',
                                                 sortable: true,
-                                                sortFunction: (a, b) => {return moment(a.created) > moment(b.created) ? 1 : -1},
-                                                format: row => moment.utc(row.created).format('MMM. DD, YYYY'),
+                                                sortFunction: (a, b) => new Date(a.created) > new Date(b.created) ? 1 : -1,
+                                                format: row => format(new Date(row.created), 'MMM d, Y'),
                                             },
                                             {
                                                 name: 'Callsign',

@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { format } from 'date-fns-tz'
 
 export const tuiCalendars = [
     {
@@ -29,8 +29,8 @@ export const tuiCalendars = [
 
 export const tuiTimezones = [
     {
-        timezoneName: moment.tz.guess(),
-        displayLabel: moment.tz.zone(moment.tz.guess())?.abbr(moment().valueOf()),
+        timezoneName: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        displayLabel: format(new Date(), 'zzz'),
         tooltip: 'Local',
     }, {
         timezoneName: 'UTC',
@@ -41,16 +41,8 @@ export const tuiTimezones = [
 
 export const tuiTemplates = {
     'popupDetailDate': (isAllDay, start, end) => {
-        let tz = moment.tz.guess()
-        // @ts-ignore
-        let momentStart = moment(start.toDate()).tz(tz)
-        // @ts-ignore
-        let momentEnd = moment(end.toDate()).tz(tz)
-        // @ts-ignore
-        let isSameDate = momentStart.date() === momentEnd.date()
-
-        return moment(momentStart).format('MMM. DD, YYYY, HH:mm z') + ' → ' +
-            moment(momentEnd).format((isSameDate ? '' : 'MMM DD, YYYY, ') + 'HH:mm z')
+        let isSameDate = start.toDate().getTime() === end.toDate().getTime()
+        return `${format(start.toDate(), 'MMM d, Y, kk:mm zzz')} → ${format(end.toDate(), (isSameDate ? '' : 'MMM d, Y, ') + 'kk:mm zzz')}`
     },
 }
 

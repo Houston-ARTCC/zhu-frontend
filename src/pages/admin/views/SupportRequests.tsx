@@ -5,8 +5,7 @@ import { HiOutlineCalendar, HiOutlineClock, RiCheckboxCircleFill, RiCheckboxCirc
 import axiosInstance from '../../../helpers/axiosInstance'
 import { useSnackbar } from 'notistack'
 import parse from 'html-react-parser'
-import Moment from 'react-moment'
-import moment from 'moment/moment'
+import { format } from 'date-fns-tz'
 
 export default function SupportRequests({ updateNotifs }) {
     const [requests, setRequests] = useState([])
@@ -88,12 +87,12 @@ export default function SupportRequests({ updateNotifs }) {
                     <h6 className="text-gray font-w500 mb-3">Presented by {request.host}</h6>
                     <div className="li-flex">
                         <HiOutlineCalendar size={25} className="mr-2"/>
-                        <Moment local className="font-w500 font-md" format="MMMM D, YYYY">{request.start}</Moment>
+                        <p className="font-w500 font-md mb-0">{format(new Date(request.start), 'MMM d, Y')}</p>
                     </div>
                     <div className="li-flex mb-4">
                         <HiOutlineClock size={25} className="mr-2"/>
-                        <Moment local tz={moment.tz.guess()} format="HH:mm z →&nbsp;" className="font-w500 font-md">{request.start}</Moment>
-                        <Moment local tz={moment.tz.guess()} format="HH:mm z" className="font-w500 font-md">{request.end}</Moment>
+                        <p className="font-w500 font-md mb-0">{format(new Date(request.start), 'kk:mm zzz')} →&nbsp;</p>
+                        <p className="font-w500 font-md mb-0">{format(new Date(request.end), 'kk:mm zzz')}</p>
                     </div>
                     <blockquote>
                         <p>

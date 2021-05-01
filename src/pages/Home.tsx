@@ -5,15 +5,13 @@ import { Parallax } from 'react-parallax'
 import Fade from 'react-reveal/Fade'
 import { Link } from 'react-router-dom'
 import parse from 'html-react-parser'
-import moment from 'moment/moment'
-import Moment from 'react-moment'
-import 'moment-timezone'
 import getPositionName from '../helpers/facilities'
 import axiosInstance from '../helpers/axiosInstance'
 import { formatDurationStr } from '../helpers/utils'
 import background from '../img/homepage-bg.jpg'
 import backgroundDark from '../img/homepage-bg-dark.jpg'
 import { getTheme } from '../helpers/themeManager'
+import { format } from 'date-fns-tz'
 
 export default function Home() {
     const [onlineControllers, setOnlineControllers] = useState([])
@@ -67,7 +65,7 @@ export default function Home() {
         }}>
             <Card>
                 <Card.Body>
-                    <Moment element="div" className="badge badge-primary announcment-date" local format="MMM. D, YYYY">{announcement.posted}</Moment>
+                    <Badge variant="primary" className="announcment-date">{format(new Date(announcement.posted), 'MMM d, Y')}</Badge>
                     <h5 className="text-black font-w700">{announcement.title}</h5>
                     <div className="user">
                         <img
@@ -92,12 +90,12 @@ export default function Home() {
                             <h6 className="text-gray font-w500 mb-3">Presented by {event.host}</h6>
                             <div className="li-flex">
                                 <HiOutlineCalendar size={25} className="mr-2"/>
-                                <Moment local className="font-w500 font-md" format="MMMM D, YYYY">{event.start}</Moment>
+                                <p className="font-w500 font-md mb-0">{format(new Date(event.start), 'MMM d, Y')}</p>
                             </div>
                             <div className="li-flex mb-0">
                                 <HiOutlineClock size={25} className="mr-2"/>
-                                <Moment local tz={moment.tz.guess()} format="HH:mm z →&nbsp;" className="font-w500 font-md">{event.start}</Moment>
-                                <Moment local tz={moment.tz.guess()} format="HH:mm z" className="font-w500 font-md">{event.end}</Moment>
+                                <p className="font-w500 font-md mb-0">{format(new Date(event.start), 'kk:mm zzz')} →&nbsp;</p>
+                                <p className="font-w500 font-md mb-0">{format(new Date(event.end), 'kk:mm zzz')}</p>
                             </div>
                         </Col>
                         <Col xs={12} lg={6} className="d-flex">
@@ -241,7 +239,7 @@ export default function Home() {
                 </Modal.Header>
                 <Modal.Body>
                     <p>Hi there!</p>
-                    <p>Thanks for checking out the fancy new beta website for the Houston ARTCC! <b>However, please note that this website is a sandbox environment!</b></p>
+                    <p>Thanks for checking out the fancy new beta website for the Houston ARTCC! <b>However, please note that this website is an isolated sandbox environment!</b></p>
                     <p>This means that all information on this website is not up to date and does not reflect current facility operations, statistics, and data. Additionally, any information that you enter will not be officially recorded.</p>
                     <p>For current controller resources, training requests, feedback, and event position requests, please visit to the production website at <a href="https://zhuartcc.org">https://zhuartcc.org</a>.</p>
                     <p>This website will remain online for beta testing of new features and I encourage all of you to continue to look for errors or bugs.</p>

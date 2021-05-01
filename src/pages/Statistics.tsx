@@ -3,14 +3,13 @@ import DataTable from 'react-data-table-component'
 import { BsArrowDown, HiCheck } from 'react-icons/all'
 import { Button, ButtonGroup, Container, Form } from 'react-bootstrap'
 import Fade from 'react-reveal/Fade'
-import Moment from 'react-moment'
-import moment from 'moment'
 import Header from '../components/Header'
 import StatisticCalendar from '../components/StatisticCalendar'
 import { formatDurationStr, durationStrAsSeconds, ratingInt } from '../helpers/utils'
 import axiosInstance from '../helpers/axiosInstance'
 import { dataTableStyle } from '../helpers/constants'
 import Spinner from '../components/Spinner'
+import { format, subMonths } from 'date-fns'
 
 export default class Statistics extends Component<any, any> {
     constructor(props) {
@@ -33,7 +32,7 @@ export default class Statistics extends Component<any, any> {
 
     fetchDailyStatistics() {
         axiosInstance
-            .get('/api/connections/daily/' + moment().year() + '/')
+            .get('/api/connections/daily/' + new Date().getFullYear() + '/')
             .then(res => this.setState({ dailyStats: res.data }))
     }
 
@@ -126,7 +125,7 @@ export default class Statistics extends Component<any, any> {
                                     name: 'Name',
                                     selector: 'name',
                                     sortable: true,
-                                    sortFunction: (a, b) => {return a.first_name > b.first_name ? 1 : -1},
+                                    sortFunction: (a, b) => a.first_name > b.first_name ? 1 : -1,
                                     format: row => row.first_name + ' ' + row.last_name + ' (' + row.initials + ')',
                                 },
                                 {
@@ -137,11 +136,11 @@ export default class Statistics extends Component<any, any> {
                                 {
                                     name: 'Rating',
                                     selector: 'rating',
-                                    sortFunction: (a, b) => {return ratingInt(a.rating) > ratingInt(b.rating) ? 1 : -1},
+                                    sortFunction: (a, b) => ratingInt(a.rating) > ratingInt(b.rating) ? 1 : -1,
                                     sortable: true,
                                 },
                                 {
-                                    name: <Moment tz="UTC" format="MMMM" subtract={{ months: 2 }}>{new Date()}</Moment>,
+                                    name: format(subMonths(new Date(new Date().getUTCFullYear(), new Date().getUTCMonth()), 2), 'MMMM'),
                                     selector: 'prev_prev_hours',
                                     sortable: true,
                                     sortFunction: (a, b) => {return durationStrAsSeconds(a.prev_prev_hours) > durationStrAsSeconds(b.prev_prev_hours) ? 1 : -1},
@@ -160,7 +159,7 @@ export default class Statistics extends Component<any, any> {
                                     minWidth: '150px',
                                 },
                                 {
-                                    name: <Moment tz="UTC" format="MMMM" subtract={{ months: 1 }}>{new Date()}</Moment>,
+                                    name: format(subMonths(new Date(new Date().getUTCFullYear(), new Date().getUTCMonth()), 1), 'MMMM'),
                                     selector: 'prev_hours',
                                     sortable: true,
                                     sortFunction: (a, b) => {return durationStrAsSeconds(a.prev_hours) > durationStrAsSeconds(b.prev_hours) ? 1 : -1},
@@ -179,7 +178,7 @@ export default class Statistics extends Component<any, any> {
                                     minWidth: '150px',
                                 },
                                 {
-                                    name: <Moment tz="UTC" format="MMMM">{new Date()}</Moment>,
+                                    name: format(new Date(new Date().getUTCFullYear(), new Date().getUTCMonth()), 'MMMM'),
                                     selector: 'curr_hours',
                                     sortable: true,
                                     sortFunction: (a, b) => {return durationStrAsSeconds(a.curr_hours) > durationStrAsSeconds(b.curr_hours) ? 1 : -1},

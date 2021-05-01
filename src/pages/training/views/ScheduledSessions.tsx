@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { BsArrowDown, RiMoreFill } from 'react-icons/all'
-import moment from 'moment'
 import { Badge, Dropdown } from 'react-bootstrap'
 import Fade from 'react-reveal/Fade'
 import axiosInstance from '../../../helpers/axiosInstance'
 import { dataTableStyle } from '../../../helpers/constants'
 import { levelDisplay, typeDisplay } from '../../../helpers/utils'
+import { format } from 'date-fns-tz'
 
 export default function ScheduledSessions() {
     const [sessions, setSessions] = useState([])
@@ -51,10 +51,8 @@ export default function ScheduledSessions() {
                         name: 'Date',
                         selector: 'date',
                         sortable: true,
-                        format: row => moment(row.start).tz(moment.tz.guess()).format('MMM. DD, YYYY @ HH:mm z'),
-                        sortFunction: (a: any, b: any) => {
-                            return moment(a.start) > moment(b.start) ? 1 : -1
-                        },
+                        format: row => format(new Date(row.start), 'MMM d, Y @ kk:mm zzz'),
+                        sortFunction: (a: any, b: any) => new Date(a.start) > new Date(b.start) ? 1 : -1,
                         minWidth: '22%',
                     },
                     {
@@ -62,18 +60,14 @@ export default function ScheduledSessions() {
                         selector: 'student',
                         sortable: true,
                         format: row => row.student.first_name + ' ' + row.student.last_name,
-                        sortFunction: (a, b) => {
-                            return a.first_name > b.first_name ? 1 : -1
-                        },
+                        sortFunction: (a, b) => a.first_name > b.first_name ? 1 : -1,
                     },
                     {
                         name: 'Instructor',
                         selector: 'instructor',
                         sortable: true,
                         format: row => row.instructor.first_name + ' ' + row.instructor.last_name,
-                        sortFunction: (a, b) => {
-                            return a.first_name > b.first_name ? 1 : -1
-                        },
+                        sortFunction: (a, b) => a.first_name > b.first_name ? 1 : -1,
                     },
                     {
                         name: 'Level',

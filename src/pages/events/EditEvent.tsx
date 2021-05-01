@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { Button, Col, Container, Dropdown, Form, FormGroup, Modal, ProgressBar, Row } from 'react-bootstrap'
 import { RiAddLine, RiDeleteBinLine } from 'react-icons/all'
 import { withSnackbar } from 'notistack'

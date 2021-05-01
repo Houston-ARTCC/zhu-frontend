@@ -1,13 +1,13 @@
 import { BsArrowDown, IoStar, IoStarOutline } from 'react-icons/all'
 import { dataTableStyle } from '../helpers/constants'
 import EventScoreBadge from './EventScoreBadge'
-import moment from 'moment'
 import { formatSeconds } from '../helpers/utils'
 import { Badge } from 'react-bootstrap'
 import DataTable from 'react-data-table-component'
 import { useEffect, useState } from 'react'
 import axiosInstance from '../helpers/axiosInstance'
 import Spinner from './Spinner'
+import { format } from 'date-fns'
 
 export default function EventScoreTable({ cid }) {
     const [loading, setLoading] = useState(false)
@@ -60,8 +60,8 @@ export default function EventScoreTable({ cid }) {
                     name: 'Date',
                     selector: 'date',
                     sortable: true,
-                    sortFunction: (a, b) => {return moment(a.event?.start) > moment(b.event?.start) ? 1 : -1},
-                    format: row => moment(row.event?.start).format('MMMM d, Y'),
+                    sortFunction: (a, b) => new Date(a.event?.start) > new Date(b.event?.start) ? 1 : -1,
+                    format: row => format(new Date(row.event?.start), 'MMMM d, Y'),
                 },
                 {
                     name: 'Details',
@@ -79,7 +79,7 @@ export default function EventScoreTable({ cid }) {
                                                     : <IoStar key={i} size={20} className="mr-1"/>
                                             )
                                         })}
-                                        <Badge variant={(feedback.rating < 3 ? 'red' : feedback.rating > 3 ? 'green' : 'yellow') + ' rounded'}>Adjustment: {(feedback.rating - 3) * 5}%</Badge>
+                                        <Badge variant={(feedback.rating < 3 ? 'red' : feedback.rating > 3 ? 'green' : 'yellow') + ' rounded'} className="ml-2">Adjustment: {(feedback.rating - 3) * 5}%</Badge>
                                     </li>
                                 </>
                             ))}

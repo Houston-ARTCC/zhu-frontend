@@ -4,19 +4,19 @@ import { BsArrowDown, RiArrowRightLine } from 'react-icons/all'
 import { useSnackbar } from 'notistack'
 import Fade from 'react-reveal/Fade'
 import Select from 'react-select'
-import moment from 'moment'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 import { levelDisplay, typeDisplay } from '../../../helpers/utils'
 import { dataTableStyle } from '../../../helpers/constants'
 import axiosInstance from '../../../helpers/axiosInstance'
 import { Badge, Button, Col, Form, Modal } from 'react-bootstrap'
+import { format } from 'date-fns-tz'
 
 export default function TrainingRequests({ updateNotifs }) {
     const [requests, setRequests] = useState([])
     const [showRequestModal, setShowRequestModal] = useState(false)
     const [request, setRequest] = useState<any>({})
-    const [modifiedRequest, setModifiedRequest] = useState<any>({})
+    const [modifiedRequest, setModifiedRequest] = useState<any>(undefined)
 
     const { enqueueSnackbar } = useSnackbar()
 
@@ -31,8 +31,8 @@ export default function TrainingRequests({ updateNotifs }) {
 
     const handleClickRequest = (row) => {
         let newRequest = {...row}
-        newRequest['start'] = moment(row.start)
-        newRequest['end'] = moment(row.end)
+        newRequest['start'] = new Date(row.start)
+        newRequest['end'] = new Date(row.end)
 
         setRequest(row)
         setModifiedRequest(newRequest)
@@ -86,8 +86,8 @@ export default function TrainingRequests({ updateNotifs }) {
     }
 
     let marks = {}
-    let start = moment(request.start).valueOf()
-    let end = moment(request.end).valueOf()
+    let start = new Date(request.start).getTime()
+    let end = new Date(request.end).getTime()
     while (start < end) {
         marks[start] = undefined
         start = start - (start % 900000) + 900000
@@ -145,19 +145,15 @@ export default function TrainingRequests({ updateNotifs }) {
                             name: 'Start',
                             selector: 'start',
                             sortable: true,
-                            format: row => moment(row.start).tz(moment.tz.guess()).format('MMM. DD, YYYY @ HH:mm z'),
-                            sortFunction: (a, b) => {
-                                return moment(a.start) > moment(b.start) ? 1 : -1
-                            },
+                            format: row => format(new Date(row.start), 'MMM d, Y @ kk:mm zzz'),
+                            sortFunction: (a, b) => new Date(a.start) > new Date(b.start) ? 1 : -1,
                         },
                         {
                             name: 'End',
                             selector: 'end',
                             sortable: true,
-                            format: row => moment(row.end).tz(moment.tz.guess()).format('MMM. DD, YYYY @ HH:mm z'),
-                            sortFunction: (a, b) => {
-                                return moment(a.start) > moment(b.start) ? 1 : -1
-                            },
+                            format: row => format(new Date(row.end), 'MMM d, Y @ kk:mm zzz'),
+                            sortFunction: (a, b) => new Date(a.start) > new Date(b.start) ? 1 : -1,
                         },
                     ]}
                     customStyles={dataTableStyle}
@@ -179,22 +175,22 @@ export default function TrainingRequests({ updateNotifs }) {
                         <p>Drag the slider to set the start and end times for the training session. The limits are automatically set to what the student indicated as their availability.</p>
                         <div className="my-4">
                             <div className="d-flex flex-column flex-md-row justify-content-center align-items-center mb-3">
-                                <Badge variant="darkblue" style={{ minWidth: 200 }}>{modifiedRequest.start?.tz(moment.tz.guess()).format('MMM. DD, YYYY @ HH:mm z')}</Badge>
+                                <Badge variant="darkblue" style={{ minWidth: 200 }}>{modifiedRequest && format(modifiedRequest.start, 'MMM d, Y @ kk:mm zzz')}</Badge>
                                 <RiArrowRightLine size={30} className="fill-darkblue mx-3"/>
-                                <Badge variant="darkblue" style={{ minWidth: 200 }}>{modifiedRequest.end?.tz(moment.tz.guess()).format('MMM. DD, YYYY @ HH:mm z')}</Badge>
+                                <Badge variant="darkblue" style={{ minWidth: 200 }}>{modifiedRequest && format(modifiedRequest.end, 'MMM d, Y @ kk:mm zzz')}</Badge>
                             </div>
                             <Slider.Range
                                 // @ts-ignore
                                 step={null}
                                 marks={marks}
                                 allowCross={false}
-                                min={moment(request.start).valueOf()}
-                                max={moment(request.end).valueOf()}
-                                defaultValue={[moment(request.start).valueOf(), moment(request.end).valueOf()]}
+                                min={new Date(request.start).getTime()}
+                                max={new Date(request.end).getTime()}
+                                defaultValue={[new Date(request.start).getTime(), new Date(request.end).getTime()]}
                                 onChange={(val) => {
                                     let newRequest = {...modifiedRequest}
-                                    newRequest['start'] = moment(val[0])
-                                    newRequest['end'] = moment(val[1])
+                                    newRequest['start'] = new Date(val[0])
+                                    newRequest['end'] = new Date(val[1])
 
                                     setModifiedRequest(newRequest)
                                 }}
@@ -212,8 +208,8 @@ export default function TrainingRequests({ updateNotifs }) {
                                             { value: 3, label: 'OTS' },
                                         ]}
                                         value={{
-                                            value: modifiedRequest.type,
-                                            label: typeDisplay(modifiedRequest.type),
+                                            value: modifiedRequest?.type,
+                                            label: typeDisplay(modifiedRequest?.type),
                                         }}
                                         onChange={handleTypeChange}
                                     />
@@ -234,8 +230,8 @@ export default function TrainingRequests({ updateNotifs }) {
                                             { value: 7, label: 'Oceanic' },
                                         ]}
                                         value={{
-                                            value: modifiedRequest.level,
-                                            label: levelDisplay(modifiedRequest.level),
+                                            value: modifiedRequest?.level,
+                                            label: levelDisplay(modifiedRequest?.level),
                                         }}
                                         onChange={handleLevelChange}
                                     />
@@ -244,7 +240,7 @@ export default function TrainingRequests({ updateNotifs }) {
                         </Form.Row>
                         <Form.Group>
                             <Form.Label>Position (Optional)</Form.Label>
-                            <Form.Control type="text" name="position" value={modifiedRequest.position} onChange={handlePositionChange}/>
+                            <Form.Control type="text" name="position" value={modifiedRequest?.position} onChange={handlePositionChange}/>
                         </Form.Group>
                     </Modal.Body>
                     <Modal.Footer>

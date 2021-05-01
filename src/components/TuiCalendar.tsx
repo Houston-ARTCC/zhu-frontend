@@ -1,54 +1,50 @@
-import React, { Component } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import Calendar from '@toast-ui/react-calendar'
 import { tuiCalendars, tuiTemplates, tuiTheme, tuiTimezones } from '../helpers/constants'
-import moment from 'moment'
 import axiosInstance from '../helpers/axiosInstance'
 import { typeDisplay } from '../helpers/utils'
+import { format, subMonths, addMonths, addDays } from 'date-fns'
 
-export default class TuiCalendar extends Component<any, any> {
-    calendarRef = React.createRef<Calendar>()
+export default function TuiCalendar({ view = 'month', isReadOnly = false, onCreateSchedule = ({}) => {}, additionalSchedules = undefined }) {
+    const [events, setEvents] = useState<any>([])
+    const [sessions, setSessions] = useState<any>([])
+    const [bookings, setBookings] = useState<any>([])
+    const [schedules, setSchedules] = useState<any>([])
+    const [requested, setRequested] = useState<any>([])
+    const [current, setCurrent] = useState(new Date())
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            events: [],
-            sessions: [],
-            bookings: [],
-            schedules: [],
-            requested: [],
-            current: moment(),
-        }
-        this.handlePrev = this.handlePrev.bind(this)
-        this.handleToday = this.handleToday.bind(this)
-        this.handleNext = this.handleNext.bind(this)
+    const calendarRef = useRef<Calendar>(null)
+
+    useEffect(() => fetchCalendar(), [])
+    useEffect(() => createEventSchedules(), [events])
+    useEffect(() => createSessionSchedules(), [sessions])
+    useEffect(() => createBookingSchedules(), [bookings])
+
+    const fetchCalendar = () => {
+        let prev = subMonths(current, 1)
+        let next = addMonths(current, 1)
+        requestCalendar(prev.getFullYear(), prev.getMonth() + 1)
+        requestCalendar(current.getFullYear(), current.getMonth() + 1)
+        requestCalendar(next.getFullYear(), next.getMonth() + 1)
     }
 
-    componentDidMount() {
-        this.fetchCalendar()
-    }
-
-    fetchCalendar() {
-        let year = this.state.current.year()
-        let month = this.state.current.month() + 1
-        if (!this.state.requested.includes(year.toString() + month.toString())) {
+    const requestCalendar = (year, month) => {
+        if (!requested.includes(year.toString() + month.toString())) {
+            requested.push(year.toString() + month.toString())
             axiosInstance
                 .get('/api/calendar/' + year + '/' + month + '/')
                 .then(res => {
-                    this.setState({
-                        requested: [...this.state.requested, year.toString() + month.toString()],
-                        events: res.data.events,
-                        sessions: res.data.sessions,
-                        bookings: res.data.bookings,
-                    }, () => this.createSchedules())
+                    setEvents(res.data.events)
+                    setSessions(res.data.sessions)
+                    setBookings(res.data.bookings)
                 })
         }
     }
 
-    createSchedules() {
-        let schedules: object[] = [...this.state.schedules]
-        this.state.events.forEach(event => {
-            schedules.push({
+    const createEventSchedules = () => {
+        setSchedules(schedules.concat(
+            events.map(event => ({
                 id: event.id,
                 calendarId: 0,
                 title: event.name,
@@ -57,22 +53,28 @@ export default class TuiCalendar extends Component<any, any> {
                 isReadOnly: true,
                 start: event.start,
                 end: event.end,
-            })
-        })
-        this.state.sessions.forEach(session => {
-            schedules.push({
+            }))
+        ))
+    }
+
+    const createSessionSchedules = () => {
+        setSchedules(schedules.concat(
+            sessions.map(session => ({
                 id: session.id,
                 calendarId: 1,
                 title: session.student.first_name + ' ' + session.student.last_name + '\'s ' + typeDisplay(session.type) + ' Session',
-                location: session.position,
+                location: session.position !== 'N/A' && session.position,
                 category: 'time',
                 isReadOnly: true,
                 start: session.start,
                 end: session.end,
-            })
-        })
-        this.state.bookings.forEach(booking => {
-            schedules.push({
+            }))
+        ))
+    }
+
+    const createBookingSchedules = () => {
+        setSchedules(schedules.concat(
+            bookings.map(booking => ({
                 id: booking.id,
                 calendarId: 3,
                 title: booking.callsign + ' [' + booking.user.first_name + ' ' + booking.user.last_name + ']',
@@ -81,60 +83,58 @@ export default class TuiCalendar extends Component<any, any> {
                 isReadOnly: true,
                 start: booking.start,
                 end: booking.end,
-            })
-        })
-        this.setState({ schedules: schedules })
+            }))
+        ))
     }
 
-    handlePrev() {
-        let cal = this.calendarRef.current?.getInstance()
+    const handlePrev = () => {
+        let cal = calendarRef.current?.getInstance()
         cal?.prev()
-        this.updateCalendar(cal)
+        updateCalendar(cal)
     }
 
-    handleToday() {
-        let cal = this.calendarRef.current?.getInstance()
+    const handleToday = () => {
+        let cal = calendarRef.current?.getInstance()
         cal?.today()
-        this.updateCalendar(cal)
+        updateCalendar(cal)
     }
 
-    handleNext() {
-        let cal = this.calendarRef.current?.getInstance()
+    const handleNext = () => {
+        let cal = calendarRef.current?.getInstance()
         cal?.next()
-        this.updateCalendar(cal)
+        updateCalendar(cal)
     }
 
-    updateCalendar(calRef) {
-        this.setState(
-            { current: moment(calRef?.getDate().toDate()) },
-            () => this.fetchCalendar()
-        )
+    const updateCalendar = (calRef) => {
+        calRef?.render(true)
+        let diff = calRef?.getDateRangeEnd().getTime() - calRef?.getDateRangeStart().getTime()
+        let mean = Math.ceil(diff / (1000 * 3600 * 24 * 2))
+        setCurrent(addDays(calRef?.getDateRangeStart().toDate(), mean))
+        fetchCalendar()
     }
 
-    render() {
-        return (
-            <>
-                <div className="text-center mb-5">
-                    <h1>{this.state.current.format('MMMM YYYY')}</h1>
-                    <Button variant="lightgray" className="mr-2 btn-sm" onClick={this.handlePrev}>&lt; Previous</Button>
-                    <Button variant="lightgray" className="mr-2 btn-sm" onClick={this.handleToday}>Today</Button>
-                    <Button variant="lightgray" className="btn-sm" onClick={this.handleNext}>Next &gt;</Button>
-                </div>
-                <Calendar
-                    ref={this.calendarRef}
-                    height="800px"
-                    view={this.props.view}
-                    taskView={false}
-                    useDetailPopup={true}
-                    isReadOnly={this.props.isReadOnly || false}
-                    onBeforeCreateSchedule={this.props.onCreateSchedule}
-                    schedules={this.state.schedules.concat(this.props.additionalSchedules || [])}
-                    calendars={tuiCalendars}
-                    timezones={tuiTimezones}
-                    template={tuiTemplates}
-                    theme={tuiTheme}
-                />
-            </>
-        )
-    }
+    return (
+        <>
+            <div className="text-center mb-5">
+                <h1>{format(current, 'MMMM Y')}</h1>
+                <Button variant="lightgray" className="mr-2 btn-sm" onClick={handlePrev}>&lt; Previous</Button>
+                <Button variant="lightgray" className="mr-2 btn-sm" onClick={handleToday}>Today</Button>
+                <Button variant="lightgray" className="btn-sm" onClick={handleNext}>Next &gt;</Button>
+            </div>
+            <Calendar
+                ref={calendarRef}
+                height="800px"
+                view={view}
+                taskView={false}
+                useDetailPopup={true}
+                isReadOnly={isReadOnly || false}
+                onBeforeCreateSchedule={onCreateSchedule}
+                schedules={schedules.concat(additionalSchedules || [])}
+                calendars={tuiCalendars}
+                timezones={tuiTimezones}
+                template={tuiTemplates}
+                theme={tuiTheme}
+            />
+        </>
+    )
 }

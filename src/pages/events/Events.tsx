@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react';
 import { FaRegEyeSlash, HiOutlineCalendar, HiOutlineClock, MdPersonOutline } from 'react-icons/all'
 import { Button, Card, Col, Collapse, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import moment from 'moment/moment'
-import Moment from 'react-moment'
 import Header from '../../components/Header'
 import axiosInstance from '../../helpers/axiosInstance'
+import { format } from 'date-fns-tz'
 
 export default function Events() {
     const [events, setEvents] = useState([])
@@ -42,12 +41,12 @@ export default function Events() {
                             <Col>
                                 <div className="li-flex">
                                     <HiOutlineCalendar size={30} className="mr-2"/>
-                                    <Moment local className="font-w500 font-lg" format="MMMM D, YYYY">{event.start}</Moment>
+                                    <p className="font-w500 font-lg mb-0">{format(new Date(event.start), 'MMM d, Y')}</p>
                                 </div>
                                 <div className="li-flex font-w500 font-lg">
                                     <HiOutlineClock size={30} className="mr-2"/>
-                                    <Moment local tz={moment.tz.guess()} format="HH:mm z →&nbsp;" className="font-w500 font-lg">{event.start}</Moment>
-                                    <Moment local tz={moment.tz.guess()} format="HH:mm z" className="font-w500 font-lg">{event.end}</Moment>
+                                    <p className="font-w500 font-lg mb-0">{format(new Date(event.start), 'kk:mm zzz')} →&nbsp;</p>
+                                    <p className="font-w500 font-lg mb-0">{format(new Date(event.end), 'kk:mm zzz')}</p>
                                 </div>
                             </Col>
                             <Col>
