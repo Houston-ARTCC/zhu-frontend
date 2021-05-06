@@ -155,7 +155,8 @@ body.dark {
     }
 
     .btn:hover, .btn:focus {
-        color: #212124 !important;
+        color: #212121 !important;
+        fill: #212121 !important;
     }
 
     .badge-darkblue {
@@ -220,9 +221,10 @@ body.dark {
 
     .rdt_TableHeadRow, .rdt_TableRow {
         border-bottom-color: $mutedblack !important;
-        &:hover {
-            background-color: $mutedblack !important;
-        }
+    }
+
+    .rdt_TableRow:hover {
+        background-color: $mutedblack !important;
     }
 
     .sc-giIncl, .sc-hKgILt {

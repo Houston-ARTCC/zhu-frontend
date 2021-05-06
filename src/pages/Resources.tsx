@@ -1,4 +1,4 @@
-import { BiPlus, BiTrash, BsArrowDown, FaUpload, RiCheckFill, RiPencilRuler2Line } from 'react-icons/all'
+import { BiTrash, BsArrowDown, FaUpload, RiAddFill, RiCheckFill, RiPencilRuler2Line } from 'react-icons/all'
 import { Button, Card, Col, Container, Form, ListGroup, Modal, Row } from 'react-bootstrap'
 import DataTable from 'react-data-table-component'
 import fileDownload from 'js-file-download'
@@ -216,7 +216,7 @@ export default function Resources() {
                     <Col className="ml-0 ml-md-5">
                         {isStaff() &&
                             <Button className="mb-5" onClick={() => setShowCreationModal(true)}>
-                                <BiPlus className="fill-white" size={20} viewBox="5 1 25 25"/> New Resource
+                                <RiAddFill size={20}/> New Resource
                             </Button>
                         }
                         {categories.map(category => <Category category={category} resources={resources[category.toLowerCase()]}/>)}
@@ -308,10 +308,10 @@ export default function Resources() {
                                 Cancel
                             </Button>
                             <Button className="mr-2" variant="primary" type="submit">
-                                <RiCheckFill className="fill-white" size={20} viewBox="3 2 25 25"/> Save
+                                <RiCheckFill size={20}/> Save
                             </Button>
                             <Button variant="red" onClick={() => deleteResource(newResource.id)}>
-                                <BiTrash className="fill-white" size={20} viewBox="3 2 25 25"/> Delete
+                                <BiTrash size={20}/> Delete
                             </Button>
                         </Form>
                     </Modal.Body>

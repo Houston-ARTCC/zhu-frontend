@@ -69,7 +69,7 @@ export default function Events() {
     )
 
     return (
-        <div>
+        <>
             <Header title="Events"/>
             <Fade bottom duration={1250} distance="50px">
                 <Container fluid>
@@ -89,6 +89,6 @@ export default function Events() {
                     </Collapse>
                 </Container>
             </Fade>
-        </div>
+        </>
     )
 }

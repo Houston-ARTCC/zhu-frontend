@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button, Col, Container, Form, Modal } from 'react-bootstrap'
 import { useSnackbar } from 'notistack'
 import Fade from 'react-reveal/Fade'
@@ -6,13 +6,23 @@ import Header from '../../components/Header'
 import axiosInstance from '../../helpers/axiosInstance'
 import TuiCalendar from '../../components/TuiCalendar'
 import { useHistory } from 'react-router'
+import Select from 'react-select'
 
 export default function NewEvent() {
     const [event, setEvent] = useState<any>({})
+    const [presets, setPresets] = useState<any>(null)
     const [showCreationModal, setShowCreationModal] = useState(false)
 
     const history = useHistory()
     const { enqueueSnackbar } = useSnackbar()
+
+    useEffect(() => fetchPresets(), [])
+
+    const fetchPresets = () => {
+        axiosInstance
+            .get('/api/events/presets/')
+            .then(res => setPresets(res.data))
+    }
 
     const handleSubmitEvent = (e) => {
         e.preventDefault()
@@ -42,31 +52,37 @@ export default function NewEvent() {
             })
     }
 
-    const handleTextChange = (event) => {
-        let newEvent = { ...event }
-        newEvent[event.target.name] = event.target.value
-        setEvent(newEvent)
+    const handleTextChange = (e) => {
+        let modifiedEvent = { ...event }
+        modifiedEvent[e.target.name] = e.target.value
+        setEvent(modifiedEvent)
     }
 
-    const handleDateChange = (event) => {
-        let newEvent = { ...event }
-        newEvent[event.target.name] = event.target.value
-        setEvent(newEvent)
+    const handleDateChange = (e) => {
+        let modifiedEvent = { ...event }
+        modifiedEvent[e.target.name] = e.target.value
+        setEvent(modifiedEvent)
     }
 
-    const handleSwitchChange = (event) => {
-        let newEvent = { ...event }
-        newEvent[event.target.name] = !newEvent[event.target.name]
-        setEvent(newEvent)
+    const handleSwitchChange = (e) => {
+        let modifiedEvent = { ...event }
+        modifiedEvent[e.target.name] = !modifiedEvent[e.target.name]
+        setEvent(modifiedEvent)
     }
 
-    const handleCreateSchedule = (event) => {
+    const handlePresetChange = (option) => {
+        let modifiedEvent = { ...event }
+        modifiedEvent['preset'] = option?.value
+        setEvent(modifiedEvent)
+    }
+
+    const handleCreateSchedule = (e) => {
         setShowCreationModal(true)
         setEvent({
-            start: event.start.toDate().toISOString().slice(0, -1),
-            end: event.end.toDate().toISOString().slice(0, -1),
+            start: e.start.toDate().toISOString().slice(0, -1),
+            end: e.end.toDate().toISOString().slice(0, -1),
         })
-        event.guide.clearGuideElement()
+        e.guide.clearGuideElement()
     }
 
     return (
@@ -101,11 +117,19 @@ export default function NewEvent() {
                                     </Col>
                                     <Col>
                                         <Form.Group>
-                                            <Form.Label>Banner URL</Form.Label>
-                                            <Form.Control type="url" name="banner" onChange={handleTextChange}/>
+                                            <Form.Label>Position Preset</Form.Label>
+                                            <Select
+                                                isClearable
+                                                options={presets?.map(preset => ({ value: preset.id, label: preset.name}))}
+                                                onChange={handlePresetChange}
+                                            />
                                         </Form.Group>
                                     </Col>
                                 </Form.Row>
+                                <Form.Group>
+                                    <Form.Label>Banner URL</Form.Label>
+                                    <Form.Control type="url" name="banner" onChange={handleTextChange}/>
+                                </Form.Group>
                                 <Form.Row>
                                     <Col>
                                         <Form.Group>

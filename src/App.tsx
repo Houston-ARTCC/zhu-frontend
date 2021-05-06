@@ -19,6 +19,7 @@ import EditEvent from './pages/events/EditEvent'
 import ViewEvent from './pages/events/ViewEvent'
 import NewEvent from './pages/events/NewEvent'
 import EventScores from './pages/events/EventScores'
+import PositionPresets from './pages/events/PositionPresets'
 import FileSession from './pages/training/FileSession'
 import TrainingCenter from './pages/training/TrainingCenter'
 import Exams from './pages/training/views/Exams'
@@ -66,6 +67,7 @@ export default function App() {
                 <AuthRoute exact path="/events/:id(\d+)/edit" component={EditEvent} view={null} auth={isStaff}/>
                 <AuthRoute exact path="/events/new" component={NewEvent} view={null} auth={isStaff}/>
                 <AuthRoute exact path="/events/scores" component={EventScores} view={null} auth={isMember}/>
+                <AuthRoute exact path="/events/presets" component={PositionPresets} view={null} auth={isStaff}/>
                 {/* Roster */}
                 <Route exact path="/staff" component={Staff}/>
                 <Route exact path="/roster" component={Roster}/>
