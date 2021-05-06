@@ -108,6 +108,14 @@ export const dataTableStyle = {
     }
 }
 
+export const selectStyles = {
+    multiValue: (base, state) => state.data.isFixed ? { ...base, backgroundColor: '#a7a9b1' } : base,
+    multiValueRemove: (base, state) => state.data.isFixed ? { ...base, display: 'none' } : base,
+    multiValueLabel: (base, state) => state.data.isFixed
+        ? { ...base, color: 'white', paddingLeft: 10, paddingRight: 10 }
+        : base,
+}
+
 export const trainingTypeOptions = [
     { value: 0, label: 'Classroom' },
     { value: 1, label: 'Sweatbox' },
@@ -134,20 +142,20 @@ export const trainingOTSStatusOptions = [
 ]
 
 export const roleOptions = [
-    { "value": "ATM", "label": "Air Traffic Manager" },
-    { "value": "DATM", "label": "Deputy Air Traffic Manager" },
-    { "value": "TA", "label": "Training Administrator" },
-    { "value": "ATA", "label": "Assistant Training Administrator" },
-    { "value": "FE", "label": "Facility Engineer" },
-    { "value": "AFE", "label": "Assistant Facility Engineer" },
-    { "value": "EC", "label": "Events Coordinator" },
-    { "value": "AEC", "label": "Assistant Events Coordinator" },
-    { "value": "WM", "label": "Webmaster" },
-    { "value": "AWM", "label": "Assistant Webmaster" },
-    { "value": "INS", "label": "Instructor" },
-    { "value": "MTR", "label": "Mentor" },
-    { "value": "WEB", "label": "Web Team" },
-    { "value": "HC", "label": "Home Controller" },
-    { "value": "VC", "label": "Visiting Controller" },
-    { "value": "MC", "label": "MAVP Controller" },
+    { id: 1, value: "ATM", label: "Air Traffic Manager" },
+    { id: 2, value: "DATM", label: "Deputy Air Traffic Manager" },
+    { id: 3, value: "TA", label: "Training Administrator" },
+    { id: 4, value: "ATA", label: "Assistant Training Administrator" },
+    { id: 5, value: "FE", label: "Facility Engineer" },
+    { id: 6, value: "AFE", label: "Assistant Facility Engineer" },
+    { id: 7, value: "EC", label: "Events Coordinator" },
+    { id: 8, value: "AEC", label: "Assistant Events Coordinator" },
+    { id: 9, value: "WM", label: "Webmaster" },
+    { id: 10, value: "AWM", label: "Assistant Webmaster" },
+    { id: 11, value: "INS", label: "Instructor" },
+    { id: 12, value: "MTR", label: "Mentor" },
+    { id: 13, value: "WEB", label: "Web Team" },
+    { id: 14, value: "HC", label: "Home Controller", isFixed: true, isDisabled: true },
+    { id: 15, value: "VC", label: "Visiting Controller", isFixed: true, isDisabled: true },
+    { id: 16, value: "MC", label: "MAVP Controller", isFixed: true, isDisabled: true },
 ]

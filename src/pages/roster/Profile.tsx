@@ -29,7 +29,7 @@ export default function Profile() {
         fetchUserConnections()
         fetchUserDailyStatistics()
         if (isStaff()) fetchUserFeedback()
-    }, [cid])
+    }, [cid]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const fetchUser = () => {
         axiosInstance
@@ -63,6 +63,7 @@ export default function Profile() {
         switch(role.short) {
             case 'INS':
             case 'MTR': color = 'yellow'; break
+            case 'WEB': color = 'purple'; break
             case 'HC':
             case 'VC':
             case 'MC': color = 'darkblue'; break

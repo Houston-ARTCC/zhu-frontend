@@ -273,7 +273,7 @@ a88aaaa    .d8888b. 88d888b. 88d8b.d8b. .d8888b.
 }
 
 .css-yk16xz-control, .css-1pahdxg-control {
-    height: calc(1.5em + .75rem + 2px);
+    min-height: calc(1.5em + .75rem + 2px) !important;
 }
 
 .css-9gakcf-option {
