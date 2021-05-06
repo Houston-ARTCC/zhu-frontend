@@ -141,12 +141,10 @@ export default function Visit() {
                                 <Form.Switch required className="mb-3" id="emails" name="emails" label="I agree to receive notification emails from Houston ARTCC." onChange={handleSwitchChange}/>
                                 <Form.Switch required className="mb-3" id="privacy" name="privacy" label={<>I have read and agree to the <a href="/privacy" target="_blank">Privacy Policy</a>.</>} onChange={handleSwitchChange}/>
                             </Col>
-                            <Col>
-                                <Form.Group>
-                                    <Form.Label>Why do you want to visit Houston?</Form.Label>
-                                    <Form.Control required as="textarea" rows={5} name="reason" onChange={handleTextChange}/>
-                                </Form.Group>
-                            </Col>
+                            <Form.Group as={Col}>
+                                <Form.Label>Why do you want to visit Houston?</Form.Label>
+                                <Form.Control required as="textarea" rows={5} name="reason" onChange={handleTextChange}/>
+                            </Form.Group>
                         </Row>
                         <Button className="mb-3" variant="primary" type="submit">
                             Submit

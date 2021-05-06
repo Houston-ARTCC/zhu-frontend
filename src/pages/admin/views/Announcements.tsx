@@ -118,31 +118,31 @@ export default function Announcements() {
                         <Modal.Title>Create Site Announcement</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                            <Form.Group>
-                                <Form.Label>Title</Form.Label>
-                                <Form.Control
-                                    required
-                                    type="text"
-                                    value={announcementTitle}
-                                    onChange={event => setAnnouncementTitle(event.target.value)}
-                                />
-                            </Form.Group>
-                            <Form.Group>
-                                <Form.Label>Body</Form.Label>
-                                <ReactQuill
-                                    value={announcementBody}
-                                    onChange={body => setAnnouncementBody(body)}
-                                    modules={{
-                                        toolbar: [
-                                            [{'header': [1, 2, 3, 4, 5, 6, false] }],
-                                            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-                                            [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-                                            ['link', 'image', 'code-block'],
-                                            ['clean']
-                                        ],
-                                    }}
-                                />
-                            </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Title</Form.Label>
+                            <Form.Control
+                                required
+                                type="text"
+                                value={announcementTitle}
+                                onChange={event => setAnnouncementTitle(event.target.value)}
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Body</Form.Label>
+                            <ReactQuill
+                                value={announcementBody}
+                                onChange={body => setAnnouncementBody(body)}
+                                modules={{
+                                    toolbar: [
+                                        [{'header': [1, 2, 3, 4, 5, 6, false] }],
+                                        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                                        [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+                                        ['link', 'image', 'code-block'],
+                                        ['clean']
+                                    ],
+                                }}
+                            />
+                        </Form.Group>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="lightgray" onClick={() => setShowCreateModal(false)}>

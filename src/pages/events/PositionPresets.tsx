@@ -254,31 +254,23 @@ export default function PositionPresets() {
                     <p>Adding positions to the <b>{currentPreset?.name}</b> preset.</p>
                     <Form onSubmit={handlePositionsFormSubmit}>
                         <Form.Row>
-                            <Col>
-                                <Form.Group>
-                                    <Form.Label>Callsign</Form.Label>
-                                    <Form.Control required onChange={(e) => updateCallsignAtIndex(0, e.target.value)}/>
-                                </Form.Group>
-                            </Col>
-                            <Col md={3}>
-                                <Form.Group>
-                                    <Form.Label>Shifts</Form.Label>
-                                    <Form.Control required type="number" value={newPositions[0].shifts} onChange={(e) => updateShiftsAtIndex(0, e.target.value)}/>
-                                </Form.Group>
-                            </Col>
+                            <Form.Group as={Col}>
+                                <Form.Label>Callsign</Form.Label>
+                                <Form.Control required onChange={(e) => updateCallsignAtIndex(0, e.target.value)}/>
+                            </Form.Group>
+                            <Form.Group as={Col} md={3}>
+                                <Form.Label>Shifts</Form.Label>
+                                <Form.Control required type="number" value={newPositions[0].shifts} onChange={(e) => updateShiftsAtIndex(0, e.target.value)}/>
+                            </Form.Group>
                         </Form.Row>
                         {newPositions.slice(1).map((position, index) => (
                             <Form.Row>
-                                <Col>
-                                    <Form.Group>
-                                        <Form.Control autoFocus required onChange={(e) => updateCallsignAtIndex(index + 1, e.target.value)}/>
-                                    </Form.Group>
-                                </Col>
-                                <Col md={3}>
-                                    <Form.Group>
-                                        <Form.Control required type="number" value={newPositions[index + 1].shifts} onChange={(e) => updateShiftsAtIndex(index + 1, e.target.value)}/>
-                                    </Form.Group>
-                                </Col>
+                                <Form.Group as={Col}>
+                                    <Form.Control autoFocus required onChange={(e) => updateCallsignAtIndex(index + 1, e.target.value)}/>
+                                </Form.Group>
+                                <Form.Group as={Col} md={3}>
+                                    <Form.Control required type="number" value={newPositions[index + 1].shifts} onChange={(e) => updateShiftsAtIndex(index + 1, e.target.value)}/>
+                                </Form.Group>
                             </Form.Row>
                         ))}
                         <button hidden type="submit"/>

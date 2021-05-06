@@ -156,123 +156,101 @@ export default function FileSession() {
                         <Row className="mb-4">
                             <Col>
                                 <Form.Row>
-                                    <Col>
-                                        <Form.Group>
-                                            <Form.Label>Student</Form.Label>
-                                            <Form.Control disabled value={session?.student.first_name + ' ' + session?.student.last_name}/>
-                                        </Form.Group>
-                                    </Col>
-                                    <Col>
-                                        <Form.Group>
-                                            <Form.Label>Instructor</Form.Label>
-                                            <Select
-                                                onChange={handleInstructorChange}
-                                                options={mentorOptions}
-                                                value={{
-                                                    value: session?.instructor.cid,
-                                                    label: session?.instructor.first_name + ' ' + session?.instructor.last_name
-                                                }}
-                                            />
-                                        </Form.Group>
-                                    </Col>
+                                    <Form.Group as={Col}>
+                                        <Form.Label>Student</Form.Label>
+                                        <Form.Control disabled value={session?.student.first_name + ' ' + session?.student.last_name}/>
+                                    </Form.Group>
+                                    <Form.Group as={Col}>
+                                        <Form.Label>Instructor</Form.Label>
+                                        <Select
+                                            onChange={handleInstructorChange}
+                                            options={mentorOptions}
+                                            value={{
+                                                value: session?.instructor.cid,
+                                                label: session?.instructor.first_name + ' ' + session?.instructor.last_name
+                                            }}
+                                        />
+                                    </Form.Group>
                                 </Form.Row>
                                 <Form.Row>
-                                    <Col>
-                                        <Form.Group>
-                                            <Form.Label>Start (Zulu)</Form.Label>
-                                            <Form.Control required type="datetime-local" name="start" value={session?.start.slice(0, -1)} onChange={handleDateChange}/>
-                                        </Form.Group>
-                                    </Col>
-                                    <Col>
-                                        <Form.Group>
-                                            <Form.Label>End (Zulu)</Form.Label>
-                                            <Form.Control required type="datetime-local" name="end" value={session?.end.slice(0, -1)} onChange={handleDateChange}/>
-                                        </Form.Group>
-                                    </Col>
+                                    <Form.Group as={Col}>
+                                        <Form.Label>Start (Zulu)</Form.Label>
+                                        <Form.Control required type="datetime-local" name="start" value={session?.start.slice(0, -1)} onChange={handleDateChange}/>
+                                    </Form.Group>
+                                    <Form.Group as={Col}>
+                                        <Form.Label>End (Zulu)</Form.Label>
+                                        <Form.Control required type="datetime-local" name="end" value={session?.end.slice(0, -1)} onChange={handleDateChange}/>
+                                    </Form.Group>
                                 </Form.Row>
                                 <Form.Row>
-                                    <Col>
-                                        <Form.Group>
-                                            <Form.Label>Type</Form.Label>
-                                            <Select
-                                                onChange={handleTypeChange}
-                                                options={trainingTypeOptions}
-                                                value={trainingTypeOptions.find(opt => opt.value === session?.type)}
-                                            />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col>
-                                        <Form.Group>
-                                            <Form.Label>Level</Form.Label>
-                                            <Select
-                                                onChange={handleLevelChange}
-                                                options={trainingLevelOptions}
-                                                value={trainingLevelOptions.find(opt => opt.value === session?.level)}
-                                            />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col>
-                                        <Form.Group>
-                                            <Form.Label>OTS Status</Form.Label>
-                                            <Select
-                                                onChange={handleOTSStatusChange}
-                                                options={trainingOTSStatusOptions}
-                                                value={trainingOTSStatusOptions.find(opt => opt.value === session?.ots_status)}
-                                            />
-                                        </Form.Group>
-                                    </Col>
+                                    <Form.Group as={Col}>
+                                        <Form.Label>Type</Form.Label>
+                                        <Select
+                                            onChange={handleTypeChange}
+                                            options={trainingTypeOptions}
+                                            value={trainingTypeOptions.find(opt => opt.value === session?.type)}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group as={Col}>
+                                        <Form.Label>Level</Form.Label>
+                                        <Select
+                                            onChange={handleLevelChange}
+                                            options={trainingLevelOptions}
+                                            value={trainingLevelOptions.find(opt => opt.value === session?.level)}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group as={Col}>
+                                        <Form.Label>OTS Status</Form.Label>
+                                        <Select
+                                            onChange={handleOTSStatusChange}
+                                            options={trainingOTSStatusOptions}
+                                            value={trainingOTSStatusOptions.find(opt => opt.value === session?.ots_status)}
+                                        />
+                                    </Form.Group>
                                 </Form.Row>
                                 <Form.Row className="mb-3">
-                                    <Col>
-                                        <Form.Group>
-                                            <Form.Label>Progress</Form.Label>
-                                            <Select
-                                                onChange={handleProgressChange}
-                                                options={[
-                                                    { value: 1, label: 'No Progress' },
-                                                    { value: 2, label: 'Little Progress' },
-                                                    { value: 3, label: 'Average Progress' },
-                                                    { value: 4, label: 'Great Progress' },
-                                                    { value: 5,label: 'Exceptional Progress' },
-                                                ]}
-                                                defaultValue={{ value: 3, label: 'Average Progress' }}
-                                            />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col>
-                                        <Form.Group>
-                                            <Form.Label>Movements</Form.Label>
-                                            <Form.Control type="number" name="movements" value={session?.movements} onChange={handleTextChange}/>
-                                        </Form.Group>
-                                    </Col>
-                                    <Col>
-                                        <Form.Group>
-                                            <Form.Label>Position</Form.Label>
-                                            <Form.Control name="position" value={session?.position} onChange={handleTextChange}/>
-                                        </Form.Group>
-                                    </Col>
+                                    <Form.Group as={Col}>
+                                        <Form.Label>Progress</Form.Label>
+                                        <Select
+                                            onChange={handleProgressChange}
+                                            options={[
+                                                { value: 1, label: 'No Progress' },
+                                                { value: 2, label: 'Little Progress' },
+                                                { value: 3, label: 'Average Progress' },
+                                                { value: 4, label: 'Great Progress' },
+                                                { value: 5,label: 'Exceptional Progress' },
+                                            ]}
+                                            defaultValue={{ value: 3, label: 'Average Progress' }}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group as={Col}>
+                                        <Form.Label>Movements</Form.Label>
+                                        <Form.Control type="number" name="movements" value={session?.movements} onChange={handleTextChange}/>
+                                    </Form.Group>
+                                    <Form.Group as={Col}>
+                                        <Form.Label>Position</Form.Label>
+                                        <Form.Control name="position" value={session?.position} onChange={handleTextChange}/>
+                                    </Form.Group>
                                 </Form.Row>
                                 <Form.Switch id="solo_granted" name="solo_granted" label="Solo endorsement was granted at the conclusion of this session." checked={session?.solo_granted} onChange={handleSwitchChange}/>
                             </Col>
-                            <Col>
-                                <Form.Group>
-                                    <Form.Label>Training Notes</Form.Label>
-                                    <ReactQuill
-                                        value={session?.notes}
-                                        onChange={handleNotesChange}
-                                        style={{ height: 265 }}
-                                        modules={{
-                                            toolbar: [
-                                                [{'header': [1, 2, 3, 4, 5, 6, false] }],
-                                                ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-                                                [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-                                                ['link', 'image', 'code-block'],
-                                                ['clean']
-                                            ],
-                                        }}
-                                    />
-                                </Form.Group>
-                            </Col>
+                            <Form.Group as={Col}>
+                                <Form.Label>Training Notes</Form.Label>
+                                <ReactQuill
+                                    value={session?.notes}
+                                    onChange={handleNotesChange}
+                                    style={{ height: 265 }}
+                                    modules={{
+                                        toolbar: [
+                                            [{'header': [1, 2, 3, 4, 5, 6, false] }],
+                                            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                                            [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+                                            ['link', 'image', 'code-block'],
+                                            ['clean']
+                                        ],
+                                    }}
+                                />
+                            </Form.Group>
                         </Row>
                         <Button variant="gray" className="mr-2" onClick={() => history.push('/training/scheduled')}>Cancel</Button>
                         <Button type="submit">File Session</Button>

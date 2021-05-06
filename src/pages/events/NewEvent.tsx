@@ -109,40 +109,32 @@ export default function NewEvent() {
                                     <Form.Control required type="text" name="name" onChange={handleTextChange}/>
                                 </Form.Group>
                                 <Form.Row>
-                                    <Col>
-                                        <Form.Group>
-                                            <Form.Label>Event Host</Form.Label>
-                                            <Form.Control required type="text" name="host" onChange={handleTextChange}/>
-                                        </Form.Group>
-                                    </Col>
-                                    <Col>
-                                        <Form.Group>
-                                            <Form.Label>Position Preset</Form.Label>
-                                            <Select
-                                                isClearable
-                                                options={presets?.map(preset => ({ value: preset.id, label: preset.name}))}
-                                                onChange={handlePresetChange}
-                                            />
-                                        </Form.Group>
-                                    </Col>
+                                    <Form.Group as={Col}>
+                                        <Form.Label>Event Host</Form.Label>
+                                        <Form.Control required type="text" name="host" onChange={handleTextChange}/>
+                                    </Form.Group>
+                                    <Form.Group as={Col}>
+                                        <Form.Label>Position Preset</Form.Label>
+                                        <Select
+                                            isClearable
+                                            options={presets?.map(preset => ({ value: preset.id, label: preset.name}))}
+                                            onChange={handlePresetChange}
+                                        />
+                                    </Form.Group>
                                 </Form.Row>
                                 <Form.Group>
                                     <Form.Label>Banner URL</Form.Label>
                                     <Form.Control type="url" name="banner" onChange={handleTextChange}/>
                                 </Form.Group>
                                 <Form.Row>
-                                    <Col>
-                                        <Form.Group>
-                                            <Form.Label>Start (Zulu)</Form.Label>
-                                            <Form.Control required type="datetime-local" name="start" value={event.start} onChange={handleDateChange}/>
-                                        </Form.Group>
-                                    </Col>
-                                    <Col>
-                                        <Form.Group>
-                                            <Form.Label>End (Zulu)</Form.Label>
-                                            <Form.Control required type="datetime-local" name="end" value={event.end} onChange={handleDateChange}/>
-                                        </Form.Group>
-                                    </Col>
+                                    <Form.Group as={Col}>
+                                        <Form.Label>Start (Zulu)</Form.Label>
+                                        <Form.Control required type="datetime-local" name="start" value={event.start} onChange={handleDateChange}/>
+                                    </Form.Group>
+                                    <Form.Group as={Col}>
+                                        <Form.Label>End (Zulu)</Form.Label>
+                                        <Form.Control required type="datetime-local" name="end" value={event.end} onChange={handleDateChange}/>
+                                    </Form.Group>
                                 </Form.Row>
                                 <Form.Group>
                                     <Form.Label>Description</Form.Label>

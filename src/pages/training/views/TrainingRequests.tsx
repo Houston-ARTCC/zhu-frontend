@@ -197,46 +197,42 @@ export default function TrainingRequests({ updateNotifs }) {
                             />
                         </div>
                         <Form.Row>
-                            <Col>
-                                <Form.Group>
-                                    <Form.Label>Type</Form.Label>
-                                    <Select
-                                        options={[
-                                            { value: 0, label: 'Classroom' },
-                                            { value: 1, label: 'Sweatbox' },
-                                            { value: 2, label: 'Online' },
-                                            { value: 3, label: 'OTS' },
-                                        ]}
-                                        value={{
-                                            value: modifiedRequest?.type,
-                                            label: typeDisplay(modifiedRequest?.type),
-                                        }}
-                                        onChange={handleTypeChange}
-                                    />
-                                </Form.Group>
-                            </Col>
-                            <Col>
-                                <Form.Group>
-                                    <Form.Label>Level</Form.Label>
-                                    <Select
-                                        options={[
-                                            { value: 0, label: 'Minor Ground' },
-                                            { value: 1, label: 'Major Ground' },
-                                            { value: 2, label: 'Minor Tower' },
-                                            { value: 3, label: 'Major Tower' },
-                                            { value: 4, label: 'Minor Approach' },
-                                            { value: 5, label: 'Major Approach' },
-                                            { value: 6, label: 'Center' },
-                                            { value: 7, label: 'Oceanic' },
-                                        ]}
-                                        value={{
-                                            value: modifiedRequest?.level,
-                                            label: levelDisplay(modifiedRequest?.level),
-                                        }}
-                                        onChange={handleLevelChange}
-                                    />
-                                </Form.Group>
-                            </Col>
+                            <Form.Group as={Col}>
+                                <Form.Label>Type</Form.Label>
+                                <Select
+                                    options={[
+                                        { value: 0, label: 'Classroom' },
+                                        { value: 1, label: 'Sweatbox' },
+                                        { value: 2, label: 'Online' },
+                                        { value: 3, label: 'OTS' },
+                                    ]}
+                                    value={{
+                                        value: modifiedRequest?.type,
+                                        label: typeDisplay(modifiedRequest?.type),
+                                    }}
+                                    onChange={handleTypeChange}
+                                />
+                            </Form.Group>
+                            <Form.Group as={Col}>
+                                <Form.Label>Level</Form.Label>
+                                <Select
+                                    options={[
+                                        { value: 0, label: 'Minor Ground' },
+                                        { value: 1, label: 'Major Ground' },
+                                        { value: 2, label: 'Minor Tower' },
+                                        { value: 3, label: 'Major Tower' },
+                                        { value: 4, label: 'Minor Approach' },
+                                        { value: 5, label: 'Major Approach' },
+                                        { value: 6, label: 'Center' },
+                                        { value: 7, label: 'Oceanic' },
+                                    ]}
+                                    value={{
+                                        value: modifiedRequest?.level,
+                                        label: levelDisplay(modifiedRequest?.level),
+                                    }}
+                                    onChange={handleLevelChange}
+                                />
+                            </Form.Group>
                         </Form.Row>
                         <Form.Group>
                             <Form.Label>Position (Optional)</Form.Label>
