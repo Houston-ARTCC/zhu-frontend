@@ -44,6 +44,7 @@ body.dark {
 
     .dropdown-menu {
         background-color: darken($black, 5%);
+        box-shadow: $dark-shadow-lifted;
     }
 
     .dropdown-item {
@@ -152,9 +153,10 @@ body.dark {
 
     .btn, .badge {
         color: #212124 !important;
+        fill: #212124 !important;
     }
 
-    .btn:hover, .btn:focus {
+    .btn:hover, .btn:focus, .btn.active {
         color: #212121 !important;
         fill: #212121 !important;
     }
@@ -170,11 +172,18 @@ body.dark {
     .btn-light-purple, .btn-outline-purple, .btn-bg-purple, .badge-light-purple, .badge-outline-purple { color: $purple !important; fill: $purple !important; }
     .btn-light-black, .btn-outline-black, .btn-bg-black, .badge-light-black, .badge-outline-black { color: $black !important; fill: $black !important; }
     .btn-light-darkgray, .btn-outline-darkgray, .btn-bg-darkgray, .badge-light-darkgray, .badge-outline-darkgray { color: $darkgray !important; fill: $darkgray !important; }
-    .btn-light-darkblue, .btn-outline-darkblue, .btn-bg-darkblue, .badge-light-darkblue, .badge-outline-darkblue { color: $darkblue !important; fill: $darkblue !important; }
     .btn-light-gray, .btn-outline-gray, .btn-bg-gray, .badge-light-gray, .badge-outline-gray { color: $gray !important; fill: $gray !important; }
     .btn-light-lightgray, .btn-outline-lightgray, .btn-bg-lightgray, .badge-light-lightgray, .badge-outline-lightgray { color: $lightgray !important; fill: $lightgray !important; }
     .btn-light-white, .btn-outline-white, .btn-bg-white, .badge-light-white, .badge-outline-white { color: $darkgray !important; fill: $darkgray !important; }
     .btn-white, .badge-white { color: $darkgray !important; fill: $darkgray !important; }
+    .btn-light-darkblue, .btn-outline-darkblue, .btn-bg-darkblue, .badge-light-darkblue, .badge-outline-darkblue {
+        color: $primary !important;
+        fill: $primary !important;
+        border-color: $primary !important;
+        &:hover, &:focus, &.active {
+            background-color: $primary !important;
+        }
+    }
 
     #navbar {
         &.navbar-shrink {

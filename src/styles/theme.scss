@@ -362,7 +362,7 @@ section {
 
 @media (min-width: $screen-xl-min) {
     .container-fluid {
-        padding: 60px 20% !important;
+        padding: 60px 22% !important;
     }
 }
 
@@ -410,10 +410,11 @@ a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
     border-radius: 5px !important;
     padding: 4px 22px !important;
     font-weight: 700 !important;
+    transition: color 300ms;
 
     &:not(.btn-link) {
         color: white;
-        fill: white !important;
+        fill: white;
     }
 
     &.btn-sm {
@@ -545,7 +546,7 @@ a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
     &.btn-light-purple, &.btn-outline-purple, &.btn-bg-purple { background-color: $purple !important; }
     &.btn-light-black, &.btn-outline-black, &.btn-bg-black { background-color: $black !important; }
     &.btn-light-darkgray, &.btn-outline-darkgray, &.btn-bg-darkgray { background-color: $darkgray !important; }
-    &.btn-light-darkblue, &.btn-outline-darkblue, &.btn-bg-darkblue { background-color: $darkblue !important; }
+    &.btn-light-darkblue, &.btn-outline-darkblue, &.btn-bg-darkblue { background-color: $darkblue; }
     &.btn-light-gray, &.btn-outline-gray, &.btn-bg-gray { background-color: $gray !important; }
     &.btn-light-lightgray, &.btn-outline-lightgray, &.btn-bg-lightgray { background-color: $lightgray !important; }
     &.btn-light-white, &.btn-outline-white, &.btn-bg-white { background-color: $white !important; }
@@ -691,10 +692,10 @@ dP     dP `88888P8 8888P'
 
 @media (min-width: $screen-xl-min) {
     #navbar {
-        padding: 60px 20%;
+        padding: 60px 22%;
 
         &.navbar-shrink {
-            padding: 30px 20% !important;
+            padding: 30px 22% !important;
         }
     }
 }
@@ -724,6 +725,13 @@ dP     dP `88888P8 8888P'
     font-weight: 500;
     color: $white;
     transition: 500ms;
+}
+
+.nav-item .dropdown-menu {
+    left: 0;
+    right: 0;
+    margin: auto!important;
+    width: 175px;
 }
 
 .navbar-toggle {

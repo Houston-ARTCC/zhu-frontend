@@ -9,12 +9,12 @@ import { useLocation } from 'react-router'
 import axiosInstance from '../../helpers/axiosInstance'
 
 export default function AdminPanel(props) {
-    const location = useLocation()
-
     const [visitingNotifs, setVisitingNotifs] = useState(0)
     const [feedbackNotifs, setFeedbackNotifs] = useState(0)
     const [supportNotifs, setSupportNotifs] = useState(0)
     const [loaNotifs, setLoaNotifs] = useState(0)
+
+    const location = useLocation()
 
     useEffect(() => updateNotifs(), [])
 
@@ -56,6 +56,41 @@ export default function AdminPanel(props) {
                                     </ListGroup.Item>
                                 </div>
                                 <div className="mb-4">
+                                    <h6 className="text-primary">Announcements</h6>
+                                    <ListGroup.Item as="li" active={location.pathname === '/admin/announcement'}>
+                                        <Link to="/admin/announcement">
+                                            Site Announcement
+                                        </Link>
+                                    </ListGroup.Item>
+                                </div>
+                                <div className="mb-4">
+                                    <h6 className="text-primary">Roster</h6>
+                                    <ListGroup.Item as="li" active={location.pathname === '/admin/user'}>
+                                        <Link to="/admin/user">
+                                            Find User
+                                        </Link>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item as="li" active={location.pathname === '/admin/scores'}>
+                                        <Link to="/admin/scores">
+                                            Event Scores
+                                        </Link>
+                                    </ListGroup.Item>
+                                    {isAdmin() &&
+                                    <ListGroup.Item as="li" active={location.pathname === '/admin/purge'}>
+                                        <Link to="/admin/purge">
+                                            Roster Purge
+                                        </Link>
+                                    </ListGroup.Item>
+                                    }
+                                    {isAdmin() &&
+                                    <ListGroup.Item as="li" active={location.pathname === '/admin/loa'}>
+                                        <Link to="/admin/loa">
+                                            LOA Requests {loaNotifs > 0 && <Badge variant="red rounded">{loaNotifs}</Badge>}
+                                        </Link>
+                                    </ListGroup.Item>
+                                    }
+                                </div>
+                                <div>
                                     <h6 className="text-primary">Approval Queue</h6>
                                     {isAdmin() &&
                                         <ListGroup.Item as="li" active={location.pathname === '/admin/visit'}>
@@ -74,46 +109,6 @@ export default function AdminPanel(props) {
                                     <ListGroup.Item as="li" active={location.pathname === '/admin/support'}>
                                         <Link to="/admin/support">
                                             Event Support {supportNotifs > 0 && <Badge variant="red rounded">{supportNotifs}</Badge>}
-                                        </Link>
-                                    </ListGroup.Item>
-                                </div>
-                                <div className="mb-4">
-                                    <h6 className="text-primary">Roster</h6>
-                                    <ListGroup.Item as="li" active={location.pathname === '/admin/user'}>
-                                        <Link to="/admin/user">
-                                            Find User
-                                        </Link>
-                                    </ListGroup.Item>
-                                    <ListGroup.Item as="li" active={location.pathname === '/admin/scores'}>
-                                        <Link to="/admin/scores">
-                                            Event Scores
-                                        </Link>
-                                    </ListGroup.Item>
-                                    {isAdmin() &&
-                                        <ListGroup.Item as="li" active={location.pathname === '/admin/purge'}>
-                                            <Link to="/admin/purge">
-                                                Roster Purge
-                                            </Link>
-                                        </ListGroup.Item>
-                                    }
-                                    {isAdmin() &&
-                                        <ListGroup.Item as="li" active={location.pathname === '/admin/loa'}>
-                                            <Link to="/admin/loa">
-                                                LOA Requests {loaNotifs > 0 && <Badge variant="red rounded">{loaNotifs}</Badge>}
-                                            </Link>
-                                        </ListGroup.Item>
-                                    }
-                                </div>
-                                <div>
-                                    <h6 className="text-primary">Announcements</h6>
-                                    <ListGroup.Item as="li" active={location.pathname === '/admin/announcement'}>
-                                        <Link to="/admin/announcement">
-                                            Site Announcement
-                                        </Link>
-                                    </ListGroup.Item>
-                                    <ListGroup.Item as="li" active={location.pathname === '/admin/broadcast'}>
-                                        <Link to="/admin/broadcast">
-                                            Email Broadcast
                                         </Link>
                                     </ListGroup.Item>
                                 </div>

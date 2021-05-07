@@ -41,7 +41,6 @@ import FindEventScores from './pages/admin/views/FindEventScores'
 import VisitingRequests from './pages/admin/views/VisitingRequests'
 import PendingFeedback from './pages/admin/views/PendingFeedback'
 import SupportRequests from './pages/admin/views/SupportRequests'
-import Broadcast from './pages/admin/views/Broadcast'
 import Footer from './components/Footer'
 import AuthRoute from './components/AuthRoute'
 import ScrollToTop from './components/ScrollToTop'
@@ -99,7 +98,6 @@ export default function App() {
                 <AuthRoute exact path="/admin/purge" component={AdminPanel} view={RosterPurge} auth={isAdmin}/>
                 <AuthRoute exact path="/admin/loa" component={AdminPanel} view={LOARequests} auth={isAdmin}/>
                 <AuthRoute exact path="/admin/announcement" component={AdminPanel} view={Announcements} auth={isStaff}/>
-                <AuthRoute exact path="/admin/broadcast" component={AdminPanel} view={Broadcast} auth={isStaff}/>
                 {/* Miscellaneous */}
                 <Route exact path="/map" component={Map}/>
                 <Route exact path="/privacy" component={Privacy}/>
