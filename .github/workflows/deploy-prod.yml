@@ -26,6 +26,7 @@ jobs:
         echo REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }} >> .env
         echo REACT_APP_VATSIM_CONNECT_CLIENT_ID=${{ secrets.REACT_APP_VATSIM_CONNECT_CLIENT_ID }} >> .env
         echo REACT_APP_VATSIM_CONNECT_REDIRECT_URI=${{ secrets.REACT_APP_VATSIM_CONNECT_REDIRECT_URI }} >> .env
+        echo GENERATE_SOURCEMAP=false >> .env
         
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
