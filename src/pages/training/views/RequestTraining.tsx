@@ -160,14 +160,14 @@ export default function RequestTraining({ updateNotifs }) {
                                     name: 'Start',
                                     selector: 'start',
                                     sortable: true,
-                                    format: row => format(new Date(row.start), 'MMM d, Y @ kk:mm zzz'),
+                                    format: row => format(new Date(row.start), 'MMM d, Y @ HH:mm zzz'),
                                     sortFunction: (a, b) => new Date(a.start) > new Date(b.start) ? 1 : -1,
                                 },
                                 {
                                     name: 'End',
                                     selector: 'end',
                                     sortable: true,
-                                    format: row => format(new Date(row.end), 'MMM d, Y @ kk:mm zzz'),
+                                    format: row => format(new Date(row.end), 'MMM d, Y @ HH:mm zzz'),
                                     sortFunction: (a, b) => new Date(a.end) > new Date(b.end) ? 1 : -1,
                                 },
                                 {

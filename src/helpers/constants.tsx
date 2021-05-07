@@ -43,7 +43,7 @@ export const tuiTimezones = [
 export const tuiTemplates = {
     'popupDetailDate': (isAllDay, start, end) => {
         let isSameDate = start.toDate().getTime() === end.toDate().getTime()
-        return `${format(start.toDate(), 'MMM d, Y, kk:mm zzz')} → ${format(end.toDate(), (isSameDate ? '' : 'MMM d, Y, ') + 'kk:mm zzz')}`
+        return `${format(start.toDate(), 'MMM d, Y, HH:mm zzz')} → ${format(end.toDate(), (isSameDate ? '' : 'MMM d, Y, ') + 'HH:mm zzz')}`
     },
 }
 

@@ -92,8 +92,8 @@ export default function SupportRequests({ updateNotifs }) {
                     </div>
                     <div className="li-flex mb-4">
                         <HiOutlineClock size={25} className="mr-2"/>
-                        <p className="font-w500 font-md mb-0">{format(new Date(request.start), 'kk:mm zzz')} →&nbsp;</p>
-                        <p className="font-w500 font-md mb-0">{format(new Date(request.end), 'kk:mm zzz')}</p>
+                        <p className="font-w500 font-md mb-0">{format(new Date(request.start), 'HH:mm zzz')} →&nbsp;</p>
+                        <p className="font-w500 font-md mb-0">{format(new Date(request.end), 'HH:mm zzz')}</p>
                     </div>
                     <blockquote>
                         <p>

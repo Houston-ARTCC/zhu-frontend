@@ -151,7 +151,7 @@ class ViewEvent extends Component<any, any> {
                             <Popover id="popover-basic">
                                 <Popover.Title as="h3">{position.callsign} (Shift {position.shifts.indexOf(shift) + 1})</Popover.Title>
                                 <Popover.Content>
-                                    {format(new Date(shift.start), 'kk:mm')} - {format(new Date(shift.end), 'kk:mm')}
+                                    {format(new Date(shift.start), 'HH:mm')} - {format(new Date(shift.end), 'HH:mm')}
                                 </Popover.Content>
                             </Popover>
                         }>
@@ -229,9 +229,9 @@ class ViewEvent extends Component<any, any> {
                                 <Row className="align-items-center mb-4">
                                     <Col xs={12} md={6} className="mb-2">
                                         <h4 className="text-black font-w500">Start</h4>
-                                        <h5 className="font-w400">{this.state.event.start && format(new Date(this.state.event.start), 'MMM d, Y, kk:mm zzz')}</h5>
+                                        <h5 className="font-w400">{this.state.event.start && format(new Date(this.state.event.start), 'MMM d, Y, HH:mm zzz')}</h5>
                                         <h4 className="text-black font-w500">End</h4>
-                                        <h5 className="font-w400">{this.state.event.start && format(new Date(this.state.event.end), 'MMM d, Y, kk:mm zzz')}</h5>
+                                        <h5 className="font-w400">{this.state.event.start && format(new Date(this.state.event.end), 'MMM d, Y, HH:mm zzz')}</h5>
                                     </Col>
                                     <Col xs={12} md={6}>
                                         <h4 className="text-black font-w500">Time Until Event</h4>

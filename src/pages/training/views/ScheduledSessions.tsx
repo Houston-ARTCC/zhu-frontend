@@ -130,7 +130,7 @@ export default function ScheduledSessions() {
                             name: 'Date',
                             selector: 'date',
                             sortable: true,
-                            format: row => format(new Date(row.start), 'MMM d, Y @ kk:mm zzz'),
+                            format: row => format(new Date(row.start), 'MMM d, Y @ HH:mm zzz'),
                             sortFunction: (a: any, b: any) => new Date(a.start) > new Date(b.start) ? 1 : -1,
                             minWidth: '22%',
                         },

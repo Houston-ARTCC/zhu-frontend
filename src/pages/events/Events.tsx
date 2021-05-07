@@ -46,8 +46,8 @@ export default function Events() {
                                 </div>
                                 <div className="li-flex font-w500 font-lg">
                                     <HiOutlineClock size={30} className="mr-2"/>
-                                    <p className="font-w500 font-lg mb-0">{format(new Date(event.start), 'kk:mm zzz')} →&nbsp;</p>
-                                    <p className="font-w500 font-lg mb-0">{format(new Date(event.end), 'kk:mm zzz')}</p>
+                                    <p className="font-w500 font-lg mb-0">{format(new Date(event.start), 'HH:mm zzz')} →&nbsp;</p>
+                                    <p className="font-w500 font-lg mb-0">{format(new Date(event.end), 'HH:mm zzz')}</p>
                                 </div>
                             </Col>
                             <Col>

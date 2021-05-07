@@ -94,8 +94,8 @@ export default function Home() {
                             </div>
                             <div className="li-flex mb-0">
                                 <HiOutlineClock size={25} className="mr-2"/>
-                                <p className="font-w500 font-md mb-0">{format(new Date(event.start), 'kk:mm zzz')} →&nbsp;</p>
-                                <p className="font-w500 font-md mb-0">{format(new Date(event.end), 'kk:mm zzz')}</p>
+                                <p className="font-w500 font-md mb-0">{format(new Date(event.start), 'HH:mm zzz')} →&nbsp;</p>
+                                <p className="font-w500 font-md mb-0">{format(new Date(event.end), 'HH:mm zzz')}</p>
                             </div>
                         </Col>
                         <Col xs={12} lg={6} className="d-flex">
