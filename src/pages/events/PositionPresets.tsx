@@ -278,7 +278,7 @@ export default function PositionPresets() {
                     <Button className="mr-2" variant="lightgray" onClick={() => setShowAddPositionsModal(false)}>
                         Cancel
                     </Button>
-                    <Button className="mr-2" variant="primary" onClick={() => handleUpdatePositions(currentPreset.id, [...currentPreset?.positions, ...newPositions])}>
+                    <Button className="mr-2" variant="primary" onClick={() => handleUpdatePositions(currentPreset, [...currentPreset?.positions, ...newPositions])}>
                         Confirm
                     </Button>
                 </Modal.Body>
