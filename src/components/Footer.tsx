@@ -1,24 +1,20 @@
-import { Alert, Col } from 'react-bootstrap'
+import { Col } from 'react-bootstrap'
 import { RiErrorWarningLine } from 'react-icons/all'
 import { Link } from 'react-router-dom'
+import IconAlert from './IconAlert'
 
 export default function Footer() {
     return (
         <footer>
             <div className="d-flex justify-content-center mb-5">
                 <Col xs={10} xl={6} className="position-unset">
-                    <Alert variant="primary" className="position-unset d-flex m-0">
-                        {/* TODO: Fix icon scaling on mobile devices. */}
-                        <div><RiErrorWarningLine className="fill-primary mr-3" size={25}/></div>
-                        <div>
-                            <h5>Disclaimer!</h5>
-                            <p className="m-0">
-                                All information on this website is for flight simulation use only and is not to be used for
-                                real world navigation or flight. This site is not affiliated with ICAO, the FAA, the actual Houston ARTCC, or
-                                any other real world aerospace entity.
-                            </p>
-                        </div>
-                    </Alert>
+                    <IconAlert variant="primary" icon={RiErrorWarningLine} header="Disclaimer!">
+                        <p className="m-0">
+                            All information on this website is for flight simulation use only and is not to be used for
+                            real world navigation or flight. This site is not affiliated with ICAO, the FAA, the actual Houston ARTCC, or
+                            any other real world aerospace entity.
+                        </p>
+                    </IconAlert>
                 </Col>
             </div>
             <div className="bg-darkgray text-center p-4 p-xl-5">

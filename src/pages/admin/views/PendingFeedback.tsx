@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import { IoStar, IoStarOutline, RiCheckboxCircleFill, RiCheckboxCircleLine, RiCloseCircleFill, RiMailFill } from 'react-icons/all'
-import { Alert, Button, Card, Col, Form, FormGroup, Modal, Row } from 'react-bootstrap'
+import { IoStar, IoStarOutline, RiCheckboxCircleFill, RiCheckboxCircleLine, RiCloseCircleFill, RiErrorWarningLine, RiMailFill } from 'react-icons/all'
+import { Button, Card, Col, Form, FormGroup, Modal, Row } from 'react-bootstrap'
 import { useSnackbar } from 'notistack'
 import Fade from 'react-reveal/Fade'
 import axiosInstance from '../../../helpers/axiosInstance'
+import IconAlert from '../../../components/IconAlert'
 
 export default function PendingFeedback({ updateNotifs }) {
     const [feedback, setFeedback] = useState([])
@@ -130,15 +131,9 @@ export default function PendingFeedback({ updateNotifs }) {
                     ? <Row>
                         {feedback.map(feedback => <FeedbackCard feedback={feedback}/>)}
                     </Row>
-                    : <Alert variant="green" className="position-unset d-flex mb-5">
-                        <div><RiCheckboxCircleLine className="fill-green mr-3" size={25}/></div>
-                        <div>
-                            <h5>All caught up!</h5>
-                            <p className="m-0">
-                                There is currently no feedback pending review.
-                            </p>
-                        </div>
-                    </Alert>
+                    : <IconAlert variant="green" icon={RiCheckboxCircleLine} header="All caught up!">
+                        <p className="m-0">There is currently no feedback pending review.</p>
+                    </IconAlert>
                 }
             </Fade>
             <Modal

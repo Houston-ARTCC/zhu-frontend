@@ -9,6 +9,7 @@ import Select from 'react-select'
 import { RiErrorWarningLine } from 'react-icons/all'
 import { trainingLevelOptions, trainingOTSStatusOptions, trainingTypeOptions } from '../../helpers/constants'
 import { useSnackbar } from 'notistack'
+import IconAlert from '../../components/IconAlert'
 
 export default function FileSession() {
     const [session, setSession] = useState<any>(null)
@@ -144,14 +145,10 @@ export default function FileSession() {
             />
             <Fade bottom duration={1250} distance="50px">
                 <Container fluid>
-                    <Alert variant="purple" className="position-unset d-flex mb-5">
-                        <div><RiErrorWarningLine className="fill-purple mr-3" size={25}/></div>
-                        <div>
-                            <h5>Read before submitting!</h5>
-                            <p>Submitting this form will automatically submit this training session to the VATUSA Centralized Training Record System, thus there is no need to create this session on the VATUSA website! That being said, do not submit this form if the student failed to appear for the session or if the session was cancelled.</p>
-                            <p className="m-0">If this session is an OTS examination, submit the OTS form separately as a supplement to this note at <Alert.Link href={'https://www.vatusa.net/mgt/controller/' + session?.student.cid + '/promote'} target="_blank">https://www.vatusa.net/mgt/controller/{session?.student.cid}/promote</Alert.Link>.</p>
-                        </div>
-                    </Alert>
+                    <IconAlert variant="purple" icon={RiErrorWarningLine} header="Read before submitting!" className="mb-5">
+                        <p>Submitting this form will automatically submit this training session to the VATUSA Centralized Training Record System, thus there is no need to create this session on the VATUSA website! That being said, do not submit this form if the student failed to appear for the session or if the session was cancelled.</p>
+                        <p className="m-0">If this session is an OTS examination, submit the OTS form separately as a supplement to this note at <Alert.Link href={'https://www.vatusa.net/mgt/controller/' + session?.student.cid + '/promote'} target="_blank">https://www.vatusa.net/mgt/controller/{session?.student.cid}/promote</Alert.Link>.</p>
+                    </IconAlert>
                     <Form onSubmit={handleFileSession}>
                         <Row className="mb-4">
                             <Col>
@@ -237,7 +234,7 @@ export default function FileSession() {
                             <Form.Group as={Col}>
                                 <Form.Label>Training Notes</Form.Label>
                                 <ReactQuill
-                                    value={session?.notes}
+                                    value={session?.notes || ''}
                                     onChange={handleNotesChange}
                                     style={{ height: 265 }}
                                     modules={{

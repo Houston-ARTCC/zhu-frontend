@@ -132,20 +132,19 @@ const OTSStatusIcon = ({ status }) => {
 
 const OTSStatus = ({ status }) => {
     if (status === 0) return <></>;
-    let text;
-    let color;
+    let text, color
     switch (status) {
         case 1:
-            text = 'Passed OTS Examination';
-            color = 'green';
+            text = 'Passed OTS Examination'
+            color = 'green'
             break
         case 2:
-            text = 'Failed OTS Examination';
-            color = 'red';
+            text = 'Failed OTS Examination'
+            color = 'red'
             break
         case 3:
-            text = 'Recommended for OTS Examination';
-            color = 'primary';
+            text = 'Recommended for OTS Examination'
+            color = 'primary'
             break
     }
     return <Alert variant={color} className="font-w500"><OTSStatusIcon status={status}/> {text}</Alert>

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import Fade from 'react-reveal/Fade'
-import { Alert, Button, Card, Col, Form, FormGroup, Modal, Row } from 'react-bootstrap'
+import { Button, Card, Col, Form, FormGroup, Modal, Row } from 'react-bootstrap'
 import { RiCheckboxCircleFill, RiCheckboxCircleLine, RiCloseCircleFill } from 'react-icons/all'
 import axiosInstance from '../../../helpers/axiosInstance'
 import { useSnackbar } from 'notistack'
+import IconAlert from '../../../components/IconAlert'
 
 export default function VisitingRequests({ updateNotifs }) {
     const [requests, setRequests] = useState([])
@@ -121,15 +122,9 @@ export default function VisitingRequests({ updateNotifs }) {
                     ? <Row>
                         {requests.map(request => <RequestCard request={request}/>)}
                     </Row>
-                    : <Alert variant="green" className="position-unset d-flex mb-5">
-                        <div><RiCheckboxCircleLine className="fill-green mr-3" size={25}/></div>
-                        <div>
-                            <h5>All caught up!</h5>
-                            <p className="m-0">
-                                There are currently no visiting requests pending review.
-                            </p>
-                        </div>
-                    </Alert>
+                    : <IconAlert variant="green" icon={RiCheckboxCircleLine} header="All caught up!">
+                        <p className="m-0">There are currently no visiting requests pending review.</p>
+                    </IconAlert>
                 }
             </Fade>
             <Modal

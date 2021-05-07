@@ -11,6 +11,7 @@ import Error404 from '../errors/Error404'
 import parse from 'html-react-parser'
 import { format } from 'date-fns-tz'
 import Fade from 'react-reveal/Fade'
+import IconAlert from '../../components/IconAlert'
 
 class ViewEvent extends Component<any, any> {
     constructor(props) {
@@ -204,35 +205,26 @@ class ViewEvent extends Component<any, any> {
                     subtitle={`Presented by ${this.state.event.host}`}
                 />
                 <Fade bottom duration={1250} distance="50px">
-                    <Container fluid className="text-center">
+                    <Container fluid>
                         {this.state.event.hidden &&
                             <Row className="justify-content-center mb-3">
                                 <Col md={6}>
-                                    <Alert variant="red" className="d-flex m-0">
-                                        <FaRegEyeSlash className="fill-red mr-3" size={35} preserveAspectRatio="xMaxYMin"/>
-                                        <div className="text-left">
-                                            <h4>Event Hidden</h4>
-                                            <p className="m-0">This event is currently hidden from controllers. <Link
-                                                to={this.props.match.params.id + '/edit'} className="font-w500">Edit the event</Link> to make it visible.</p>
-                                        </div>
-                                    </Alert>
+                                    <IconAlert variant="red" icon={FaRegEyeSlash} header="Event Hidden">
+                                        <p className="m-0">This event is currently hidden from controllers. <Alert.Link as={Link} to={this.props.match.params.id + '/edit'} className="font-w500">Edit the event</Alert.Link> to make it visible.</p>
+                                    </IconAlert>
                                 </Col>
                             </Row>
                         }
                         {this.state.event.archived &&
                             <Row className="justify-content-center mb-3">
                                 <Col md={6}>
-                                    <Alert variant="purple" className="d-flex m-0">
-                                        <FaRegFolderOpen className="fill-purple mr-3" size={35} preserveAspectRatio="xMaxYMin"/>
-                                        <div className="text-left">
-                                            <h4>Event Archived</h4>
-                                            <p className="m-0">This event has passed and is now archived.</p>
-                                        </div>
-                                    </Alert>
+                                    <IconAlert variant="purple" icon={FaRegFolderOpen} header="Event Archived">
+                                        <p className="m-0">This event has passed and is now archived.</p>
+                                    </IconAlert>
                                 </Col>
                             </Row>
                         }
-                        <Row className="mb-5 d-flex align-items-center justify-content-center">
+                        <Row className="mb-5 d-flex text-center align-items-center justify-content-center">
                             <Col md={6}>
                                 <Row className="align-items-center mb-4">
                                     <Col xs={12} md={6} className="mb-2">
