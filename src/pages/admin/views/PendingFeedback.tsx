@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { IoStar, IoStarOutline, RiCheckboxCircleFill, RiCheckboxCircleLine, RiCloseCircleFill, RiErrorWarningLine, RiMailFill } from 'react-icons/all'
+import { IoStar, IoStarOutline, RiCheckboxCircleFill, RiCheckboxCircleLine, RiCloseCircleFill, RiMailFill } from 'react-icons/all'
 import { Button, Card, Col, Form, FormGroup, Modal, Row } from 'react-bootstrap'
 import { useSnackbar } from 'notistack'
 import Fade from 'react-reveal/Fade'

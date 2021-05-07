@@ -33,7 +33,7 @@ export function ratingInt(ratingStr) {
     }
 }
 
-export function certLevel(user) {
+export function maxCertLevel(user) {
     if (user.ocn_cert) return 6
     if (user.ctr_cert) return 5
     if (user.app_cert) return 4
@@ -52,6 +52,24 @@ export function certName(certInt) {
         case 2: return 'Ground'
         case 1: return 'Delivery'
         default: return 'Observer'
+    }
+}
+
+export function certLevel(certInt) {
+    switch (certInt) {
+        case 1: return 'Minor'
+        case 2: return 'Major'
+        case 3: return 'Solo'
+        default: return 'None'
+    }
+}
+
+export function certColor(certInt) {
+    switch (certInt) {
+        case 1: return 'yellow'
+        case 2: return 'green'
+        case 3: return 'red'
+        default: return 'lightgray'
     }
 }
 

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import Fade from 'react-reveal/Fade'
 import Header from '../../components/Header'
 import axiosInstance from '../../helpers/axiosInstance'
-import { certLevel, certName, ratingInt } from '../../helpers/utils'
+import { maxCertLevel, certName, ratingInt } from '../../helpers/utils'
 import { dataTableStyle } from '../../helpers/constants'
 import { useHistory } from 'react-router'
 import LoadingScreen from '../../components/LoadingScreen'
@@ -27,7 +27,7 @@ export default function Roster() {
     useEffect(() => {
         setSortedUsers(
             users.reduce((sorted, user) => {
-                sorted[certLevel(user)] = [...sorted[certLevel(user)] || [], user]
+                sorted[maxCertLevel(user)] = [...sorted[maxCertLevel(user)] || [], user]
                 return sorted
             }, {})
         )

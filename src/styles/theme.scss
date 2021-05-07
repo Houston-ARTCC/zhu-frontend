@@ -183,6 +183,12 @@ a {
     background-color: $primary;
 }
 
+.dropdown-menu {
+    min-width: unset !important;
+    border: none !important;
+    box-shadow: $shadow-lifted;
+}
+
 #notistack-snackbar, #notistack-snackbar path {
     color: white;
 }

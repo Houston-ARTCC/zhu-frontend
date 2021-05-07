@@ -7,7 +7,7 @@ import Fade from 'react-reveal/Fade'
 import Header from '../../components/Header'
 import StatisticCalendar from '../../components/StatisticCalendar'
 import axiosInstance from '../../helpers/axiosInstance'
-import { formatDurationStr } from '../../helpers/utils'
+import { certColor, certLevel, formatDurationStr } from '../../helpers/utils'
 import { isStaff } from '../../helpers/auth'
 import { dataTableStyle } from '../../helpers/constants'
 import { format } from 'date-fns'
@@ -74,40 +74,6 @@ export default function Profile() {
         )
     }
 
-    const Certification = ({ cert }) => {
-        let color, name
-        switch (cert) {
-            case 1:
-                color = 'yellow'
-                name = 'Minor'
-                break
-            case 2:
-                color = 'green'
-                name = 'Major'
-                break
-            case 3:
-                color = 'red'
-                name = 'Solo'
-                break
-            default:
-                color = 'lightgray'
-                name = 'None'
-                break
-        }
-        return <Badge variant={color + ' rounded'}>{name}</Badge>
-    }
-
-    const SmallCertification = ({ cert }) => {
-        let color;
-        switch (cert) {
-            case 1: color = 'yellow'; break
-            case 2: color = 'green'; break
-            case 3: color = 'red'; break
-            default: color = 'lightgray'; break
-        }
-        return <FaCircle className={'fill-' + color}/>
-    }
-
     const ExpandableFeedback = ({ row }) => (
         <div className="px-5 py-3">
             {row.data.pilot_callsign && <p className="font-w500"><RiPlaneLine size={25} className="mr-2"/>{row.data.pilot_callsign}</p>}
@@ -158,12 +124,12 @@ export default function Profile() {
                                     <th><h6>Oceanic</h6></th>
                                 </tr>
                                 <tr>
-                                    <td><Certification cert={user.del_cert}/></td>
-                                    <td><Certification cert={user.gnd_cert}/></td>
-                                    <td><Certification cert={user.twr_cert}/></td>
-                                    <td><Certification cert={user.app_cert}/></td>
-                                    <td><Certification cert={user.ctr_cert}/></td>
-                                    <td><Certification cert={user.ocn_cert}/></td>
+                                    <td><Badge variant={certColor(user.del_cert) + ' rounded'}>{certLevel(user.del_cert)}</Badge></td>
+                                    <td><Badge variant={certColor(user.gnd_cert) + ' rounded'}>{certLevel(user.gnd_cert)}</Badge></td>
+                                    <td><Badge variant={certColor(user.twr_cert) + ' rounded'}>{certLevel(user.twr_cert)}</Badge></td>
+                                    <td><Badge variant={certColor(user.app_cert) + ' rounded'}>{certLevel(user.app_cert)}</Badge></td>
+                                    <td><Badge variant={certColor(user.ctr_cert) + ' rounded'}>{certLevel(user.ctr_cert)}</Badge></td>
+                                    <td><Badge variant={certColor(user.ocn_cert) + ' rounded'}>{certLevel(user.ocn_cert)}</Badge></td>
                                 </tr>
                             </table>
                             <table className="w-100 text-center mb-5 d-table d-md-none" style={{ tableLayout: 'fixed' }}>
@@ -176,12 +142,12 @@ export default function Profile() {
                                     <th><h6>OCN</h6></th>
                                 </tr>
                                 <tr>
-                                    <td><SmallCertification cert={user.del_cert}/></td>
-                                    <td><SmallCertification cert={user.gnd_cert}/></td>
-                                    <td><SmallCertification cert={user.twr_cert}/></td>
-                                    <td><SmallCertification cert={user.app_cert}/></td>
-                                    <td><SmallCertification cert={user.ctr_cert}/></td>
-                                    <td><SmallCertification cert={user.ocn_cert}/></td>
+                                    <td><FaCircle className={'fill-' + certColor(user.del_cert)}/></td>
+                                    <td><FaCircle className={'fill-' + certColor(user.gnd_cert)}/></td>
+                                    <td><FaCircle className={'fill-' + certColor(user.twr_cert)}/></td>
+                                    <td><FaCircle className={'fill-' + certColor(user.app_cert)}/></td>
+                                    <td><FaCircle className={'fill-' + certColor(user.ctr_cert)}/></td>
+                                    <td><FaCircle className={'fill-' + certColor(user.ocn_cert)}/></td>
                                 </tr>
                             </table>
                             <StatisticCalendar data={userStats} height={window.innerWidth < 768 ? 1000 : 200} vertical={window.innerWidth < 768}/>
