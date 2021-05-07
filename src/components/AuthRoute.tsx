@@ -4,7 +4,7 @@ import { isAuthenticated } from '../helpers/auth'
 
 const AuthRoute = ({ component: Comp, auth: AuthFunction = isAuthenticated, view, ...rest }) => (
     <Route {...rest} render={(props) => (
-        AuthFunction()
+        isAuthenticated()
             ? AuthFunction()
                 ? <Comp view={view} {...props}/>
                 : <Error403/>
