@@ -406,12 +406,15 @@ a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
                               d8888P
  */
 .btn {
-    color: white !important;
-    fill: white !important;
     border: 2px solid transparent !important;
     border-radius: 5px !important;
     padding: 4px 22px !important;
     font-weight: 700 !important;
+
+    &:not(.btn-link) {
+        color: white !important;
+        fill: white !important;
+    }
 
     &.btn-sm {
         border-radius: 4px !important;

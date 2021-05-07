@@ -4,7 +4,7 @@ import { useSnackbar } from 'notistack'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import axiosInstance from '../../../helpers/axiosInstance'
-import { BsArrowDown } from 'react-icons/all'
+import { BsArrowDown, RiDeleteBin2Fill, RiDeleteBin2Line, RiDeleteBinLine, RiPencilRuler2Line } from 'react-icons/all'
 import { dataTableStyle } from '../../../helpers/constants'
 import DataTable from 'react-data-table-component'
 import parse from 'html-react-parser'
@@ -14,9 +14,10 @@ export default function Announcements() {
     const [announcements, setAnnouncements] = useState<any>([])
     const [showAnnouncementModal, setShowAnnouncementModal] = useState(false)
     const [activeAnnouncement, setActiveAnnouncement] = useState<any>({})
-    const [showCreateModal, setShowCreateModal] = useState(false)
     const [announcementTitle, setAnnouncementTitle] = useState('')
     const [announcementBody, setAnnouncementBody] = useState('')
+    const [showCreateModal, setShowCreateModal] = useState(false)
+    const [showDeleteModal, setShowDeleteModal] = useState(false)
 
     const { enqueueSnackbar } = useSnackbar()
 
@@ -28,7 +29,7 @@ export default function Announcements() {
             .then(res => setAnnouncements(res.data))
     }
 
-    const handleSubmitAnnouncement= (e) => {
+    const handleSubmitAnnouncement = (e) => {
         e.preventDefault()
         axiosInstance
             .post('/api/announcements/', { title: announcementTitle, body: announcementBody })
@@ -43,6 +44,34 @@ export default function Announcements() {
                     },
                 })
                 setShowCreateModal(false)
+            })
+            .catch(err => {
+                enqueueSnackbar(err.toString(), {
+                    variant: 'error',
+                    autoHideDuration: 3000,
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    },
+                })
+            })
+    }
+
+    const handleDeleteAnnouncement = (e) => {
+        e.preventDefault()
+        axiosInstance
+            .delete('/api/announcements/' + activeAnnouncement.id + '/')
+            .then(res => {
+                fetchAnnouncements()
+                enqueueSnackbar('Announcement successfully deleted!', {
+                    variant: 'success',
+                    autoHideDuration: 3000,
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    },
+                })
+                setShowDeleteModal(false)
             })
             .catch(err => {
                 enqueueSnackbar(err.toString(), {
@@ -93,6 +122,21 @@ export default function Announcements() {
                         format: row => format(new Date(row.posted), 'MMM d, Y @ kk:mm zzz'),
                         sortFunction: (a, b) => new Date(a.start) > new Date(b.start) ? 1 : -1,
                     },
+                    {
+                        name: 'Delete',
+                        button: true,
+                        cell: row => (
+                            <Button
+                                variant="link"
+                                onClick={() => {
+                                    setActiveAnnouncement(row)
+                                    setShowDeleteModal(true)
+                                }}
+                            >
+                                <RiDeleteBinLine size={20}/>
+                            </Button>
+                        ),
+                    }
                 ]}
             />
             <Modal
@@ -111,7 +155,7 @@ export default function Announcements() {
                 size="lg"
                 show={showCreateModal}
                 onHide={() => setShowCreateModal(false)}
-                keyboard={false}
+                backdrop="static"
             >
                 <Form onSubmit={handleSubmitAnnouncement}>
                     <Modal.Header closeButton>
@@ -149,6 +193,25 @@ export default function Announcements() {
                             Cancel
                         </Button>
                         <Button variant="primary" type="submit">Submit</Button>
+                    </Modal.Footer>
+                </Form>
+            </Modal>
+            <Modal
+                show={showDeleteModal}
+                onHide={() => setShowDeleteModal(false)}
+            >
+                <Form onSubmit={handleDeleteAnnouncement}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Delete Site Announcement</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>Are you sure you would like to delete <b>{activeAnnouncement.title}</b>? This action cannot be undone.</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="lightgray" onClick={() => setShowDeleteModal(false)}>
+                            Cancel
+                        </Button>
+                        <Button variant="primary" type="submit">Confirm</Button>
                     </Modal.Footer>
                 </Form>
             </Modal>
