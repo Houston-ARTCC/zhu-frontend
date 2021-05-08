@@ -103,7 +103,7 @@ export default function Profile() {
                                     />
                                     {isStaff() &&
                                         <Link to={user.cid + '/edit'}>
-                                            <Button variant="primary" className="mb-5"><RiPencilRuler2Line className="fill-white" viewBox="3 3 20 20"/> Edit User</Button>
+                                            <Button variant="primary" className="mb-5"><RiPencilRuler2Line viewBox="3 3 20 20"/> Edit User</Button>
                                         </Link>
                                     }
                                 </div>

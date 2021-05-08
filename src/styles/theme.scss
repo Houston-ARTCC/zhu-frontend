@@ -175,6 +175,10 @@ a {
     font-size: 60px;
 }
 
+.dropdown .btn {
+    color: white !important;
+}
+
 .dropdown-toggle {
     color: inherit !important;
 }
@@ -274,7 +278,7 @@ a88aaaa    .d8888b. 88d888b. 88d8b.d8b. .d8888b.
 
 .css-yk16xz-control, .css-1pahdxg-control, .custom-control-label::before {
     border-color: $smokegray !important;
-    background-color: #FAFAFA !important;
+    background-color: transparent !important;
     transition: border .2s, box-shadow .2s !important;
 }
 
@@ -295,6 +299,10 @@ a88aaaa    .d8888b. 88d888b. 88d8b.d8b. .d8888b.
 .custom-control-input:checked ~ .custom-control-label::before {
     background-color: $primary !important;
     border-color: $primary !important;
+}
+
+.css-1rhbuit-multiValue {
+    background-color: rgba(#dcdcdc, 0.2) !important;
 }
 
 .dropzone {

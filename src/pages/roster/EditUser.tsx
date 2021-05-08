@@ -142,8 +142,8 @@ export default function EditUser() {
                                             <Form.Control required type="text" name="initials" value={user.initials} onChange={handleTextChange}/>
                                         </Form.Group>
                                     </Form.Row>
-                                    <Form.Switch required className="mb-3" id="prevent_event_signup" name="prevent_event_signup" label="Prevent Event Sign Up" onChange={handleSwitchChange}/>
-                                    <Form.Switch required className="mb-3" id="cic_endorsed" name="cic_endorsed" label="CIC Endorsed" onChange={handleSwitchChange}/>
+                                    <Form.Switch className="mb-3" id="prevent_event_signup" name="prevent_event_signup" label="Prevent Event Sign Up" checked={user.prevent_event_signup} onChange={handleSwitchChange}/>
+                                    <Form.Switch className="mb-3" id="cic_endorsed" name="cic_endorsed" label="CIC Endorsed" checked={user.cic_endorsed} onChange={handleSwitchChange}/>
                                 </Col>
                                 <Col>
                                     <table className="w-100 text-center mb-4" style={{ tableLayout: 'fixed' }}>

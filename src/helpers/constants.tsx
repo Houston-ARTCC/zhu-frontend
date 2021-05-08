@@ -109,7 +109,7 @@ export const dataTableStyle = {
 }
 
 export const selectStyles = {
-    multiValue: (base, state) => state.data.isFixed ? { ...base, backgroundColor: '#a7a9b1' } : base,
+    multiValue: (base, state) => state.data.isFixed ? { ...base, backgroundColor: '#b4b4bf80' } : base,
     multiValueRemove: (base, state) => state.data.isFixed ? { ...base, display: 'none' } : base,
     multiValueLabel: (base, state) => state.data.isFixed
         ? { ...base, color: 'white', paddingLeft: 10, paddingRight: 10 }
