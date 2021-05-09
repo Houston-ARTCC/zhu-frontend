@@ -40,7 +40,6 @@ d888888P                                                                dP
 .text-silver { color: $silver !important; }
 .text-bronze { color: $bronze !important; }
 
-.font-w100 { font-weight: 100 !important; }
 .font-w300 { font-weight: 300 !important; }
 .font-w400 { font-weight: 400 !important; }
 .font-w500 { font-weight: 500 !important; }
@@ -262,8 +261,13 @@ a {
     }
 }
 
-.table td, .table th {
+.table td {
     border-top-color: rgba(#aaaaaa, 0.25) !important;
+}
+
+.table th {
+    border-top: none !important;
+    border-bottom-color: rgba(#aaaaaa, 0.25) !important;
 }
 
 .table-striped tbody {

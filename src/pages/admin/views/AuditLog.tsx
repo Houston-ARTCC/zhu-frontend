@@ -73,7 +73,7 @@ export default function AuditLog() {
                     </colgroup>
                     <thead>
                         <tr>
-                            <th className="text-right"><b>Field</b></th>
+                            <th/>
                             {(row.data.action === 1 && <th><b>Previous Value</b></th>)}
                             <th><b>Current Value</b></th>
                             {(row.data.action !== 1 && <th/>)}
@@ -116,8 +116,8 @@ export default function AuditLog() {
                 onRowExpandToggled={(state, row) => state && setExpanded(row)}
                 expandOnRowClicked
                 pagination={true}
-                paginationPerPage={10}
-                paginationRowsPerPageOptions={[10, 15, 20, 25]}
+                paginationPerPage={15}
+                paginationRowsPerPageOptions={[15, 25, 50, 100]}
                 onChangePage={() => setExpanded({})}
                 onSort={() => setExpanded({})}
                 customStyles={dataTableStyle}
@@ -125,7 +125,7 @@ export default function AuditLog() {
                     {
                         name: 'Action',
                         selector: 'action',
-                        format: row => <>{row.content_type} <b>{row.object_repr}</b> was <ActionBadge action={row.action}/> by {row.actor ? row.actor.first_name + ' ' + row.actor.last_name : 'system'}</>
+                        format: row => <>{row.content_type} <b>{row.object_id} - {row.object_repr}</b> was <ActionBadge action={row.action}/> by {row.actor ? row.actor.first_name + ' ' + row.actor.last_name : 'system'}</>
                     },
                     {
                         name: 'Timestamp',
