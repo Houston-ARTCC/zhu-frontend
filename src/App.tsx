@@ -31,7 +31,7 @@ import StudentProfile from './pages/training/views/StudentProfile'
 import AssignExam from './pages/training/views/AssignExam'
 import MentorHistory from './pages/training/views/MentorHistory'
 import LOARequests from './pages/admin/views/LOARequests'
-import ActionLog from './pages/admin/views/ActionLog'
+import AuditLog from './pages/admin/views/AuditLog'
 import AdminPanel from './pages/admin/AdminPanel'
 import Announcements from './pages/admin/views/Announcements'
 import AdminHome from './pages/admin/views/AdminHome'
@@ -89,7 +89,7 @@ export default function App() {
                 <AuthRoute exact path="/training/session/:id(\d+)" component={FileSession} view={null} auth={isTrainingStaff}/>
                 {/* Adiministration */}
                 <AuthRoute exact path="/admin" component={AdminPanel} view={AdminHome} auth={isStaff}/>
-                <AuthRoute exact path="/admin/log" component={AdminPanel} view={ActionLog} auth={isStaff}/>
+                <AuthRoute exact path="/admin/audit" component={AdminPanel} view={AuditLog} auth={isStaff}/>
                 <AuthRoute exact path="/admin/visit" component={AdminPanel} view={VisitingRequests} auth={isAdmin}/>
                 <AuthRoute exact path="/admin/feedback" component={AdminPanel} view={PendingFeedback} auth={isSeniorStaff}/>
                 <AuthRoute exact path="/admin/support" component={AdminPanel} view={SupportRequests} auth={isStaff}/>

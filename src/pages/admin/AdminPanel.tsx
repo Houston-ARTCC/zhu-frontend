@@ -44,9 +44,9 @@ export default function AdminPanel(props) {
                                             ARTCC Information
                                         </Link>
                                     </ListGroup.Item>
-                                    <ListGroup.Item as="li" active={location.pathname === '/admin/log'}>
-                                        <Link to="/admin/log">
-                                            Action Log
+                                    <ListGroup.Item as="li" active={location.pathname === '/admin/audit'}>
+                                        <Link to="/admin/audit">
+                                            Audit Log
                                         </Link>
                                     </ListGroup.Item>
                                     <ListGroup.Item as="li">
