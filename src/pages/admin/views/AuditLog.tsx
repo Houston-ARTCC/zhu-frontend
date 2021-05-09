@@ -35,7 +35,7 @@ export default function AuditLog() {
 
     const entryFilter = (entry) => (
         actionText(entry.action)?.includes(filter.toLowerCase()) ||
-        entry.content_type.model.toLowerCase().includes(filter.toLowerCase()) ||
+        entry.content_type.toLowerCase().includes(filter.toLowerCase()) ||
         entry.object_repr.toLowerCase().includes(filter.toLowerCase()) ||
         entry.object_id.toString().includes(filter.toLowerCase()) ||
         entry.actor?.cid.toString().includes(filter.toLowerCase()) ||
@@ -125,7 +125,7 @@ export default function AuditLog() {
                     {
                         name: 'Action',
                         selector: 'action',
-                        format: row => <>{row.content_type.model.charAt(0).toUpperCase() + row.content_type.model.slice(1)} <b>{row.object_repr}</b> was <ActionBadge action={row.action}/> by {row.actor ? row.actor.first_name + ' ' + row.actor.last_name : 'system'}</>
+                        format: row => <>{row.content_type} <b>{row.object_repr}</b> was <ActionBadge action={row.action}/> by {row.actor ? row.actor.first_name + ' ' + row.actor.last_name : 'system'}</>
                     },
                     {
                         name: 'Timestamp',
