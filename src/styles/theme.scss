@@ -298,6 +298,18 @@ a88aaaa    .d8888b. 88d888b. 88d8b.d8b. .d8888b.
     }
 }
 
+.is-invalid {
+    &.form-control, &.form-control:focus, .custom-control-label::before,
+    .css-yk16xz-control, .css-1pahdxg-control {
+        border: 1px $red solid !important;
+        box-shadow: 0 0 0 1px $red !important;
+    }
+    &.form-control {
+        background-image: none !important;
+        padding-right: 0.75rem !important;
+    }
+}
+
 .css-yk16xz-control, .css-1pahdxg-control, .custom-control-label::before {
     border-color: $smokegray !important;
     background-color: transparent !important;

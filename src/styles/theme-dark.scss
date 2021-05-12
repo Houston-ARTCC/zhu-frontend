@@ -85,6 +85,14 @@ body.dark {
         }
     }
 
+    .is-invalid {
+        &.form-control, &.form-control:focus, .custom-control-label::before,
+        .css-yk16xz-control, .css-1pahdxg-control {
+            border: 1px $red solid !important;
+            box-shadow: 0 0 0 1px $red !important;
+        }
+    }
+
     .css-yk16xz-control {
         background-color: #252528 !important;
         border-color: $mutedblack !important;

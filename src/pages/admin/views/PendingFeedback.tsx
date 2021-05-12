@@ -29,7 +29,7 @@ export default function PendingFeedback({ updateNotifs }) {
             .put('/api/feedback/' + feedback.id + '/')
             .then(res => {
                 fetchFeedback()
-                enqueueSnackbar('Approved feedback for ' + feedback.controller.first_name + ' ' + feedback.controller.last_name, {
+                enqueueSnackbar('Approved feedback for ' + (feedback.controller ? feedback.controller.first_name + ' ' + feedback.controller.last_name : 'the Houston ARTCC'), {
                     variant: 'success',
                     autoHideDuration: 3000,
                     anchorOrigin: {
@@ -56,7 +56,7 @@ export default function PendingFeedback({ updateNotifs }) {
             .delete('/api/feedback/' + feedback.id + '/', { data: { reason: reason } })
             .then(res => {
                 fetchFeedback()
-                enqueueSnackbar('Rejected feedback for ' + feedback.controller.first_name + ' ' + feedback.controller.last_name, {
+                enqueueSnackbar('Rejected feedback for ' + (feedback.controller ? feedback.controller.first_name + ' ' + feedback.controller.last_name : 'the Houston ARTCC'), {
                     variant: 'success',
                     autoHideDuration: 3000,
                     anchorOrigin: {
@@ -83,8 +83,8 @@ export default function PendingFeedback({ updateNotifs }) {
             <Card>
                 <Card.Body>
                     <div className="d-flex align-items-baseline">
-                        <h4 className="text-black font-w700 mb-0 mr-2">{feedback.controller.first_name} {feedback.controller.last_name}</h4>
-                        <h6 className="text-gray font-w500 mb-0">on {feedback.controller_callsign}</h6>
+                        <h4 className="text-black font-w700 mb-0 mr-2">{feedback.controller ? feedback.controller.first_name + ' ' + feedback.controller.last_name : 'General ARTCC Feedback'}</h4>
+                        {feedback.controller && <h6 className="text-gray font-w500 mb-0">on {feedback.controller_callsign}</h6>}
                     </div>
                     <div className="mb-4">
                         {[...Array(5)].map((x, i) => {
@@ -98,7 +98,7 @@ export default function PendingFeedback({ updateNotifs }) {
                     <blockquote className="mb-4">
                         <p><em>{feedback.comments}</em></p>
                         <p className="mb-0"><b>{feedback.pilot.first_name} {feedback.pilot.last_name} - {feedback.pilot.cid}</b> <a href={'mailto:' + feedback.pilot.email}><RiMailFill/></a></p>
-                        <p>Callsign: {feedback.pilot_callsign}</p>
+                        {feedback.pilot_callsign && <p>Callsign: {feedback.pilot_callsign}</p>}
                     </blockquote>
                     <Button
                         variant="bg-green"
@@ -147,7 +147,7 @@ export default function PendingFeedback({ updateNotifs }) {
                     <Modal.Title>Confirm Approve Feedback</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p>Are you sure you would like to <b>approve</b> feedback for {currentFeedback.controller?.first_name} {currentFeedback.controller?.last_name}?</p>
+                    <p>Are you sure you would like to <b>approve</b> feedback for {currentFeedback.controller ? currentFeedback.controller.first_name + ' ' + currentFeedback.controller.last_name : 'the Houston ARTCC'}?</p>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="lightgray" onClick={() => setShowConfirmApproveModal(false)}>
@@ -174,7 +174,7 @@ export default function PendingFeedback({ updateNotifs }) {
                         <Modal.Title>Confirm Reject Feedback</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p>Are you sure you would like to <b>reject</b> feedback for {currentFeedback.controller?.first_name} {currentFeedback.controller?.last_name}?</p>
+                        <p>Are you sure you would like to <b>reject</b> feedback for {currentFeedback.controller ? currentFeedback.controller.first_name + ' ' + currentFeedback.controller.last_name : 'the Houston ARTCC'}?</p>
                         <FormGroup className="mb-0">
                             <Form.Label>The pilot will be sent the following as the reason for rejection:</Form.Label>
                             <Form.Control

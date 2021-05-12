@@ -5,13 +5,14 @@ import Header from '../components/Header'
 import StarRating from '../components/StarRating'
 import axiosInstance from '../helpers/axiosInstance'
 import { getCID, getFullName } from '../helpers/auth'
+import { useSnackbar } from 'notistack'
 
 export default function Feedback() {
     const [controllerOptions, setControllerOptions] = useState([])
     const [eventOptions, setEventOptions] = useState([])
-    const [feedbackForm, setFeedbackForm] = useState<any>({
-        rating: 1,
-    })
+    const [feedbackForm, setFeedbackForm] = useState<any>({ rating: 1 })
+
+    const { enqueueSnackbar } = useSnackbar()
 
     useEffect(() => {
         fetchControllers()
@@ -25,7 +26,7 @@ export default function Feedback() {
                 setControllerOptions(
                     res.data.home.concat(res.data.visiting).concat(res.data.mavp).map(controller => ({
                         value: controller.cid,
-                        label: controller.first_name + ' ' + controller.last_name,
+                        label: controller.first_name + ' ' + controller.last_name + ' - ' + controller.cid,
                     }))
                 )
             })
@@ -73,7 +74,24 @@ export default function Feedback() {
         axiosInstance
             .post('/api/feedback/', feedbackForm)
             .then(res => {
-                // TODO: Success modal
+                enqueueSnackbar('Successfully submitted feedback', {
+                    variant: 'success',
+                    autoHideDuration: 3000,
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    },
+                })
+            })
+            .catch(err => {
+                enqueueSnackbar(err.toString(), {
+                    variant: 'error',
+                    autoHideDuration: 3000,
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    },
+                })
             })
     }
 
@@ -88,12 +106,8 @@ export default function Feedback() {
                                 <Form.Group as={Col}>
                                     <Form.Label>Controller's Name</Form.Label>
                                     <Select
-                                        options={controllerOptions}
+                                        options={[{value: null, label: <b>General ARTCC Feedback</b>}].concat(controllerOptions)}
                                         onChange={handleControllerChange}
-                                        getOptionLabel={(option) => <span>{option.label} - {option.value}</span>}
-                                        filterOption={(obj, filter) => {
-                                            return obj.data.label.toLowerCase().includes(filter.toLowerCase())
-                                        }}
                                     />
                                 </Form.Group>
                                 <Form.Group as={Col}>
@@ -132,7 +146,7 @@ export default function Feedback() {
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>Comments</Form.Label>
-                                <Form.Control as="textarea" rows={5} name="comments" value={feedbackForm.comments} onChange={handleTextChange}/>
+                                <Form.Control required as="textarea" rows={5} name="comments" value={feedbackForm.comments} onChange={handleTextChange}/>
                             </Form.Group>
                         </Col>
                     </Row>
@@ -144,5 +158,3 @@ export default function Feedback() {
         </div>
     )
 }
-
-// TODO: Implement general ARTCC feedback.

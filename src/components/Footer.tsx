@@ -1,5 +1,5 @@
 import { Col } from 'react-bootstrap'
-import { RiErrorWarningLine } from 'react-icons/all'
+import { IoIosAirplane, RiErrorWarningLine } from 'react-icons/all'
 import { Link } from 'react-router-dom'
 import IconAlert from './IconAlert'
 
@@ -21,15 +21,15 @@ export default function Footer() {
                 <h5 className="text-white font-w400 mb-3">&copy; 2021, Virtual Houston ARTCC. All Rights Reserved.</h5>
                 <div className="d-flex flex-wrap justify-content-center" id="footer-links">
                     <a href="https://vatsim.net" target="_blank" rel="noreferrer"><h6 className="text-lightgray font-w300">VATSIM</h6></a>
-                    <h6 className="text-lightgray font-w300">→</h6>
+                    <IoIosAirplane className="fill-gray mx-1"/>
                     <a href="https://vatusa.net" target="_blank" rel="noreferrer"><h6 className="text-lightgray font-w300">VATUSA</h6></a>
-                    <h6 className="text-lightgray font-w300">→</h6>
+                    <IoIosAirplane className="fill-gray mx-1"/>
                     <Link to="/privacy"><h6 className="text-lightgray font-w300">Privacy Policy</h6></Link>
-                    <h6 className="text-lightgray font-w300">→</h6>
+                    <IoIosAirplane className="fill-gray mx-1"/>
                     <Link to="/feedback"><h6 className="text-lightgray font-w300">Feedback</h6></Link>
-                    <h6 className="text-lightgray font-w300">→</h6>
+                    <IoIosAirplane className="fill-gray mx-1"/>
                     <a href="https://discord.gg/Ag2cdZz" target="_blank" rel="noreferrer"><h6 className="text-lightgray font-w300">Discord</h6></a>
-                    <h6 className="text-lightgray font-w300">→</h6>
+                    <IoIosAirplane className="fill-gray mx-1"/>
                     <a href="https://github.com/Houston-ARTCC" target="_blank" rel="noreferrer"><h6 className="text-lightgray font-w300">GitHub</h6></a>
                 </div>
             </div>
