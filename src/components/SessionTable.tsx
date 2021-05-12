@@ -5,18 +5,20 @@ import {
     RiCalendarLine,
     RiCheckboxCircleFill,
     RiCloseCircleFill,
-    RiIndeterminateCircleFill,
+    RiIndeterminateCircleFill, RiPencilRuler2Line,
     RiPlaneLine,
     RiSignalTowerLine,
     RiTimeLine,
 } from 'react-icons/all'
 import { levelDisplay, sessionStatusDisplay, typeDisplay } from '../helpers/utils'
+import { Link } from 'react-router-dom'
 import { dataTableStyle } from '../helpers/constants'
 import DataTable from 'react-data-table-component'
-import { Alert, Badge, Col, Row } from 'react-bootstrap'
+import { Alert, Badge, Button, Col, Row } from 'react-bootstrap'
 import Spinner from './Spinner'
 import parse from 'html-react-parser'
 import { format } from 'date-fns-tz'
+import { isTrainingStaff } from '../helpers/auth'
 
 export default function SessionTable({ data, loading }) {
     const [expanded, setExpanded] = useState<any>({})
@@ -86,12 +88,21 @@ export default function SessionTable({ data, loading }) {
                     selector: 'status',
                     sortable: true,
                     format: row => <Status status={row.status}/>,
+                    width: '10%',
                 },
                 {
                     name: 'OTS',
                     selector: 'ots',
                     sortable: true,
                     format: row => <OTSStatusIcon status={row.ots_status}/>,
+                    width: '5%',
+                },
+                {
+                    name: 'Edit',
+                    button: true,
+                    cell: row => <Link to={'/training/session/' + row.id + '/edit'}><Button variant="link"><RiPencilRuler2Line size={20}/></Button></Link>,
+                    omit: !isTrainingStaff(),
+                    width: '5%',
                 },
             ]}
         />

@@ -21,6 +21,7 @@ import NewEvent from './pages/events/NewEvent'
 import EventScores from './pages/events/EventScores'
 import PositionPresets from './pages/events/PositionPresets'
 import FileSession from './pages/training/FileSession'
+import EditSession from './pages/training/EditSession'
 import TrainingCenter from './pages/training/TrainingCenter'
 import Exams from './pages/training/views/Exams'
 import Sessions from './pages/training/views/Sessions'
@@ -86,7 +87,8 @@ export default function App() {
                 <AuthRoute exact path="/training/profile" component={TrainingCenter} view={StudentProfile} auth={isTrainingStaff}/>
                 <AuthRoute exact path="/training/mentor" component={TrainingCenter} view={MentorHistory} auth={isTrainingStaff}/>
                 <AuthRoute exact path="/training/assign" component={TrainingCenter} view={AssignExam} auth={isTrainingStaff}/>
-                <AuthRoute exact path="/training/session/:id(\d+)" component={FileSession} view={null} auth={isTrainingStaff}/>
+                <AuthRoute exact path="/training/session/:id(\d+)/file" component={FileSession} view={null} auth={isTrainingStaff}/>
+                <AuthRoute exact path="/training/session/:id(\d+)/edit" component={EditSession} view={null} auth={isTrainingStaff}/>
                 {/* Adiministration */}
                 <AuthRoute exact path="/admin" component={AdminPanel} view={AdminHome} auth={isStaff}/>
                 <AuthRoute exact path="/admin/audit" component={AdminPanel} view={AuditLog} auth={isStaff}/>

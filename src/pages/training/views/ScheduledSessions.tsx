@@ -106,7 +106,7 @@ export default function ScheduledSessions() {
                                         <RiMoreFill size={20}/>
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        <Dropdown.Item onClick={() => history.push('/training/session/' + row.id)}>
+                                        <Dropdown.Item onClick={() => history.push('/training/session/' + row.id + '/file')}>
                                             <RiFileUserLine size={20}/> File
                                         </Dropdown.Item>
                                         <Dropdown.Item onClick={() => {

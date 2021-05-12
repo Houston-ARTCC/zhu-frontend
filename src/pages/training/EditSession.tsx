@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router'
 import { useEffect, useState } from 'react'
 import Header from '../../components/Header'
 import Fade from 'react-reveal/Fade'
-import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import ReactQuill from 'react-quill'
 import Select from 'react-select'
 import { RiErrorWarningLine } from 'react-icons/all'
@@ -12,7 +12,7 @@ import { useSnackbar } from 'notistack'
 import IconAlert from '../../components/IconAlert'
 import LoadingScreen from '../../components/LoadingScreen'
 
-export default function FileSession() {
+export default function EditSession() {
     const [session, setSession] = useState<any>(null)
     const [mentorOptions, setMentorOptions] = useState<any>([])
     const [loading, setLoading] = useState(true)
@@ -118,9 +118,9 @@ export default function FileSession() {
         delete newSession.student
         newSession['instructor'] = newSession.instructor.cid
         axiosInstance
-            .post('/api/training/session/' + id + '/', newSession)
+            .put('/api/training/session/' + id + '/', newSession)
             .then(res => {
-                enqueueSnackbar('Successfully filed training session', {
+                enqueueSnackbar('Successfully saved training session', {
                     variant: 'success',
                     autoHideDuration: 3000,
                     anchorOrigin: {
@@ -128,7 +128,7 @@ export default function FileSession() {
                         horizontal: 'right',
                     },
                 })
-                history.push('/training/scheduled')
+                history.push('/training')
             })
             .catch(err => {
                 enqueueSnackbar(err.toString(), {
@@ -147,14 +147,13 @@ export default function FileSession() {
     return (
         <>
             <Header
-                title="Filing Training Session"
-                subtitle={'For ' + session?.student.first_name + ' ' + session?.student.last_name}
+                title="Editing Training Session"
+                subtitle={'For ' + session?.student?.first_name + ' ' + session?.student.last_name}
             />
             <Fade bottom duration={1250} distance="50px">
                 <Container fluid>
                     <IconAlert variant="purple" icon={RiErrorWarningLine} header="Read before submitting!" className="mb-5">
-                        <p>Submitting this form will automatically submit this training session to the VATUSA Centralized Training Record System, thus there is no need to create this session on the VATUSA website! That being said, do not submit this form if the student failed to appear for the session or if the session was cancelled.</p>
-                        <p className="m-0">If this session is an OTS examination, submit the OTS form separately as a supplement to this note at <Alert.Link href={'https://www.vatusa.net/mgt/controller/' + session?.student.cid + '/promote'} target="_blank">https://www.vatusa.net/mgt/controller/{session?.student.cid}/promote</Alert.Link>.</p>
+                        <p className="mb-0">Submitting this form will automatically edit this training session on the VATUSA Centralized Training Record System, thus there is no need to edit this session on the VATUSA website!</p>
                     </IconAlert>
                     <Form onSubmit={handleFileSession}>
                         <Row className="mb-4">
