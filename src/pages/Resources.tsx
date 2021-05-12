@@ -22,9 +22,9 @@ export default function Resources() {
     const [newResource, setNewResource] = useState<any>({})
     const [loading, setLoading] = useState(true)
 
-    const { enqueueSnackbar } = useSnackbar()
-
     const categories = ['VRC', 'vSTARS', 'vERAM', 'vATIS', 'SOP', 'LOA', 'MAVP', 'Misc']
+
+    const { enqueueSnackbar } = useSnackbar()
 
     useEffect(() => fetchResources(), [])
 
@@ -135,7 +135,7 @@ export default function Resources() {
     }
 
     const Category = ({ category, resources }) => (
-        <section className="mb-5" id={category}>
+        <>
             <h2 className="text-black mb-1">{category}</h2>
             <h6 className="text-gray mb-4">{resources?.length} Resource{resources?.length !== 1 ? 's' : ''}</h6>
             <Card>
@@ -185,7 +185,7 @@ export default function Resources() {
                     />
                 </Card.Body>
             </Card>
-        </section>
+        </>
     )
 
     const categoryOptions = categories.map(category => ({ value: category, label: category }))
@@ -201,16 +201,17 @@ export default function Resources() {
                             style={{ top: 150, zIndex: 0 }}
                             className="p-0 mb-4 sticky-top"
                             currentClassName="active"
-                            items={categories}
+                            items={['VRC', 'vSTARS', 'vERAM', 'vATIS', 'SOP', 'LOA', 'MAVP', 'Misc']}
                             offset={-150}
                         >
-                            {categories.map(category => {
-                                return (
-                                    <ListGroup.Item as="li">
-                                        <a href={'#' + category}>{category}</a>
-                                    </ListGroup.Item>
-                                )
-                            })}
+                            <ListGroup.Item as="li"><a href="#VRC">VRC</a></ListGroup.Item>
+                            <ListGroup.Item as="li"><a href="#vSTARS">vSTARS</a></ListGroup.Item>
+                            <ListGroup.Item as="li"><a href="#vERAM">vERAM</a></ListGroup.Item>
+                            <ListGroup.Item as="li"><a href="#vATIS">vATIS</a></ListGroup.Item>
+                            <ListGroup.Item as="li"><a href="#SOP">SOP</a></ListGroup.Item>
+                            <ListGroup.Item as="li"><a href="#LOA">LOA</a></ListGroup.Item>
+                            <ListGroup.Item as="li"><a href="#MAVP">MAVP</a></ListGroup.Item>
+                            <ListGroup.Item as="li"><a href="#Misc">Misc</a></ListGroup.Item>
                         </ScrollSpy>
                     </Col>
                     <Col className="ml-0 ml-md-5">
@@ -219,7 +220,14 @@ export default function Resources() {
                                 <RiAddFill size={20}/> New Resource
                             </Button>
                         }
-                        {categories.map(category => <Category category={category} resources={resources[category.toLowerCase()]}/>)}
+                        <section className="mb-5" id="VRC"><Category category="VRC" resources={resources['vrc']}/></section>
+                        <section className="mb-5" id="vSTARS"><Category category="vSTARS" resources={resources['vstars']}/></section>
+                        <section className="mb-5" id="vERAM"><Category category="vERAM" resources={resources['veram']}/></section>
+                        <section className="mb-5" id="vATIS"><Category category="vATIS" resources={resources['vatis']}/></section>
+                        <section className="mb-5" id="SOP"><Category category="SOP" resources={resources['sop']}/></section>
+                        <section className="mb-5" id="LOA"><Category category="LOA" resources={resources['loa']}/></section>
+                        <section className="mb-5" id="MAVP"><Category category="MAVP" resources={resources['mavp']}/></section>
+                        <section className="mb-5" id="Misc"><Category category="Misc" resources={resources['misc']}/></section>
                     </Col>
                 </Row>
                 <Modal
