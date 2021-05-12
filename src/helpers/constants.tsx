@@ -6,25 +6,25 @@ export const tuiCalendars = [
         id: '0',
         name: 'Events',
         bgColor: '#109CF1',
-        borderColor: '#157fbe'
+        borderColor: '#50b7ff',
     },
     {
         id: '1',
         name: 'Training Sessions',
-        bgColor: '#f7685b',
-        borderColor: '#cb4f40'
+        bgColor: '#F7685B',
+        borderColor: '#ff6b5f',
     },
     {
         id: '2',
         name: 'Training Requests',
         bgColor: '#b0b0b0',
-        borderColor: '#9f9f9f'
+        borderColor: '#949494',
     },
     {
         id: '3',
         name: 'Controller Bookings',
-        bgColor: '#75d65a',
-        borderColor: '#59ba3c'
+        bgColor: '#2ED47A',
+        borderColor: '#40e98d',
     },
 ]
 

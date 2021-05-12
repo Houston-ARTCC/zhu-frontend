@@ -31,18 +31,10 @@ export default function Staff() {
                                 items={['core-staff', 'assistant-staff', 'training-team', 'web-team']}
                                 offset={-150}
                             >
-                                <ListGroup.Item as="li">
-                                    <a href="#core-staff">Core Staff</a>
-                                </ListGroup.Item>
-                                <ListGroup.Item as="li">
-                                    <a href="#assistant-staff">Assistant Staff</a>
-                                </ListGroup.Item>
-                                <ListGroup.Item as="li">
-                                    <a href="#training-team">Training Team</a>
-                                </ListGroup.Item>
-                                <ListGroup.Item as="li">
-                                    <a href="#web-team">Web Team</a>
-                                </ListGroup.Item>
+                                <ListGroup.Item as="li"><a href="#core-staff">Core Staff</a></ListGroup.Item>
+                                <ListGroup.Item as="li"><a href="#assistant-staff">Assistant Staff</a></ListGroup.Item>
+                                <ListGroup.Item as="li"><a href="#training-team">Training Team</a></ListGroup.Item>
+                                <ListGroup.Item as="li"><a href="#web-team">Web Team</a></ListGroup.Item>
                             </ScrollSpy>
                         </Col>
                         <Col className="ml-0 ml-md-5">

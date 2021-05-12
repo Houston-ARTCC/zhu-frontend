@@ -156,7 +156,7 @@ a {
 }
 
 .header {
-    height: 400px;
+    min-height: 400px;
     display: flex;
     flex-direction: column;
     align-items: baseline;
@@ -1086,6 +1086,11 @@ d888888P                              dP   dP     dP dP
 }
 .tui-full-calendar-timegrid-timezone-label-container {
     background-color: #F9F9F9 !important;
+}
+.tui-full-calendar-weekday-schedule-bullet {
+    width: 8px;
+    height: 8px;
+    left: -4px;
 }
 
 /*

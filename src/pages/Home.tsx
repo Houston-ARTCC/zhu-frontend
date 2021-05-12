@@ -98,7 +98,7 @@ export default function Home() {
                                 <p className="font-w500 font-md mb-0">{format(new Date(event.end), 'HH:mm zzz')}</p>
                             </div>
                         </Col>
-                        <Col xs={12} lg={6} className="d-flex">
+                        <Col xs={12} lg={6} className="d-flex flex-row-reverse">
                             <img className="event-banner-sm align-self-center" src={event.banner} alt={event.name}/>
                         </Col>
                     </Row>

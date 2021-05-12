@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { Button } from 'react-bootstrap'
+import { Badge, Button } from 'react-bootstrap'
 import Calendar from '@toast-ui/react-calendar'
 import { tuiCalendars, tuiTemplates, tuiTheme, tuiTimezones } from '../helpers/constants'
 import axiosInstance from '../helpers/axiosInstance'
 import { typeDisplay } from '../helpers/utils'
 import { format, subMonths, addMonths, addDays } from 'date-fns'
+import { FaCircle } from 'react-icons/all'
 
 export default function TuiCalendar({ view = 'month', isReadOnly = false, onCreateSchedule = (event) => {}, additionalSchedules = undefined }) {
     const [events, setEvents] = useState<any>([])
@@ -115,11 +116,16 @@ export default function TuiCalendar({ view = 'month', isReadOnly = false, onCrea
 
     return (
         <>
-            <div className="text-center mb-5">
+            <div className="text-center mb-4">
                 <h1>{format(current, 'MMMM Y')}</h1>
                 <Button variant="lightgray" className="mr-2 btn-sm" onClick={handlePrev}>&lt; Previous</Button>
                 <Button variant="lightgray" className="mr-2 btn-sm" onClick={handleToday}>Today</Button>
                 <Button variant="lightgray" className="btn-sm" onClick={handleNext}>Next &gt;</Button>
+            </div>
+            <div className="text-center mb-5">
+                <Badge variant="light-primary rounded" className="mr-2 mb-2 mb-md-0"><FaCircle size={7} className="mr-1"/> Events</Badge>
+                <Badge variant="light-red rounded" className="mr-2 mb-2 mb-md-0"><FaCircle size={7} className="mr-1"/> Training Sessions</Badge>
+                <Badge variant="light-green rounded"><FaCircle size={7} className="mr-1"/> Controller Bookings</Badge>
             </div>
             <Calendar
                 ref={calendarRef}
