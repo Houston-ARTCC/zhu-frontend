@@ -89,7 +89,7 @@ export default function RosterPurge() {
                     selectableRowsHighlight
                     onSelectedRowsChange={(state) => setSelected(state.selectedRows)}
                     clearSelectedRows={toggledClearRows}
-                    contextActions={<Button onClick={() => setShowConfirmModal(true)} variant="red"><RiDeleteBinLine className="fill-white"/> Purge</Button>}
+                    contextActions={<Button onClick={() => setShowConfirmModal(true)} variant="red"><RiDeleteBinLine/> Purge</Button>}
                     defaultSortField="name"
                     sortIcon={<BsArrowDown/>}
                     columns={[

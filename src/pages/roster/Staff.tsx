@@ -28,18 +28,18 @@ export default function Staff() {
                                 style={{ top: 150 }}
                                 className="p-0 mb-3 sticky-top"
                                 currentClassName="active"
-                                items={['core-staff', 'assistant-staff', 'training-team', 'web-team']}
+                                items={['artcc-staff', 'assistant-staff', 'training-team', 'web-team']}
                                 offset={-150}
                             >
-                                <ListGroup.Item as="li"><a href="#core-staff">Core Staff</a></ListGroup.Item>
+                                <ListGroup.Item as="li"><a href="#artcc-staff">ARTCC Staff</a></ListGroup.Item>
                                 <ListGroup.Item as="li"><a href="#assistant-staff">Assistant Staff</a></ListGroup.Item>
                                 <ListGroup.Item as="li"><a href="#training-team">Training Team</a></ListGroup.Item>
                                 <ListGroup.Item as="li"><a href="#web-team">Web Team</a></ListGroup.Item>
                             </ScrollSpy>
                         </Col>
                         <Col className="ml-0 ml-md-5">
-                            <section className="mb-5" id="core-staff">
-                                <h2 className="text-black mb-1">Core Staff</h2>
+                            <section className="mb-5" id="artcc-staff">
+                                <h2 className="text-black mb-1">ARTCC Staff</h2>
                                 <h6 className="text-gray mb-4">Responsible for the bulk of ARTCC operations.</h6>
                                 <Row>
                                     <Col md={6}>

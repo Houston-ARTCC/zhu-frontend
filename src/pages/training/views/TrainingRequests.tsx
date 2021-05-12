@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
-import { BsArrowDown, RiArrowRightLine } from 'react-icons/all'
+import { BsArrowDown, RiArrowRightLine, RiCheckboxCircleLine } from 'react-icons/all'
 import { useSnackbar } from 'notistack'
 import Fade from 'react-reveal/Fade'
 import Select from 'react-select'
@@ -11,6 +11,7 @@ import { dataTableStyle } from '../../../helpers/constants'
 import axiosInstance from '../../../helpers/axiosInstance'
 import { Badge, Button, Col, Form, Modal } from 'react-bootstrap'
 import { format } from 'date-fns-tz'
+import IconAlert from '../../../components/IconAlert'
 
 export default function TrainingRequests({ updateNotifs }) {
     const [requests, setRequests] = useState([])
@@ -97,67 +98,72 @@ export default function TrainingRequests({ updateNotifs }) {
     return (
         <>
             <Fade bottom duration={1250} distance="50px">
-                <DataTable
-                    data={requests}
-                    noHeader
-                    highlightOnHover
-                    pointerOnHover
-                    expandableRows
-                    expandableRowsHideExpander={true}
-                    expandableRowsComponent={<ExpandableComponent/>}
-                    expandableRowExpanded={row => row.remarks}
-                    defaultSortField="start"
-                    sortIcon={<BsArrowDown/>}
-                    pagination={true}
-                    paginationPerPage={10}
-                    paginationRowsPerPageOptions={[10, 15, 20, 25]}
-                    noDataComponent={<div className="p-4">No pending training requests</div>}
-                    onRowClicked={handleClickRequest}
-                    conditionalRowStyles={[
-                        {
-                            when: row => row.remarks,
-                            style: { borderBottom: 'none!important' }
-                        }
-                    ]}
-                    columns={[
-                        {
-                            name: 'Student',
-                            selector: 'student',
-                            sortable: true,
-                            format: row => row.user.first_name + ' ' + row.user.last_name,
-                            sortFunction: (a, b) => {
-                                return a.first_name > b.first_name ? 1 : -1
+                {requests.length > 0
+                    ? <DataTable
+                        data={requests}
+                        noHeader
+                        highlightOnHover
+                        pointerOnHover
+                        expandableRows
+                        expandableRowsHideExpander={true}
+                        expandableRowsComponent={<ExpandableComponent/>}
+                        expandableRowExpanded={row => row.remarks}
+                        defaultSortField="start"
+                        sortIcon={<BsArrowDown/>}
+                        pagination={true}
+                        paginationPerPage={10}
+                        paginationRowsPerPageOptions={[10, 15, 20, 25]}
+                        noDataComponent={<div className="p-4">No pending training requests</div>}
+                        onRowClicked={handleClickRequest}
+                        conditionalRowStyles={[
+                            {
+                                when: row => row.remarks,
+                                style: { borderBottom: 'none!important' }
+                            }
+                        ]}
+                        columns={[
+                            {
+                                name: 'Student',
+                                selector: 'student',
+                                sortable: true,
+                                format: row => row.user.first_name + ' ' + row.user.last_name,
+                                sortFunction: (a, b) => {
+                                    return a.first_name > b.first_name ? 1 : -1
+                                },
                             },
-                        },
-                        {
-                            name: 'Level',
-                            selector: 'level',
-                            sortable: true,
-                            format: row => levelDisplay(row.level),
-                        },
-                        {
-                            name: 'Type',
-                            selector: 'type',
-                            sortable: true,
-                            format: row => typeDisplay(row.type),
-                        },
-                        {
-                            name: 'Start',
-                            selector: 'start',
-                            sortable: true,
-                            format: row => format(new Date(row.start), 'MMM d, Y @ HH:mm zzz'),
-                            sortFunction: (a, b) => new Date(a.start) > new Date(b.start) ? 1 : -1,
-                        },
-                        {
-                            name: 'End',
-                            selector: 'end',
-                            sortable: true,
-                            format: row => format(new Date(row.end), 'MMM d, Y @ HH:mm zzz'),
-                            sortFunction: (a, b) => new Date(a.start) > new Date(b.start) ? 1 : -1,
-                        },
-                    ]}
-                    customStyles={dataTableStyle}
-                />
+                            {
+                                name: 'Level',
+                                selector: 'level',
+                                sortable: true,
+                                format: row => levelDisplay(row.level),
+                            },
+                            {
+                                name: 'Type',
+                                selector: 'type',
+                                sortable: true,
+                                format: row => typeDisplay(row.type),
+                            },
+                            {
+                                name: 'Start',
+                                selector: 'start',
+                                sortable: true,
+                                format: row => format(new Date(row.start), 'MMM d, Y @ HH:mm zzz'),
+                                sortFunction: (a, b) => new Date(a.start) > new Date(b.start) ? 1 : -1,
+                            },
+                            {
+                                name: 'End',
+                                selector: 'end',
+                                sortable: true,
+                                format: row => format(new Date(row.end), 'MMM d, Y @ HH:mm zzz'),
+                                sortFunction: (a, b) => new Date(a.start) > new Date(b.start) ? 1 : -1,
+                            },
+                        ]}
+                        customStyles={dataTableStyle}
+                    />
+                    : <IconAlert variant="green" icon={RiCheckboxCircleLine} header="All caught up!">
+                        <p className="m-0">There are currently no pending training requests.</p>
+                    </IconAlert>
+                }
             </Fade>
             <Modal
                 size="lg"

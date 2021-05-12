@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
-import { BsArrowDown, RiCloseFill, RiFileUserLine, RiMoreFill, RiUserSearchLine } from 'react-icons/all'
+import { BsArrowDown, RiCheckboxCircleLine, RiCloseFill, RiFileUserLine, RiMoreFill, RiUserSearchLine } from 'react-icons/all'
 import { Badge, Button, Dropdown, Form, Modal } from 'react-bootstrap'
 import Fade from 'react-reveal/Fade'
 import axiosInstance from '../../../helpers/axiosInstance'
@@ -9,6 +9,7 @@ import { levelDisplay, typeDisplay } from '../../../helpers/utils'
 import { format } from 'date-fns-tz'
 import { useSnackbar } from 'notistack'
 import { useHistory } from 'react-router'
+import IconAlert from '../../../components/IconAlert'
 
 export default function ScheduledSessions() {
     const [sessions, setSessions] = useState([])
@@ -86,88 +87,93 @@ export default function ScheduledSessions() {
     return (
         <>
             <Fade bottom duration={1250} distance="50px">
-                <DataTable
-                    data={sessions}
-                    noHeader
-                    highlightOnHover
-                    defaultSortField="date"
-                    sortIcon={<BsArrowDown/>}
-                    customStyles={dataTableStyle}
-                    className="overflow-visible"
-                    columns={[
-                        {
-                            name: '',
-                            button: true,
-                            center: true,
-                            allowOverflow: true,
-                            cell: (row) => (
-                                <Dropdown>
-                                    <Dropdown.Toggle variant="link">
-                                        <RiMoreFill size={20}/>
-                                    </Dropdown.Toggle>
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item onClick={() => history.push('/training/session/' + row.id + '/file')}>
-                                            <RiFileUserLine size={20}/> File
-                                        </Dropdown.Item>
-                                        <Dropdown.Item onClick={() => {
-                                            setCurrentSession(row)
-                                            setShowCancelModal(true)
-                                        }}>
-                                            <RiCloseFill size={20}/> Cancel
-                                        </Dropdown.Item>
-                                        <Dropdown.Item onClick={() => {
-                                            setCurrentSession(row)
-                                            setShowNoShowModal(true)
-                                        }}>
-                                            <RiUserSearchLine size={20}/> No-Show
-                                        </Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                            ),
-                            width: '65px',
-                        },
-                        {
-                            name: 'Date',
-                            selector: 'date',
-                            sortable: true,
-                            format: row => format(new Date(row.start), 'MMM d, Y @ HH:mm zzz'),
-                            sortFunction: (a: any, b: any) => new Date(a.start) > new Date(b.start) ? 1 : -1,
-                            minWidth: '22%',
-                        },
-                        {
-                            name: 'Student',
-                            selector: 'student',
-                            sortable: true,
-                            format: row => row.student.first_name + ' ' + row.student.last_name,
-                            sortFunction: (a, b) => a.student.first_name > b.student.first_name ? 1 : -1,
-                        },
-                        {
-                            name: 'Instructor',
-                            selector: 'instructor',
-                            sortable: true,
-                            format: row => row.instructor.first_name + ' ' + row.instructor.last_name,
-                            sortFunction: (a, b) => a.instructor.first_name > b.instructor.first_name ? 1 : -1,
-                        },
-                        {
-                            name: 'Level',
-                            selector: 'level',
-                            sortable: true,
-                            format: row => levelDisplay(row.level),
-                        },
-                        {
-                            name: 'Type',
-                            selector: 'type',
-                            sortable: true,
-                            format: row => typeDisplay(row.type),
-                        },
-                        {
-                            name: 'Status',
-                            selector: 'status',
-                            sortable: true,
-                            format: row => <Badge variant="primary rounded">Scheduled</Badge>,
-                        },
-                    ]}
-                />
+                {sessions.length > 0
+                    ? <DataTable
+                        data={sessions}
+                        noHeader
+                        highlightOnHover
+                        defaultSortField="date"
+                        sortIcon={<BsArrowDown/>}
+                        customStyles={dataTableStyle}
+                        className="overflow-visible"
+                        columns={[
+                            {
+                                name: '',
+                                button: true,
+                                center: true,
+                                allowOverflow: true,
+                                cell: (row) => (
+                                    <Dropdown>
+                                        <Dropdown.Toggle variant="link">
+                                            <RiMoreFill size={20}/>
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item onClick={() => history.push('/training/session/' + row.id + '/file')}>
+                                                <RiFileUserLine size={20}/> File
+                                            </Dropdown.Item>
+                                            <Dropdown.Item onClick={() => {
+                                                setCurrentSession(row)
+                                                setShowCancelModal(true)
+                                            }}>
+                                                <RiCloseFill size={20}/> Cancel
+                                            </Dropdown.Item>
+                                            <Dropdown.Item onClick={() => {
+                                                setCurrentSession(row)
+                                                setShowNoShowModal(true)
+                                            }}>
+                                                <RiUserSearchLine size={20}/> No-Show
+                                            </Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                ),
+                                width: '65px',
+                            },
+                            {
+                                name: 'Date',
+                                selector: 'date',
+                                sortable: true,
+                                format: row => format(new Date(row.start), 'MMM d, Y @ HH:mm zzz'),
+                                sortFunction: (a: any, b: any) => new Date(a.start) > new Date(b.start) ? 1 : -1,
+                                minWidth: '22%',
+                            },
+                            {
+                                name: 'Student',
+                                selector: 'student',
+                                sortable: true,
+                                format: row => row.student.first_name + ' ' + row.student.last_name,
+                                sortFunction: (a, b) => a.student.first_name > b.student.first_name ? 1 : -1,
+                            },
+                            {
+                                name: 'Instructor',
+                                selector: 'instructor',
+                                sortable: true,
+                                format: row => row.instructor.first_name + ' ' + row.instructor.last_name,
+                                sortFunction: (a, b) => a.instructor.first_name > b.instructor.first_name ? 1 : -1,
+                            },
+                            {
+                                name: 'Level',
+                                selector: 'level',
+                                sortable: true,
+                                format: row => levelDisplay(row.level),
+                            },
+                            {
+                                name: 'Type',
+                                selector: 'type',
+                                sortable: true,
+                                format: row => typeDisplay(row.type),
+                            },
+                            {
+                                name: 'Status',
+                                selector: 'status',
+                                sortable: true,
+                                format: row => <Badge variant="primary rounded">Scheduled</Badge>,
+                            },
+                        ]}
+                    />
+                    : <IconAlert variant="green" icon={RiCheckboxCircleLine} header="All caught up!">
+                        <p className="m-0">There are currently no scheduled training sessions.</p>
+                    </IconAlert>
+                }
             </Fade>
             <Modal
                 size="lg"
