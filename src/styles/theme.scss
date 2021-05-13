@@ -921,7 +921,7 @@ dP dP  dP  dP `88888P8 `8888P88 `88888P' `88888P'
     transition: 300ms ease;
 
     &:hover {
-        opacity: 50%;
+        opacity: 0.5 !important;
         transition: 300ms ease;
     }
 }
