@@ -7,16 +7,21 @@ import { typeDisplay } from '../helpers/utils'
 import { format, subMonths, addMonths, addDays } from 'date-fns'
 import { FaCircle } from 'react-icons/all'
 
-export default function TuiCalendar({ view = 'month', isReadOnly = false, onCreateSchedule = (event) => {}, additionalSchedules = undefined }) {
+export default function TuiCalendar(props) {
     const [events, setEvents] = useState<any>([])
     const [sessions, setSessions] = useState<any>([])
     const [bookings, setBookings] = useState<any>([])
     const [schedules, setSchedules] = useState<any>([])
-    const [requested] = useState<any>([])
+    const [requested, setRequested] = useState<any>([])
     const [current, setCurrent] = useState(new Date())
 
     const calendarRef = useRef<Calendar>(null)
 
+    useEffect(() => {
+        setRequested([])
+        setSchedules([])
+        fetchCalendar()
+    }, [props.triggerUpdate]) // eslint-disable-line react-hooks/exhaustive-deps
     useEffect(() => fetchCalendar(), []) // eslint-disable-line react-hooks/exhaustive-deps
     useEffect(() => createEventSchedules(), [events]) // eslint-disable-line react-hooks/exhaustive-deps
     useEffect(() => createSessionSchedules(), [sessions]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -130,12 +135,12 @@ export default function TuiCalendar({ view = 'month', isReadOnly = false, onCrea
             <Calendar
                 ref={calendarRef}
                 height="800px"
-                view={view}
+                view={props.view || 'month'}
                 taskView={false}
                 useDetailPopup={true}
-                isReadOnly={isReadOnly || false}
-                onBeforeCreateSchedule={onCreateSchedule}
-                schedules={schedules.concat(additionalSchedules || [])}
+                isReadOnly={props.isReadOnly || false}
+                onBeforeCreateSchedule={props?.onCreateSchedule}
+                schedules={schedules.concat(props.additionalSchedules || [])}
                 calendars={tuiCalendars}
                 timezones={tuiTimezones}
                 template={tuiTemplates}

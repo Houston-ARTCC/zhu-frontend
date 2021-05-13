@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Badge, Col, Container, ListGroup, Row } from 'react-bootstrap'
 import Fade from 'react-reveal/Fade'
 import Header from '../../components/Header'

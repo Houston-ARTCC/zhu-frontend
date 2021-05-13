@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Alert, Button, Card, Col, Form, Modal } from 'react-bootstrap'
+import { Button, Card, Col, Form, Modal } from 'react-bootstrap'
 import { BsArrowDown, RiDeleteBinLine, RiQuestionLine } from 'react-icons/all'
 import DataTable from 'react-data-table-component'
 import Fade from 'react-reveal/Fade'
@@ -10,6 +10,7 @@ import { dataTableStyle } from '../../../helpers/constants'
 import TuiCalendar from '../../../components/TuiCalendar'
 import { useSnackbar } from 'notistack'
 import { format } from 'date-fns-tz'
+import IconAlert from '../../../components/IconAlert'
 
 export default function RequestTraining({ updateNotifs }) {
     const [showCreationModal, setShowCreationModal] = useState(false)
@@ -187,17 +188,13 @@ export default function RequestTraining({ updateNotifs }) {
                     </Card.Body>
                 </Card>
             </div>
-            <Alert variant="purple" className="position-unset d-flex mb-5">
-                <div><RiQuestionLine className="fill-purple mr-3" size={25}/></div>
-                <div>
-                    <h5>How do I use this?</h5>
-                    <p className="m-0">
-                        To request training, indicate the range of time for which you are <b>100% available</b>. When your request is submitted, a
-                        mentor or instructor will be able to accept the request and set any time within that range that works for them. To select
-                        a time, drag your mouse across multiple boxes on the calendar below.
-                    </p>
-                </div>
-            </Alert>
+            <IconAlert variant="purple" className="mb-4" icon={RiQuestionLine} header="How do I use this?">
+                <p className="m-0">
+                    To request training, indicate the range of time for which you are <b>100% available</b>. When your request is submitted, a
+                    mentor or instructor will be able to accept the request and set any time within that range that works for them. To select
+                    a time, drag your mouse across multiple boxes on the calendar below.
+                </p>
+            </IconAlert>
             <TuiCalendar view="week" onCreateSchedule={handleCreateSchedule} additionalSchedules={pendingRequestsSchedules}/>
             <Modal
                 size="lg"
