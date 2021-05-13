@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Badge, Button, Col, Container, Row } from 'react-bootstrap'
 import { BsArrowDown, FaCircle, IoStar, IoStarOutline, RiCalendarEventLine, RiPencilRuler2Line, RiPlaneLine } from 'react-icons/all'
 import DataTable from 'react-data-table-component'
@@ -98,8 +98,8 @@ export default function Profile() {
                                 <div className="d-flex flex-column align-items-center mr-0 mr-md-4">
                                     <img
                                         className="profile-xl mb-4"
-                                        src={process.env.REACT_APP_API_URL + user.profile}
-                                        alt={user.first_name + ' ' + user.last_name}
+                                        src={process.env.REACT_APP_API_URL + user?.profile + (!user?.profile.includes('default') ? '?' + new Date().getTime() : '')}
+                                        alt={user?.cid}
                                     />
                                     {isStaff() &&
                                         <Link to={user.cid + '/edit'}>

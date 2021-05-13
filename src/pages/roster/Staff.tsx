@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Col, Container, ListGroup, Row } from 'react-bootstrap'
 import { BiEnvelope } from 'react-icons/all'
 import ScrollSpy from 'react-scrollspy'
@@ -148,8 +148,8 @@ function renderUser(user, title) {
         <div className="d-flex align-items-center">
             <img
                 className="profile-lg mr-3"
-                src={user ? process.env.REACT_APP_API_URL + user.profile : profilePlaceholder}
-                alt={user ? user.first_name + ' ' + user.last_name : 'Vacant'}
+                src={user ? process.env.REACT_APP_API_URL + user.profile + (!user.profile.includes('default') ? '?' + new Date().getTime() : '') : profilePlaceholder}
+                alt={user ? user.cid : 'Vacant'}
             />
             <div>
                 <h4 className="text-black mb-0">{user ? user.first_name + ' ' + user.last_name : 'Vacant'}</h4>

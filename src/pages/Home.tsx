@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Badge, Card, Col, Container, Modal, Row } from 'react-bootstrap'
 import { HiOutlineCalendar, HiOutlineClock, IoIosAirplane, IoTrophy } from 'react-icons/all'
 import { Parallax } from 'react-parallax'
@@ -70,8 +70,8 @@ export default function Home() {
                     <div className="user">
                         <img
                             className="profile-sm mr-2"
-                            src={process.env.REACT_APP_API_URL + announcement.author.profile}
-                            alt={announcement.author.first_name + ' ' + announcement.author.last_name}
+                            src={process.env.REACT_APP_API_URL + announcement.author?.profile + (!announcement.author?.profile.includes('default') ? '?' + new Date().getTime() : '')}
+                            alt={announcement.author?.cid}
                         />
                         <p className="text-darkgray font-w500 m-0">{announcement.author.first_name} {announcement.author.last_name}</p>
                     </div>
@@ -111,8 +111,8 @@ export default function Home() {
         <li className="li-flex text-darkgray font-w500 font-lg">
             <img
                 className="profile-md mr-2"
-                src={process.env.REACT_APP_API_URL + controller.profile}
-                alt={controller.first_name + ' ' + controller.last_name}
+                src={process.env.REACT_APP_API_URL + controller?.profile + (!controller?.profile.includes('default') ? '?' + new Date().getTime() : '')}
+                alt={controller?.cid}
             />
             {controller.first_name} {controller.last_name} ({controller.initials})
         </li>

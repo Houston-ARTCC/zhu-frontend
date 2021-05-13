@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, ButtonGroup, Card, Col, Container, Form, Row } from 'react-bootstrap'
 import { BsArrowDown, FaCircle } from 'react-icons/all'
 import DataTable from 'react-data-table-component'
@@ -80,7 +80,11 @@ export default function Roster() {
             <Link to={`/roster/${user.cid}`}>
                 <Card className="mb-4">
                     <Card.Header className="text-center py-4 px-1">
-                        <img className="profile-lg mb-2" src={process.env.REACT_APP_API_URL + user.profile} alt={user.first_name + ' ' + user.last_name}/>
+                        <img
+                            className="profile-lg mb-2"
+                            src={process.env.REACT_APP_API_URL + user?.profile + (!user?.profile.includes('default') ? '?' + new Date().getTime() : '')}
+                            alt={user?.cid}
+                        />
                         <Card.Title className="mb-0 text-black">
                             {user.first_name} {user.last_name} ({user.initials})
                         </Card.Title>
