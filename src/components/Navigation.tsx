@@ -69,11 +69,12 @@ export default function Navigation() {
                                 </>
                                 : <NavDropdown.Item as={Link} to="/visit">Visit Houston</NavDropdown.Item>
                             }
+                            <NavDropdown.Divider/>
                             {isStaff() &&
                                 <NavDropdown.Item as={Link} to="/admin">Administration</NavDropdown.Item>
                             }
+                            <NavDropdown.Item as={Link} to="/dashboard">Dashboard</NavDropdown.Item>
                             <NavDropdown.Divider/>
-                            <NavDropdown.Item as={Link} to="/settings">Settings</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/logout">Log Out</NavDropdown.Item>
                         </NavDropdown>
                         : <Nav.Item as={Link} to={{ pathname: '/login', state: { from: location }}} className="ml-4">
@@ -149,6 +150,7 @@ export default function Navigation() {
                             {isStaff() &&
                                 <h6><Link className="text-gray" to="/admin">Administration</Link></h6>
                             }
+                            <h6><Link className="text-gray" to="/dashboard">Dashboard</Link></h6>
                             <h6><Link className="text-gray" to="/logout">Log Out</Link></h6>
                         </>
                         : <Link to={{ pathname: '/login', state: { from: location }}}>

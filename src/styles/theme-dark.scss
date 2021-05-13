@@ -193,6 +193,16 @@ body.dark {
         }
     }
 
+    .select-avatar {
+        cursor: pointer;
+        transition: 300ms ease;
+
+        &:hover {
+            opacity: 50%;
+            transition: 300ms ease;
+        }
+    }
+
     #navbar {
         &.navbar-shrink {
             background-color: $black;

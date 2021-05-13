@@ -8,7 +8,6 @@ import Privacy from './pages/Privacy'
 import Map from './pages/Map'
 import Home from './pages/Home'
 import Visit from './pages/Visit'
-import Settings from './pages/Settings'
 import Staff from './pages/roster/Staff'
 import Roster from './pages/roster/Roster'
 import Profile from './pages/roster/Profile'
@@ -42,6 +41,10 @@ import FindEventScores from './pages/admin/views/FindEventScores'
 import VisitingRequests from './pages/admin/views/VisitingRequests'
 import PendingFeedback from './pages/admin/views/PendingFeedback'
 import SupportRequests from './pages/admin/views/SupportRequests'
+import Dashboard from './pages/dashboard/Dashboard'
+import RequestLOA from './pages/dashboard/views/RequestLOA'
+import Bookings from './pages/dashboard/views/Bookings'
+import Settings from './pages/dashboard/views/Settings'
 import Footer from './components/Footer'
 import AuthRoute from './components/AuthRoute'
 import ScrollToTop from './components/ScrollToTop'
@@ -78,8 +81,7 @@ export default function App() {
                 {/* Visiting */}
                 <AuthRoute exact path="/visit" component={Visit} view={null} auth={isAuthenticated}/>
                 {/* Training */}
-                <AuthRoute exact path="/training" component={TrainingCenter} view={Sessions} auth={isMember}/>
-                <AuthRoute exact path="/training/sessions" component={TrainingCenter} view={Sessions} auth={isMember}/>
+                <AuthRoute exact path={['/training', '/training/sessions']} component={TrainingCenter} view={Sessions} auth={isMember}/>
                 <AuthRoute exact path="/training/request" component={TrainingCenter} view={RequestTraining} auth={isMember}/>
                 <AuthRoute exact path="/training/exams" component={TrainingCenter} view={Exams} auth={isMember}/>
                 <AuthRoute exact path="/training/scheduled" component={TrainingCenter} view={ScheduledSessions} auth={isTrainingStaff}/>
@@ -100,13 +102,16 @@ export default function App() {
                 <AuthRoute exact path="/admin/purge" component={AdminPanel} view={RosterPurge} auth={isAdmin}/>
                 <AuthRoute exact path="/admin/loa" component={AdminPanel} view={LOARequests} auth={isAdmin}/>
                 <AuthRoute exact path="/admin/announcement" component={AdminPanel} view={Announcements} auth={isStaff}/>
+                {/* Dashboard */}
+                <AuthRoute exact path={['/dashboard', '/settings']} component={Dashboard} view={Settings} auth={isAuthenticated}/>
+                <AuthRoute exact path="/bookings" component={Dashboard} view={Bookings} auth={isMember}/>
+                <AuthRoute exact path="/loa" component={Dashboard} view={RequestLOA} auth={isMember}/>
                 {/* Miscellaneous */}
                 <Route exact path="/map" component={Map}/>
                 <Route exact path="/privacy" component={Privacy}/>
                 <Route exact path="/statistics" component={Statistics}/>
                 <Route exact path="/calendar" component={ARTCCCalendar}/>
                 <AuthRoute exact path="/feedback" component={Feedback} view={null} auth={isAuthenticated}/>
-                <AuthRoute exact path="/settings" component={Settings} view={null} auth={isAuthenticated}/>
                 <Route component={Error404}/>
             </Switch>
             <Footer/>

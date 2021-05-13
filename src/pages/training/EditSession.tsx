@@ -255,8 +255,8 @@ export default function EditSession() {
                                 />
                             </Form.Group>
                         </Row>
-                        <Button variant="gray" className="mr-2" onClick={() => history.push('/training/scheduled')}>Cancel</Button>
-                        <Button type="submit">File Session</Button>
+                        <Button variant="gray" className="mr-2" onClick={() => history.push('/training')}>Cancel</Button>
+                        <Button type="submit">Save</Button>
                     </Form>
                 </Container>
             </Fade>

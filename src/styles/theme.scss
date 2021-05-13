@@ -279,6 +279,18 @@ a {
     }
 }
 
+._2oSbenaQCQZPXOD75Sj6nE {
+    border: 2px solid $primary;
+}
+.fe6xZVPr1kb0CJksW39zV {
+    margin-bottom: 0;
+    padding: 0 20px;
+    font-size: 17px;
+    font-weight: 600;
+}
+.YpD9o6H9LydyYmaPWOwt {
+    background: transparent;
+}
 
 /*
  88888888b
@@ -904,6 +916,16 @@ dP dP  dP  dP `88888P8 `8888P88 `88888P' `88888P'
     border-radius: 150px;
 }
 
+.select-avatar {
+    cursor: pointer;
+    transition: 300ms ease;
+
+    &:hover {
+        opacity: 50%;
+        transition: 300ms ease;
+    }
+}
+
 .event-banner-sm {
     width: 350px;
 }
@@ -1090,7 +1112,9 @@ d888888P                              dP   dP     dP dP
 .tui-full-calendar-weekday-schedule-bullet {
     width: 8px;
     height: 8px;
-    left: -4px;
+}
+.tui-full-calendar-weekday-schedule-title {
+    margin-left: 5px;
 }
 
 /*
