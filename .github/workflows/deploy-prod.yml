@@ -43,6 +43,6 @@ jobs:
         port: 22
         username: ${{ secrets.SSH_USER }}
         password: ${{ secrets.SSH_PASSWORD }}
-        remote_folder: ./beta.zhuartcc.org/zhu-frontend/build/
+        remote_folder: ./zhuartcc.org/build/
         local_folder: ./build/
         cleanup: true
