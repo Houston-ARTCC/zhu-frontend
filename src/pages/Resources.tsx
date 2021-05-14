@@ -12,8 +12,9 @@ import axiosInstance from '../helpers/axiosInstance'
 import { formDataFromObject } from '../helpers/utils'
 import { dataTableStyle } from '../helpers/constants'
 import Spinner from '../components/Spinner'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { format } from 'date-fns-tz'
+import Fade from 'react-reveal/Fade'
 
 export default function Resources() {
     const [resources, setResources] = useState<any>({})
@@ -193,138 +194,140 @@ export default function Resources() {
     return (
         <>
             <Header title="Resources"/>
-            <Container fluid>
-                <Row>
-                    <Col md={2}>
-                        <ScrollSpy
-                            as={ListGroup}
-                            style={{ top: 150, zIndex: 0 }}
-                            className="p-0 mb-4 sticky-top"
-                            currentClassName="active"
-                            items={['VRC', 'vSTARS', 'vERAM', 'vATIS', 'SOP', 'LOA', 'MAVP', 'Misc']}
-                            offset={-150}
-                        >
-                            <ListGroup.Item as="li"><a href="#VRC">VRC</a></ListGroup.Item>
-                            <ListGroup.Item as="li"><a href="#vSTARS">vSTARS</a></ListGroup.Item>
-                            <ListGroup.Item as="li"><a href="#vERAM">vERAM</a></ListGroup.Item>
-                            <ListGroup.Item as="li"><a href="#vATIS">vATIS</a></ListGroup.Item>
-                            <ListGroup.Item as="li"><a href="#SOP">SOP</a></ListGroup.Item>
-                            <ListGroup.Item as="li"><a href="#LOA">LOA</a></ListGroup.Item>
-                            <ListGroup.Item as="li"><a href="#MAVP">MAVP</a></ListGroup.Item>
-                            <ListGroup.Item as="li"><a href="#Misc">Misc</a></ListGroup.Item>
-                        </ScrollSpy>
-                    </Col>
-                    <Col className="ml-0 ml-md-5">
-                        {isStaff() &&
-                            <Button className="mb-5" onClick={() => setShowCreationModal(true)}>
-                                <RiAddFill size={20}/> New Resource
-                            </Button>
-                        }
-                        <section className="mb-5" id="VRC"><Category category="VRC" resources={resources['vrc']}/></section>
-                        <section className="mb-5" id="vSTARS"><Category category="vSTARS" resources={resources['vstars']}/></section>
-                        <section className="mb-5" id="vERAM"><Category category="vERAM" resources={resources['veram']}/></section>
-                        <section className="mb-5" id="vATIS"><Category category="vATIS" resources={resources['vatis']}/></section>
-                        <section className="mb-5" id="SOP"><Category category="SOP" resources={resources['sop']}/></section>
-                        <section className="mb-5" id="LOA"><Category category="LOA" resources={resources['loa']}/></section>
-                        <section className="mb-5" id="MAVP"><Category category="MAVP" resources={resources['mavp']}/></section>
-                        <section className="mb-5" id="Misc"><Category category="Misc" resources={resources['misc']}/></section>
-                    </Col>
-                </Row>
-                <Modal
-                    backdrop="static"
-                    show={showCreationModal}
-                    onHide={() => setShowCreationModal(false)}
-                    onExited={clearFile}
-                >
-                    <Modal.Header>
-                        <Modal.Title>Creating New Resource</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <Form onSubmit={handleSubmitCreate}>
-                            <Form.Group>
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control required type="text" name="name" onChange={handleNameChange}/>
-                            </Form.Group>
-                            <Form.Group>
-                                <Form.Label>Category</Form.Label>
-                                <Select
-                                    options={categoryOptions}
-                                    onChange={handleCategoryChange}
-                                />
-                            </Form.Group>
-                            <Form.Group>
-                                <Dropzone maxFiles={2} onDrop={(acceptedFiles) => handleFileChange(acceptedFiles)}>
-                                    {({ getRootProps, getInputProps }) => (
-                                        <div {...getRootProps({ className: 'dropzone' })}>
-                                            <input {...getInputProps()} />
-                                            <FaUpload className="fill-gray mb-2" size={30}/>
-                                            <p className="text-gray mb-1">Drag and drop file here, or click to select file</p>
-                                            <p className="text-gray">Current
-                                                File: <b>{newResource.path?.name}</b>
-                                            </p>
-                                        </div>
-                                    )}
-                                </Dropzone>
-                            </Form.Group>
-                            <Button className="mr-2" variant="lightgray" onClick={() => setShowCreationModal(false)}>
-                                Cancel
-                            </Button>
-                            <Button variant="primary" type="submit">
-                                Save
-                            </Button>
-                        </Form>
-                    </Modal.Body>
-                </Modal>
-                <Modal
-                    backdrop="static"
-                    show={showEditModal}
-                    onHide={() => setShowEditModal(false)}
-                    onExited={clearFile}
-                >
-                    <Modal.Header>
-                        <Modal.Title>Editing {newResource.name}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <Form onSubmit={handleSubmitEdit}>
-                            <Form.Group>
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control required type="text" name="name" value={newResource.name} onChange={handleNameChange}/>
-                            </Form.Group>
-                            <Form.Group>
-                                <Form.Label>Category</Form.Label>
-                                <Select
-                                    options={categoryOptions}
-                                    value={{ value: newResource.category, label: newResource.category }}
-                                    onChange={handleCategoryChange}
-                                />
-                            </Form.Group>
-                            <Form.Group>
-                                <Dropzone maxFiles={2} onDrop={(acceptedFiles) => handleFileChange(acceptedFiles)}>
-                                    {({ getRootProps, getInputProps }) => (
-                                        <div {...getRootProps({ className: 'dropzone' })}>
-                                            <input {...getInputProps()} />
-                                            <FaUpload className="fill-gray mb-2" size={30}/>
-                                            <p className="text-gray mb-1">Drag and drop file here, or click to select file</p>
-                                            <p className="text-gray">Current
-                                                File: <b>{newResource.path?.name || newResource.path.split('/').pop()}</b>
-                                            </p>
-                                        </div>
-                                    )}
-                                </Dropzone>
-                            </Form.Group>
-                            <Button className="mr-2" variant="lightgray" onClick={() => setShowEditModal(false)}>
-                                Cancel
-                            </Button>
-                            <Button className="mr-2" variant="primary" type="submit">
-                                <RiCheckFill size={20}/> Save
-                            </Button>
-                            <Button variant="red" onClick={() => deleteResource(newResource.id)}>
-                                <BiTrash size={20}/> Delete
-                            </Button>
-                        </Form>
-                    </Modal.Body>
-                </Modal>
-            </Container>
+            <Fade bottom duration={1250} distance="50px">
+                <Container fluid>
+                    <Row>
+                        <Col md={2}>
+                            <ScrollSpy
+                                as={ListGroup}
+                                style={{ top: 150, zIndex: 0 }}
+                                className="p-0 mb-4 sticky-top"
+                                currentClassName="active"
+                                items={['VRC', 'vSTARS', 'vERAM', 'vATIS', 'SOP', 'LOA', 'MAVP', 'Misc']}
+                                offset={-150}
+                            >
+                                <ListGroup.Item as="li"><a href="#VRC">VRC</a></ListGroup.Item>
+                                <ListGroup.Item as="li"><a href="#vSTARS">vSTARS</a></ListGroup.Item>
+                                <ListGroup.Item as="li"><a href="#vERAM">vERAM</a></ListGroup.Item>
+                                <ListGroup.Item as="li"><a href="#vATIS">vATIS</a></ListGroup.Item>
+                                <ListGroup.Item as="li"><a href="#SOP">SOP</a></ListGroup.Item>
+                                <ListGroup.Item as="li"><a href="#LOA">LOA</a></ListGroup.Item>
+                                <ListGroup.Item as="li"><a href="#MAVP">MAVP</a></ListGroup.Item>
+                                <ListGroup.Item as="li"><a href="#Misc">Misc</a></ListGroup.Item>
+                            </ScrollSpy>
+                        </Col>
+                        <Col className="ml-0 ml-md-5">
+                            {isStaff() &&
+                                <Button className="mb-5" onClick={() => setShowCreationModal(true)}>
+                                    <RiAddFill size={20}/> New Resource
+                                </Button>
+                            }
+                            <section className="mb-5" id="VRC"><Category category="VRC" resources={resources['vrc']}/></section>
+                            <section className="mb-5" id="vSTARS"><Category category="vSTARS" resources={resources['vstars']}/></section>
+                            <section className="mb-5" id="vERAM"><Category category="vERAM" resources={resources['veram']}/></section>
+                            <section className="mb-5" id="vATIS"><Category category="vATIS" resources={resources['vatis']}/></section>
+                            <section className="mb-5" id="SOP"><Category category="SOP" resources={resources['sop']}/></section>
+                            <section className="mb-5" id="LOA"><Category category="LOA" resources={resources['loa']}/></section>
+                            <section className="mb-5" id="MAVP"><Category category="MAVP" resources={resources['mavp']}/></section>
+                            <section className="mb-5" id="Misc"><Category category="Misc" resources={resources['misc']}/></section>
+                        </Col>
+                    </Row>
+                </Container>
+            </Fade>
+            <Modal
+                backdrop="static"
+                show={showCreationModal}
+                onHide={() => setShowCreationModal(false)}
+                onExited={clearFile}
+            >
+                <Modal.Header>
+                    <Modal.Title>Creating New Resource</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={handleSubmitCreate}>
+                        <Form.Group>
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control required type="text" name="name" onChange={handleNameChange}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Category</Form.Label>
+                            <Select
+                                options={categoryOptions}
+                                onChange={handleCategoryChange}
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Dropzone maxFiles={2} onDrop={(acceptedFiles) => handleFileChange(acceptedFiles)}>
+                                {({ getRootProps, getInputProps }) => (
+                                    <div {...getRootProps({ className: 'dropzone' })}>
+                                        <input {...getInputProps()} />
+                                        <FaUpload className="fill-gray mb-2" size={30}/>
+                                        <p className="text-gray mb-1">Drag and drop file here, or click to select file</p>
+                                        <p className="text-gray">Current
+                                            File: <b>{newResource.path?.name}</b>
+                                        </p>
+                                    </div>
+                                )}
+                            </Dropzone>
+                        </Form.Group>
+                        <Button className="mr-2" variant="lightgray" onClick={() => setShowCreationModal(false)}>
+                            Cancel
+                        </Button>
+                        <Button variant="primary" type="submit">
+                            Save
+                        </Button>
+                    </Form>
+                </Modal.Body>
+            </Modal>
+            <Modal
+                backdrop="static"
+                show={showEditModal}
+                onHide={() => setShowEditModal(false)}
+                onExited={clearFile}
+            >
+                <Modal.Header>
+                    <Modal.Title>Editing {newResource.name}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={handleSubmitEdit}>
+                        <Form.Group>
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control required type="text" name="name" value={newResource.name} onChange={handleNameChange}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Category</Form.Label>
+                            <Select
+                                options={categoryOptions}
+                                value={{ value: newResource.category, label: newResource.category }}
+                                onChange={handleCategoryChange}
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Dropzone maxFiles={2} onDrop={(acceptedFiles) => handleFileChange(acceptedFiles)}>
+                                {({ getRootProps, getInputProps }) => (
+                                    <div {...getRootProps({ className: 'dropzone' })}>
+                                        <input {...getInputProps()} />
+                                        <FaUpload className="fill-gray mb-2" size={30}/>
+                                        <p className="text-gray mb-1">Drag and drop file here, or click to select file</p>
+                                        <p className="text-gray">Current
+                                            File: <b>{newResource.path?.name || newResource.path.split('/').pop()}</b>
+                                        </p>
+                                    </div>
+                                )}
+                            </Dropzone>
+                        </Form.Group>
+                        <Button className="mr-2" variant="lightgray" onClick={() => setShowEditModal(false)}>
+                            Cancel
+                        </Button>
+                        <Button className="mr-2" variant="primary" type="submit">
+                            <RiCheckFill size={20}/> Save
+                        </Button>
+                        <Button variant="red" onClick={() => deleteResource(newResource.id)}>
+                            <BiTrash size={20}/> Delete
+                        </Button>
+                    </Form>
+                </Modal.Body>
+            </Modal>
         </>
     )
 }

@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap'
 import { useSnackbar } from 'notistack'
 import Fade from 'react-reveal/Fade'
 import Header from '../components/Header'
 import axiosInstance from '../helpers/axiosInstance'
 import { parseJWT } from '../helpers/auth'
-import { RiCheckFill, RiCloseFill } from 'react-icons/all'
+import { AiOutlineCheckCircle, RiCheckFill, RiCloseFill } from 'react-icons/all'
+import { useHistory } from 'react-router'
 
 export default function Visit() {
     const [form, setForm] = useState({})
@@ -15,7 +16,9 @@ export default function Visit() {
     const [membershipCheck, setMembershipCheck] = useState(false)
     const [pendingApplicationCheck, setPendingApplicationCheck] = useState(false)
     const [isEligible, setIsEligible] = useState(false)
+    const [showSuccessModal, setShowSuccessModal] = useState(false)
 
+    const history = useHistory()
     const { enqueueSnackbar } = useSnackbar()
 
     const user = parseJWT()
@@ -58,6 +61,7 @@ export default function Visit() {
                         horizontal: 'right',
                     },
                 })
+                setShowSuccessModal(true)
             })
             .catch(err => {
                 enqueueSnackbar(err.toString(), {
@@ -73,7 +77,7 @@ export default function Visit() {
 
 
     return (
-        <div>
+        <>
             <Header title="Visit Houston"/>
             <Fade bottom duration={1250} distance="50px">
                 <Container fluid>
@@ -152,6 +156,15 @@ export default function Visit() {
                     </Form>
                 </Container>
             </Fade>
-        </div>
+            <Modal backdrop="static" show={showSuccessModal} centered>
+                <Modal.Body className="text-center">
+                    <AiOutlineCheckCircle className="fill-green mb-3" size={80}/>
+                    <h5 className="mb-4">Your visiting request has been successfully submitted! You will be redirected to the homepage.</h5>
+                    <Button variant="primary" onClick={() => history.push('/')}>
+                        Hooray!
+                    </Button>
+                </Modal.Body>
+            </Modal>
+        </>
     )
 }
