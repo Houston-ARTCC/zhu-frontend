@@ -1,4 +1,4 @@
-import { BiTrash, BsArrowDown, FaUpload, RiAddFill, RiCheckFill, RiPencilRuler2Line } from 'react-icons/all'
+import { BiTrash, BsArrowDown, FaUpload, RiAddFill, RiPencilRuler2Line } from 'react-icons/all'
 import { Button, Card, Col, Container, Form, ListGroup, Modal, Row, Spinner } from 'react-bootstrap'
 import DataTable from 'react-data-table-component'
 import fileDownload from 'js-file-download'
