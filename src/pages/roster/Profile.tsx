@@ -13,6 +13,7 @@ import { dataTableStyle } from '../../helpers/constants'
 import { format } from 'date-fns'
 import { useParams } from 'react-router'
 import LoadingScreen from '../../components/LoadingScreen'
+import Error404 from '../errors/Error404'
 
 export default function Profile() {
     const [user, setUser] = useState<any>(null)
@@ -21,6 +22,7 @@ export default function Profile() {
     const [feedback, setFeedback] = useState<any>([])
     const [expanded, setExpanded] = useState<any>({})
     const [loading, setLoading] = useState(true)
+    const [notFound, setNotFound] = useState(false)
 
     const { cid } = useParams<any>()
 
@@ -38,6 +40,7 @@ export default function Profile() {
                 setUser(res.data)
                 setLoading(false)
             })
+            .catch(err => setNotFound(err.response.status === 404))
     }
 
     const fetchUserConnections = () => {
@@ -82,6 +85,7 @@ export default function Profile() {
         </div>
     )
 
+    if (notFound) return <Error404/>
     if (loading) return <LoadingScreen/>
 
     return (

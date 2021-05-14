@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Badge, Button, Col, Container, Dropdown, Form, Row } from 'react-bootstrap'
 import { useSnackbar } from 'notistack'
 import { Link } from 'react-router-dom'
@@ -15,6 +15,7 @@ import { certLevel, certColor } from '../../helpers/utils'
 export default function EditUser() {
     const [user, setUser] = useState<any>(null)
     const [loading, setLoading] = useState(true)
+    const [notFound, setNotFound] = useState(false)
 
     const history = useHistory()
     const { cid } = useParams<any>()
@@ -29,9 +30,7 @@ export default function EditUser() {
                 setUser(res.data)
                 setLoading(false)
             })
-            .catch(err => {
-                if (err.response.status === 404) return <Error404/>
-            })
+            .catch(err => setNotFound(err.response.status === 404))
     }
 
     const handleTextChange = (e) => {
@@ -96,6 +95,7 @@ export default function EditUser() {
         </Dropdown.Menu>
     )
 
+    if (notFound) return <Error404/>
     if (loading) return <LoadingScreen/>
 
     return (
