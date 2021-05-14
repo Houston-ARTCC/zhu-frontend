@@ -90,7 +90,7 @@ export default function Resources() {
         let formData = formDataFromObject(newResource)
         formData.append('path', newResource.path)
         axiosInstance
-            .post('/api/resources/', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+            .post('/api/resources/', formData, { timeout: 0, headers: { 'Content-Type': 'multipart/form-data' } })
             .then(res => {
                 setShowCreationModal(false)
                 fetchResources()
@@ -112,7 +112,7 @@ export default function Resources() {
         let formData = formDataFromObject(newResource)
         formData.append('path', newResource.path)
         axiosInstance
-            .put('/api/resources/' + newResource.id + '/', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+            .put('/api/resources/' + newResource.id + '/', formData, { timeout: 0, headers: { 'Content-Type': 'multipart/form-data' } })
             .then(res => {
                 setShowEditModal(false)
                 fetchResources()
@@ -151,7 +151,7 @@ export default function Resources() {
                         sortIcon={<BsArrowDown/>}
                         progressPending={loading}
                         progressComponent={<Spinner/>}
-                        onRowClicked={row => handleDownload(process.env.REACT_APP_API_URL + row.path, row.name + row.extension)}
+                        onRowClicked={row => handleDownload(process.env.REACT_APP_API_URL + row.path, row.category + ' - ' + row.name + row.extension)}
                         columns={[
                             {
                                 name: 'Name',

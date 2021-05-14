@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const axiosInstance = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
-    timeout: 5000,
+    timeout: 10000,
     headers: {
         'Authorization': localStorage.getItem('access') && 'Bearer ' + localStorage.getItem('access'),
         'Content-Type': 'application/json',
