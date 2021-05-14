@@ -28,7 +28,7 @@ export default function Settings() {
 
     const fetchUser = () => {
         axiosInstance
-            .get('/api/users/1391803/')
+            .get('/api/users/' + getCID() + '/')
             .then(res => {
                 setUser(res.data)
             })
