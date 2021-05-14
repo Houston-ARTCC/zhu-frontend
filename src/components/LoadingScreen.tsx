@@ -1,9 +1,9 @@
-import Spinner from './Spinner'
+import BounceLoader from './BounceLoader'
 
 export default function LoadingScreen() {
     return (
         <div className="loader">
-            <Spinner/>
+            <BounceLoader/>
         </div>
     )
 }

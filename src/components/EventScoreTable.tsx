@@ -6,7 +6,7 @@ import { Badge } from 'react-bootstrap'
 import DataTable from 'react-data-table-component'
 import { useEffect, useState } from 'react'
 import axiosInstance from '../helpers/axiosInstance'
-import Spinner from './Spinner'
+import BounceLoader from './BounceLoader'
 import { format } from 'date-fns'
 
 export default function EventScoreTable({ cid }) {
@@ -32,7 +32,7 @@ export default function EventScoreTable({ cid }) {
             defaultSortField="date"
             defaultSortAsc={false}
             progressPending={loading}
-            progressComponent={<Spinner/>}
+            progressComponent={<BounceLoader/>}
             sortIcon={<BsArrowDown/>}
             customStyles={dataTableStyle}
             title={

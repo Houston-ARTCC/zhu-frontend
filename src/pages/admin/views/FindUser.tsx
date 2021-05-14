@@ -7,7 +7,7 @@ import { ratingInt, userStatusDisplay } from '../../../helpers/utils'
 import { dataTableStyle, roleOptions } from '../../../helpers/constants'
 import DataTable from 'react-data-table-component'
 import axiosInstance from '../../../helpers/axiosInstance'
-import Spinner from '../../../components/Spinner'
+import BounceLoader from '../../../components/BounceLoader'
 import { useHistory } from 'react-router'
 
 export default function FindUser() {
@@ -130,7 +130,7 @@ export default function FindUser() {
                             paginationPerPage={10}
                             paginationRowsPerPageOptions={[10, 15, 20, 25]}
                             progressPending={loading}
-                            progressComponent={<Spinner/>}
+                            progressComponent={<BounceLoader/>}
                             onRowClicked={row => history.push('/roster/' + row.cid) }
                             customStyles={dataTableStyle}
                             columns={[

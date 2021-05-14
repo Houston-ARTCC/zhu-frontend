@@ -1,5 +1,5 @@
 import { BiTrash, BsArrowDown, FaUpload, RiAddFill, RiCheckFill, RiPencilRuler2Line } from 'react-icons/all'
-import { Button, Card, Col, Container, Form, ListGroup, Modal, Row } from 'react-bootstrap'
+import { Button, Card, Col, Container, Form, ListGroup, Modal, Row, Spinner } from 'react-bootstrap'
 import DataTable from 'react-data-table-component'
 import fileDownload from 'js-file-download'
 import { useSnackbar } from 'notistack'
@@ -11,8 +11,8 @@ import { isStaff } from '../helpers/auth'
 import axiosInstance from '../helpers/axiosInstance'
 import { formDataFromObject } from '../helpers/utils'
 import { dataTableStyle } from '../helpers/constants'
-import Spinner from '../components/Spinner'
-import React, { useEffect, useState } from 'react'
+import BounceLoader from '../components/BounceLoader'
+import { useEffect, useState } from 'react'
 import { format } from 'date-fns-tz'
 import Fade from 'react-reveal/Fade'
 
@@ -22,6 +22,7 @@ export default function Resources() {
     const [showCreationModal, setShowCreationModal] = useState(false)
     const [newResource, setNewResource] = useState<any>({})
     const [loading, setLoading] = useState(true)
+    const [uploadPending, setUploadPending] = useState(false)
 
     const categories = ['VRC', 'vSTARS', 'vERAM', 'vATIS', 'SOP', 'LOA', 'MAVP', 'Misc']
 
@@ -87,12 +88,14 @@ export default function Resources() {
 
     const handleSubmitCreate = (e) => {
         e.preventDefault()
+        setUploadPending(true)
         let formData = formDataFromObject(newResource)
         formData.append('path', newResource.path)
         axiosInstance
             .post('/api/resources/', formData, { timeout: 0, headers: { 'Content-Type': 'multipart/form-data' } })
             .then(res => {
                 setShowCreationModal(false)
+                setUploadPending(false)
                 fetchResources()
             })
             .catch(err => {
@@ -109,12 +112,14 @@ export default function Resources() {
 
     const handleSubmitEdit = (e) => {
         e.preventDefault()
+        setUploadPending(true)
         let formData = formDataFromObject(newResource)
         formData.append('path', newResource.path)
         axiosInstance
             .put('/api/resources/' + newResource.id + '/', formData, { timeout: 0, headers: { 'Content-Type': 'multipart/form-data' } })
             .then(res => {
                 setShowEditModal(false)
+                setUploadPending(false)
                 fetchResources()
             })
             .catch(err => {
@@ -150,7 +155,7 @@ export default function Resources() {
                         defaultSortField="name"
                         sortIcon={<BsArrowDown/>}
                         progressPending={loading}
-                        progressComponent={<Spinner/>}
+                        progressComponent={<BounceLoader/>}
                         onRowClicked={row => handleDownload(process.env.REACT_APP_API_URL + row.path, row.category + ' - ' + row.name + row.extension)}
                         columns={[
                             {
@@ -273,8 +278,8 @@ export default function Resources() {
                         <Button className="mr-2" variant="lightgray" onClick={() => setShowCreationModal(false)}>
                             Cancel
                         </Button>
-                        <Button variant="primary" type="submit">
-                            Save
+                        <Button variant="primary" type="submit" disabled={uploadPending}>
+                            {uploadPending ? <Spinner animation="border" variant="light" size="sm"/> : 'Save'}
                         </Button>
                     </Form>
                 </Modal.Body>
@@ -319,8 +324,8 @@ export default function Resources() {
                         <Button className="mr-2" variant="lightgray" onClick={() => setShowEditModal(false)}>
                             Cancel
                         </Button>
-                        <Button className="mr-2" variant="primary" type="submit">
-                            <RiCheckFill size={20}/> Save
+                        <Button className="mr-2" variant="primary" type="submit" disabled={uploadPending}>
+                            {uploadPending ? <Spinner animation="border" variant="light" size="sm"/> : 'Save'}
                         </Button>
                         <Button variant="red" onClick={() => deleteResource(newResource.id)}>
                             <BiTrash size={20}/> Delete

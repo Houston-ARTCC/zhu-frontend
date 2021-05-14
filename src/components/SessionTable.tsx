@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom'
 import { dataTableStyle } from '../helpers/constants'
 import DataTable from 'react-data-table-component'
 import { Alert, Badge, Button, Col, Row } from 'react-bootstrap'
-import Spinner from './Spinner'
+import BounceLoader from './BounceLoader'
 import parse from 'html-react-parser'
 import { format } from 'date-fns-tz'
 import { isTrainingStaff } from '../helpers/auth'
@@ -32,7 +32,7 @@ export default function SessionTable({ data, loading }) {
             defaultSortAsc={false}
             sortIcon={<BsArrowDown/>}
             progressPending={loading}
-            progressComponent={<Spinner/>}
+            progressComponent={<BounceLoader/>}
             expandableRows
             expandableRowsComponent={<ExpandableSession/>}
             expandableRowDisabled={row => row.status !== 1}

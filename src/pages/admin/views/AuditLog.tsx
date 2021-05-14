@@ -2,7 +2,7 @@ import Fade from 'react-reveal/Fade'
 import { useEffect, useState } from 'react'
 import axiosInstance from '../../../helpers/axiosInstance'
 import { BsArrowDown } from 'react-icons/all'
-import Spinner from '../../../components/Spinner'
+import BounceLoader from '../../../components/BounceLoader'
 import { dataTableStyle } from '../../../helpers/constants'
 import DataTable from 'react-data-table-component'
 import { format } from 'date-fns-tz'
@@ -108,7 +108,7 @@ export default function AuditLog() {
                 defaultSortAsc={false}
                 sortIcon={<BsArrowDown/>}
                 progressPending={loading}
-                progressComponent={<Spinner/>}
+                progressComponent={<BounceLoader/>}
                 expandableRows
                 expandableRowDisabled={row => row.action === 2}
                 expandableRowsComponent={<ExpandableEntry/>}

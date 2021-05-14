@@ -8,7 +8,7 @@ import StatisticCalendar from '../components/StatisticCalendar'
 import { formatDurationStr, durationStrAsSeconds, ratingInt } from '../helpers/utils'
 import axiosInstance from '../helpers/axiosInstance'
 import { dataTableStyle } from '../helpers/constants'
-import Spinner from '../components/Spinner'
+import BounceLoader from '../components/BounceLoader'
 import { format, subMonths } from 'date-fns'
 
 export default class Statistics extends Component<any, any> {
@@ -118,7 +118,7 @@ export default class Statistics extends Component<any, any> {
                             defaultSortField="name"
                             sortIcon={<BsArrowDown/>}
                             progressPending={this.state.loading}
-                            progressComponent={<Spinner/>}
+                            progressComponent={<BounceLoader/>}
                             onRowClicked={row => this.props.history.push('/roster/' + row.cid) }
                             columns={[
                                 {
