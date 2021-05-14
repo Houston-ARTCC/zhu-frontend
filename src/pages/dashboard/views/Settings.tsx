@@ -92,40 +92,42 @@ export default function Settings() {
     return (
         <>
             <Fade bottom duration={1250} distance="50px">
-                {isMember() &&
-                    <div className="mb-5">
-                        <h3 className="text-black mb-4">Profile</h3>
-                        <div className="d-flex flex-column flex-md-row">
-                            <div className="d-flex flex-column align-items-center mr-0 mr-md-4">
-                                <img
-                                    onClick={() => setShowAvatarModal(true)}
-                                    className="profile-xl mb-3 select-avatar"
-                                    src={process.env.REACT_APP_API_URL + user?.profile + (!user?.profile.includes('default') ? '?' + new Date().getMonth() : '')}
-                                    alt={user?.cid}
-                                />
-                                <div className="mb-4 mb-md-0">
-                                    <Button variant="bg-red" className="btn-sm" onClick={() => updateAvatar('')}>Reset Avatar</Button>
+                <>
+                    {isMember() &&
+                        <div className="mb-5">
+                            <h3 className="text-black mb-4">Profile</h3>
+                            <div className="d-flex flex-column flex-md-row">
+                                <div className="d-flex flex-column align-items-center mr-0 mr-md-4">
+                                    <img
+                                        onClick={() => setShowAvatarModal(true)}
+                                        className="profile-xl mb-3 select-avatar"
+                                        src={process.env.REACT_APP_API_URL + user?.profile + (!user?.profile.includes('default') ? '?' + new Date().getMonth() : '')}
+                                        alt={user?.cid}
+                                    />
+                                    <div className="mb-4 mb-md-0">
+                                        <Button variant="bg-red" className="btn-sm" onClick={() => updateAvatar('')}>Reset Avatar</Button>
+                                    </div>
+                                </div>
+                                <div className="flex-grow-1">
+                                    <h3 className="font-w700 text-center text-md-left">{user?.first_name} {user?.last_name}</h3>
+                                    <Form onSubmit={handleUpdateBiography}>
+                                        <Form.Control
+                                            as="textarea"
+                                            rows={4}
+                                            name="biography"
+                                            className="mb-2"
+                                            defaultValue={user?.biography}
+                                            value={bio}
+                                            placeholder="No biography set."
+                                            onChange={e => setBio(e.target.value)}
+                                        />
+                                        <Button variant="bg-primary" className="btn-sm" type="submit">Save Bio</Button>
+                                    </Form>
                                 </div>
                             </div>
-                            <div className="flex-grow-1">
-                                <h3 className="font-w700 text-center text-md-left">{user?.first_name} {user?.last_name}</h3>
-                                <Form onSubmit={handleUpdateBiography}>
-                                    <Form.Control
-                                        as="textarea"
-                                        rows={4}
-                                        name="biography"
-                                        className="mb-2"
-                                        defaultValue={user?.biography}
-                                        value={bio}
-                                        placeholder="No biography set."
-                                        onChange={e => setBio(e.target.value)}
-                                    />
-                                    <Button variant="bg-primary" className="btn-sm" type="submit">Save Bio</Button>
-                                </Form>
-                            </div>
                         </div>
-                    </div>
-                }
+                    }
+                </>
                 <div className="mb-5">
                     <h3 className="text-black mb-0">Emails</h3>
                     <p className="text-gray mb-3"><em>Not yet implemented</em></p>
