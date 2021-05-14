@@ -148,7 +148,7 @@ function renderUser(user, title) {
         <div className="d-flex align-items-center">
             <img
                 className="profile-lg mr-3"
-                src={user ? process.env.REACT_APP_API_URL + user.profile + (!user.profile.includes('default') ? '?' + new Date().getTime() : '') : profilePlaceholder}
+                src={user ? process.env.REACT_APP_API_URL + user.profile + (!user.profile.includes('default') ? '?' + new Date().getMonth() : '') : profilePlaceholder}
                 alt={user ? user.cid : 'Vacant'}
             />
             <div>

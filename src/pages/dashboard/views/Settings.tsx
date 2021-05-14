@@ -99,7 +99,7 @@ export default function Settings() {
                             <img
                                 onClick={() => setShowAvatarModal(true)}
                                 className="profile-xl mb-3 select-avatar"
-                                src={process.env.REACT_APP_API_URL + user?.profile + (!user?.profile.includes('default') ? '?' + new Date().getTime() : '')}
+                                src={process.env.REACT_APP_API_URL + user?.profile + (!user?.profile.includes('default') ? '?' + new Date().getMonth() : '')}
                                 alt={user?.cid}
                             />
                             <div className="mb-4 mb-md-0">

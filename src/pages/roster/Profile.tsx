@@ -98,7 +98,7 @@ export default function Profile() {
                                 <div className="d-flex flex-column align-items-center mr-0 mr-md-4">
                                     <img
                                         className="profile-xl mb-4"
-                                        src={process.env.REACT_APP_API_URL + user?.profile + (!user?.profile.includes('default') ? '?' + new Date().getTime() : '')}
+                                        src={process.env.REACT_APP_API_URL + user?.profile + (!user?.profile.includes('default') ? '?' + new Date().getMonth() : '')}
                                         alt={user?.cid}
                                     />
                                     {isStaff() &&

@@ -70,7 +70,7 @@ export default function Home() {
                     <div className="user">
                         <img
                             className="profile-sm mr-2"
-                            src={process.env.REACT_APP_API_URL + announcement.author?.profile + (!announcement.author?.profile.includes('default') ? '?' + new Date().getTime() : '')}
+                            src={process.env.REACT_APP_API_URL + announcement.author?.profile + (!announcement.author?.profile.includes('default') ? '?' + new Date().getMonth() : '')}
                             alt={announcement.author?.cid}
                         />
                         <p className="text-darkgray font-w500 m-0">{announcement.author.first_name} {announcement.author.last_name}</p>
@@ -111,7 +111,7 @@ export default function Home() {
         <li className="li-flex text-darkgray font-w500 font-lg">
             <img
                 className="profile-md mr-2"
-                src={process.env.REACT_APP_API_URL + controller?.profile + (!controller?.profile.includes('default') ? '?' + new Date().getTime() : '')}
+                src={process.env.REACT_APP_API_URL + controller?.profile + (!controller?.profile.includes('default') ? '?' + new Date().getMonth() : '')}
                 alt={controller?.cid}
             />
             {controller.first_name} {controller.last_name} ({controller.initials})

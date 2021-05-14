@@ -82,7 +82,7 @@ export default function Roster() {
                     <Card.Header className="text-center py-4 px-1">
                         <img
                             className="profile-lg mb-2"
-                            src={process.env.REACT_APP_API_URL + user?.profile + (!user?.profile.includes('default') ? '?' + new Date().getTime() : '')}
+                            src={process.env.REACT_APP_API_URL + user?.profile + (!user?.profile.includes('default') ? '?' + new Date().getMonth() : '')}
                             alt={user?.cid}
                         />
                         <Card.Title className="mb-0 text-black">
