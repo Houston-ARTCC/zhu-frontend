@@ -316,7 +316,8 @@ class EditEvent extends Component<any, any> {
                             {shift.requests?.length > 0
                                 ? shift.requests.map(request => (
                                     <Dropdown.Item key={request.id} eventKey={request.id.toString()}>
-                                        {request.user.first_name + ' ' + request.user.last_name} {<EventScoreBadge score={request.user.event_score}/>}
+                                        {/*{request.user.first_name + ' ' + request.user.last_name} {<EventScoreBadge score={request.user.event_score}/>}*/}
+                                        {request.user.first_name + ' ' + request.user.last_name}
                                     </Dropdown.Item>
                                 ))
                                 : <Dropdown.Item disabled>No requests...</Dropdown.Item>
