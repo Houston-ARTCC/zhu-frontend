@@ -464,7 +464,7 @@ a88aaaa8P' .d8888b. .d888b88 .d8888b. .d8888b. .d8888b.
     border-radius: 5px !important;
     padding: 4px 22px !important;
     font-weight: 700 !important;
-    transition: color 300ms;
+    transition: color 300ms, background-color 300ms;
 
     &:not(.btn-link) {
         color: white;

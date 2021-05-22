@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import { Button, Col, Container, Dropdown, Form, FormGroup, Modal, ProgressBar, Row } from 'react-bootstrap'
-import { RiAddLine, RiDeleteBinLine } from 'react-icons/all'
+import { FaDiscord, RiAddLine, RiDeleteBinLine } from 'react-icons/all'
 import { withSnackbar } from 'notistack'
 import { Link } from 'react-router-dom'
 import Select from 'react-select'
@@ -29,6 +29,7 @@ class EditEvent extends Component<any, any> {
         this.handleSwitchChange = this.handleSwitchChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
+        this.handlePostPositions = this.handlePostPositions.bind(this)
     }
 
     componentDidMount() {
@@ -156,7 +157,7 @@ class EditEvent extends Component<any, any> {
         axiosInstance
             .delete('/api/events/' + this.state.event.id + '/')
             .then(res => {
-                this.props.enqueueSnackbar('Event deleted!', {
+                this.props.enqueueSnackbar('Event successfully deleted', {
                     variant: 'success',
                     autoHideDuration: 3000,
                     anchorOrigin: {
@@ -165,6 +166,31 @@ class EditEvent extends Component<any, any> {
                     },
                 })
                 this.props.history.push('/events')
+            })
+            .catch(err => {
+                this.props.enqueueSnackbar(err.toString(), {
+                    variant: 'error',
+                    autoHideDuration: 3000,
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    },
+                })
+            })
+    }
+
+    handlePostPositions() {
+        axiosInstance
+            .put('/api/events/' + this.state.event.id + '/')
+            .then(res => {
+                this.props.enqueueSnackbar('Successfully posted event positions', {
+                    variant: 'success',
+                    autoHideDuration: 3000,
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    },
+                })
             })
             .catch(err => {
                 this.props.enqueueSnackbar(err.toString(), {
@@ -427,6 +453,9 @@ class EditEvent extends Component<any, any> {
                                 </Button>
                             </div>
                         </Form>
+                        <Button variant="purple" className="mb-3" onClick={this.handlePostPositions}>
+                            <FaDiscord/> Post Positions
+                        </Button>
                         <Row>
                             <Col className="text-left">
                                 <div className="float-right mt-1">
