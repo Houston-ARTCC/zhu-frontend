@@ -259,7 +259,7 @@ export default function TrainingRequests({ updateNotifs }) {
 
 const ExpandableComponent = (row) => {
     return (
-        <div className="px-3 pb-3 pt-2" style={{ backgroundColor: '#F9F9F9' }}>
+        <div className="px-3 pb-3 pt-2" style={{ backgroundColor: 'transparent' }}>
             <p className="mb-0"><i><b>Remarks:</b> {row.data.remarks}</i></p>
         </div>
     )
