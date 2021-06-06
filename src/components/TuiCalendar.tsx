@@ -17,11 +17,6 @@ export default function TuiCalendar(props) {
 
     const calendarRef = useRef<Calendar>(null)
 
-    useEffect(() => {
-        setRequested([])
-        setSchedules([])
-        fetchCalendar()
-    }, [props.triggerUpdate]) // eslint-disable-line react-hooks/exhaustive-deps
     useEffect(() => fetchCalendar(), []) // eslint-disable-line react-hooks/exhaustive-deps
     useEffect(() => createEventSchedules(), [events]) // eslint-disable-line react-hooks/exhaustive-deps
     useEffect(() => createSessionSchedules(), [sessions]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -37,7 +32,9 @@ export default function TuiCalendar(props) {
 
     const requestCalendar = (year, month) => {
         if (!requested.includes(year.toString() + month.toString())) {
-            requested.push(year.toString() + month.toString())
+            let newRequested = requested
+            newRequested.push(year.toString() + month.toString())
+            setRequested(newRequested)
             axiosInstance
                 .get('/api/calendar/' + year + '/' + month + '/')
                 .then(res => {

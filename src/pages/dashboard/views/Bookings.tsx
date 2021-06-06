@@ -12,13 +12,14 @@ import IconAlert from '../../../components/IconAlert'
 
 export default function Bookings() {
     const [bookings, setBookings] = useState<any>([])
+    const [bookingSchedules, setBookingSchedules] = useState([])
     const [showCreationModal, setShowCreationModal] = useState(false)
     const [newBooking, setNewBooking] = useState<any>(null)
-    const [updateCalendar, setUpdateCalendar] = useState(true)
 
     const { enqueueSnackbar } = useSnackbar()
 
     useEffect(() => fetchBookings(), [])
+    useEffect(() => createBookingSchedules(), [bookings])
 
     const fetchBookings = () => {
         axiosInstance
@@ -26,11 +27,25 @@ export default function Bookings() {
             .then(res => setBookings(res.data))
     }
 
+    const createBookingSchedules = () => {
+        setBookingSchedules(
+            bookings.map(booking => ({
+                id: booking.id,
+                calendarId: 3,
+                title: booking.callsign + ' [' + booking.user.first_name + ' ' + booking.user.last_name + ']',
+                location: booking.callsign,
+                category: 'time',
+                isReadOnly: true,
+                start: booking.start,
+                end: booking.end,
+            }))
+        )
+    }
+
     const cancelBooking = (row) => {
         axiosInstance
             .delete('/api/booking/' + row.id + '/')
             .then(res => {
-                setUpdateCalendar(!updateCalendar)
                 fetchBookings()
                 enqueueSnackbar('Successfully cancelled booking', {
                     variant: 'success',
@@ -58,7 +73,6 @@ export default function Bookings() {
         axiosInstance
             .post('/api/booking/', newBooking)
             .then(res => {
-                setUpdateCalendar(!updateCalendar)
                 setShowCreationModal(false)
                 fetchBookings()
                 enqueueSnackbar('Successfully booked ' + newBooking?.callsign, {
@@ -166,7 +180,7 @@ export default function Bookings() {
                     To select a time, drag your mouse across multiple boxes on the calendar below.
                 </p>
             </IconAlert>
-            <TuiCalendar view="week" onCreateSchedule={handleCreateSchedule} triggerUpdate={updateCalendar}/>
+            <TuiCalendar view="week" onCreateSchedule={handleCreateSchedule} additionalSchedules={bookingSchedules} />
             <Modal
                 show={showCreationModal}
                 onHide={() => setShowCreationModal(false)}
