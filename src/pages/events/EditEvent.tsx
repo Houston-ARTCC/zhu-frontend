@@ -418,7 +418,7 @@ class EditEvent extends Component<any, any> {
                                         </Form.Group>
                                         <Form.Group as={Col}>
                                             <Form.Label>Banner URL</Form.Label>
-                                            <Form.Control required type="text" name="banner" value={this.state.event.banner} onChange={this.handleTextChange}/>
+                                            <Form.Control type="text" name="banner" value={this.state.event.banner} onChange={this.handleTextChange}/>
                                         </Form.Group>
                                     </Form.Row>
                                     <Form.Row>
