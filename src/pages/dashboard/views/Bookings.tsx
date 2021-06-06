@@ -19,7 +19,7 @@ export default function Bookings() {
     const { enqueueSnackbar } = useSnackbar()
 
     useEffect(() => fetchBookings(), [])
-    useEffect(() => createBookingSchedules(), [bookings])
+    useEffect(() => createBookingSchedules(), [bookings]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const fetchBookings = () => {
         axiosInstance
