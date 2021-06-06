@@ -5,7 +5,7 @@ export function durationStrAsSeconds(durationStr) {
 }
 
 export function formatDurationStr(durationStr) {
-    if (durationStr == null) return null
+    if (durationStr == null || durationStr === '00:00:00') return null
     const parts = durationStr.split(/[:.]/)
     return `${parts[0]}h ${parts[1]}m`
 }
