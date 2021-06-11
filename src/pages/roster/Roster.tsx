@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, ButtonGroup, Card, Col, Container, Form, Row } from 'react-bootstrap'
+import { Button, ButtonGroup, Card, Col, Container, Form, OverlayTrigger, Popover, Row } from 'react-bootstrap'
 import { BsArrowDown, FaCircle } from 'react-icons/all'
 import DataTable from 'react-data-table-component'
 import Switch from 'react-bootstrap/Switch'
@@ -64,13 +64,26 @@ export default function Roster() {
         )
     }
 
-    const Certification = ({ cert }) => {
+    const Certification = ({ user, cert }) => {
         let color;
         switch (cert) {
             case 1: color = 'yellow'; break
             case 2: color = 'green'; break
             case 3: color = 'red'; break
             default: color = 'lightgray'; break
+        }
+        if (cert === 3 && user.solo_facility) {
+            return (
+                <OverlayTrigger placement="top" overlay={
+                    <Popover id="popover-basic">
+                        <Popover.Content>
+                            <h6 className="mb-0">Solo on {user.solo_facility}</h6>
+                        </Popover.Content>
+                    </Popover>
+                }>
+                    <FaCircle className={'fill-' + color}/>
+                </OverlayTrigger>
+            )
         }
         return <FaCircle className={'fill-' + color}/>
     }
@@ -102,12 +115,12 @@ export default function Roster() {
                         </Row>
                         <table className="w-100">
                             <tr>
-                                <td><Certification cert={user.del_cert}/></td>
-                                <td><Certification cert={user.gnd_cert}/></td>
-                                <td><Certification cert={user.twr_cert}/></td>
-                                <td><Certification cert={user.app_cert}/></td>
-                                <td><Certification cert={user.ctr_cert}/></td>
-                                <td><Certification cert={user.ocn_cert}/></td>
+                                <td><Certification user={user} cert={user.del_cert}/></td>
+                                <td><Certification user={user} cert={user.gnd_cert}/></td>
+                                <td><Certification user={user} cert={user.twr_cert}/></td>
+                                <td><Certification user={user} cert={user.app_cert}/></td>
+                                <td><Certification user={user} cert={user.ctr_cert}/></td>
+                                <td><Certification user={user} cert={user.ocn_cert}/></td>
                             </tr>
                             <tr>
                                 <th className="font-sm">DEL</th>
@@ -200,7 +213,7 @@ export default function Roster() {
                                     center: true,
                                     sortable: true,
                                     sortFunction: (a, b) => {return a.del_cert > b.del_cert ? -1 : 1},
-                                    format: row => <Certification cert={row.del_cert}/>,
+                                    format: row => <Certification user={row} cert={row.del_cert}/>,
                                 },
                                 {
                                     name: 'GND',
@@ -209,7 +222,7 @@ export default function Roster() {
                                     center: true,
                                     sortable: true,
                                     sortFunction: (a, b) => {return a.gnd_cert > b.gnd_cert ? -1 : 1},
-                                    format: row => <Certification cert={row.gnd_cert}/>,
+                                    format: row => <Certification user={row} cert={row.gnd_cert}/>,
                                 },
                                 {
                                     name: 'TWR',
@@ -218,7 +231,7 @@ export default function Roster() {
                                     center: true,
                                     sortable: true,
                                     sortFunction: (a, b) => {return a.twr_cert > b.twr_cert ? -1 : 1},
-                                    format: row => <Certification cert={row.twr_cert}/>,
+                                    format: row => <Certification user={row} cert={row.twr_cert}/>,
                                 },
                                 {
                                     name: 'APP',
@@ -227,7 +240,7 @@ export default function Roster() {
                                     center: true,
                                     sortable: true,
                                     sortFunction: (a, b) => {return a.app_cert > b.app_cert ? -1 : 1},
-                                    format: row => <Certification cert={row.app_cert}/>,
+                                    format: row => <Certification user={row} cert={row.app_cert}/>,
                                 },
                                 {
                                     name: 'CTR',
@@ -236,7 +249,7 @@ export default function Roster() {
                                     center: true,
                                     sortable: true,
                                     sortFunction: (a, b) => {return a.ctr_cert > b.ctr_cert ? -1 : 1},
-                                    format: row => <Certification cert={row.ctr_cert}/>,
+                                    format: row => <Certification user={row} cert={row.ctr_cert}/>,
                                 },
                                 {
                                     name: 'OCN',
@@ -245,7 +258,7 @@ export default function Roster() {
                                     center: true,
                                     sortable: true,
                                     sortFunction: (a, b) => {return a.ocn_cert > b.ocn_cert ? -1 : 1},
-                                    format: row => <Certification cert={row.ocn_cert}/>,
+                                    format: row => <Certification user={row} cert={row.ocn_cert}/>,
                                 },
                             ]}
                             customStyles={dataTableStyle}

@@ -128,12 +128,36 @@ export default function Profile() {
                                     <th><h6>Oceanic</h6></th>
                                 </tr>
                                 <tr>
-                                    <td><Badge variant={certColor(user.del_cert) + ' rounded'}>{certLevel(user.del_cert)}</Badge></td>
-                                    <td><Badge variant={certColor(user.gnd_cert) + ' rounded'}>{certLevel(user.gnd_cert)}</Badge></td>
-                                    <td><Badge variant={certColor(user.twr_cert) + ' rounded'}>{certLevel(user.twr_cert)}</Badge></td>
-                                    <td><Badge variant={certColor(user.app_cert) + ' rounded'}>{certLevel(user.app_cert)}</Badge></td>
-                                    <td><Badge variant={certColor(user.ctr_cert) + ' rounded'}>{certLevel(user.ctr_cert)}</Badge></td>
-                                    <td><Badge variant={certColor(user.ocn_cert) + ' rounded'}>{certLevel(user.ocn_cert)}</Badge></td>
+                                    <td>
+                                        <Badge variant={certColor(user.del_cert) + ' rounded'}>
+                                            {user.del_cert === 3 ? user.solo_facility : certLevel(user.del_cert)}
+                                        </Badge>
+                                    </td>
+                                    <td>
+                                        <Badge variant={certColor(user.gnd_cert) + ' rounded'}>
+                                            {user.gnd_cert === 3 ? user.solo_facility : certLevel(user.gnd_cert)}
+                                        </Badge>
+                                    </td>
+                                    <td>
+                                        <Badge variant={certColor(user.twr_cert) + ' rounded'}>
+                                            {user.twr_cert === 3 ? user.solo_facility : certLevel(user.twr_cert)}
+                                        </Badge>
+                                    </td>
+                                    <td>
+                                        <Badge variant={certColor(user.app_cert) + ' rounded'}>
+                                            {user.app_cert === 3 ? user.solo_facility : certLevel(user.app_cert)}
+                                        </Badge>
+                                    </td>
+                                    <td>
+                                        <Badge variant={certColor(user.ctr_cert) + ' rounded'}>
+                                            {user.ctr_cert === 3 ? user.solo_facility : certLevel(user.ctr_cert)}
+                                        </Badge>
+                                    </td>
+                                    <td>
+                                        <Badge variant={certColor(user.ocn_cert) + ' rounded'}>
+                                            {user.ocn_cert === 3 ? user.solo_facility : certLevel(user.ocn_cert)}
+                                        </Badge>
+                                    </td>
                                 </tr>
                             </table>
                             <table className="w-100 text-center mb-5 d-table d-md-none" style={{ tableLayout: 'fixed' }}>

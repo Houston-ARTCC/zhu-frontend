@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Badge, Button, Col, Container, Dropdown, Form, Row } from 'react-bootstrap'
+import { Badge, Button, Col, Container, Dropdown, Form, Modal, Row } from 'react-bootstrap'
 import { useSnackbar } from 'notistack'
 import { Link } from 'react-router-dom'
 import Fade from 'react-reveal/Fade'
@@ -16,6 +16,9 @@ export default function EditUser() {
     const [user, setUser] = useState<any>(null)
     const [loading, setLoading] = useState(true)
     const [notFound, setNotFound] = useState(false)
+    const [showSoloModal, setShowSoloModal] = useState(false)
+    const [soloFacility, setSoloFacility] = useState('')
+    const [soloCert, setSoloCert] = useState(-1)
 
     const history = useHistory()
     const { cid } = useParams<any>()
@@ -86,12 +89,26 @@ export default function EditUser() {
         setUser(modifiedUser)
     }
 
+    const handleAddSoloCert = (e) => {
+        e.preventDefault()
+        let modifiedUser = { ...user }
+        modifiedUser['solo_facility'] = soloFacility
+        modifiedUser[soloCert] = 3
+        setUser(modifiedUser)
+        setShowSoloModal(false)
+    }
+
     const CertOptions = ({ cert }) => (
         <Dropdown.Menu>
             <Dropdown.Item onClick={() => setCert(cert, 0)}><Badge variant="lightgray rounded">None</Badge></Dropdown.Item>
             <Dropdown.Item onClick={() => setCert(cert, 1)}><Badge variant="yellow rounded">Minor</Badge></Dropdown.Item>
             <Dropdown.Item onClick={() => setCert(cert, 2)}><Badge variant="green rounded">Major</Badge></Dropdown.Item>
-            <Dropdown.Item onClick={() => setCert(cert, 3)}><Badge variant="red rounded">Solo</Badge></Dropdown.Item>
+            <Dropdown.Item onClick={() => {
+                setSoloCert(cert)
+                setShowSoloModal(true)
+            }}>
+                <Badge variant="red rounded">Solo</Badge>
+            </Dropdown.Item>
         </Dropdown.Menu>
     )
 
@@ -99,7 +116,7 @@ export default function EditUser() {
     if (loading) return <LoadingScreen/>
 
     return (
-        <div>
+        <>
             <Header
                 title={user.first_name + ' ' + user.last_name}
                 subtitle="Editing User"
@@ -158,37 +175,49 @@ export default function EditUser() {
                                         <tr>
                                             <td>
                                                 <Dropdown>
-                                                    <Dropdown.Toggle size="sm" variant={certColor(user.del_cert)}>{certLevel(user.del_cert)}</Dropdown.Toggle>
+                                                    <Dropdown.Toggle size="sm" variant={certColor(user.del_cert)}>
+                                                        {user.del_cert === 3 ? user.solo_facility : certLevel(user.del_cert)}
+                                                    </Dropdown.Toggle>
                                                     <CertOptions cert="del_cert"/>
                                                 </Dropdown>
                                             </td>
                                             <td>
                                                 <Dropdown>
-                                                    <Dropdown.Toggle size="sm" variant={certColor(user.gnd_cert)}>{certLevel(user.gnd_cert)}</Dropdown.Toggle>
+                                                    <Dropdown.Toggle size="sm" variant={certColor(user.gnd_cert)}>
+                                                        {user.gnd_cert === 3 ? user.solo_facility : certLevel(user.gnd_cert)}
+                                                    </Dropdown.Toggle>
                                                     <CertOptions cert="gnd_cert"/>
                                                 </Dropdown>
                                             </td>
                                             <td>
                                                 <Dropdown>
-                                                    <Dropdown.Toggle size="sm" variant={certColor(user.twr_cert)}>{certLevel(user.twr_cert)}</Dropdown.Toggle>
+                                                    <Dropdown.Toggle size="sm" variant={certColor(user.twr_cert)}>
+                                                        {user.twr_cert === 3 ? user.solo_facility : certLevel(user.twr_cert)}
+                                                    </Dropdown.Toggle>
                                                     <CertOptions cert="twr_cert"/>
                                                 </Dropdown>
                                             </td>
                                             <td>
                                                 <Dropdown>
-                                                    <Dropdown.Toggle size="sm" variant={certColor(user.app_cert)}>{certLevel(user.app_cert)}</Dropdown.Toggle>
+                                                    <Dropdown.Toggle size="sm" variant={certColor(user.app_cert)}>
+                                                        {user.app_cert === 3 ? user.solo_facility : certLevel(user.app_cert)}
+                                                    </Dropdown.Toggle>
                                                     <CertOptions cert="app_cert"/>
                                                 </Dropdown>
                                             </td>
                                             <td>
                                                 <Dropdown>
-                                                    <Dropdown.Toggle size="sm" variant={certColor(user.ctr_cert)}>{certLevel(user.ctr_cert)}</Dropdown.Toggle>
+                                                    <Dropdown.Toggle size="sm" variant={certColor(user.ctr_cert)}>
+                                                        {user.ctr_cert === 3 ? user.solo_facility : certLevel(user.ctr_cert)}
+                                                    </Dropdown.Toggle>
                                                     <CertOptions cert="ctr_cert"/>
                                                 </Dropdown>
                                             </td>
                                             <td>
                                                 <Dropdown>
-                                                    <Dropdown.Toggle size="sm" variant={certColor(user.ocn_cert)}>{certLevel(user.ocn_cert)}</Dropdown.Toggle>
+                                                    <Dropdown.Toggle size="sm" variant={certColor(user.ocn_cert)}>
+                                                        {user.ocn_cert === 3 ? user.solo_facility : certLevel(user.ocn_cert)}
+                                                    </Dropdown.Toggle>
                                                     <CertOptions cert="ocn_cert"/>
                                                 </Dropdown>
                                             </td>
@@ -220,6 +249,33 @@ export default function EditUser() {
                     </div>
                 </Container>
             </Fade>
-        </div>
+            <Modal
+                show={showSoloModal}
+                onHide={() => {
+                    setShowSoloModal(false)
+                    setSoloFacility('')
+                }}
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Adding Solo Certification</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={handleAddSoloCert}>
+                        <p>Adding a solo certification for {user.first_name} {user.last_name}.</p>
+                        <p><b>Note: </b> This will not automatically add the solo certification to the VATUSA website.</p>
+                        <Form.Control
+                            required
+                            className="mb-3"
+                            value={soloFacility}
+                            onChange={e => setSoloFacility(e.target.value)}
+                            placeholder="3-letter code (eg. IAH, AUS)"
+                        />
+                        <Button variant="lightgray" className="mr-2" type="button" onClick={() => setShowSoloModal(false)}>Cancel</Button>
+                        <Button type="submit">Submit</Button>
+                    </Form>
+                </Modal.Body>
+            </Modal>
+        </>
     )
 }
