@@ -927,7 +927,8 @@ dP dP  dP  dP `88888P8 `8888P88 `88888P' `88888P'
 }
 
 .event-banner-sm {
-    width: 350px;
+    width: 100%;
+    max-width: 350px;
 }
 
 .event-banner-lg {
