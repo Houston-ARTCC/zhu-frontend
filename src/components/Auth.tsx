@@ -10,12 +10,12 @@ export function Login(props) {
     const history = useHistory()
     const { enqueueSnackbar } = useSnackbar()
 
-    const auth_code = new URLSearchParams(search).get('code')
+    const authCode = new URLSearchParams(search).get('code')
 
     useEffect(() => {
-        if (auth_code) {
+        if (authCode) {
             axiosInstance
-                .post('/auth/token/', { code: auth_code })
+                .post('/auth/token/', { code: authCode })
                 .then(res => {
                     localStorage.setItem('access', res.data.access)
                     localStorage.setItem('refresh', res.data.refresh)
