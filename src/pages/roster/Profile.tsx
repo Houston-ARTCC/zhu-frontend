@@ -77,7 +77,7 @@ export default function Profile() {
         )
     }
 
-    const ExpandableFeedback = ({ row }) => (
+    const ExpandableFeedback = (row) => (
         <div className="px-5 py-3">
             {row.data.pilot_callsign && <p className="font-w500"><RiPlaneLine size={25} className="mr-2"/>{row.data.pilot_callsign}</p>}
             {row.data.event && <p className="font-w500"><RiCalendarEventLine size={25} className="mr-2"/>{row.data.event.name}</p>}
@@ -226,7 +226,7 @@ export default function Profile() {
                                     paginationPerPage={5}
                                     paginationRowsPerPageOptions={[5, 10, 15, 20]}
                                     expandableRows
-                                    expandableRowsComponent={row => <ExpandableFeedback row={row}/>}
+                                    expandableRowsComponent={<ExpandableFeedback/>}
                                     expandableRowExpanded={row => row.id === expanded.id}
                                     onRowExpandToggled={(state, row) => state && setExpanded(row)}
                                     expandOnRowClicked
