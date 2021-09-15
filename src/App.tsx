@@ -19,6 +19,7 @@ import ViewEvent from './pages/events/ViewEvent'
 import NewEvent from './pages/events/NewEvent'
 import EventScores from './pages/events/EventScores'
 import PositionPresets from './pages/events/PositionPresets'
+import RequestSupport from './pages/events/RequestSupport'
 import FileSession from './pages/training/FileSession'
 import EditSession from './pages/training/EditSession'
 import TrainingCenter from './pages/training/TrainingCenter'
@@ -71,6 +72,7 @@ export default function App() {
                 <AuthRoute exact path="/events/new" component={NewEvent} view={null} auth={isStaff}/>
                 <AuthRoute exact path="/events/scores" component={EventScores} view={null} auth={isMember}/>
                 <AuthRoute exact path="/events/presets" component={PositionPresets} view={null} auth={isStaff}/>
+                <AuthRoute exact path="/events/support" component={RequestSupport} view={null} auth={isAuthenticated}/>
                 {/* Roster */}
                 <Route exact path="/staff" component={Staff}/>
                 <Route exact path="/roster" component={Roster}/>
