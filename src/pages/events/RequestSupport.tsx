@@ -5,7 +5,6 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router'
 import { useSnackbar } from 'notistack'
 import { getCID, getFullName } from '../../helpers/auth'
-import StarRating from '../../components/StarRating'
 import { AiOutlineCheckCircle } from 'react-icons/all'
 import axiosInstance from '../../helpers/axiosInstance'
 
