@@ -8,7 +8,7 @@ import Header from '../../components/Header'
 import StatisticCalendar from '../../components/StatisticCalendar'
 import axiosInstance from '../../helpers/axiosInstance'
 import { certColor, certLevel, formatDurationStr } from '../../helpers/utils'
-import { isStaff } from '../../helpers/auth'
+import { getCID, isStaff } from '../../helpers/auth'
 import { dataTableStyle } from '../../helpers/constants'
 import { format } from 'date-fns'
 import { useParams } from 'react-router'
@@ -30,7 +30,7 @@ export default function Profile() {
         fetchUser()
         fetchUserConnections()
         fetchUserDailyStatistics()
-        if (isStaff()) fetchUserFeedback()
+        if (isStaff() || parseInt(cid) === getCID()) fetchUserFeedback()
     }, [cid]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const fetchUser = () => {
@@ -215,7 +215,7 @@ export default function Profile() {
                                     ]}
                                 />
                             </div>
-                            {isStaff() &&
+                            {(isStaff() || parseInt(cid) === getCID()) &&
                                 <DataTable
                                     data={feedback}
                                     title={<h5>Feedback</h5>}
