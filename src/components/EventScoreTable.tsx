@@ -61,7 +61,7 @@ export default function EventScoreTable({ cid }) {
                     selector: 'date',
                     sortable: true,
                     sortFunction: (a, b) => new Date(a.event?.start) > new Date(b.event?.start) ? 1 : -1,
-                    format: row => format(new Date(row.event?.start), 'MMMM d, Y'),
+                    format: row => format(new Date(row.event?.start), 'MMMM d, y'),
                 },
                 {
                     name: 'Details',

@@ -178,7 +178,7 @@ export default function Resources() {
                                 selector: 'updated',
                                 sortable: true,
                                 sortFunction: (a, b) => new Date(a.updated) > new Date(b.updated) ? 1 : -1,
-                                format: row => format(new Date(row.updated), 'MMM d, Y'),
+                                format: row => format(new Date(row.updated), 'MMM d, y'),
                             },
                             {
                                 name: 'Edit',

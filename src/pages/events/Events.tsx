@@ -42,7 +42,7 @@ export default function Events() {
                             <Col>
                                 <div className="li-flex">
                                     <HiOutlineCalendar size={30} className="mr-2"/>
-                                    <p className="font-w500 font-lg mb-0">{format(new Date(event.start), 'MMM d, Y')}</p>
+                                    <p className="font-w500 font-lg mb-0">{format(new Date(event.start), 'MMM d, y')}</p>
                                 </div>
                                 <div className="li-flex font-w500 font-lg">
                                     <HiOutlineClock size={30} className="mr-2"/>

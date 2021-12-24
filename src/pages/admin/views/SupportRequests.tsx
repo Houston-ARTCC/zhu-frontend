@@ -88,7 +88,7 @@ export default function SupportRequests({ updateNotifs }) {
                     <h6 className="text-gray font-w500 mb-3">Presented by {request.host}</h6>
                     <div className="li-flex">
                         <HiOutlineCalendar size={25} className="mr-2"/>
-                        <p className="font-w500 font-md mb-0">{format(new Date(request.start), 'MMM d, Y')}</p>
+                        <p className="font-w500 font-md mb-0">{format(new Date(request.start), 'MMM d, y')}</p>
                     </div>
                     <div className="li-flex mb-4">
                         <HiOutlineClock size={25} className="mr-2"/>

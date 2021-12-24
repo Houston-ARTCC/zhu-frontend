@@ -132,7 +132,7 @@ export default function ScheduledSessions() {
                                 name: 'Date',
                                 selector: 'date',
                                 sortable: true,
-                                format: row => format(new Date(row.start), 'MMM d, Y @ HH:mm zzz'),
+                                format: row => format(new Date(row.start), 'MMM d, y @ HH:mm zzz'),
                                 sortFunction: (a: any, b: any) => new Date(a.start) > new Date(b.start) ? 1 : -1,
                                 minWidth: '22%',
                             },
@@ -188,7 +188,7 @@ export default function ScheduledSessions() {
                         <Modal.Title>Cancelling {currentSession?.student.first_name} {currentSession?.student.last_name}'s Training Session</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p>Are you sure you would like to cancel {currentSession?.student.first_name} {currentSession?.student.last_name}'s training session on <b>{currentSession && format(new Date(currentSession?.start), 'MMM d, Y')}</b>?</p>
+                        <p>Are you sure you would like to cancel {currentSession?.student.first_name} {currentSession?.student.last_name}'s training session on <b>{currentSession && format(new Date(currentSession?.start), 'MMM d, y')}</b>?</p>
                         <p>The student will be sent an email notifying them of this cancellation. It is still recommended that you notify the student directly to ensure that they are aware of this change.</p>
                     </Modal.Body>
                     <Modal.Footer>
@@ -212,7 +212,7 @@ export default function ScheduledSessions() {
                         <Modal.Title>No-Show {currentSession?.student.first_name} {currentSession?.student.last_name}'s Training Session</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p>Are you sure you would like to mark {currentSession?.student.first_name} {currentSession?.student.last_name}'s training session on {currentSession && format(new Date(currentSession?.start), 'MMM d, Y')} as a no-show?</p>
+                        <p>Are you sure you would like to mark {currentSession?.student.first_name} {currentSession?.student.last_name}'s training session on {currentSession && format(new Date(currentSession?.start), 'MMM d, y')} as a no-show?</p>
                         <p>By proceeding, you are confirming that the student did not show up at the session for 15 minutes after the scheduled starting time.</p>
                     </Modal.Body>
                     <Modal.Footer>

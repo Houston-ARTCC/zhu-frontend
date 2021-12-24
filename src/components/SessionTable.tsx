@@ -50,7 +50,7 @@ export default function SessionTable({ data, loading }) {
                     name: 'Date',
                     selector: 'date',
                     sortable: true,
-                    format: row => format(new Date(row.start), 'MMM d, Y @ HH:mm zzz'),
+                    format: row => format(new Date(row.start), 'MMM d, y @ HH:mm zzz'),
                     sortFunction: (a, b) => new Date(a.start) > new Date(b.start) ? 1 : -1,
                     width: '20%',
                 },
@@ -173,7 +173,7 @@ const ExpandableSession = (row) => {
                 <Col md={4}>
                     <p>
                         <RiCalendarLine size={25} className="mr-2"/>
-                        <span className="font-w500">{format(new Date(row.data.start), 'MMM d, Y')}</span>
+                        <span className="font-w500">{format(new Date(row.data.start), 'MMM d, y')}</span>
                     </p>
                     <p>
                         <RiTimeLine size={25} className="mr-2"/>

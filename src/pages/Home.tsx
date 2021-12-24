@@ -65,7 +65,7 @@ export default function Home() {
         }}>
             <Card>
                 <Card.Body>
-                    <Badge variant="primary" className="announcment-date">{format(new Date(announcement.posted), 'MMM d, Y')}</Badge>
+                    <Badge variant="primary" className="announcment-date">{format(new Date(announcement.posted), 'MMM d, y')}</Badge>
                     <h5 className="text-black font-w700">{announcement.title}</h5>
                     <div className="user">
                         <img
@@ -90,7 +90,7 @@ export default function Home() {
                             <h6 className="text-gray font-w500 mb-3">Presented by {event.host}</h6>
                             <div className="li-flex">
                                 <HiOutlineCalendar size={25} className="mr-2"/>
-                                <p className="font-w500 font-md mb-0">{format(new Date(event.start), 'MMM d, Y')}</p>
+                                <p className="font-w500 font-md mb-0">{format(new Date(event.start), 'MMM d, y')}</p>
                             </div>
                             <div className="li-flex mb-3">
                                 <HiOutlineClock size={25} className="mr-2"/>

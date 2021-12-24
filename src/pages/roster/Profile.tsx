@@ -198,7 +198,7 @@ export default function Profile() {
                                             selector: 'date',
                                             sortable: true,
                                             sortFunction: (a, b) => new Date(a.start) > new Date(b.start) ? 1 : -1,
-                                            format: row => format(new Date(row.start), 'MMM d, Y'),
+                                            format: row => format(new Date(row.start), 'MMM d, y'),
                                         },
                                         {
                                             name: 'Callsign',
@@ -240,7 +240,7 @@ export default function Profile() {
                                             selector: 'date',
                                             sortable: true,
                                             sortFunction: (a, b) => new Date(a.created) > new Date(b.created) ? 1 : -1,
-                                            format: row => format(new Date(row.created), 'MMM d, Y'),
+                                            format: row => format(new Date(row.created), 'MMM d, y'),
                                         },
                                         {
                                             name: 'Callsign',

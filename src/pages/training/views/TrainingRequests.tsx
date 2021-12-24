@@ -147,14 +147,14 @@ export default function TrainingRequests({ updateNotifs }) {
                                 name: 'Start',
                                 selector: 'start',
                                 sortable: true,
-                                format: row => format(new Date(row.start), 'MMM d, Y @ HH:mm zzz'),
+                                format: row => format(new Date(row.start), 'MMM d, y @ HH:mm zzz'),
                                 sortFunction: (a, b) => new Date(a.start) > new Date(b.start) ? 1 : -1,
                             },
                             {
                                 name: 'End',
                                 selector: 'end',
                                 sortable: true,
-                                format: row => format(new Date(row.end), 'MMM d, Y @ HH:mm zzz'),
+                                format: row => format(new Date(row.end), 'MMM d, y @ HH:mm zzz'),
                                 sortFunction: (a, b) => new Date(a.start) > new Date(b.start) ? 1 : -1,
                             },
                         ]}
@@ -181,9 +181,9 @@ export default function TrainingRequests({ updateNotifs }) {
                         <p>Drag the slider to set the start and end times for the training session. The limits are automatically set to what the student indicated as their availability.</p>
                         <div className="my-4">
                             <div className="d-flex flex-column flex-md-row justify-content-center align-items-center mb-3">
-                                <Badge variant="darkblue" style={{ minWidth: 200 }}>{modifiedRequest && format(modifiedRequest.start, 'MMM d, Y @ HH:mm zzz')}</Badge>
+                                <Badge variant="darkblue" style={{ minWidth: 200 }}>{modifiedRequest && format(modifiedRequest.start, 'MMM d, y @ HH:mm zzz')}</Badge>
                                 <RiArrowRightLine size={30} className="fill-darkblue mx-3"/>
-                                <Badge variant="darkblue" style={{ minWidth: 200 }}>{modifiedRequest && format(modifiedRequest.end, 'MMM d, Y @ HH:mm zzz')}</Badge>
+                                <Badge variant="darkblue" style={{ minWidth: 200 }}>{modifiedRequest && format(modifiedRequest.end, 'MMM d, y @ HH:mm zzz')}</Badge>
                             </div>
                             <Slider.Range
                                 // @ts-ignore

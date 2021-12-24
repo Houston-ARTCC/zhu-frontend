@@ -229,9 +229,9 @@ class ViewEvent extends Component<any, any> {
                                 <Row className="align-items-center mb-4">
                                     <Col xs={12} md={6} className="mb-2">
                                         <h4 className="text-black font-w500">Start</h4>
-                                        <h5 className="font-w400">{this.state.event.start && format(new Date(this.state.event.start), 'MMM d, Y, HH:mm zzz')}</h5>
+                                        <h5 className="font-w400">{this.state.event.start && format(new Date(this.state.event.start), 'MMM d, y, HH:mm zzz')}</h5>
                                         <h4 className="text-black font-w500">End</h4>
-                                        <h5 className="font-w400">{this.state.event.start && format(new Date(this.state.event.end), 'MMM d, Y, HH:mm zzz')}</h5>
+                                        <h5 className="font-w400">{this.state.event.start && format(new Date(this.state.event.end), 'MMM d, y, HH:mm zzz')}</h5>
                                     </Col>
                                     <Col xs={12} md={6}>
                                         <h4 className="text-black font-w500">Time Until Event</h4>

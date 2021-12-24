@@ -119,7 +119,7 @@ export default function Announcements() {
                         name: 'Posted',
                         selector: 'posted',
                         sortable: true,
-                        format: row => format(new Date(row.posted), 'MMM d, Y @ HH:mm zzz'),
+                        format: row => format(new Date(row.posted), 'MMM d, y @ HH:mm zzz'),
                         sortFunction: (a, b) => new Date(a.start) > new Date(b.start) ? 1 : -1,
                     },
                     {
