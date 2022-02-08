@@ -1,5 +1,9 @@
 export function getAuthURL() {
-    return 'https://auth.vatsim.net/oauth/authorize' +
+    const url = process.env.NODE_ENV === 'development'
+        ? 'https://auth-dev.vatsim.net/oauth/authorize'
+        : 'https://auth.vatsim.net/oauth/authorize'
+
+    return url +
         '?client_id=' + process.env.REACT_APP_VATSIM_CONNECT_CLIENT_ID +
         '&redirect_uri=' + process.env.REACT_APP_VATSIM_CONNECT_REDIRECT_URI +
         '&response_type=code&scope=full_name+vatsim_details+email' +
