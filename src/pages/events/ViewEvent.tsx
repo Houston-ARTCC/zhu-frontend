@@ -42,7 +42,7 @@ class ViewEvent extends Component<any, any> {
     getEnroutePositions() {
         return this.state.event.positions?.filter(position => {
             let level = position.callsign.split('_').slice(-1).pop()
-            return level === 'CTR' || level === 'FSS'
+            return level === 'CTR' || level === 'FSS' || level === 'TMU'
         })
     }
 
