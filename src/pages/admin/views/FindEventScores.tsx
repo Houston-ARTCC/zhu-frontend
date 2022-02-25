@@ -25,7 +25,7 @@ export default function FindEventScores() {
                     },
                     {
                         label: 'Visiting Controllers',
-                        options: res.data.home?.map(controller => ({
+                        options: res.data.visiting?.map(controller => ({
                             value: controller.cid,
                             label: controller.first_name + ' ' + controller.last_name,
                             score: controller.event_score,
