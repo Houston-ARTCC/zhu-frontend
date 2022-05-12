@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
-import { BsArrowDown, RiArrowRightLine, RiCheckboxCircleLine } from 'react-icons/all'
+import { RiArrowRightLine, RiCheckboxCircleLine } from 'react-icons/ri'
 import { useSnackbar } from 'notistack'
 import Fade from 'react-reveal/Fade'
 import Select from 'react-select'
@@ -12,9 +12,10 @@ import axiosInstance from '../../../helpers/axiosInstance'
 import { Badge, Button, Col, Form, Modal } from 'react-bootstrap'
 import { format } from 'date-fns-tz'
 import IconAlert from '../../../components/IconAlert'
+import { UserTrainingRequests } from '../../../models'
 
 export default function TrainingRequests({ updateNotifs }) {
-    const [requests, setRequests] = useState([])
+    const [requests, setRequests] = useState<UserTrainingRequests[]>([])
     const [showRequestModal, setShowRequestModal] = useState(false)
     const [request, setRequest] = useState<any>({})
     const [modifiedRequest, setModifiedRequest] = useState<any>(undefined)
@@ -86,6 +87,27 @@ export default function TrainingRequests({ updateNotifs }) {
             })
     }
 
+    const ExpandableComponent = (row) => (
+        <div className="px-3 pt-2">
+            {row.data.requests.map((request) => (
+                <p>
+                    <Button
+                        size="sm"
+                        variant="bg-primary"
+                        className="mr-2"
+                        onClick={() => handleClickRequest(request)}
+                    >
+                        Book
+                    </Button>
+                    {levelDisplay(request.level)} {typeDisplay(request.type)}
+                    {' '}on <b>{format(new Date(request.start), 'MMM d')}</b>
+                    {' '}from <b>{format(new Date(request.start), 'HH:mm')}</b>
+                    {' '}to <b>{format(new Date(request.end), 'HH:mm z')}</b>
+                </p>
+            ))}
+        </div>
+    );
+
     let marks = {}
     let start = new Date(request.start).getTime()
     let end = new Date(request.end).getTime()
@@ -105,57 +127,26 @@ export default function TrainingRequests({ updateNotifs }) {
                         highlightOnHover
                         pointerOnHover
                         expandableRows
-                        expandableRowsHideExpander={true}
                         expandableRowsComponent={<ExpandableComponent/>}
-                        expandableRowExpanded={row => row.remarks}
-                        defaultSortField="start"
-                        sortIcon={<BsArrowDown/>}
-                        pagination={true}
-                        paginationPerPage={10}
-                        paginationRowsPerPageOptions={[10, 15, 20, 25]}
                         noDataComponent={<div className="p-4">No pending training requests</div>}
-                        onRowClicked={handleClickRequest}
-                        conditionalRowStyles={[
-                            {
-                                when: row => row.remarks,
-                                style: { borderBottom: 'none!important' }
-                            }
-                        ]}
                         columns={[
                             {
                                 name: 'Student',
                                 selector: 'student',
                                 sortable: true,
                                 format: row => row.user.first_name + ' ' + row.user.last_name,
-                                sortFunction: (a, b) => {
-                                    return a.first_name > b.first_name ? 1 : -1
-                                },
                             },
                             {
-                                name: 'Level',
-                                selector: 'level',
+                                name: 'Last Session',
+                                selector: 'last_session',
                                 sortable: true,
-                                format: row => levelDisplay(row.level),
+                                format: row => row.last_session ? format(new Date(row.last_session), 'MMM dd, yyyy') : <i>Never</i>,
                             },
                             {
-                                name: 'Type',
-                                selector: 'type',
+                                name: 'Requests',
+                                selector: 'requests',
                                 sortable: true,
-                                format: row => typeDisplay(row.type),
-                            },
-                            {
-                                name: 'Start',
-                                selector: 'start',
-                                sortable: true,
-                                format: row => format(new Date(row.start), 'MMM d, y @ HH:mm zzz'),
-                                sortFunction: (a, b) => new Date(a.start) > new Date(b.start) ? 1 : -1,
-                            },
-                            {
-                                name: 'End',
-                                selector: 'end',
-                                sortable: true,
-                                format: row => format(new Date(row.end), 'MMM d, y @ HH:mm zzz'),
-                                sortFunction: (a, b) => new Date(a.start) > new Date(b.start) ? 1 : -1,
+                                format: row => row.requests.length,
                             },
                         ]}
                         customStyles={dataTableStyle}
@@ -254,13 +245,5 @@ export default function TrainingRequests({ updateNotifs }) {
                 </Form>
             </Modal>
         </>
-    )
-}
-
-const ExpandableComponent = (row) => {
-    return (
-        <div className="px-3 pb-3 pt-2" style={{ backgroundColor: 'transparent' }}>
-            <p className="mb-0"><i><b>Remarks:</b> {row.data.remarks}</i></p>
-        </div>
     )
 }
