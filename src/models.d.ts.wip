@@ -1,0 +1,280 @@
+export interface Notifications {
+    visiting_applications: number
+    pending_feedback: number
+    support_requests: number
+    loa_requests: number
+}
+export interface LogEntry {
+    id: number
+    action: number
+    actor: BasicUser
+    changes: object
+    content_type: string
+    object_id: number
+    object_repr: string
+    timestamp: Date
+}
+export interface Announcement {
+    id: number
+    author: BasicUser | null
+    title: string
+    body: string
+    posted: Date
+}
+export interface Booking {
+    id: number
+    user: BasicUser
+    callsign: string
+    start: Date
+    end: Date
+}
+export interface Calendar {
+    events: CalendarEvent[]
+    sessions: CalendarTraining[]
+    bookings: Booking[]
+}
+export interface CalendarEvent {
+    id: number
+    name: string
+    host: string
+    start: Date
+    end: Date
+}
+export interface CalendarTraining {
+    id: number
+    student: BasicUser
+    level: number
+    type: number
+    position: string
+    start: Date
+    end: Date
+}
+export interface ControllerSession {
+    id: number
+    callsign: string
+    start: Date
+    duration: string
+}
+export interface OnlineController {
+    id: number
+    user: BasicUser
+    callsign: string
+    online_since: Date
+    last_updated: Date
+}
+export interface Statistics {
+    home: Statistic[]
+    visiting: Statistic[]
+    mavp: Statistic[]
+}
+export interface Statistic {
+    cid: number
+    first_name: string
+    last_name: string
+    rating: string
+    initials: string
+    curr_hours: string
+    prev_hours: string
+    prev_prev_hours: string
+    activity_requirement: string
+}
+export interface TopController {
+    first_name: string
+    last_name: string
+    hours: string
+}
+export interface TopPosition {
+    position: string
+    hours: string
+}
+export interface DailyConnection {
+    day: string
+    value: number
+}
+export interface EventDetails {
+    name: string
+    banner: string | null
+    start: Date
+    end: Date
+    host: string
+}
+export interface BasicEvent extends EventDetails {
+    id: number
+    hidden: boolean
+    archived: boolean
+    available_shifts: number
+}
+export interface Event extends EventDetails {
+    id: number
+    description: string | null
+    hidden: boolean
+    archived: boolean
+    positions: EventPosition[]
+}
+export interface EventPosition {
+    id: number
+    shifts: EventShift[]
+    callsign: string
+}
+export interface EventShift {
+    id: number
+    requests: EventShiftRequest[]
+    user: BasicUser | null
+    start: Date
+    end: Date
+}
+export interface EventShiftRequest {
+    id: number
+    user: BasicUser
+}
+export interface SupportRequest extends EventDetails {
+    id: number
+    user: BasicUser
+    description: string | null
+}
+export interface PositionPreset {
+    id: number
+    name: string
+    positions: Position[]
+}
+export interface Position {
+    callsign: string
+    shifts: number
+}
+export interface BasicFeedback {
+    id: number
+    controller_callsign: string | null
+    pilot_callsign: string | null
+    rating: number
+    comments: string
+    event: BasicEvent | null
+    created: Date
+}
+export interface Feedback extends BasicFeedback {
+    pilot: BasicUser | null
+    controller: BasicUser | null
+    approved: boolean
+}
+export interface EventFeedback {} // event scores
+export interface LOA {
+    id: number
+    user: BasicUser
+    start: Date
+    end: Date
+    remarks: string
+    approved: boolean
+}
+export interface Resources {
+    vrc: Resource[]
+    vstars: Resource[]
+    veram: Resource[]
+    vatis: Resource[]
+    sop: Resource[]
+    loa: Resource[]
+    mavp: Resource[]
+    misc: Resource[]
+}
+export interface Resource {
+    id: string
+    extension: string
+    size: string
+    name: string
+    category: string
+    path: string
+    updated: Date
+}
+export interface ATIS {
+    id: number
+    facility: string
+    config_profile: string
+    atis_letter: string
+    airport_conditions: string
+    notams: string
+    updated: Date
+}
+export interface TMUNotice {
+    id: number
+    info: string
+    time_issued: Date
+    time_expires: Date
+}
+export interface METAR {
+    id: number
+    station: string
+    raw: string
+    flight_rules: string
+    timestamp: Date
+}
+export interface TrainingSession {
+    id: number
+    student: BasicUser | null
+    instructor: BasicUser | null
+    start: Date
+    end: Date
+    movements: number
+    progress: number
+    position: string | null
+    type: number
+    level: number
+    status: number
+    ots_status: number
+    ctrs_id: number | null
+    notes: string | null
+    solo_granted: boolean
+}
+export interface TrainingRequest {
+    id: number
+    start: Date
+    end: Date
+    type: number
+    level: number
+    remarks: string
+}
+export interface UserTrainingRequests {
+    user: BasicUser
+    requests: TrainingRequest[]
+    last_session: Date | null
+}
+export interface Rating {
+    short: string
+    long: string
+}
+export interface Role {
+    short: string
+    long: string
+}
+export interface BasicUser {
+    cid: number
+    first_name: string
+    last_name: string
+    initials: string
+    profile: string
+    email?: string
+}
+export interface User extends BasicUser {
+    rating: Rating
+    roles: Role[]
+    biography: string | null
+    home_facility: string
+    status: number
+    joined: Date
+    del_cert: number
+    gnd_cert: number
+    twr_cert: number
+    app_cert: number
+    ctr_cert: number
+    ocn_cert: number
+    solo_facility: string | null
+    cic_endorsed: boolean
+    email?: string
+    last_login?: Date
+    prevent_event_signup?: boolean
+}
+export interface EventScoreUser extends BasicUser {
+    event_score: number
+}
+export interface VisitingApplication {
+    id: number
+    user: User
+    reason: string
+}

@@ -131,7 +131,7 @@ export default function TuiCalendar(props) {
             </div>
             <Calendar
                 ref={calendarRef}
-                height="800px"
+                height="900px"
                 view={props.view || 'month'}
                 taskView={false}
                 useDetailPopup={true}

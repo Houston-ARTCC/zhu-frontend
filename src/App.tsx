@@ -26,6 +26,7 @@ import TrainingCenter from './pages/training/TrainingCenter'
 import Exams from './pages/training/views/Exams'
 import Sessions from './pages/training/views/Sessions'
 import RequestTraining from './pages/training/views/RequestTraining'
+import Availability from './pages/training/views/Availability'
 import ScheduledSessions from './pages/training/views/ScheduledSessions'
 import TrainingRequests from './pages/training/views/TrainingRequests'
 import StudentProfile from './pages/training/views/StudentProfile'
@@ -86,6 +87,7 @@ export default function App() {
                 <AuthRoute exact path={['/training', '/training/sessions']} component={TrainingCenter} view={Sessions} auth={isMember}/>
                 <AuthRoute exact path="/training/request" component={TrainingCenter} view={RequestTraining} auth={isMember}/>
                 <AuthRoute exact path="/training/exams" component={TrainingCenter} view={Exams} auth={isMember}/>
+                <AuthRoute exact path="/training/availability" component={TrainingCenter} view={Availability} auth={isTrainingStaff}/>
                 <AuthRoute exact path="/training/scheduled" component={TrainingCenter} view={ScheduledSessions} auth={isTrainingStaff}/>
                 <AuthRoute exact path="/training/requests" component={TrainingCenter} view={TrainingRequests} auth={isTrainingStaff}/>
                 <AuthRoute exact path="/training/profile" component={TrainingCenter} view={StudentProfile} auth={isTrainingStaff}/>

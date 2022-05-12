@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button, Card, Col, Form, Modal } from 'react-bootstrap'
+import { Button, Card, Col, Form, Modal, Table } from 'react-bootstrap'
 import { BsArrowDown, RiDeleteBinLine, RiQuestionLine } from 'react-icons/all'
 import DataTable from 'react-data-table-component'
 import Fade from 'react-reveal/Fade'
@@ -17,10 +17,15 @@ export default function RequestTraining({ updateNotifs }) {
     const [sessionRequest, setSessionRequest] = useState<any>({})
     const [pendingRequests, setPendingRequests] = useState<any>([])
     const [pendingRequestsSchedules, setPendingRequestsSchedules] = useState<any>([])
+    const [mentorAvailability, setMentorAvailability] = useState<any>([])
 
     const { enqueueSnackbar } = useSnackbar()
 
-    useEffect(() => fetchPendingRequests(), [])
+    useEffect(() => {
+        fetchPendingRequests()
+        fetchMentorAvailability()
+    }, [])
+
     useEffect(() => {
         createPendingRequestsSchedules()
         updateNotifs()
@@ -30,6 +35,12 @@ export default function RequestTraining({ updateNotifs }) {
         axiosInstance
             .get('/api/training/request/')
             .then(res => setPendingRequests(res.data))
+    }
+
+    const fetchMentorAvailability = () => {
+        axiosInstance
+            .get('/api/training/availability/')
+            .then(res => setMentorAvailability(res.data))
     }
 
     const createPendingRequestsSchedules = () => {
@@ -195,7 +206,41 @@ export default function RequestTraining({ updateNotifs }) {
                     a time, drag your mouse across multiple boxes on the calendar below.
                 </p>
             </IconAlert>
-            <TuiCalendar view="week" onCreateSchedule={handleCreateSchedule} additionalSchedules={pendingRequestsSchedules}/>
+            <TuiCalendar
+                view="week"
+                onCreateSchedule={handleCreateSchedule}
+                additionalSchedules={pendingRequestsSchedules}
+            />
+            <h3 className="mt-5">Mentor Availability</h3>
+            <div className="table-responsive">
+                <Table>
+                    <thead>
+                        <tr>
+                            <th style={{ width: "14%" }}>Sunday</th>
+                            <th style={{ width: "14%" }}>Monday</th>
+                            <th style={{ width: "14%" }}>Tuesday</th>
+                            <th style={{ width: "14%" }}>Wednesday</th>
+                            <th style={{ width: "14%" }}>Thursday</th>
+                            <th style={{ width: "14%" }}>Friday</th>
+                            <th style={{ width: "14%" }}>Saturday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            {mentorAvailability.map((availability, index) => (
+                                <td key={index}>
+                                    {availability?.map(({ user, start, end }) => (
+                                        <>
+                                            <p className="mb-0"><b>{user.first_name} {user.last_name}</b></p>
+                                            <p>{start} - {end}z</p>
+                                        </>
+                                    ))}
+                                </td>
+                            ))}
+                        </tr>
+                    </tbody>
+                </Table>
+            </div>
             <Modal
                 size="lg"
                 show={showCreationModal}
