@@ -44,14 +44,15 @@ class EditEvent extends Component<any, any> {
 
     fetchControllers() {
         axiosInstance
-            .get('/api/users/scores/')
+            // .get('/api/users/scores/')
+          .get('/api/users/simplified/')
             .then(res => {
                 let homeControllerOptions : any[] = []
                 res.data.home?.map(controller =>
                     homeControllerOptions.push({
                         value: controller.cid,
                         label: controller.first_name + ' ' + controller.last_name,
-                        score: controller.event_score,
+                        // score: controller.event_score,
                     })
                 )
                 let visitingControllerOptions : any[] = []
@@ -59,7 +60,7 @@ class EditEvent extends Component<any, any> {
                     visitingControllerOptions.push({
                         value: controller.cid,
                         label: controller.first_name + ' ' + controller.last_name,
-                        score: controller.event_score,
+                        // score: controller.event_score,
                     })
                 )
                 let mavpControllerOptions : any[] = []
@@ -67,7 +68,7 @@ class EditEvent extends Component<any, any> {
                     mavpControllerOptions.push({
                         value: controller.cid,
                         label: controller.first_name + ' ' + controller.last_name,
-                        score: controller.event_score,
+                        // score: controller.event_score,
                     })
                 )
                 let groupedOptions = [
@@ -514,7 +515,7 @@ class EditEvent extends Component<any, any> {
                                     className="mb-3"
                                     options={this.state.controllerOptions}
                                     onChange={(value) => this.setState({ manualAssignUser: value })}
-                                    getOptionLabel={(option) => <span>{option.label} {<EventScoreBadge score={option.score}/>}</span>}
+                                    // getOptionLabel={(option) => <span>{option.label} {<EventScoreBadge score={option.score}/>}</span>}
                                     filterOption={(obj, filter) => {
                                         return obj.data.label.toLowerCase().includes(filter.toLowerCase()) || obj.data.value.toString().includes(filter)
                                     }}
