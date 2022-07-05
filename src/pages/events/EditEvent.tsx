@@ -7,7 +7,7 @@ import Select from 'react-select'
 import { EventDropdownMenu, EventDropdownToggle } from '../../components/EventDropdowns'
 import Header from '../../components/Header'
 import axiosInstance from '../../helpers/axiosInstance'
-import EventScoreBadge from '../../components/EventScoreBadge'
+// import EventScoreBadge from '../../components/EventScoreBadge'
 import Fade from 'react-reveal/Fade'
 
 class EditEvent extends Component<any, any> {
