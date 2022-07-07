@@ -6,7 +6,6 @@ import Fade from 'react-reveal/Fade'
 import { formatDurationStr, durationStrAsSeconds, ratingInt } from '../../../helpers/utils'
 import axiosInstance from '../../../helpers/axiosInstance'
 import { dataTableStyle } from '../../../helpers/constants'
-import axios from 'axios'
 import { format, subMonths } from 'date-fns'
 
 export default function RosterPurge() {
@@ -43,23 +42,15 @@ export default function RosterPurge() {
 
     const purgeSelectedUsers = (e) => {
         e.preventDefault()
-        selected.forEach(user => deleteUser(user))
+        selected.forEach(deleteUser)
         setShowConfirmModal(false)
         setToggledClearRows(true)
         fetchUserStatistics()
     }
 
     const deleteUser = (user) => {
-        let baseVatusaUrl = currentRoster === 'home'
-            ? 'https://api.vatusa.net/v2/facility/ZHU/roster/'
-            : 'https://api.vatusa.net/v2/facility/ZHU/roster/manageVisitor/'
-
         axiosInstance
-            .delete('/api/users/' + user.cid + '/')
-            .catch(err => console.log(err.response))
-
-        axios
-            .delete(baseVatusaUrl + user.cid, { data: { reason: reason } })
+            .delete('/api/users/' + user.cid + '/', { data: { reason } })
             .catch(err => console.log(err.response))
     }
 
