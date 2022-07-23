@@ -48,7 +48,6 @@ export default function Navigation() {
                     <NavDropdown className={scroll ? 'text-black' : 'text-white'} title="Pilots" id="nav-dropdown-pilots">
                         <NavDropdown.Item as={Link} to="/feedback">Leave Feedback</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/map">ARTCC Map</NavDropdown.Item>
-                        <NavDropdown.Item href="https://simcharts.info/" target="_blank" rel="noreferrer">Charts</NavDropdown.Item>
                         <NavDropdown.Item href="https://flightaware.com/statistics/ifr-route/" target="_blank" rel="noreferrer">Routes</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown className={scroll ? 'text-black' : 'text-white'} title="Controllers" id="nav-dropdown-controllers">
@@ -121,7 +120,6 @@ export default function Navigation() {
                         <div>
                             <h6><Link className="text-gray" to="/feedback">Leave Feedback</Link></h6>
                             <h6><Link className="text-gray" to="/map">ARTCC Map</Link></h6>
-                            <h6><a className="text-gray" href="https://simcharts.info/" target="_blank" rel="noreferrer">Charts</a></h6>
                             <h6><a className="text-gray" href="https://flightaware.com/statistics/ifr-route/" target="_blank" rel="noreferrer">Routes</a></h6>
                         </div>
                     </Collapse>
