@@ -1,47 +1,36 @@
 import Fade from 'react-reveal/Fade'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import axiosInstance from '../../../helpers/axiosInstance'
 import { BsArrowDown } from 'react-icons/all'
 import BounceLoader from '../../../components/BounceLoader'
 import { dataTableStyle } from '../../../helpers/constants'
 import DataTable from 'react-data-table-component'
 import { format } from 'date-fns-tz'
-import { Badge, Form, Table } from 'react-bootstrap'
+import { Badge, Table } from 'react-bootstrap'
 
 export default function AuditLog() {
-    const [entries, setEntries] = useState<any>([])
+    const [results, setResults] = useState([])
+    const [totalRows, setTotalRows] = useState(0)
+    const [pageSize, setPageSize] = useState(15)
+
     const [loading, setLoading] = useState(true)
     const [expanded, setExpanded] = useState<any>({})
-    const [filter, setFilter] = useState('')
 
-    useEffect(() => fetchEntries(), [])
+    const controller = useMemo(() => new AbortController(), []);
 
-    const fetchEntries = () => {
+    useEffect(() => fetchEntries(1), []) // eslint-disable-line react-hooks/exhaustive-deps
+
+    const fetchEntries = (page: number, newPageSize?: number) => {
+        if (newPageSize) setPageSize(newPageSize)
+        controller.abort()
         axiosInstance
-            .get('/api/administration/audit/')
+            .get(`/api/administration/audit/?page=${page}&page_size=${newPageSize ?? pageSize}`)
             .then(res => {
-                setEntries(res.data)
+                setResults(res.data.results)
+                setTotalRows(res.data.count)
                 setLoading(false)
             })
     }
-
-    const actionText = (actionInt) => {
-        switch (actionInt) {
-            case 0: return 'created'
-            case 1: return 'updated'
-            case 2: return 'deleted'
-        }
-    }
-
-    const entryFilter = (entry) => (
-        actionText(entry.action)?.includes(filter.toLowerCase()) ||
-        entry.content_type.toLowerCase().includes(filter.toLowerCase()) ||
-        entry.object_repr.toLowerCase().includes(filter.toLowerCase()) ||
-        entry.object_id.toString().includes(filter.toLowerCase()) ||
-        entry.actor?.cid.toString().includes(filter.toLowerCase()) ||
-        (entry.actor === null && 'system'.includes(filter.toLowerCase())) ||
-        (entry.actor?.first_name + ' ' + entry.actor?.last_name).toLowerCase().includes(filter.toLowerCase())
-    )
 
     const ActionBadge = ({ action }) => {
         let text, color
@@ -95,13 +84,13 @@ export default function AuditLog() {
 
     return (
         <Fade bottom duration={1250} distance="50px">
-            <div className="d-flex">
-                <div className="mb-2">
-                    <Form.Control placeholder="Search..." value={filter} onChange={e => setFilter(e.target.value)}/>
-                </div>
-            </div>
+            {/*<div className="d-flex">*/}
+            {/*    <div className="mb-2">*/}
+            {/*        <Form.Control placeholder="Search..." value={filter} onChange={e => setFilter(e.target.value)}/>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
             <DataTable
-                data={entries.filter(entryFilter)}
+                data={results}
                 noHeader
                 highlightOnHover
                 defaultSortField="timestamp"
@@ -110,15 +99,23 @@ export default function AuditLog() {
                 progressPending={loading}
                 progressComponent={<BounceLoader/>}
                 expandableRows
-                expandableRowDisabled={row => row.action === 2}
+                expandableRowDisabled={(row: any) => row.action === 2}
                 expandableRowsComponent={<ExpandableEntry/>}
-                expandableRowExpanded={row => row.id === expanded.id}
+                expandableRowExpanded={(row: any) => row.id === expanded.id}
                 onRowExpandToggled={(state, row) => state && setExpanded(row)}
                 expandOnRowClicked
-                pagination={true}
+                pagination
+                paginationServer
                 paginationPerPage={15}
                 paginationRowsPerPageOptions={[15, 25, 50, 100]}
-                onChangePage={() => setExpanded({})}
+                paginationTotalRows={totalRows}
+                onChangeRowsPerPage={(pageSize, page) => {
+                    fetchEntries(page, pageSize)
+                }}
+                onChangePage={(page: number) => {
+                    fetchEntries(page)
+                    setExpanded({})
+                }}
                 onSort={() => setExpanded({})}
                 customStyles={dataTableStyle}
                 columns={[
