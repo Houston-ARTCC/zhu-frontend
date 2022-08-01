@@ -162,12 +162,6 @@ export default function Roster() {
                                 Visiting
                             </Button>
                             <Button
-                                variant={'outline-darkblue' + (currentRoster === 'mavp' ? ' active' : '')}
-                                onClick={() => switchRoster('mavp')}
-                            >
-                                MAVP
-                            </Button>
-                            <Button
                                 variant={'outline-darkblue' + (currentRoster === 'all' ? ' active' : '')}
                                 onClick={() => switchRoster('all')}
                             >
