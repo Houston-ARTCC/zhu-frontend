@@ -43,6 +43,7 @@ export default function Resources() {
         axiosInstance
             .get(url, {
                 responseType: 'blob',
+                timeout: 0,
             })
             .then((res) => {
                 fileDownload(res.data, filename)
