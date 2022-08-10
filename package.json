@@ -22,7 +22,6 @@
     "date-fns": "^2.21.1",
     "date-fns-tz": "^1.1.4",
     "html-react-parser": "^1.2.4",
-    "js-file-download": "^0.4.12",
     "mapbox-gl": "^2.1.1",
     "notistack": "^1.0.5",
     "rc-slider": "^9.7.1",

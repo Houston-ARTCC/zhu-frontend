@@ -1,7 +1,6 @@
 import { BiTrash, BsArrowDown, FaUpload, RiAddFill, RiPencilRuler2Line } from 'react-icons/all'
 import { Button, Card, Col, Container, Form, ListGroup, Modal, Row, Spinner } from 'react-bootstrap'
 import DataTable from 'react-data-table-component'
-import fileDownload from 'js-file-download'
 import { useSnackbar } from 'notistack'
 import ScrollSpy from 'react-scrollspy'
 import Dropzone from 'react-dropzone'
@@ -36,17 +35,6 @@ export default function Resources() {
             .then(res => {
                 setResources(res.data)
                 setLoading(false)
-            })
-    }
-
-    const handleDownload = (url, filename) => {
-        axiosInstance
-            .get(url, {
-                responseType: 'blob',
-                timeout: 0,
-            })
-            .then((res) => {
-                fileDownload(res.data, filename)
             })
     }
 
@@ -157,7 +145,7 @@ export default function Resources() {
                         sortIcon={<BsArrowDown/>}
                         progressPending={loading}
                         progressComponent={<BounceLoader/>}
-                        onRowClicked={row => handleDownload(process.env.REACT_APP_API_URL + row.path, row.category + ' - ' + row.name + row.extension)}
+                        onRowClicked={(row) => window.open(process.env.REACT_APP_API_URL + row.path,'_newtab')}
                         columns={[
                             {
                                 name: 'Name',
