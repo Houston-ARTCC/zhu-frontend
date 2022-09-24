@@ -424,11 +424,11 @@ class EditEvent extends Component<any, any> {
                                     </Form.Row>
                                     <Form.Row>
                                         <Form.Group as={Col}>
-                                            <Form.Label>Start</Form.Label>
+                                            <Form.Label>Start (Zulu)</Form.Label>
                                             <Form.Control required type="datetime-local" name="start" value={this.state.event.start?.slice(0, -1)} onChange={this.handleDateChange}/>
                                         </Form.Group>
                                         <Form.Group as={Col}>
-                                            <Form.Label>End</Form.Label>
+                                            <Form.Label>End (Zulu)</Form.Label>
                                             <Form.Control required type="datetime-local" name="end" value={this.state.event.end?.slice(0, -1)} onChange={this.handleDateChange}/>
                                         </Form.Group>
                                     </Form.Row>
