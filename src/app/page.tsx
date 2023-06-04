@@ -1,113 +1,186 @@
-import Image from 'next/image'
+import React from 'react';
+import { NextPage } from 'next';
+import { LuRadioTower, LuTrophy } from 'react-icons/lu';
+import Image from 'next/image';
+import { Badge } from '@/components/Badge';
+import { AnnouncementCard, EventCard } from '@/components/Card';
+import { HomepageBanner } from '@/components/static/HomepageBanner';
+import { Disclaimer } from '@/components/static/Disclaimer';
+import { getPositionName } from '@/utils/facilities';
+import { formatDuration } from '@/utils/time';
+import { type BasicUser } from '@/types/users';
+import { type Event } from '@/types/events';
+import { type Announcement } from '@/types/announcements';
+import { type OnlineConnection, type TopController, type TopPosition } from '@/types/connections';
 
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+export const metadata = { title: 'Welcome to Houston ARTCC!' };
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+const TROPHY_COLORS = ['text-yellow-500', 'text-slate-400', 'text-amber-600'];
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+async function getOnlineConnection(): Promise<OnlineConnection[]> {
+    return fetch('https://api.zhuartcc.org/api/connections/online/', {
+        next: { revalidate: 60 },
+    }).then((res) => res.json());
 }
+
+async function getRecentAnnouncements(): Promise<Announcement[]> {
+    return fetch('https://api.zhuartcc.org/api/announcements/recent/', {
+        cache: 'no-store',
+    }).then((res) => res.json());
+}
+
+async function getUpcomingEvents(): Promise<Event[]> {
+    const data: Event[] = await fetch('https://api.zhuartcc.org/api/events/', {
+        cache: 'no-store',
+    }).then((res) => res.json());
+
+    return data.filter((event) => !event.hidden).slice(0, 2);
+}
+
+async function getNewestControllers(): Promise<BasicUser[]> {
+    const data: BasicUser[] = await fetch('https://api.zhuartcc.org/api/users/newest/', {
+        next: { revalidate: 60 },
+    }).then((res) => res.json());
+
+    return data.slice(0, 3);
+}
+
+async function getTopControllers(): Promise<TopController[]> {
+    const data: TopController[] = await fetch('https://api.zhuartcc.org/api/connections/top/controllers/', {
+        next: { revalidate: 60 },
+    }).then((res) => res.json());
+
+    return data.slice(0, 3);
+}
+
+async function getTopPositions(): Promise<TopPosition[]> {
+    const data: TopPosition[] = await fetch('https://api.zhuartcc.org/api/connections/top/positions/', {
+        next: { revalidate: 60 },
+    }).then((res) => res.json());
+
+    return data.slice(0, 3);
+}
+
+const Home: NextPage = async () => {
+    const onlineConnections = await getOnlineConnection();
+    const recentAnnouncements = await getRecentAnnouncements();
+    const upcomingEvents = await getUpcomingEvents();
+    const newestControllers = await getNewestControllers();
+    const topControllers = await getTopControllers();
+    const topPositions = await getTopPositions();
+
+    return (
+        <>
+            <HomepageBanner />
+            <main className="container mx-auto px-20 py-16">
+                <div className="mb-16 grid grid-cols-2 gap-10">
+                    <div>
+                        <h1 className="text-[2.5rem] font-bold">Virtual Houston ARTCC</h1>
+                        <h3 className="mb-5 text-2xl font-medium text-slate-400">
+                            Part of VATUSA & the VATSIM Network.
+                        </h3>
+                        <p>
+                            Welcome to the Virtual Houston Air Route Traffic Control Center! Encompassing an airspace of
+                            approximately 280,000 square miles in parts of Texas, Louisiana, Mississippi, and Alabama,
+                            Houston has a diverse selection of destinations for you to choose from along with the
+                            professional air traffic control services to support your flight.
+                        </p>
+                    </div>
+                    <div className="ml-auto min-w-[50%]">
+                        <h2 className="mb-5 text-3xl font-medium">Who's Online?</h2>
+                        <div className="flex flex-col gap-3">
+                            {onlineConnections.length === 0 && <p>Nobody is online.</p>}
+                            {onlineConnections.map((connection) => (
+                                <div key={connection.id} className="flex items-center gap-3">
+                                    <Badge>{connection.callsign}</Badge>
+                                    <span className="font-medium">
+                                        {connection.user.first_name} {connection.user.last_name}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mb-16 grid grid-cols-2 gap-10">
+                    <div>
+                        <h2 className="text-3xl font-medium">Announcements</h2>
+                        <h3 className="mb-5 font-medium text-slate-400">What's happening at Houston?</h3>
+                        <div className="flex flex-col gap-5">
+                            {recentAnnouncements.map((announcement) => (
+                                <AnnouncementCard key={announcement.id} announcement={announcement} />
+                            ))}
+                        </div>
+                    </div>
+                    <div>
+                        <h2 className="text-3xl font-medium">Events</h2>
+                        <h3 className="mb-5 font-medium text-slate-400">Are y'all busy?</h3>
+                        <div className="flex flex-col gap-5">
+                            {upcomingEvents.length === 0 && <p>There are no published events, check back later.</p>}
+                            {upcomingEvents.map((event) => (
+                                <EventCard key={event.id} event={event} />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mb-16 grid grid-cols-3 gap-10">
+                    <div>
+                        <h2 className="mb-5 text-3xl font-medium">Newest Controllers</h2>
+                        <div className="flex flex-col gap-5">
+                            {newestControllers.map((controller) => (
+                                <div key={controller.cid} className="flex h-10 items-center gap-3">
+                                    <Image
+                                        className="rounded-full bg-slate-300"
+                                        src={`https://api.zhuartcc.org${controller.profile}`}
+                                        alt={`${controller.first_name} ${controller.last_name}`}
+                                        height={40}
+                                        width={40}
+                                    />
+                                    <p className="text-lg font-medium">
+                                        {controller.first_name} {controller.last_name} ({controller.initials})
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div>
+                        <h2 className="mb-5 text-3xl font-medium">Top Controllers</h2>
+                        <div className="flex flex-col gap-5">
+                            {topControllers.map((controller, i) => (
+                                <div key={i} className="flex h-10 items-center gap-3">
+                                    <LuTrophy size={35} className={TROPHY_COLORS[i]} />
+                                    <div>
+                                        <p className="-mb-1 text-lg font-medium">
+                                            {controller.first_name} {controller.last_name}
+                                        </p>
+                                        <p className="text-slate-400">{formatDuration(controller.hours)}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div>
+                        <h2 className="mb-5 text-3xl font-medium">Top Positions</h2>
+                        <div className="flex flex-col gap-5">
+                            {topPositions.map((position, i) => (
+                                <div key={position.position} className="flex h-10 items-center gap-3">
+                                    <LuRadioTower size={35} className={TROPHY_COLORS[i]} />
+                                    <div>
+                                        <p className="-mb-1 text-lg font-medium">
+                                            {getPositionName(position.position)}
+                                        </p>
+                                        <p className="text-slate-400">{formatDuration(position.hours)}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+                <Disclaimer />
+            </main>
+        </>
+    );
+};
+
+export default Home;
