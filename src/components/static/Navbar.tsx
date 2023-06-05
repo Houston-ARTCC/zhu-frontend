@@ -2,16 +2,22 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-import classNames from 'classnames';
 import Image from 'next/image';
+import { signIn, useSession } from 'next-auth/react';
+import classNames from 'classnames';
 
 export const Navbar: React.FC = () => {
+    const { data: session, status: authStatus } = useSession();
+
     const [shrink, setShrink] = useState(false);
 
     const linkColor = useMemo(() => (shrink ? 'text-gray-900' : 'text-white'), [shrink]);
 
     useEffect(() => {
         const callback = () => setShrink(window.scrollY > 50);
+
+        callback();
+
         window.addEventListener('scroll', callback);
         return () => window.removeEventListener('scroll', callback);
     }, []);
@@ -23,7 +29,7 @@ export const Navbar: React.FC = () => {
                 { 'py-16': !shrink, 'bg-white py-6': shrink },
             )}
         >
-            <div className="container mx-auto flex items-center px-20 font-semibold">
+            <div className="container mx-auto flex items-center px-20 font-medium">
                 <Link href="/" className="flex flex-col items-center gap-2">
                     <Image
                         src={shrink ? '/img/logo.png' : '/img/logo-light.png'}
@@ -38,25 +44,32 @@ export const Navbar: React.FC = () => {
                     <Link href="/" className={linkColor}>Events</Link>
                     <Link href="/" className={linkColor}>Pilots</Link>
                     <Link href="/" className={linkColor}>Controllers</Link>
-                    <button
-                        type="button"
-                        className={classNames(
-                            'rounded-md from-sky-400 to-blue-800 px-7 py-1 shadow-sm',
-                            { 'bg-white shadow-white/25': !shrink, 'bg-gradient-to-r shadow-sky-500/25': shrink },
-                        )}
-                    >
-                        <span
+                    {authStatus === 'unauthenticated' ? (
+                        <button
+                            type="button"
+                            onClick={() => signIn('vatsim')}
                             className={classNames(
-                                'from-sky-400 to-blue-800',
-                                {
-                                    'bg-gradient-to-r text-transparent bg-clip-text': !shrink,
-                                    'bg-transparent text-white': shrink,
-                                },
+                                'rounded-md from-sky-400 to-blue-800 px-7 py-1 shadow-sm',
+                                { 'bg-white shadow-white/25': !shrink, 'bg-gradient-to-r shadow-sky-500/25': shrink },
                             )}
                         >
-                            Login with VATSIM
-                        </span>
-                    </button>
+                            <span
+                                className={classNames(
+                                    'from-sky-400 to-blue-800',
+                                    {
+                                        'bg-gradient-to-r text-transparent bg-clip-text font-semibold': !shrink,
+                                        'bg-transparent text-white': shrink,
+                                    },
+                                )}
+                            >
+                                Login with VATSIM
+                            </span>
+                        </button>
+                    ) : (
+                        <Link href="/" className={linkColor}>
+                            {session?.user.first_name} {session?.user.last_name}
+                        </Link>
+                    )}
                 </div>
             </div>
         </nav>

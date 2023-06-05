@@ -1,7 +1,12 @@
 module.exports = {
     root: true,
-    extends: ['airbnb', 'next/core-web-vitals', 'plugin:tailwindcss/recommended'],
-    plugins: ['tailwindcss'],
+    extends: [
+        'airbnb',
+        'next/core-web-vitals',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:tailwindcss/recommended',
+    ],
+    plugins: ['@typescript-eslint', 'tailwindcss'],
     rules: {
         'semi': 'warn',
         'indent': ['warn', 4, { SwitchCase: 1 }],
@@ -10,6 +15,8 @@ module.exports = {
         'max-len': ['error', { code: 150 }],
         'default-case': 'off',
 
+        '@typescript-eslint/consistent-type-imports': ['warn', { fixStyle: 'inline-type-imports' }],
+
         'react/jsx-indent': ['warn', 4],
         'react/jsx-indent-props': 'off',
         'react/jsx-filename-extension': [2, { extensions: ['.jsx', '.tsx'] }],
@@ -17,6 +24,7 @@ module.exports = {
         'react/require-default-props': 'off',
         'react/no-unescaped-entities': 'off',
         'react/no-array-index-key': 'off',
+        'react/jsx-props-no-spreading': 'off',
         'react/function-component-definition': [
             'error',
             { namedComponents: 'arrow-function' },
@@ -38,8 +46,13 @@ module.exports = {
                         position: 'before',
                     },
                     {
-                        pattern: 'next',
+                        pattern: 'next/**',
                         group: 'builtin',
+                        position: 'before',
+                    },
+                    {
+                        pattern: '@/app/**',
+                        group: 'sibling',
                         position: 'before',
                     },
                     {
@@ -58,6 +71,7 @@ module.exports = {
                         position: 'before',
                     },
                 ],
+                'pathGroupsExcludedImportTypes': ['react', 'next'],
             },
         ],
     },

@@ -1,13 +1,14 @@
 import React from 'react';
-import { NextPage } from 'next';
-import { LuRadioTower, LuTrophy } from 'react-icons/lu';
 import Image from 'next/image';
+import { type NextPage } from 'next';
+import { LuRadioTower, LuTrophy } from 'react-icons/lu';
+import { HomepageBanner } from '@/app/(index)/HomepageBanner';
+import { AnnouncementCard, EventCard } from '@/app/(index)/HomepageCards';
 import { Badge } from '@/components/Badge';
-import { AnnouncementCard, EventCard } from '@/components/Card';
-import { HomepageBanner } from '@/components/static/HomepageBanner';
-import { Disclaimer } from '@/components/static/Disclaimer';
+import { PageContent } from '@/components/PageContent';
 import { getPositionName } from '@/utils/facilities';
 import { formatDuration } from '@/utils/time';
+import { fetchApi } from '@/utils/fetch';
 import { type BasicUser } from '@/types/users';
 import { type Event } from '@/types/events';
 import { type Announcement } from '@/types/announcements';
@@ -18,45 +19,51 @@ export const metadata = { title: 'Welcome to Houston ARTCC!' };
 const TROPHY_COLORS = ['text-yellow-500', 'text-slate-400', 'text-amber-600'];
 
 async function getOnlineConnection(): Promise<OnlineConnection[]> {
-    return fetch('https://api.zhuartcc.org/api/connections/online/', {
-        next: { revalidate: 60 },
-    }).then((res) => res.json());
+    return fetchApi(
+        '/connections/online/',
+        { next: { revalidate: 60 } },
+    );
 }
 
 async function getRecentAnnouncements(): Promise<Announcement[]> {
-    return fetch('https://api.zhuartcc.org/api/announcements/recent/', {
-        cache: 'no-store',
-    }).then((res) => res.json());
+    return fetchApi(
+        '/announcements/recent/',
+        { cache: 'no-store' },
+    );
 }
 
 async function getUpcomingEvents(): Promise<Event[]> {
-    const data: Event[] = await fetch('https://api.zhuartcc.org/api/events/', {
-        cache: 'no-store',
-    }).then((res) => res.json());
+    const data: Event[] = await fetchApi(
+        '/events/',
+        { cache: 'no-store' },
+    );
 
     return data.filter((event) => !event.hidden).slice(0, 2);
 }
 
 async function getNewestControllers(): Promise<BasicUser[]> {
-    const data: BasicUser[] = await fetch('https://api.zhuartcc.org/api/users/newest/', {
-        next: { revalidate: 60 },
-    }).then((res) => res.json());
+    const data = await fetchApi<BasicUser[]>(
+        '/users/newest/',
+        { next: { revalidate: 60 } },
+    );
 
     return data.slice(0, 3);
 }
 
 async function getTopControllers(): Promise<TopController[]> {
-    const data: TopController[] = await fetch('https://api.zhuartcc.org/api/connections/top/controllers/', {
-        next: { revalidate: 60 },
-    }).then((res) => res.json());
+    const data = await fetchApi<TopController[]>(
+        '/connections/top/controllers/',
+        { next: { revalidate: 60 } },
+    );
 
     return data.slice(0, 3);
 }
 
 async function getTopPositions(): Promise<TopPosition[]> {
-    const data: TopPosition[] = await fetch('https://api.zhuartcc.org/api/connections/top/positions/', {
-        next: { revalidate: 60 },
-    }).then((res) => res.json());
+    const data: TopPosition[] = await fetchApi(
+        '/connections/top/positions/',
+        { next: { revalidate: 60 } },
+    );
 
     return data.slice(0, 3);
 }
@@ -72,7 +79,7 @@ const Home: NextPage = async () => {
     return (
         <>
             <HomepageBanner />
-            <main className="container mx-auto px-20 py-16">
+            <PageContent>
                 <div className="mb-16 grid grid-cols-2 gap-10">
                     <div>
                         <h1 className="text-[2.5rem] font-bold">Virtual Houston ARTCC</h1>
@@ -124,7 +131,7 @@ const Home: NextPage = async () => {
                     </div>
                 </div>
 
-                <div className="mb-16 grid grid-cols-3 gap-10">
+                <div className="grid grid-cols-3 gap-10">
                     <div>
                         <h2 className="mb-5 text-3xl font-medium">Newest Controllers</h2>
                         <div className="flex flex-col gap-5">
@@ -177,8 +184,7 @@ const Home: NextPage = async () => {
                         </div>
                     </div>
                 </div>
-                <Disclaimer />
-            </main>
+            </PageContent>
         </>
     );
 };

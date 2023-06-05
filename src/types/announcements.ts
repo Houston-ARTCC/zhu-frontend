@@ -1,4 +1,4 @@
-import { BasicUser } from '@/types/users';
+import { type BasicUser } from '@/types/users';
 
 export type Announcement = {
     id: number;
