@@ -14,6 +14,7 @@ module.exports = {
         'quote-props': ['warn', 'consistent-as-needed'],
         'max-len': ['error', { code: 150 }],
         'default-case': 'off',
+        'object-curly-newline': ['warn', { multiline: true }],
 
         '@typescript-eslint/consistent-type-imports': ['warn', { fixStyle: 'inline-type-imports' }],
 

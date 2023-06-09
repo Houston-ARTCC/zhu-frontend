@@ -1,16 +1,18 @@
 import React, { type HTMLProps } from 'react';
 import classNames from 'classnames';
 
-export const Card: React.FC<HTMLProps<HTMLDivElement>> = ({ className, onClick, children }) => (
+interface CardProps extends HTMLProps<HTMLDivElement> {
+    interactive?: boolean;
+}
+
+export const Card: React.FC<CardProps> = ({ className, interactive, children, ...props }) => (
     <div
-        onClick={onClick}
         className={classNames(
-            'rounded-md bg-white px-5 py-4 shadow transition-all duration-500 ease-out',
-            {
-                'cursor-pointer hover:-translate-y-2 hover:opacity-75 hover:shadow-lg': onClick,
-            },
+            'rounded-md bg-white p-5 shadow transition-all duration-500 ease-out',
+            { 'cursor-pointer hover:-translate-y-2 hover:opacity-90 hover:shadow-lg': interactive },
             className,
         )}
+        {...props}
     >
         {children}
     </div>

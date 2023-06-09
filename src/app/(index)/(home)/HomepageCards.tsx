@@ -15,7 +15,7 @@ interface AnnouncementCardProps {
 }
 
 export const AnnouncementCard: React.FC<AnnouncementCardProps> = ({ announcement }) => (
-    <Card onClick={() => console.log(announcement.body)}>
+    <Card interactive onClick={() => console.log(announcement.body)}>
         <div className="mb-3 flex w-full gap-5">
             <h4 className="w-full shrink overflow-hidden text-ellipsis whitespace-nowrap text-xl font-bold">
                 {announcement.title}
@@ -42,7 +42,7 @@ interface EventCardProps {
 }
 
 export const EventCard: React.FC<EventCardProps> = ({ event }) => (
-    <Card>
+    <Card interactive>
         <div className="mb-3 flex w-full gap-5">
             <div className="w-full shrink overflow-hidden">
                 <h4 className="text-ellipsis whitespace-nowrap text-xl font-bold">{event.name}</h4>

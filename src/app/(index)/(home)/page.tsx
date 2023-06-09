@@ -2,8 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import { type NextPage } from 'next';
 import { LuRadioTower, LuTrophy } from 'react-icons/lu';
-import { HomepageBanner } from '@/app/(index)/HomepageBanner';
-import { AnnouncementCard, EventCard } from '@/app/(index)/HomepageCards';
 import { Badge } from '@/components/Badge';
 import { PageContent } from '@/components/PageContent';
 import { getPositionName } from '@/utils/facilities';
@@ -13,6 +11,8 @@ import { type BasicUser } from '@/types/users';
 import { type Event } from '@/types/events';
 import { type Announcement } from '@/types/announcements';
 import { type OnlineConnection, type TopController, type TopPosition } from '@/types/connections';
+import { AnnouncementCard, EventCard } from './HomepageCards';
+import { HomepageBanner } from './HomepageBanner';
 
 export const metadata = { title: 'Welcome to Houston ARTCC!' };
 
