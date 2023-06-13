@@ -1,5 +1,7 @@
-interface NextFetchConfig {
-    cache?: 'default' | 'force-cache' | 'no-cache' | 'no-store' | 'only-if-cached' | 'reload';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+
+interface NextFetchConfig extends RequestInit {
     next?: {
         revalidate?: number | false;
         tags?: string[];
@@ -19,6 +21,14 @@ interface NextFetchConfig {
  * @param route API route following /api (e.g. /connections/online/)
  * @param config Configuration for cache control
  */
-export function fetchApi<T extends object>(route: string, config?: NextFetchConfig): Promise<T> {
-    return fetch(`${process.env.ZHU_API_URL}/api${route}`, config).then((res) => res.json());
+export async function fetchApi<T extends object>(route: string, config?: NextFetchConfig): Promise<T> {
+    const session = await getServerSession(authOptions);
+
+    let headers;
+    if (session) {
+        headers = new Headers(config?.headers);
+        headers.append('Authorization', `Bearer ${session.access_token}`);
+    }
+
+    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api${route}`, { ...config, headers }).then((res) => res.json());
 }

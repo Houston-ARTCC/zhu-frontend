@@ -1,16 +1,16 @@
 import React from 'react';
-import Image from 'next/image';
 import { type NextPage } from 'next';
 import { LuRadioTower, LuTrophy } from 'react-icons/lu';
 import { Badge } from '@/components/Badge';
 import { PageContent } from '@/components/PageContent';
+import { ProfilePicture } from '@/components/ProfilePicture';
 import { getPositionName } from '@/utils/facilities';
 import { formatDuration } from '@/utils/time';
 import { fetchApi } from '@/utils/fetch';
-import { type BasicUser } from '@/types/users';
-import { type Event } from '@/types/events';
-import { type Announcement } from '@/types/announcements';
-import { type OnlineConnection, type TopController, type TopPosition } from '@/types/connections';
+import { type BasicUser } from '@/types/api/users';
+import { type Event } from '@/types/api/events';
+import { type Announcement } from '@/types/api/announcements';
+import { type OnlineConnection, type TopController, type TopPosition } from '@/types/api/connections';
 import { AnnouncementCard, EventCard } from './HomepageCards';
 import { HomepageBanner } from './HomepageBanner';
 
@@ -137,13 +137,7 @@ const Home: NextPage = async () => {
                         <div className="flex flex-col gap-5">
                             {newestControllers.map((controller) => (
                                 <div key={controller.cid} className="flex h-10 items-center gap-3">
-                                    <Image
-                                        className="rounded-full bg-slate-300"
-                                        src={`https://api.zhuartcc.org${controller.profile}`}
-                                        alt={`${controller.first_name} ${controller.last_name}`}
-                                        height={40}
-                                        width={40}
-                                    />
+                                    <ProfilePicture user={controller} size={40} />
                                     <p className="text-lg font-medium">
                                         {controller.first_name} {controller.last_name} ({controller.initials})
                                     </p>

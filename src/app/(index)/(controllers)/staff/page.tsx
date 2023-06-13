@@ -3,7 +3,7 @@ import { type NextPage } from 'next';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
 import { fetchApi } from '@/utils/fetch';
-import { type Staff } from '@/types/users';
+import { type Staff } from '@/types/api/users';
 import { StaffCard } from './StaffCard';
 
 export const metadata = { title: 'Facility Staff' };

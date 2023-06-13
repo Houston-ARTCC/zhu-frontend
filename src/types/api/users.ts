@@ -38,25 +38,25 @@ export type User = {
 
 export type Staff = {
     atm: {
-        user: BasicUser | null;
+        user?: BasicUser;
     };
     datm: {
-        user: BasicUser | null;
+        user?: BasicUser;
     };
     ta: {
-        user: BasicUser | null;
+        user?: BasicUser;
         assistants: BasicUser[];
     };
     fe: {
-        user: BasicUser | null;
+        user?: BasicUser;
         assistants: BasicUser[];
     };
     ec: {
-        user: BasicUser | null;
+        user?: BasicUser;
         assistants: BasicUser[];
     };
     wm: {
-        user: BasicUser | null;
+        user?: BasicUser;
         assistants: BasicUser[];
     };
     ins: BasicUser[];

@@ -1,14 +1,14 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { format } from 'date-fns-tz';
 import { HiOutlineCalendar, HiOutlineClock } from 'react-icons/hi2';
 import { LuArrowRight } from 'react-icons/lu';
 import { Badge } from '@/components/Badge';
 import { Card } from '@/components/Card';
-import { type Announcement } from '@/types/announcements';
-import { type Event } from '@/types/events';
+import { ProfilePicture } from '@/components/ProfilePicture';
+import { type Announcement } from '@/types/api/announcements';
+import { type Event } from '@/types/api/events';
 
 interface AnnouncementCardProps {
     announcement: Announcement;
@@ -23,13 +23,7 @@ export const AnnouncementCard: React.FC<AnnouncementCardProps> = ({ announcement
             <Badge className="ml-auto">{format(new Date(announcement.posted), 'MMM d, y')}</Badge>
         </div>
         <div className="flex items-center gap-2">
-            <Image
-                className="rounded-full bg-slate-300"
-                src={`https://api.zhuartcc.org${announcement.author.profile}`}
-                alt={`${announcement.author.first_name} ${announcement.author.last_name}`}
-                height={32}
-                width={32}
-            />
+            <ProfilePicture user={announcement.author} size={40} />
             <span className="font-medium">
                 {announcement.author.first_name} {announcement.author.last_name}
             </span>

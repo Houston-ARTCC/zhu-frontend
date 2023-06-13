@@ -1,4 +1,16 @@
-import { type BasicUser } from '@/types/users';
+import { type BasicUser } from '@/types/api/users';
+
+export type Session = {
+    id: number;
+    callsign: string;
+    start: string;
+    duration: string;
+}
+
+export type DailyStatistic = {
+    date: string;
+    count: number;
+}
 
 export type OnlineConnection = {
     id: number;
