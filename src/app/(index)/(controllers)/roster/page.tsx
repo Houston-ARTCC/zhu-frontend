@@ -3,7 +3,7 @@ import { type NextPage } from 'next';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
 import { fetchApi } from '@/utils/fetch';
-import { type Roster, type User } from '@/types/api/users';
+import { type Roster, type User } from '@/types/users';
 import { RosterCard } from './RosterCard';
 
 export const metadata = { title: 'Controller Roster' };
@@ -15,7 +15,7 @@ async function getRoster(): Promise<Roster> {
     );
 }
 
-const Roster: NextPage = async () => {
+const RosterPage: NextPage = async () => {
     const roster = await getRoster();
 
     const sortName = (a: User, b: User) => (
@@ -81,4 +81,4 @@ const Roster: NextPage = async () => {
     );
 };
 
-export default Roster;
+export default RosterPage;

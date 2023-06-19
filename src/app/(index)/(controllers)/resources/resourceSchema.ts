@@ -1,7 +1,7 @@
 'use client';
 
 import { z } from 'zod';
-import { Category } from '@/types/api/resources';
+import { Category } from '@/types/resources';
 
 export const resourceSchema = z.object({
     name: z.string().min(1, 'This field is required'),

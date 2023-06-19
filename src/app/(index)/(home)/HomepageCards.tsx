@@ -7,8 +7,8 @@ import { LuArrowRight } from 'react-icons/lu';
 import { Badge } from '@/components/Badge';
 import { Card } from '@/components/Card';
 import { ProfilePicture } from '@/components/ProfilePicture';
-import { type Announcement } from '@/types/api/announcements';
-import { type Event } from '@/types/api/events';
+import { type Announcement } from '@/types/announcements';
+import { type Event } from '@/types/events';
 
 interface AnnouncementCardProps {
     announcement: Announcement;

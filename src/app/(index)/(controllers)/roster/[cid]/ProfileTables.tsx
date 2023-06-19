@@ -5,8 +5,8 @@ import { format } from 'date-fns-tz';
 import DataTable from 'react-data-table-component';
 import { LuCalendar, LuChevronDown, LuPlane, LuStar } from 'react-icons/lu';
 import { formatDuration } from '@/utils/time';
-import { type Session } from '@/types/api/connections';
-import { type Feedback } from '@/types/api/feedback';
+import { type Session } from '@/types/connections';
+import { type Feedback } from '@/types/feedback';
 
 interface ConnectionsTable {
     data: Session[];

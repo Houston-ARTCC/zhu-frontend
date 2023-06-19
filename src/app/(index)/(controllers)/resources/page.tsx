@@ -6,7 +6,7 @@ import { PageContent } from '@/components/PageContent';
 import { Page } from '@/components/Page';
 import { Card } from '@/components/Card';
 import { fetchApi } from '@/utils/fetch';
-import { Category, type ResourceData } from '@/types/api/resources';
+import { Category, type ResourceData } from '@/types/resources';
 import { categoryToString } from '@/utils';
 import { ResourceTable } from './ResourceTable';
 import { NewResource } from './ResourceModal';

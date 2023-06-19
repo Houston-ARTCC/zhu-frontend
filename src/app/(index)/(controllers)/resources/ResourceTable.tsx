@@ -7,7 +7,7 @@ import { format } from 'date-fns-tz';
 import DataTable from 'react-data-table-component';
 import { useSession } from 'next-auth/react';
 import { ResourceModal } from '@/app/(index)/(controllers)/resources/ResourceModal';
-import { type Resource } from '@/types/api/resources';
+import { type Resource } from '@/types/resources';
 
 interface ResourceTableProps {
     data: Resource[];

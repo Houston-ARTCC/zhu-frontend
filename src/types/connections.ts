@@ -1,4 +1,4 @@
-import { type BasicUser } from '@/types/api/users';
+import { type BasicUser } from '@/types/users';
 
 export type Session = {
     id: number;

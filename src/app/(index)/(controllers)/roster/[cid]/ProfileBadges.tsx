@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Badge } from '@/components/Badge';
-import { type Role } from '@/types/api/users';
+import { type Role } from '@/types/users';
 
 const CERT_COLOR = [
     '!bg-slate-300 !shadow-slate-300/25',

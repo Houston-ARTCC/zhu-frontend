@@ -4,7 +4,7 @@ import React from 'react';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import { endOfYear, startOfYear } from 'date-fns';
 import { Tooltip } from 'react-tooltip';
-import { type DailyStatistic } from '@/types/api/connections';
+import { type DailyStatistic } from '@/types/connections';
 import 'react-calendar-heatmap/dist/styles.css';
 
 const cellColor = (value: number): string => {

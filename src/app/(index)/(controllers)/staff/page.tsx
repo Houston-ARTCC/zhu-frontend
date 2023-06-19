@@ -3,7 +3,7 @@ import { type NextPage } from 'next';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
 import { fetchApi } from '@/utils/fetch';
-import { type Staff } from '@/types/api/users';
+import { type Staff } from '@/types/users';
 import { StaffCard } from './StaffCard';
 
 export const metadata = { title: 'Facility Staff' };
@@ -15,7 +15,7 @@ async function getStaff(): Promise<Staff> {
     );
 }
 
-const Staff: NextPage = async () => {
+const StaffPage: NextPage = async () => {
     const staff = await getStaff();
 
     return (
@@ -27,7 +27,8 @@ const Staff: NextPage = async () => {
                     <StaffCard
                         user={staff.atm.user}
                         title="Air Traffic Manager"
-                        description="Responsible for the macro-management of the ARTCC. Oversees day-to-day operations and ensures the ARTCC runs smoothly."
+                        description="Responsible for the macro-management of the ARTCC.
+                        Oversees day-to-day operations and ensures the ARTCC runs smoothly."
                         email="atm@zhuartcc.org"
                     />
                     <StaffCard
@@ -51,7 +52,8 @@ const Staff: NextPage = async () => {
                     <StaffCard
                         user={staff.ec.user}
                         title="Events Coordinator"
-                        description="Responsible for the planning and advertising of events with neighboring facilities, virtual airlines, VATUSA, and VATSIM."
+                        description="Responsible for the planning and advertising of events
+                        with neighboring facilities, virtual airlines, VATUSA, and VATSIM."
                         email="ec@zhuartcc.org"
                     />
                     <StaffCard
@@ -102,4 +104,4 @@ const Staff: NextPage = async () => {
     );
 };
 
-export default Staff;
+export default StaffPage;

@@ -1,4 +1,4 @@
-import { Category } from '@/types/api/resources';
+import { Category } from '@/types/resources';
 
 export function categoryToString(category: Category): string {
     switch (category) {

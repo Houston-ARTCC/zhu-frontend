@@ -1,4 +1,5 @@
 import NextAuth, { type AuthOptions } from 'next-auth';
+import { type UserId } from '@/types/next-auth';
 
 export const authOptions: AuthOptions = {
     session: { strategy: 'jwt' },
@@ -15,7 +16,7 @@ export const authOptions: AuthOptions = {
         },
         jwt: ({ token, user, account }) => {
             if (user && account) {
-                return { ...token, user, account };
+                return { ...token, user: user as UserId, account };
             }
 
             // console.log(token);

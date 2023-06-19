@@ -7,10 +7,10 @@ import { ProfilePicture } from '@/components/ProfilePicture';
 import { getPositionName } from '@/utils/facilities';
 import { formatDuration } from '@/utils/time';
 import { fetchApi } from '@/utils/fetch';
-import { type BasicUser } from '@/types/api/users';
-import { type Event } from '@/types/api/events';
-import { type Announcement } from '@/types/api/announcements';
-import { type OnlineConnection, type TopController, type TopPosition } from '@/types/api/connections';
+import { type BasicUser } from '@/types/users';
+import { type Event } from '@/types/events';
+import { type Announcement } from '@/types/announcements';
+import { type OnlineConnection, type TopController, type TopPosition } from '@/types/connections';
 import { AnnouncementCard, EventCard } from './HomepageCards';
 import { HomepageBanner } from './HomepageBanner';
 

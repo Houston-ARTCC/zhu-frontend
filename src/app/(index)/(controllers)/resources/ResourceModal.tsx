@@ -10,7 +10,7 @@ import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { FileInput, SelectInput, TextInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
 import { fetchApi } from '@/utils/fetch';
-import { Category, type Resource } from '@/types/api/resources';
+import { Category, type Resource } from '@/types/resources';
 import { categoryToString } from '@/utils';
 import { type ResourceFormValues, resourceSchema } from './resourceSchema';
 

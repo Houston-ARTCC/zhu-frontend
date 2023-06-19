@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { MdCircle } from 'react-icons/md';
 import { Card } from '@/components/Card';
 import { ProfilePicture } from '@/components/ProfilePicture';
-import { type User } from '@/types/api/users';
+import { type User } from '@/types/users';
 
 const CERT_COLOR = ['fill-slate-200', 'fill-amber-400', 'fill-green-400', 'fill-red-400'];
 

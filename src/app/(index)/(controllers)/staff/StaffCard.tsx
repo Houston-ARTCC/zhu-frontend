@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from '@/components/Card';
 import { ProfilePicture } from '@/components/ProfilePicture';
-import { type BasicUser } from '@/types/api/users';
+import { type BasicUser } from '@/types/users';
 
 interface StaffCardProps {
     user?: BasicUser;

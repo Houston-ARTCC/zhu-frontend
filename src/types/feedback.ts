@@ -1,4 +1,4 @@
-import { type Event } from '@/types/api/events';
+import { type Event } from '@/types/events';
 
 export type Feedback = {
     id: number;

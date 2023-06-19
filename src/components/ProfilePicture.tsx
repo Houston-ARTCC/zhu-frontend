@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import classNames from 'classnames';
-import { type BasicUser } from '@/types/api/users';
+import { type BasicUser } from '@/types/users';
 
 interface ProfilePictureProps {
     user?: BasicUser;
