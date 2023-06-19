@@ -67,16 +67,6 @@ const ExpandedFeedbackRow: React.FC<ExpandedFeedbackRowProps> = ({ data }) => (
     </div>
 );
 
-const Stars: React.FC<Feedback> = ({ rating }) => (
-    <div className="flex items-center gap-2">
-        {[...Array(5)].map((x, i) => (
-            i >= rating
-                ? <LuStar key={i} size={20} className="" />
-                : <LuStar key={i} size={20} className="fill-black" />
-        ))}
-    </div>
-);
-
 interface FeedbackTable {
     data: Feedback[];
 }
@@ -117,7 +107,15 @@ export const FeedbackTable: React.FC<FeedbackTable> = ({ data }) => (
                 name: 'Rating',
                 selector: (row) => row.rating,
                 sortable: true,
-                format: Stars,
+                format: ({ rating }) => (
+                    <div className="flex items-center gap-2">
+                        {[...Array(5)].map((x, i) => (
+                            i >= rating
+                                ? <LuStar key={i} size={20} className="" />
+                                : <LuStar key={i} size={20} className="fill-black" />
+                        ))}
+                    </div>
+                ),
             },
         ]}
     />

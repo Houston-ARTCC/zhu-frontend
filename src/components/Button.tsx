@@ -2,7 +2,9 @@ import { type ButtonHTMLAttributes } from 'react';
 import React from 'react';
 import classNames from 'classnames';
 
-export const Button: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({ className, children, ...props }) => (
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
+
+export const Button: React.FC<ButtonProps> = ({ className, children, ...props }) => (
     <button
         type="button"
         className={classNames(

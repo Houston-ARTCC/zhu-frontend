@@ -1,12 +1,13 @@
 module.exports = {
     root: true,
+    parser: '@typescript-eslint/parser',
+    plugins: ['@typescript-eslint', 'tailwindcss'],
     extends: [
         'airbnb',
         'next/core-web-vitals',
         'plugin:@typescript-eslint/recommended',
         'plugin:tailwindcss/recommended',
     ],
-    plugins: ['@typescript-eslint', 'tailwindcss'],
     rules: {
         'semi': 'warn',
         'indent': ['warn', 4, { SwitchCase: 1 }],
@@ -15,7 +16,9 @@ module.exports = {
         'max-len': ['error', { code: 150 }],
         'default-case': 'off',
         'object-curly-newline': ['warn', { multiline: true, consistent: true }],
+        'no-shadow': 'off',
 
+        '@typescript-eslint/no-shadow': 'error',
         '@typescript-eslint/consistent-type-imports': ['warn', { fixStyle: 'inline-type-imports' }],
 
         'react/jsx-indent': ['warn', 4],
@@ -26,10 +29,8 @@ module.exports = {
         'react/no-unescaped-entities': 'off',
         'react/no-array-index-key': 'off',
         'react/jsx-props-no-spreading': 'off',
-        'react/function-component-definition': [
-            'error',
-            { namedComponents: 'arrow-function' },
-        ],
+        'react/function-component-definition': ['error', { namedComponents: 'arrow-function' }],
+        'react/no-unstable-nested-components': ['error', { allowAsProps: true }],
 
         'jsx-a11y/no-static-element-interactions': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',
@@ -40,6 +41,14 @@ module.exports = {
             'error',
             {
                 'newlines-between': 'never',
+                'groups': [
+                    'builtin',
+                    'external',
+                    'internal',
+                    'parent',
+                    'sibling',
+                    'index',
+                ],
                 'pathGroups': [
                     {
                         pattern: 'react',
@@ -53,21 +62,26 @@ module.exports = {
                     },
                     {
                         pattern: '@/app/**',
-                        group: 'sibling',
+                        group: 'internal',
                         position: 'before',
                     },
                     {
                         pattern: '@/components/**',
-                        group: 'sibling',
+                        group: 'internal',
                         position: 'before',
                     },
                     {
                         pattern: '@/utils/**',
-                        group: 'sibling',
+                        group: 'internal',
                         position: 'before',
                     },
                     {
                         pattern: '@/types/**',
+                        group: 'internal',
+                        position: 'before',
+                    },
+                    {
+                        pattern: './**',
                         group: 'sibling',
                         position: 'before',
                     },

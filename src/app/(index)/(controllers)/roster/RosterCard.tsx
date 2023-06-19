@@ -17,7 +17,7 @@ export const RosterCard: React.FC<RosterCardProps> = ({ user }) => (
             <div className="-m-5 mb-5 flex flex-col items-center gap-5 bg-gray-50 p-5">
                 <ProfilePicture user={user} size={70} />
                 <div>
-                    <h4 className="text-xl font-medium">{user.first_name} {user.last_name} ({user.initials})</h4>
+                    <h4 className="text-center text-xl font-medium">{user.first_name} {user.last_name} ({user.initials})</h4>
                 </div>
             </div>
             <div className="mb-5 grid grid-cols-2">
