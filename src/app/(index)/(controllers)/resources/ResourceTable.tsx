@@ -28,6 +28,9 @@ export const ResourceTable: React.FC<ResourceTableProps> = ({ data }) => {
                 defaultSortFieldId={1}
                 defaultSortAsc={false}
                 sortIcon={<LuChevronDown />}
+                highlightOnHover
+                pointerOnHover
+                onRowClicked={(row) => window.open(process.env.NEXT_PUBLIC_API_URL + row.path, '_blank')}
                 columns={[
                     {
                         name: 'Name',
@@ -55,6 +58,7 @@ export const ResourceTable: React.FC<ResourceTableProps> = ({ data }) => {
                         button: true,
                         cell: (row) => (
                             <button
+                                className="p-3"
                                 type="button"
                                 aria-label="edit"
                                 onClick={() => setEditResource(row)}
@@ -66,8 +70,9 @@ export const ResourceTable: React.FC<ResourceTableProps> = ({ data }) => {
                     },
                 ]}
             />
-            {editResource && ReactDOM.createPortal(
+            {ReactDOM.createPortal(
                 <ResourceModal
+                    show={editResource !== undefined}
                     resource={editResource}
                     close={() => setEditResource(undefined)}
                 />,

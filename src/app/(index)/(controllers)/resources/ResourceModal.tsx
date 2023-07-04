@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -21,17 +21,24 @@ interface ResourceModalProps extends ModalProps {
 export const ResourceModal: React.FC<ResourceModalProps> = ({ resource, show, close }) => {
     const router = useRouter();
 
-    const { register, control, handleSubmit, formState: { errors } } = useForm<ResourceFormValues>({
+    const { reset, register, control, handleSubmit, formState: { errors } } = useForm<ResourceFormValues>({
         resolver: zodResolver(resourceSchema),
-        defaultValues: resource ? {
-            name: resource.name,
-            category: {
-                value: resource.category,
-                label: categoryToString(resource.category),
-            },
-            path: resource.path,
-        } : undefined,
     });
+
+    useEffect(() => {
+        if (resource === undefined) {
+            reset(undefined);
+        } else {
+            reset({
+                name: resource.name,
+                category: {
+                    value: resource.category,
+                    label: categoryToString(resource.category),
+                },
+                path: resource.path,
+            });
+        }
+    }, [reset, resource]);
 
     const postResource: SubmitHandler<ResourceFormValues> = useCallback((values) => {
         const data = new FormData();
