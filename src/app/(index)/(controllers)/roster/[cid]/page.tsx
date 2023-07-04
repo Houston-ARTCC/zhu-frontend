@@ -76,7 +76,7 @@ const UserProfile: NextPage<UserProfileParams> = async ({ params }) => {
                                 </Button>
                             </div>
                             <div className="min-w-0">
-                                <div className="mb-5 flex gap-3">
+                                <div className="mb-5 flex flex-wrap gap-3">
                                     {user.roles.map((role) => <RoleBadge key={role.short} role={role} />)}
                                 </div>
                                 <p className="break-words">{user.biography ? user.biography : 'This user has not set a biography.'}</p>

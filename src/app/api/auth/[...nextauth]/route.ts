@@ -2,7 +2,12 @@ import NextAuth, { type AuthOptions } from 'next-auth';
 import { type UserId } from '@/types/next-auth';
 
 export const authOptions: AuthOptions = {
-    session: { strategy: 'jwt' },
+    session: {
+        strategy: 'jwt',
+        // Matches SIMPLE_JWT.ACCESS_TOKEN_LIFETIME in
+        // https://github.com/Houston-ARTCC/zhu-core/blob/master/zhu_core/settings.py
+        maxAge: 60 * 60 * 24,
+    },
     callbacks: {
         session: ({ session, token }) => {
             if (token) {
@@ -18,13 +23,6 @@ export const authOptions: AuthOptions = {
             if (user && account) {
                 return { ...token, user: user as UserId, account };
             }
-
-            // console.log(token);
-            // if (Date.now() < (token.account.expires_at ?? 0)) {
-            //     console.log('expired!');
-            // } else {
-            //     console.log('not expired :/');
-            // }
 
             return token;
         },

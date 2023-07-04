@@ -21,7 +21,3 @@
         @apply ml-10 list-decimal;
     }
 }
-
-.react-calendar-heatmap-month-label {
-    @apply !text-sm !font-medium !fill-gray-500;
-}
