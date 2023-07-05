@@ -3,8 +3,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import classNames from 'classnames';
+import { Dropdown, DropdownButton, DropdownItem } from '@/components/Dropdown';
 
 export const Navbar: React.FC = () => {
     const { data: session, status: authStatus } = useSession();
@@ -39,11 +40,32 @@ export const Navbar: React.FC = () => {
                     />
                     <h6 className={classNames('text-xl font-bold', linkColor)}>Houston ARTCC</h6>
                 </Link>
-                <div className="ml-auto flex items-center gap-28">
-                    <Link href="/" className={linkColor}>Calendar</Link>
-                    <Link href="/" className={linkColor}>Events</Link>
-                    <Link href="/" className={linkColor}>Pilots</Link>
-                    <Link href="/" className={linkColor}>Controllers</Link>
+                <div className="ml-auto flex items-center gap-10">
+                    <Link href="/calendar" className={linkColor}>
+                        <DropdownButton>Calendar</DropdownButton>
+                    </Link>
+                    <Dropdown title="Events" className={linkColor}>
+                        <DropdownItem href="/events">Events</DropdownItem>
+                        <DropdownItem href="/events/support">Request Support</DropdownItem>
+                        <DropdownItem href="/events/scores">Event Scores</DropdownItem>
+                        <hr />
+                        <DropdownItem href="/events/new">New Event</DropdownItem>
+                        <DropdownItem href="/events/presets">Position Presets</DropdownItem>
+                    </Dropdown>
+                    <Dropdown title="Pilots" className={linkColor}>
+                        <DropdownItem href="/feedback">Leave Feedback</DropdownItem>
+                        <DropdownItem href="/map">ARTCC Map</DropdownItem>
+                        <hr />
+                        <DropdownItem href="https://flightaware.com/statistics/ifr-route/" target="_blank" rel="noreferrer">Routes</DropdownItem>
+                    </Dropdown>
+                    <Dropdown title="Calendar" className={linkColor}>
+                        <DropdownItem href="/roster">Roster</DropdownItem>
+                        <DropdownItem href="/staff">Staff</DropdownItem>
+                        <DropdownItem href="/resources">Resources</DropdownItem>
+                        <DropdownItem href="/statistics">Statistics</DropdownItem>
+                        <hr />
+                        <DropdownItem href="https://vzhuids.net/" target="_blank" rel="noreferrer">IDS</DropdownItem>
+                    </Dropdown>
                     {authStatus === 'unauthenticated' ? (
                         <button
                             type="button"
@@ -66,9 +88,15 @@ export const Navbar: React.FC = () => {
                             </span>
                         </button>
                     ) : (
-                        <Link href="/" className={linkColor}>
-                            {session?.user.first_name} {session?.user.last_name}
-                        </Link>
+                        <Dropdown title={`${session?.user.first_name} ${session?.user.last_name}`} className={linkColor}>
+                            <DropdownItem href={`/roster/${session?.user.cid}`}>My Profile</DropdownItem>
+                            <DropdownItem href="/training">Training Center</DropdownItem>
+                            <hr />
+                            <DropdownItem href="/admin">Administration</DropdownItem>
+                            <DropdownItem href="/dashboard">Dashboard</DropdownItem>
+                            <hr />
+                            <button type="button" onClick={() => signOut()}>Log Out</button>
+                        </Dropdown>
                     )}
                 </div>
             </div>
