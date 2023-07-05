@@ -48,29 +48,45 @@ export const StatisticsTable: React.FC<StatisticsTableProps> = ({ data }) => {
 
     return (
         <div className="mt-10">
-            <div className="mb-5 flex">
+            <div className="mb-5 flex justify-between">
                 <TextInput placeholder="Search for controller..." onUpdate={setSearchString} />
-                <ButtonGroup className="ml-auto">
+                <ButtonGroup>
                     <Button
-                        variant={filter === 'home' ? 'primary' : 'secondary'}
+                        className={classNames(
+                            'py-0.5 transition-colors duration-150',
+                            { '!bg-white text-gray-500': filter !== 'home' },
+                        )}
+                        variant="secondary"
                         onClick={() => setFilter('home')}
                     >
                         Home
                     </Button>
                     <Button
-                        variant={filter === 'visiting' ? 'primary' : 'secondary'}
+                        className={classNames(
+                            'py-0.5 transition-colors duration-150',
+                            { '!bg-white text-gray-500': filter !== 'visiting' },
+                        )}
+                        variant="secondary"
                         onClick={() => setFilter('visiting')}
                     >
                         Visiting
                     </Button>
                     <Button
-                        variant={filter === 'mavp' ? 'primary' : 'secondary'}
+                        className={classNames(
+                            'py-0.5 transition-colors duration-150',
+                            { '!bg-white text-gray-500': filter !== 'mavp' },
+                        )}
+                        variant="secondary"
                         onClick={() => setFilter('mavp')}
                     >
                         MAVP
                     </Button>
                     <Button
-                        variant={filter === 'all' ? 'primary' : 'secondary'}
+                        className={classNames(
+                            'py-0.5 transition-colors duration-150',
+                            { '!bg-white text-gray-500': filter !== 'all' },
+                        )}
+                        variant="secondary"
                         onClick={() => setFilter('all')}
                     >
                         All
@@ -91,7 +107,7 @@ export const StatisticsTable: React.FC<StatisticsTableProps> = ({ data }) => {
                         name: 'Name',
                         selector: (row) => `${row.first_name} ${row.last_name}`,
                         sortable: true,
-                        sortFunction: (a, b) => a.first_name.localeCompare(b.first_name),
+                        sortFunction: (a, b) => a.first_name.localeCompare(b.first_name) || a.last_name.localeCompare(b.last_name),
                         format: (row) => `${row.first_name} ${row.last_name} (${row.initials})`,
                     },
                     {

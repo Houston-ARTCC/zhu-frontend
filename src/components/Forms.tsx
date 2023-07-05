@@ -13,7 +13,7 @@ interface InputProps extends Omit<HTMLProps<HTMLInputElement>, 'ref'> {
 
 export const TextInput: React.FC<InputProps> = React.forwardRef<HTMLInputElement, InputProps>(
     (
-        { label, inputClassName, error, className, onUpdate, ...props },
+        { label, inputClassName, error, onUpdate, className, ...props },
         ref,
     ) => (
         <div className={classNames('flex flex-col', className)}>
@@ -30,7 +30,7 @@ export const TextInput: React.FC<InputProps> = React.forwardRef<HTMLInputElement
                 id={props.name}
                 className={classNames(
                     'block rounded-md px-3 py-1.5 transition-all duration-200',
-                    'border-2 border-slate-200 outline-0 ring-0 ring-sky-400/25 bg-transparent focus:border-sky-400 focus:ring-2',
+                    'border-2 border-slate-200 outline-0 ring-0 ring-sky-400/25 focus:border-sky-400 focus:ring-2',
                     { '!ring-red-400/25 !border-red-400': error },
                     inputClassName,
                 )}
@@ -75,7 +75,7 @@ export function SelectInput<Option, IsMulti extends boolean = false, Group exten
                 id={props.name}
                 classNames={{
                     control: ({ isFocused }) => classNames(
-                        '!transition-all !duration-200 !border-2 !bg-transparent',
+                        '!transition-all !duration-200 !border-2',
                         {
                             '!ring-0': !isFocused,
                             '!ring-2': isFocused,

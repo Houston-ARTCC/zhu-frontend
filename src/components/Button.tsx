@@ -3,20 +3,18 @@ import React from 'react';
 import classNames from 'classnames';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: 'primary' | 'secondary' | 'tertiary';
+    variant?: 'primary' | 'secondary';
 }
 
 export const Button: React.FC<ButtonProps> = ({ variant = 'primary', className, children, ...props }) => (
     <button
         type="button"
         className={classNames(
-            'flex items-center gap-2 shrink-0 justify-center rounded-md border-2 py-1.5 px-4',
+            'flex items-center gap-2 shrink-0 justify-center rounded-md py-1.5 px-4',
             'font-medium whitespace-nowrap',
             {
                 'shadow-sm shadow-sky-500/25 bg-sky-500 text-white': variant === 'primary',
-                'border-sky-500': variant === 'secondary',
-                'bg-transparent text-sky-500': variant === 'secondary' || variant === 'tertiary',
-                'border-transparent': variant === 'primary' || variant === 'tertiary',
+                'bg-sky-500/[.10] text-sky-500': variant === 'secondary',
             },
             className,
         )}
@@ -28,11 +26,7 @@ export const Button: React.FC<ButtonProps> = ({ variant = 'primary', className, 
 
 export const ButtonGroup: React.FC<HTMLProps<HTMLDivElement>> = ({ className, children, ...props }) => (
     <div
-        className={classNames(
-            'flex [&>button:first-child]:rounded-l-md [&>button:last-child]:rounded-r-md [&>button]:rounded-none',
-            '[&>button:last-child]:border-r-2 [&>button]:border-r-0',
-            className,
-        )}
+        className={classNames('flex rounded-lg bg-white p-1', className)}
         {...props}
     >
         {children}

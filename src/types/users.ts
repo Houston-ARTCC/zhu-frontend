@@ -26,12 +26,12 @@ export type User = {
     status: number;
     initials: string;
     joined: string;
-    del_cert: number;
-    gnd_cert: number;
-    twr_cert: number;
-    app_cert: number;
-    ctr_cert: number;
-    ocn_cert: number;
+    del_cert: 0 | 1 | 2 | 3;
+    gnd_cert: 0 | 1 | 2 | 3;
+    twr_cert: 0 | 1 | 2 | 3;
+    app_cert: 0 | 1 | 2 | 3;
+    ctr_cert: 0 | 1 | 2 | 3;
+    ocn_cert: 0 | 1 | 2 | 3;
     solo_facility?: string;
     cic_endorsed: boolean;
 };
