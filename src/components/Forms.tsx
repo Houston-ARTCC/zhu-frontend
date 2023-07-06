@@ -51,7 +51,8 @@ TextInput.displayName = 'TextInput';
 // The crazy generic types are necessary to preserve the Option type throughout all of react-select's props.
 // More information is available at https://react-select.com/typescript
 interface SelectInputProps<
-    Option,
+    Value,
+    Option extends { value: Value, label: string, isFixed?: boolean, isDisabled?: boolean },
     IsMulti extends boolean = false,
     Group extends GroupBase<Option> = GroupBase<Option>,
 > extends Partial<SelectProps<Option, IsMulti, Group>> {
@@ -61,8 +62,13 @@ interface SelectInputProps<
 
 // For some reason, using generics with an arrow function breaks eslint's indent rule, so we'll just use a regular function.
 /* eslint-disable-next-line react/function-component-definition */
-export function SelectInput<Option, IsMulti extends boolean = false, Group extends GroupBase<Option> = GroupBase<Option>>(
-    { label, error, className, ...props }: SelectInputProps<Option, IsMulti, Group>,
+export function SelectInput<
+    Value,
+    Option extends { value: Value, label: string, isFixed?: boolean, isDisabled?: boolean },
+    IsMulti extends boolean = false,
+    Group extends GroupBase<Option> = GroupBase<Option>
+>(
+    { label, error, className, ...props }: SelectInputProps<Value, Option, IsMulti, Group>,
 ) {
     return (
         <div className={classNames('flex flex-col', className)}>

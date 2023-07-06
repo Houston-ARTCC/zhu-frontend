@@ -23,7 +23,7 @@ async function getStatistics(): Promise<Statistics> {
     );
 }
 
-const Statistics: NextPage = async () => {
+const StatisticsPage: NextPage = async () => {
     const aggregateStatistics = await getAggregateStatistics();
     const statistics = await getStatistics();
 
@@ -37,4 +37,4 @@ const Statistics: NextPage = async () => {
     );
 };
 
-export default Statistics;
+export default StatisticsPage;
