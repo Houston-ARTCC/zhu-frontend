@@ -44,7 +44,7 @@ export const RosterOptions: React.FC<RosterOptionsProps> = ({ data }) => {
                         <Button
                             className={classNames(
                                 'py-0.5 transition-colors duration-150',
-                                { '!bg-white text-gray-500': filter !== 'home' },
+                                { '!bg-white !text-gray-500': filter !== 'home' },
                             )}
                             variant="secondary"
                             onClick={() => setFilter('home')}
@@ -54,7 +54,7 @@ export const RosterOptions: React.FC<RosterOptionsProps> = ({ data }) => {
                         <Button
                             className={classNames(
                                 'py-0.5 transition-colors duration-150',
-                                { '!bg-white text-gray-500': filter !== 'visiting' },
+                                { '!bg-white !text-gray-500': filter !== 'visiting' },
                             )}
                             variant="secondary"
                             onClick={() => setFilter('visiting')}
@@ -64,7 +64,7 @@ export const RosterOptions: React.FC<RosterOptionsProps> = ({ data }) => {
                         <Button
                             className={classNames(
                                 'py-0.5 transition-colors duration-150',
-                                { '!bg-white text-gray-500': filter !== 'mavp' },
+                                { '!bg-white !text-gray-500': filter !== 'mavp' },
                             )}
                             variant="secondary"
                             onClick={() => setFilter('mavp')}
@@ -74,7 +74,7 @@ export const RosterOptions: React.FC<RosterOptionsProps> = ({ data }) => {
                         <Button
                             className={classNames(
                                 'py-0.5 transition-colors duration-150',
-                                { '!bg-white text-gray-500': filter !== 'all' },
+                                { '!bg-white !text-gray-500': filter !== 'all' },
                             )}
                             variant="secondary"
                             onClick={() => setFilter('all')}
@@ -88,7 +88,7 @@ export const RosterOptions: React.FC<RosterOptionsProps> = ({ data }) => {
                         <Button
                             className={classNames(
                                 'py-0.5 transition-colors duration-150',
-                                { '!bg-white text-gray-500': tableView },
+                                { '!bg-white !text-gray-500': tableView },
                             )}
                             variant="secondary"
                             onClick={() => setTableView(false)}
@@ -99,7 +99,7 @@ export const RosterOptions: React.FC<RosterOptionsProps> = ({ data }) => {
                         <Button
                             className={classNames(
                                 'py-0.5 transition-colors duration-150',
-                                { '!bg-white text-gray-500': !tableView },
+                                { '!bg-white !text-gray-500': !tableView },
                             )}
                             variant="secondary"
                             onClick={() => setTableView(true)}

@@ -25,9 +25,15 @@ interface NextFetchConfig extends RequestInit {
 export async function fetchApi<T extends object>(route: string, config?: NextFetchConfig): Promise<T> {
     const session = await (typeof window === 'undefined' ? getServerSession(authOptions) : getSession());
 
-    let headers;
+    const headers = new Headers(config?.headers);
+    headers.append(
+        'Content-Type',
+        config?.body instanceof FormData
+            ? 'multipart/form-data'
+            : 'application/json',
+    );
+
     if (session) {
-        headers = new Headers(config?.headers);
         headers.append('Authorization', `Bearer ${session.access_token}`);
     }
 

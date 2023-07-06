@@ -7,6 +7,7 @@ import { format } from 'date-fns-tz';
 import DataTable from 'react-data-table-component';
 import { useSession } from 'next-auth/react';
 import { ResourceModal } from '@/app/(index)/(controllers)/resources/ResourceModal';
+import { dataTableStyle } from '@/utils/dataTableStyle';
 import { type Resource } from '@/types/resources';
 
 interface ResourceTableProps {
@@ -31,6 +32,7 @@ export const ResourceTable: React.FC<ResourceTableProps> = ({ data }) => {
                 highlightOnHover
                 pointerOnHover
                 onRowClicked={(row) => window.open(process.env.NEXT_PUBLIC_API_URL + row.path, '_blank')}
+                customStyles={dataTableStyle}
                 columns={[
                     {
                         name: 'Name',

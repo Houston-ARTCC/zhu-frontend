@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { format } from 'date-fns-tz';
 import DataTable from 'react-data-table-component';
 import { LuCheck, LuChevronDown } from 'react-icons/lu';
@@ -36,6 +37,8 @@ interface StatisticsTableProps {
 }
 
 export const StatisticsTable: React.FC<StatisticsTableProps> = ({ data }) => {
+    const router = useRouter();
+
     const [searchString, setSearchString] = useState<string>('');
     const [filter, setFilter] = useState<'home' | 'visiting' | 'mavp' | 'all'>('home');
 
@@ -54,7 +57,7 @@ export const StatisticsTable: React.FC<StatisticsTableProps> = ({ data }) => {
                     <Button
                         className={classNames(
                             'py-0.5 transition-colors duration-150',
-                            { '!bg-white text-gray-500': filter !== 'home' },
+                            { '!bg-white !text-gray-500': filter !== 'home' },
                         )}
                         variant="secondary"
                         onClick={() => setFilter('home')}
@@ -64,7 +67,7 @@ export const StatisticsTable: React.FC<StatisticsTableProps> = ({ data }) => {
                     <Button
                         className={classNames(
                             'py-0.5 transition-colors duration-150',
-                            { '!bg-white text-gray-500': filter !== 'visiting' },
+                            { '!bg-white !text-gray-500': filter !== 'visiting' },
                         )}
                         variant="secondary"
                         onClick={() => setFilter('visiting')}
@@ -74,7 +77,7 @@ export const StatisticsTable: React.FC<StatisticsTableProps> = ({ data }) => {
                     <Button
                         className={classNames(
                             'py-0.5 transition-colors duration-150',
-                            { '!bg-white text-gray-500': filter !== 'mavp' },
+                            { '!bg-white !text-gray-500': filter !== 'mavp' },
                         )}
                         variant="secondary"
                         onClick={() => setFilter('mavp')}
@@ -84,7 +87,7 @@ export const StatisticsTable: React.FC<StatisticsTableProps> = ({ data }) => {
                     <Button
                         className={classNames(
                             'py-0.5 transition-colors duration-150',
-                            { '!bg-white text-gray-500': filter !== 'all' },
+                            { '!bg-white !text-gray-500': filter !== 'all' },
                         )}
                         variant="secondary"
                         onClick={() => setFilter('all')}
@@ -101,6 +104,9 @@ export const StatisticsTable: React.FC<StatisticsTableProps> = ({ data }) => {
                     ))}
                 defaultSortFieldId={1}
                 sortIcon={<LuChevronDown />}
+                highlightOnHover
+                pointerOnHover
+                onRowClicked={(row) => router.push(`/roster/${row.cid}`)}
                 customStyles={dataTableStyle}
                 columns={[
                     {

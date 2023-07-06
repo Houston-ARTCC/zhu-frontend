@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import classNames from 'classnames';
-import { Dropdown, DropdownButton, DropdownItem } from '@/components/Dropdown';
+import { Dropdown, DropdownButton, DropdownItem, DropdownSeparator, DropdownToggle } from '@/components/Dropdown';
 
 export const Navbar: React.FC = () => {
     const { data: session, status: authStatus } = useSession();
@@ -42,20 +42,20 @@ export const Navbar: React.FC = () => {
                 </Link>
                 <div className="ml-auto flex items-center gap-10">
                     <Link href="/calendar" className={linkColor}>
-                        <DropdownButton>Calendar</DropdownButton>
+                        <DropdownToggle>Calendar</DropdownToggle>
                     </Link>
                     <Dropdown title="Events" className={linkColor}>
                         <DropdownItem href="/events">Events</DropdownItem>
                         <DropdownItem href="/events/support">Request Support</DropdownItem>
                         <DropdownItem href="/events/scores">Event Scores</DropdownItem>
-                        <hr />
+                        <DropdownSeparator />
                         <DropdownItem href="/events/new">New Event</DropdownItem>
                         <DropdownItem href="/events/presets">Position Presets</DropdownItem>
                     </Dropdown>
                     <Dropdown title="Pilots" className={linkColor}>
                         <DropdownItem href="/feedback">Leave Feedback</DropdownItem>
                         <DropdownItem href="/map">ARTCC Map</DropdownItem>
-                        <hr />
+                        <DropdownSeparator />
                         <DropdownItem href="https://flightaware.com/statistics/ifr-route/" target="_blank" rel="noreferrer">Routes</DropdownItem>
                     </Dropdown>
                     <Dropdown title="Calendar" className={linkColor}>
@@ -63,7 +63,7 @@ export const Navbar: React.FC = () => {
                         <DropdownItem href="/staff">Staff</DropdownItem>
                         <DropdownItem href="/resources">Resources</DropdownItem>
                         <DropdownItem href="/statistics">Statistics</DropdownItem>
-                        <hr />
+                        <DropdownSeparator />
                         <DropdownItem href="https://vzhuids.net/" target="_blank" rel="noreferrer">IDS</DropdownItem>
                     </Dropdown>
                     {authStatus === 'unauthenticated' ? (
@@ -91,11 +91,11 @@ export const Navbar: React.FC = () => {
                         <Dropdown title={`${session?.user.first_name} ${session?.user.last_name}`} className={linkColor}>
                             <DropdownItem href={`/roster/${session?.user.cid}`}>My Profile</DropdownItem>
                             <DropdownItem href="/training">Training Center</DropdownItem>
-                            <hr />
+                            <DropdownSeparator />
                             <DropdownItem href="/admin">Administration</DropdownItem>
                             <DropdownItem href="/dashboard">Dashboard</DropdownItem>
-                            <hr />
-                            <button type="button" onClick={() => signOut()}>Log Out</button>
+                            <DropdownSeparator />
+                            <DropdownButton onClick={() => signOut()}>Log Out</DropdownButton>
                         </Dropdown>
                     )}
                 </div>

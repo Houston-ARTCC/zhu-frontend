@@ -31,6 +31,7 @@ export const TextInput: React.FC<InputProps> = React.forwardRef<HTMLInputElement
                 className={classNames(
                     'block rounded-md px-3 py-1.5 transition-all duration-200',
                     'border-2 border-slate-200 outline-0 ring-0 ring-sky-400/25 focus:border-sky-400 focus:ring-2',
+                    'read-only:bg-slate-50 read-only:!border-slate-200 read-only:!ring-0',
                     { '!ring-red-400/25 !border-red-400': error },
                     inputClassName,
                 )}
@@ -84,6 +85,8 @@ export function SelectInput<Option, IsMulti extends boolean = false, Group exten
                             '!ring-red-400/25 !border-red-400': error,
                         },
                     ),
+                    multiValueRemove: ({ data: { isFixed } }) => (isFixed ? '!hidden' : ''),
+                    multiValueLabel: ({ data: { isFixed } }) => (isFixed ? '!px-2' : '!pl-2 !pr-1'),
                 }}
                 {...props}
             />

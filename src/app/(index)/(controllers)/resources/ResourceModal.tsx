@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -160,10 +160,10 @@ export const ResourceModal: React.FC<ResourceModalProps> = ({ resource, show, cl
     );
 };
 
-export const NewResource: React.FC = () => (
+export const NewResourceButton: React.FC = () => (
     <ModalButton
         className="mb-10"
-        modal={ResourceModal}
+        modal={<ResourceModal />}
     >
         <LuPlus size={20} />
         New Resource

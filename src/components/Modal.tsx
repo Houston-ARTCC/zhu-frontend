@@ -1,6 +1,6 @@
 'use client';
 
-import React, { type PropsWithChildren, useEffect, useState } from 'react';
+import React, { type PropsWithChildren, type ReactElement, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import FocusTrap from 'focus-trap-react';
@@ -44,7 +44,7 @@ export const Modal: React.FC<ModalProps> = ({ show = false, title, large, close,
             <Card
                 className={classNames(
                     'mx-auto mt-40 transition-transform duration-250 ease-out',
-                    { 'max-w-lg': !large, 'max-w-4xl': large, '-translate-y-10': !isVisible, 'translate-y-0': isVisible },
+                    { 'max-w-lg': !large, 'max-w-3xl': large, '-translate-y-10': !isVisible, 'translate-y-0': isVisible },
                 )}
                 onClick={(e) => e.stopPropagation()}
             >
@@ -69,10 +69,10 @@ export const Modal: React.FC<ModalProps> = ({ show = false, title, large, close,
 };
 
 interface ModalButtonProps extends ButtonProps {
-    modal: React.FC<ModalProps>;
+    modal: ReactElement<ModalProps>;
 }
 
-export const ModalButton: React.FC<ModalButtonProps> = ({ modal: ModalComponent, children, ...props }) => {
+export const ModalButton: React.FC<ModalButtonProps> = ({ modal, children, ...props }) => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -81,7 +81,9 @@ export const ModalButton: React.FC<ModalButtonProps> = ({ modal: ModalComponent,
                 {children}
             </Button>
             {ReactDOM.createPortal(
-                <ModalComponent show={open} close={() => setOpen(false)} />,
+                <>
+                    {React.cloneElement(modal, { show: open, close: () => setOpen(false) })}
+                </>,
                 document.body,
             )}
         </>

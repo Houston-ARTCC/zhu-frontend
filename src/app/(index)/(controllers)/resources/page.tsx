@@ -9,7 +9,7 @@ import { fetchApi } from '@/utils/fetch';
 import { Category, type ResourceData } from '@/types/resources';
 import { categoryToString } from '@/utils';
 import { ResourceTable } from './ResourceTable';
-import { NewResource } from './ResourceModal';
+import { NewResourceButton } from './ResourceModal';
 
 const metadata = { title: 'Resources' };
 
@@ -29,7 +29,7 @@ const Resources: NextPage = async () => {
         <Page {...metadata}>
             <PageContent>
                 {session?.user.is_staff && (
-                    <NewResource />
+                    <NewResourceButton />
                 )}
                 {Object.values(Category).map((category) => (
                     <div key={category} className="mb-10">

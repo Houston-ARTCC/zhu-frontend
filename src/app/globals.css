@@ -20,4 +20,8 @@
     ol {
         @apply ml-10 list-decimal;
     }
+
+    hr {
+        @apply border-b border-slate-100
+    }
 }

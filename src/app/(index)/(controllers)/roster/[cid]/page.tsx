@@ -1,20 +1,19 @@
 import React from 'react';
 import { type NextPage } from 'next';
 import { getServerSession } from 'next-auth';
-import { LuUserCog } from 'react-icons/lu';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
 import { ProfilePicture } from '@/components/ProfilePicture';
-import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
+import { RoleBadge, CertBadge } from '@/components/ProfileBadges';
 import { fetchApi } from '@/utils/fetch';
 import { type User } from '@/types/users';
 import { type Feedback } from '@/types/feedback';
 import { type DailyStatistic, type Session } from '@/types/connections';
 import { ConnectionsTable, FeedbackTable } from './ProfileTables';
 import { Heatmap } from './Heatmap';
-import { RoleBadge, CertBadge } from './ProfileBadges';
+import { EditUserButton } from './EditUserModal';
 
 async function getUser(cid: string): Promise<User> {
     return fetchApi(
@@ -70,10 +69,9 @@ const UserProfile: NextPage<UserProfileParams> = async ({ params }) => {
                         <div className="mb-12 flex items-start gap-5">
                             <div className="flex flex-col items-center gap-5">
                                 <ProfilePicture user={user} size={150} />
-                                <Button>
-                                    <LuUserCog size={20} />
-                                    Edit User
-                                </Button>
+                                {session?.user.is_staff && (
+                                    <EditUserButton user={user} />
+                                )}
                             </div>
                             <div className="min-w-0">
                                 <div className="mb-5 flex flex-wrap gap-3">

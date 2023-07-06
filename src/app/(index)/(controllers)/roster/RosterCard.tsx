@@ -1,11 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
-import { MdCircle } from 'react-icons/md';
+import { CertCircle } from '@/components/ProfileBadges';
 import { Card } from '@/components/Card';
 import { ProfilePicture } from '@/components/ProfilePicture';
 import { type User } from '@/types/users';
-
-const CERT_COLOR = ['fill-slate-200', 'fill-amber-400', 'fill-green-400', 'fill-red-400'];
 
 interface RosterCardProps {
     user: User;
@@ -32,27 +30,27 @@ export const RosterCard: React.FC<RosterCardProps> = ({ user }) => (
             </div>
             <div className="grid grid-cols-6">
                 <div className="flex flex-col items-center">
-                    <MdCircle size={20} className={CERT_COLOR[user.del_cert]} />
+                    <CertCircle cert={user.del_cert} />
                     <span className="text-sm">DEL</span>
                 </div>
                 <div className="flex flex-col items-center">
-                    <MdCircle size={20} className={CERT_COLOR[user.gnd_cert]} />
+                    <CertCircle cert={user.gnd_cert} />
                     <span className="text-sm">GND</span>
                 </div>
                 <div className="flex flex-col items-center">
-                    <MdCircle size={20} className={CERT_COLOR[user.twr_cert]} />
+                    <CertCircle cert={user.twr_cert} />
                     <span className="text-sm">TWR</span>
                 </div>
                 <div className="flex flex-col items-center">
-                    <MdCircle size={20} className={CERT_COLOR[user.app_cert]} />
+                    <CertCircle cert={user.app_cert} />
                     <span className="text-sm">APP</span>
                 </div>
                 <div className="flex flex-col items-center">
-                    <MdCircle size={20} className={CERT_COLOR[user.ctr_cert]} />
+                    <CertCircle cert={user.ctr_cert} />
                     <span className="text-sm">CTR</span>
                 </div>
                 <div className="flex flex-col items-center">
-                    <MdCircle size={20} className={CERT_COLOR[user.ocn_cert]} />
+                    <CertCircle cert={user.ocn_cert} />
                     <span className="text-sm">OCN</span>
                 </div>
             </div>
