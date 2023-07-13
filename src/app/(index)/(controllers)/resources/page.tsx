@@ -6,8 +6,7 @@ import { PageContent } from '@/components/PageContent';
 import { Page } from '@/components/Page';
 import { Card } from '@/components/Card';
 import { fetchApi } from '@/utils/fetch';
-import { Category, type ResourceData } from '@/types/resources';
-import { categoryToString } from '@/utils';
+import { Category, CATEGORY_STRING, type ResourceData } from '@/types/resources';
 import { ResourceTable } from './ResourceTable';
 import { NewResourceButton } from './ResourceModal';
 
@@ -33,7 +32,7 @@ const Resources: NextPage = async () => {
                 )}
                 {Object.values(Category).map((category) => (
                     <div key={category} className="mb-10">
-                        <h2 className="text-4xl font-medium">{categoryToString(category)}</h2>
+                        <h2 className="text-4xl font-medium">{CATEGORY_STRING[category]}</h2>
                         <h3 className="mb-5 font-medium text-slate-400">
                             {resources[category]?.length}
                             {resources[category]?.length === 1 ? ' resource' : ' resources'}

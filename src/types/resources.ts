@@ -4,10 +4,19 @@ export enum Category {
     VERAM = 'veram',
     VATIS = 'vatis',
     SOP = 'sop',
-    LOA = 'loa',
     MAVP = 'mavp',
     Misc = 'misc',
 }
+
+export const CATEGORY_STRING = {
+    [Category.VRC]: 'VRC',
+    [Category.VSTARS]: 'vSTARS',
+    [Category.VERAM]: 'vERAM',
+    [Category.VATIS]: 'vATIS',
+    [Category.SOP]: 'SOP',
+    [Category.MAVP]: 'MAVP',
+    [Category.Misc]: 'Miscellaneous',
+};
 
 export type Resource = {
     id: number;
@@ -25,7 +34,6 @@ export type ResourceData = {
     [Category.VERAM]: Resource[];
     [Category.VATIS]: Resource[];
     [Category.SOP]: Resource[];
-    [Category.LOA]: Resource[];
     [Category.MAVP]: Resource[];
     [Category.Misc]: Resource[];
 }

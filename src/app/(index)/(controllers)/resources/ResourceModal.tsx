@@ -10,8 +10,7 @@ import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { FileInput, SelectInput, TextInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
 import { fetchApi } from '@/utils/fetch';
-import { Category, type Resource } from '@/types/resources';
-import { categoryToString } from '@/utils';
+import { Category, CATEGORY_STRING, type Resource } from '@/types/resources';
 import { type ResourceFormValues, resourceSchema } from './resourceSchema';
 
 interface ResourceModalProps extends ModalProps {
@@ -33,7 +32,7 @@ export const ResourceModal: React.FC<ResourceModalProps> = ({ resource, show, cl
                 name: resource.name,
                 category: {
                     value: resource.category,
-                    label: categoryToString(resource.category),
+                    label: CATEGORY_STRING[resource.category],
                 },
                 path: resource.path,
             });
@@ -125,7 +124,7 @@ export const ResourceModal: React.FC<ResourceModalProps> = ({ resource, show, cl
                             error={errors.category?.message || errors.category?.value?.message}
                             options={Object.values(Category).map((category) => ({
                                 value: category,
-                                label: categoryToString(category),
+                                label: CATEGORY_STRING[category],
                             }))}
                         />
                     )}
