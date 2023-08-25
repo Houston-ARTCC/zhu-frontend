@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { LuUserCog } from 'react-icons/lu';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
-import { SelectInput, TextInput } from '@/components/Forms';
+import { SelectInput, TextInput, ToggleInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
 import { CertDropdown } from '@/components/ProfileBadges';
 import { fetchApi } from '@/utils/fetch';
@@ -86,22 +86,34 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
 
                 <hr className="my-5" />
 
-                <Controller
-                    name="roles"
-                    control={control}
-                    render={({ field: { value, ...field } }) => (
-                        <SelectInput
-                            {...field}
-                            label="Roles"
-                            error={errors.roles?.message}
-                            options={roles}
-                            value={value.sort((a, b) => (a.id > b.id ? 1 : -1))}
-                            closeMenuOnSelect={false}
-                            isClearable={false}
-                            isMulti
-                        />
-                    )}
-                />
+                <div className="flex flex-col gap-3">
+                    <Controller
+                        name="roles"
+                        control={control}
+                        render={({ field: { value, ...field } }) => (
+                            <SelectInput
+                                {...field}
+                                label="Roles"
+                                error={errors.roles?.message}
+                                options={roles}
+                                value={value.sort((a, b) => (a.id > b.id ? 1 : -1))}
+                                closeMenuOnSelect={false}
+                                isClearable={false}
+                                isMulti
+                            />
+                        )}
+                    />
+
+                    <ToggleInput
+                        {...register('prevent_event_signup')}
+                        label="Prevent Event Sign Up"
+                    />
+
+                    <ToggleInput
+                        {...register('cic_endorsed')}
+                        label="CIC Endorsed"
+                    />
+                </div>
 
                 <hr className="my-5" />
 

@@ -5,6 +5,7 @@ import { format } from 'date-fns-tz';
 import DataTable from 'react-data-table-component';
 import { LuCalendar, LuChevronDown, LuPlane, LuStar } from 'react-icons/lu';
 import { formatDuration } from '@/utils/time';
+import { dataTableStyle } from '@/utils/dataTableStyle';
 import { type Session } from '@/types/connections';
 import { type Feedback } from '@/types/feedback';
 
@@ -83,13 +84,7 @@ export const FeedbackTable: React.FC<FeedbackTable> = ({ data }) => (
         expandableRows
         expandableRowsComponent={ExpandedFeedbackRow}
         sortIcon={<LuChevronDown />}
-        customStyles={{
-            expanderRow: {
-                style: {
-                    borderBottom: 'solid 1px rgba(0,0,0,.12)',
-                },
-            },
-        }}
+        customStyles={dataTableStyle}
         columns={[
             {
                 name: 'Date',

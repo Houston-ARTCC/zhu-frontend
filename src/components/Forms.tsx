@@ -1,3 +1,5 @@
+'use client';
+
 import React, { type HTMLProps } from 'react';
 import classNames from 'classnames';
 import { BsUpload } from 'react-icons/bs';
@@ -8,7 +10,7 @@ interface InputProps extends Omit<HTMLProps<HTMLInputElement>, 'ref'> {
     label?: string;
     inputClassName?: string;
     error?: string;
-    onUpdate?: (value: string) => void;
+    onUpdate?: (value: string | boolean | number) => void;
 }
 
 export const TextInput: React.FC<InputProps> = React.forwardRef<HTMLInputElement, InputProps>(
@@ -47,6 +49,54 @@ export const TextInput: React.FC<InputProps> = React.forwardRef<HTMLInputElement
 );
 // React.forwardRef does not preserve this information, so we have to set it manually for debugging.
 TextInput.displayName = 'TextInput';
+
+export const ToggleInput: React.FC<Omit<InputProps, 'inputClassName'>> = React.forwardRef<HTMLInputElement, InputProps>(
+    (
+        { label, error, onUpdate, className, ...props },
+        ref,
+    ) => (
+        <div className={classNames('flex flex-col', className)}>
+            <div className="flex items-center gap-3">
+                <div className="relative">
+                    <input
+                        ref={ref}
+                        id={props.name}
+                        className="peer h-5 w-9 opacity-0"
+                        onChange={(e) => {
+                            onUpdate?.(e.target.checked);
+                            props.onChange?.(e);
+                        }}
+                        type="checkbox"
+                        {...props}
+                    />
+                    <div
+                        className={classNames(
+                            'absolute left-0 top-0 -z-10 h-5 w-9 rounded-full bg-slate-300/25',
+                            'peer-checked:bg-sky-400/25 transition-colors duration-100 ',
+                        )}
+                    />
+                    <div
+                        className={classNames(
+                            'absolute left-1 top-1 -z-10 h-3 w-3 rounded-full bg-slate-300',
+                            'peer-checked:left-5 peer-checked:bg-sky-400 transition-all duration-100',
+                        )}
+                    />
+                </div>
+                {label && (
+                    <label
+                        className="mb-2 font-medium"
+                        htmlFor={props.name}
+                    >
+                        {label}
+                    </label>
+                )}
+            </div>
+            {error && <span className="mt-1 text-sm text-red-400">{error}</span>}
+        </div>
+    ),
+);
+// React.forwardRef does not preserve this information, so we have to set it manually for debugging.
+ToggleInput.displayName = 'ToggleInput';
 
 // The crazy generic types are necessary to preserve the Option type throughout all of react-select's props.
 // More information is available at https://react-select.com/typescript

@@ -52,6 +52,9 @@ export const editUserSchema = z.object({
             ))),
     ),
 
+    prevent_event_signup: z.boolean(),
+    cic_endorsed: z.boolean(),
+
     del_cert: z.number(),
     gnd_cert: z.number(),
     twr_cert: z.number(),

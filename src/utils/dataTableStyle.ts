@@ -38,6 +38,7 @@ export const dataTableStyle = {
     expanderRow: {
         style: {
             backgroundColor: 'transparent',
+            borderBottom: 'solid 1px #e5e5e5',
         },
     },
     progress: {
