@@ -14,9 +14,10 @@ export interface ModalProps extends PropsWithChildren {
     title?: string;
     large?: boolean;
     close?: () => void;
+    onClose?: () => void;
 }
 
-export const Modal: React.FC<ModalProps> = ({ show = false, title, large, close, children }) => {
+export const Modal: React.FC<ModalProps> = ({ show = false, title, large, close, onClose, children }) => {
     const { isMounted, isVisible } = usePresence(show, { transitionDuration: 250 });
 
     useEffect(() => {
@@ -29,6 +30,12 @@ export const Modal: React.FC<ModalProps> = ({ show = false, title, large, close,
         document.addEventListener('keydown', handleKeydown);
         return () => document.removeEventListener('keydown', handleKeydown);
     }, [close]);
+
+    useEffect(() => {
+        if (!isMounted) {
+            onClose?.();
+        }
+    }, [isMounted, onClose]);
 
     if (!isMounted) {
         return null;

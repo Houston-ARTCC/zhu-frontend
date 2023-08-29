@@ -2,11 +2,19 @@ import { type HTMLProps } from 'react';
 import React from 'react';
 import classNames from 'classnames';
 
-export const Badge: React.FC<HTMLProps<HTMLDivElement>> = ({ className, children }) => (
+interface BadgeProps extends HTMLProps<HTMLDivElement> {
+    small?: boolean;
+}
+
+export const Badge: React.FC<BadgeProps> = ({ small = false, className, children }) => (
     <div
         className={classNames(
-            'flex min-w-[8rem] shrink-0 justify-center rounded-md bg-sky-500 py-1 px-3 shadow-sm shadow-sky-500/25',
-            'text-sm font-semibold text-white whitespace-nowrap',
+            'flex shrink-0 justify-center bg-sky-500 shadow-sky-500/25',
+            'font-semibold text-white whitespace-nowrap',
+            {
+                'min-w-[8rem] rounded-md text-sm py-1 px-3 shadow-sm': !small,
+                'rounded-full text-xs py-0.5 px-2': small,
+            },
             className,
         )}
     >

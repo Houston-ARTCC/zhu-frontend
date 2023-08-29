@@ -75,7 +75,7 @@ export const RoleBadge: React.FC<RoleBadgeProps> = ({ role }) => {
         case 'WEB': color = '!bg-indigo-500 !shadow-indigo-500/25'; break;
         case 'HC':
         case 'VC':
-        case 'MC': color = '!bg-[#334d6e] !shadow-[#334d6e]/25'; break;
+        case 'MC': color = '!bg-darkblue !shadow-darkblue/25'; break;
         default: color = '!bg-red-400 !shadow-red-400/25';
     }
 

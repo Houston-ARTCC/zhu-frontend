@@ -17,6 +17,7 @@ module.exports = {
         'default-case': 'off',
         'object-curly-newline': ['warn', { multiline: true, consistent: true }],
         'no-shadow': 'off',
+        'no-nested-ternary': 'off',
 
         '@typescript-eslint/no-shadow': 'error',
         '@typescript-eslint/consistent-type-imports': ['warn', { fixStyle: 'inline-type-imports' }],

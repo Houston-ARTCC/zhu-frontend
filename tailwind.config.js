@@ -10,6 +10,9 @@ module.exports = {
             sans: ['"Cera Pro"', 'sans-serif'],
         },
         extend: {
+            colors: {
+                darkblue: '#334d6e',
+            },
             boxShadow: {
                 sm: '0 4px 10px rgba(203, 203, 203, 0.25)',
                 DEFAULT: '2px 2px 20px rgba(203, 203, 203, 0.25)',

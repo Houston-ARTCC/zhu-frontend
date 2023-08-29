@@ -17,6 +17,7 @@ interface ResourceTableProps {
 export const ResourceTable: React.FC<ResourceTableProps> = ({ data }) => {
     const { data: session } = useSession();
 
+    const [showEditResource, setShowEditResource] = useState<boolean>(false);
     const [editResource, setEditResource] = useState<Resource | undefined>();
 
     return (
@@ -63,7 +64,10 @@ export const ResourceTable: React.FC<ResourceTableProps> = ({ data }) => {
                                 className="p-3"
                                 type="button"
                                 aria-label="edit"
-                                onClick={() => setEditResource(row)}
+                                onClick={() => {
+                                    setEditResource(row);
+                                    setShowEditResource(true);
+                                }}
                             >
                                 <LuFileEdit size={20} />
                             </button>
@@ -74,9 +78,10 @@ export const ResourceTable: React.FC<ResourceTableProps> = ({ data }) => {
             />
             {ReactDOM.createPortal(
                 <ResourceModal
-                    show={editResource !== undefined}
+                    show={showEditResource}
                     resource={editResource}
-                    close={() => setEditResource(undefined)}
+                    close={() => setShowEditResource(false)}
+                    onClose={() => setEditResource(undefined)}
                 />,
                 document.body,
             )}

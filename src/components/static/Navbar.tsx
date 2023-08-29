@@ -58,7 +58,7 @@ export const Navbar: React.FC = () => {
                         <DropdownSeparator />
                         <DropdownItem href="https://flightaware.com/statistics/ifr-route/" target="_blank" rel="noreferrer">Routes</DropdownItem>
                     </Dropdown>
-                    <Dropdown title="Calendar" className={linkColor}>
+                    <Dropdown title="Controllers" className={linkColor}>
                         <DropdownItem href="/roster">Roster</DropdownItem>
                         <DropdownItem href="/staff">Staff</DropdownItem>
                         <DropdownItem href="/resources">Resources</DropdownItem>
@@ -92,7 +92,9 @@ export const Navbar: React.FC = () => {
                             <DropdownItem href={`/roster/${session?.user.cid}`}>My Profile</DropdownItem>
                             <DropdownItem href="/training">Training Center</DropdownItem>
                             <DropdownSeparator />
-                            <DropdownItem href="/admin">Administration</DropdownItem>
+                            {session?.user.is_staff && (
+                                <DropdownItem href="/admin">Administration</DropdownItem>
+                            )}
                             <DropdownItem href="/dashboard">Dashboard</DropdownItem>
                             <DropdownSeparator />
                             <DropdownButton onClick={() => signOut()}>Log Out</DropdownButton>
