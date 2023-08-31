@@ -30,7 +30,7 @@ export const Navbar: React.FC = () => {
                 { 'py-16': !shrink, 'bg-white py-6': shrink },
             )}
         >
-            <div className="container mx-auto flex items-center px-20 font-medium">
+            <div className="container mx-auto flex items-center px-0 font-medium 2xl:px-20">
                 <Link href="/" className="flex flex-col items-center gap-2">
                     <Image
                         src={shrink ? '/img/logo.png' : '/img/logo-light.png'}

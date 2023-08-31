@@ -2,7 +2,7 @@ import React, { type PropsWithChildren } from 'react';
 import { LuAlertCircle } from 'react-icons/lu';
 
 export const PageContent: React.FC<PropsWithChildren> = ({ children }) => (
-    <main className="container mx-auto px-20 py-16">
+    <main className="container mx-auto px-0 py-16 2xl:px-20">
         {children}
         <div className="mx-64 mt-16 rounded-md bg-sky-500/10 py-5 pl-7 pr-10 text-sky-500">
             <div className="flex gap-3">
