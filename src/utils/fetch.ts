@@ -38,10 +38,17 @@ export async function fetchApi<T extends object>(route: string, config?: NextFet
     }
 
     return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api${route}`, { ...config, headers })
-        .then((res) => (
-            // 204 No Content does not send a body
-            res.status === 204
-                ? undefined
-                : res.json()
-        ));
+        .then(async (res) => {
+            if (!res.ok) {
+                throw res;
+            }
+
+            try {
+                return await res.json();
+            } catch {
+                // If the response does not have a body,
+                // json() will fail and we fall back to undefined.
+                return undefined;
+            }
+        });
 }
