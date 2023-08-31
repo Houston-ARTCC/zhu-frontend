@@ -22,6 +22,7 @@ const TrainingCenterLayout: React.FC<PropsWithChildren> = async ({ children }) =
             <PageContent>
                 <div className="flex gap-10">
                     <SideNav
+                        rootPath="training"
                         sections={[
                             {
                                 title: 'Student Resources',

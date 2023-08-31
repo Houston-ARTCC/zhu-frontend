@@ -50,6 +50,50 @@ export const TextInput: React.FC<InputProps> = React.forwardRef<HTMLInputElement
 // React.forwardRef does not preserve this information, so we have to set it manually for debugging.
 TextInput.displayName = 'TextInput';
 
+interface TextAreaProps extends Omit<HTMLProps<HTMLTextAreaElement>, 'ref'> {
+    label?: string;
+    inputClassName?: string;
+    error?: string;
+    onUpdate?: (value: string) => void;
+}
+
+export const TextAreaInput: React.FC<TextAreaProps> = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
+    (
+        { label, inputClassName, error, onUpdate, className, ...props },
+        ref,
+    ) => (
+        <div className={classNames('flex flex-col', className)}>
+            {label && (
+                <label
+                    className="mb-2 max-w-fit font-medium"
+                    htmlFor={props.name}
+                >
+                    {label}
+                </label>
+            )}
+            <textarea
+                ref={ref}
+                id={props.name}
+                className={classNames(
+                    'block rounded-md px-3 py-1.5 transition duration-200',
+                    'border-2 border-slate-200 outline-0 ring-0 ring-sky-400/25 focus:border-sky-400 focus:ring-2',
+                    'read-only:bg-neutral-50 read-only:!border-slate-200 read-only:!ring-0',
+                    { '!ring-red-400/25 !border-red-400': error },
+                    inputClassName,
+                )}
+                onChange={(e) => {
+                    onUpdate?.(e.target.value);
+                    props.onChange?.(e);
+                }}
+                {...props}
+            />
+            {error && <span className="mt-1 text-sm text-red-400">{error}</span>}
+        </div>
+    ),
+);
+// React.forwardRef does not preserve this information, so we have to set it manually for debugging.
+TextAreaInput.displayName = 'TextAreaInput';
+
 export const ToggleInput: React.FC<Omit<InputProps, 'inputClassName'>> = React.forwardRef<HTMLInputElement, InputProps>(
     (
         { label, error, onUpdate, className, ...props },

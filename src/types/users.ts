@@ -36,6 +36,12 @@ export type User = {
     cic_endorsed: boolean;
 };
 
+export type AuthenticatedUser = User & {
+    email: string;
+    last_login: string;
+    prevent_event_signup: boolean;
+};
+
 export type Staff = {
     atm: {
         user?: BasicUser;

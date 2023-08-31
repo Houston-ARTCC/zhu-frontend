@@ -8,14 +8,14 @@ import { ProfilePicture } from '@/components/ProfilePicture';
 import { Card } from '@/components/Card';
 import { RoleBadge, CertBadge } from '@/components/ProfileBadges';
 import { fetchApi } from '@/utils/fetch';
-import { type User } from '@/types/users';
+import { type AuthenticatedUser, type User } from '@/types/users';
 import { type Feedback } from '@/types/feedback';
 import { type DailyStatistic, type Session } from '@/types/connections';
 import { ConnectionsTable, FeedbackTable } from './ProfileTables';
 import { Heatmap } from './Heatmap';
 import { EditUserButton } from './EditUserModal';
 
-async function getUser(cid: string): Promise<User> {
+async function getUser(cid: string): Promise<User | AuthenticatedUser> {
     return fetchApi(
         `/users/${cid}/`,
         { cache: 'no-store' },
@@ -70,7 +70,7 @@ const UserProfile: NextPage<UserProfileParams> = async ({ params }) => {
                             <div className="flex flex-col items-center gap-5">
                                 <ProfilePicture user={user} size={150} />
                                 {session?.user.is_staff && (
-                                    <EditUserButton user={user} />
+                                    <EditUserButton user={user as AuthenticatedUser} />
                                 )}
                             </div>
                             <div className="min-w-0">

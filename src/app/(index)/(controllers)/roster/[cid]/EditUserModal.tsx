@@ -11,11 +11,11 @@ import { SelectInput, TextInput, ToggleInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
 import { CertDropdown } from '@/components/ProfileBadges';
 import { fetchApi } from '@/utils/fetch';
-import { type User } from '@/types/users';
+import { type AuthenticatedUser } from '@/types/users';
 import { type EditUserFormValues, editUserSchema, roles } from './editUserSchema';
 
 interface EditUserModalProps extends ModalProps {
-    user: User;
+    user: AuthenticatedUser;
 }
 
 export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close }) => {
@@ -192,7 +192,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
 };
 
 interface EditUserButtonProps {
-    user: User;
+    user: AuthenticatedUser;
 }
 
 export const EditUserButton: React.FC<EditUserButtonProps> = ({ user }) => (

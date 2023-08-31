@@ -35,10 +35,11 @@ interface Section {
 }
 
 interface SideNavProps {
+    rootPath: string;
     sections: Section[];
 }
 
-export const SideNav: React.FC<SideNavProps> = ({ sections }) => {
+export const SideNav: React.FC<SideNavProps> = ({ rootPath, sections }) => {
     const segment = useSelectedLayoutSegment();
 
     return (
@@ -50,7 +51,7 @@ export const SideNav: React.FC<SideNavProps> = ({ sections }) => {
                         <SideNavItem key={member.route ?? member.url} active={member.route === (segment ?? '')}>
                             <Link
                                 className="flex items-center gap-2 text-inherit"
-                                href={member.url ?? `training/${member.route}`}
+                                href={member.url ?? `${rootPath}/${member.route}`}
                                 prefetch={false}
                             >
                                 {member.title}
