@@ -98,6 +98,8 @@ export const BookSessionModal: React.FC<BookSessionModalProps> = ({ request, sho
                 <Controller
                     name="start"
                     control={control}
+                    // We're using this control for both start and end, so we'll handle state ourselves
+                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
                     render={({ field: { value, onChange, ...field } }) => (
                         <Slider
                             {...field}

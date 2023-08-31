@@ -55,7 +55,7 @@ export const ScheduledSessionsTable: React.FC<ScheduledSessionsTableProps> = ({ 
                                 ? (
                                     <div className="flex items-center gap-2">
                                         {row.instructor.first_name} {row.instructor.last_name}
-                                        <Badge small className="max-w-fit !bg-sky-400">Me</Badge>
+                                        <Badge small className="max-w-fit">Me</Badge>
                                     </div>
                                 )
                                 : `${row.instructor.first_name} ${row.instructor.last_name}`

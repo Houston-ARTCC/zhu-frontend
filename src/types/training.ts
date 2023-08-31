@@ -83,17 +83,14 @@ export type UserTrainingRequests = {
     last_session: string | null;
 }
 
-type AvailabilityRange = {
-    start: string | null;
-    end: string | null;
+export type AvailabilitySlot = {
+    id: number;
+    user: BasicUser;
+    day: number;
+    start: string;
+    end: string;
 }
 
-export type CurrentAvailability = [
-    AvailabilityRange,
-    AvailabilityRange,
-    AvailabilityRange,
-    AvailabilityRange,
-    AvailabilityRange,
-    AvailabilityRange,
-    AvailabilityRange,
-]
+export type TrainingNotifications = {
+    training_requests: number;
+}
