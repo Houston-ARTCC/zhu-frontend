@@ -6,9 +6,9 @@ import { LuChevronDown, LuFileEdit } from 'react-icons/lu';
 import { format } from 'date-fns-tz';
 import DataTable from 'react-data-table-component';
 import { useSession } from 'next-auth/react';
-import { ResourceModal } from '@/app/(index)/(controllers)/resources/ResourceModal';
 import { dataTableStyle } from '@/utils/dataTableStyle';
 import { type Resource } from '@/types/resources';
+import { ResourceModal } from './ResourceModal';
 
 interface ResourceTableProps {
     data: Resource[];
