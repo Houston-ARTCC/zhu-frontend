@@ -1,4 +1,4 @@
-import { type AuthenticatedUser, type BasicUser } from '@/types/users';
+import { type BasicUser } from '@/types/users';
 
 export type LoaRequest = {
     id: number;
@@ -8,12 +8,6 @@ export type LoaRequest = {
     remarks: string;
     approved: boolean;
 }
-
-export type VisitRequest = {
-    id: number;
-    user: AuthenticatedUser;
-    reason: string;
-};
 
 export type AdminNotifications = {
     visiting_applications: number;

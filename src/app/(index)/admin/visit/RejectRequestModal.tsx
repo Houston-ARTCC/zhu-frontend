@@ -9,7 +9,7 @@ import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { TextAreaInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
 import { fetchApi } from '@/utils/fetch';
-import { type VisitRequest } from '@/types/admin';
+import { type VisitRequest } from '@/types/visit';
 import { type RejectRequestFormValues, rejectRequestSchema } from './rejectRequestSchema';
 
 interface RejectRequestModalProps extends ModalProps {

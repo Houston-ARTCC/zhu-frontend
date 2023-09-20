@@ -33,7 +33,7 @@ export const TextInput: React.FC<InputProps> = React.forwardRef<HTMLInputElement
                 className={classNames(
                     'block rounded-md px-3 py-1.5 transition-all duration-200',
                     'border-2 border-slate-200 outline-0 ring-0 ring-sky-400/25 focus:border-sky-400 focus:ring-2',
-                    'read-only:bg-neutral-50 read-only:!border-slate-200 read-only:!ring-0',
+                    'read-only:bg-neutral-100 read-only:!border-slate-200 read-only:!text-gray-500 read-only:!ring-0',
                     { '!ring-red-400/25 !border-red-400': error },
                     inputClassName,
                 )}
@@ -77,7 +77,7 @@ export const TextAreaInput: React.FC<TextAreaProps> = React.forwardRef<HTMLTextA
                 className={classNames(
                     'block rounded-md px-3 py-1.5 transition duration-200',
                     'border-2 border-slate-200 outline-0 ring-0 ring-sky-400/25 focus:border-sky-400 focus:ring-2',
-                    'read-only:bg-neutral-50 read-only:!border-slate-200 read-only:!ring-0',
+                    'read-only:bg-neutral-50 read-only:!border-slate-200 read-only:!text-gray-500 read-only:!ring-0',
                     { '!ring-red-400/25 !border-red-400': error },
                     inputClassName,
                 )}
@@ -101,7 +101,7 @@ export const ToggleInput: React.FC<Omit<InputProps, 'inputClassName'>> = React.f
     ) => (
         <div className={classNames('flex flex-col', className)}>
             <div className="flex items-center gap-3">
-                <div className="relative">
+                <div className="relative h-5">
                     <input
                         ref={ref}
                         id={props.name}
@@ -128,7 +128,7 @@ export const ToggleInput: React.FC<Omit<InputProps, 'inputClassName'>> = React.f
                 </div>
                 {label && (
                     <label
-                        className="mb-2 font-medium"
+                        className="font-medium"
                         htmlFor={props.name}
                     >
                         {label}

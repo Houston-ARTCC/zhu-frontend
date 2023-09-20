@@ -2,7 +2,7 @@ import React from 'react';
 import { type NextPage } from 'next';
 import { LuCheckCircle } from 'react-icons/lu';
 import { fetchApi } from '@/utils/fetch';
-import { type VisitRequest } from '@/types/admin';
+import { type VisitRequest } from '@/types/visit';
 import { VisitRequestCard } from './VisitRequestCard';
 
 async function getVisitRequests(): Promise<VisitRequest[]> {

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Card } from '@/components/Card';
-import { type VisitRequest } from '@/types/admin';
+import { type VisitRequest } from '@/types/visit';
 import { RejectRequestButton } from './RejectRequestModal';
 import { ApproveRequestButton } from './ApproveRequestModal';
 

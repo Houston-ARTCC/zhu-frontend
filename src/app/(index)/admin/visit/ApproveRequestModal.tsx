@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { Button } from '@/components/Button';
 import { fetchApi } from '@/utils/fetch';
-import { type VisitRequest } from '@/types/admin';
+import { type VisitRequest } from '@/types/visit';
 
 interface AcceptRequestModalProps extends ModalProps {
     request: VisitRequest;
