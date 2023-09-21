@@ -20,7 +20,7 @@ interface ResourceModalProps extends ModalProps {
 export const ResourceModal: React.FC<ResourceModalProps> = ({ resource, show, close }) => {
     const router = useRouter();
 
-    const { reset, register, control, handleSubmit, formState: { errors } } = useForm<ResourceFormValues>({
+    const { reset, register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm<ResourceFormValues>({
         resolver: zodResolver(resourceSchema),
     });
 
@@ -152,7 +152,9 @@ export const ResourceModal: React.FC<ResourceModalProps> = ({ resource, show, cl
                     <Button className="bg-slate-300 shadow-slate-300/25" onClick={close}>
                         Close
                     </Button>
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit" disabled={isSubmitting}>
+                        Submit
+                    </Button>
                 </div>
             </form>
         </Modal>

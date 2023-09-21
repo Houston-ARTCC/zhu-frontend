@@ -29,7 +29,7 @@ interface FileSessionFormProps {
 export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, session, instructorOptions }) => {
     const router = useRouter();
 
-    const { register, control, handleSubmit, formState: { errors } } = useForm<SessionFormValues>({
+    const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm<SessionFormValues>({
         resolver: zodResolver(sessionSchema),
         defaultValues: {
             instructor: {
@@ -243,7 +243,7 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
                 <Button className="bg-slate-300 shadow-slate-300/25" onClick={() => router.back()}>
                     Cancel
                 </Button>
-                <Button type="submit">
+                <Button type="submit" disabled={isSubmitting}>
                     Submit
                 </Button>
             </div>

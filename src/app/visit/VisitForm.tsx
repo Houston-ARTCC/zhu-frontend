@@ -15,7 +15,7 @@ export const VisitForm: React.FC = () => {
     const router = useRouter();
     const { data: session } = useSession();
 
-    const { register, handleSubmit, formState: { errors } } = useForm<VisitFormValues>({
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<VisitFormValues>({
         resolver: zodResolver(visitSchema),
     });
 
@@ -104,7 +104,7 @@ export const VisitForm: React.FC = () => {
                 />
             </div>
 
-            <Button type="submit">
+            <Button type="submit" disabled={isSubmitting}>
                 Submit
             </Button>
         </form>

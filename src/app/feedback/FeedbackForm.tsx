@@ -21,7 +21,7 @@ export const FeedbackForm: React.FC<VisitFormProps> = ({ controllerOptions, even
     const router = useRouter();
     const { data: session } = useSession();
 
-    const { register, control, handleSubmit, formState: { errors } } = useForm<FeedbackFormValues>({
+    const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm<FeedbackFormValues>({
         resolver: zodResolver(feedbackSchema),
         defaultValues: { rating: 3 },
     });
@@ -89,6 +89,7 @@ export const FeedbackForm: React.FC<VisitFormProps> = ({ controllerOptions, even
                                 isClearable
                                 label="Event"
                                 options={eventOptions}
+                                value={eventOptions.find((option) => option.value === value)}
                             />
                         )}
                     />
@@ -122,7 +123,7 @@ export const FeedbackForm: React.FC<VisitFormProps> = ({ controllerOptions, even
                 </div>
             </div>
 
-            <Button type="submit">
+            <Button type="submit" disabled={isSubmitting}>
                 Submit
             </Button>
         </form>

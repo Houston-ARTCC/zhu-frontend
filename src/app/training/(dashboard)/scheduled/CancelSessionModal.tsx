@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { format } from 'date-fns-tz';
 import { toast } from 'react-toastify';
@@ -16,8 +16,12 @@ interface CancelSessionModalProps extends ModalProps {
 export const CancelSessionModal: React.FC<CancelSessionModalProps> = ({ session, show, close }) => {
     const router = useRouter();
 
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
     const cancelSession = useCallback(() => {
         if (!session) return;
+
+        setIsSubmitting(true);
 
         toast.promise(
             fetchApi(`/training/session/${session.id}/`, { method: 'DELETE' }),
@@ -28,6 +32,7 @@ export const CancelSessionModal: React.FC<CancelSessionModalProps> = ({ session,
             },
         )
             .then(() => {
+                setIsSubmitting(false);
                 router.refresh();
                 close?.();
             });
@@ -52,7 +57,7 @@ export const CancelSessionModal: React.FC<CancelSessionModalProps> = ({ session,
                 <Button className="bg-slate-300 shadow-slate-300/25" onClick={close}>
                     Cancel
                 </Button>
-                <Button type="submit" onClick={cancelSession}>
+                <Button type="submit" onClick={cancelSession} disabled={isSubmitting}>
                     Confirm
                 </Button>
             </div>

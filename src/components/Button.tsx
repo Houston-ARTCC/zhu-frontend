@@ -11,7 +11,8 @@ export const Button: React.FC<ButtonProps> = ({ variant = 'primary', className, 
         type="button"
         className={classNames(
             'flex items-center gap-2 shrink-0 justify-center rounded-md py-1.5 px-4',
-            'font-medium whitespace-nowrap',
+            'font-medium whitespace-nowrap transition-colors duration-200',
+            'disabled:opacity-75 disabled:cursor-not-allowed',
             {
                 'shadow-sm shadow-sky-500/25 bg-sky-500 text-white': variant === 'primary',
                 'bg-sky-500/[.10] text-sky-500': variant === 'secondary',

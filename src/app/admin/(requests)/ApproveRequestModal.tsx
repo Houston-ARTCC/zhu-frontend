@@ -1,49 +1,53 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { Button } from '@/components/Button';
 import { fetchApi } from '@/utils/fetch';
-import { type VisitRequest } from '@/types/visit';
 
 interface AcceptRequestModalProps extends ModalProps {
-    request: VisitRequest;
+    title: string;
+    confirmation: string;
+    endpoint: string;
+    toastConfig: {
+        pending: string;
+        success: string;
+    };
 }
 
-export const ApproveRequestModal: React.FC<AcceptRequestModalProps> = ({ request, show, close }) => {
+export const ApproveRequestModal: React.FC<AcceptRequestModalProps> = ({ title, confirmation, endpoint, toastConfig, show, close }) => {
     const router = useRouter();
 
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
     const putRequest = useCallback(() => {
+        setIsSubmitting(true);
+
         toast.promise(
-            fetchApi(
-                `/visit/${request.id}/`,
-                { method: 'PUT' },
-            ),
+            fetchApi(endpoint, { method: 'PUT' }),
             {
-                pending: 'Approving visiting request',
-                success: 'Successfully approved',
+                ...toastConfig,
                 error: 'Something went wrong, check console for more info',
             },
         )
             .then(() => {
+                setIsSubmitting(false);
                 router.refresh();
                 close?.();
             });
-    }, [request, router, close]);
+    }, [endpoint, toastConfig, router, close]);
 
     return (
-        <Modal show={show} title="Approve Visiting Request" close={close}>
-            <p className="mb-5">
-                Are you sure you would like to approve {request.user.first_name} {request.user.last_name}'s visiting request?
-            </p>
+        <Modal show={show} title={title} close={close}>
+            <p className="mb-5">{confirmation}</p>
 
             <div className="flex justify-end gap-3">
                 <Button className="bg-slate-300 shadow-slate-300/25" onClick={close}>
                     Cancel
                 </Button>
-                <Button className="bg-emerald-400 shadow-emerald-400/25" onClick={putRequest}>
+                <Button className="!bg-emerald-400 !shadow-emerald-400/25" onClick={putRequest} disabled={isSubmitting}>
                     Approve
                 </Button>
             </div>
@@ -51,15 +55,11 @@ export const ApproveRequestModal: React.FC<AcceptRequestModalProps> = ({ request
     );
 };
 
-interface ApproveRequestButtonProps {
-    request: VisitRequest;
-}
-
-export const ApproveRequestButton: React.FC<ApproveRequestButtonProps> = ({ request }) => (
+export const ApproveRequestButton: React.FC<AcceptRequestModalProps> = (props) => (
     <ModalButton
         className="!bg-emerald-400/[.10] !text-emerald-400"
         variant="secondary"
-        modal={<ApproveRequestModal request={request} />}
+        modal={<ApproveRequestModal {...props} />}
     >
         Approve
     </ModalButton>

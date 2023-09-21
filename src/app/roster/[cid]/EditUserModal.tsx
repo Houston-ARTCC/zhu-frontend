@@ -21,7 +21,7 @@ interface EditUserModalProps extends ModalProps {
 export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close }) => {
     const router = useRouter();
 
-    const { reset, register, control, handleSubmit, formState: { errors } } = useForm<EditUserFormValues>({
+    const { reset, register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm<EditUserFormValues>({
         resolver: zodResolver(editUserSchema),
     });
 
@@ -184,7 +184,9 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                     <Button className="bg-slate-300 shadow-slate-300/25" onClick={close}>
                         Close
                     </Button>
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit" disabled={isSubmitting}>
+                        Submit
+                    </Button>
                 </div>
             </form>
         </Modal>

@@ -9,29 +9,33 @@ import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { TextAreaInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
 import { fetchApi } from '@/utils/fetch';
-import { type VisitRequest } from '@/types/visit';
 import { type RejectRequestFormValues, rejectRequestSchema } from './rejectRequestSchema';
 
 interface RejectRequestModalProps extends ModalProps {
-    request: VisitRequest;
+    title: string;
+    confirmation: string;
+    endpoint: string;
+    toastConfig: {
+        pending: string;
+        success: string;
+    };
 }
 
-export const RejectRequestModal: React.FC<RejectRequestModalProps> = ({ request, show, close }) => {
+export const RejectRequestModal: React.FC<RejectRequestModalProps> = ({ title, confirmation, endpoint, toastConfig, show, close }) => {
     const router = useRouter();
 
-    const { reset, register, handleSubmit, formState: { errors } } = useForm<RejectRequestFormValues>({
+    const { reset, register, handleSubmit, formState: { errors, isSubmitting } } = useForm<RejectRequestFormValues>({
         resolver: zodResolver(rejectRequestSchema),
     });
 
     const deleteRequest: SubmitHandler<RejectRequestFormValues> = useCallback((data) => {
         toast.promise(
             fetchApi(
-                `/visit/${request.id}/`,
+                endpoint,
                 { method: 'DELETE', body: JSON.stringify(data) },
             ),
             {
-                pending: 'Rejecting visiting request',
-                success: 'Successfully rejected',
+                ...toastConfig,
                 error: 'Something went wrong, check console for more info',
             },
         )
@@ -39,7 +43,7 @@ export const RejectRequestModal: React.FC<RejectRequestModalProps> = ({ request,
                 router.refresh();
                 close?.();
             });
-    }, [request, router, close]);
+    }, [endpoint, toastConfig, router, close]);
 
     useEffect(() => {
         if (!show) {
@@ -48,11 +52,9 @@ export const RejectRequestModal: React.FC<RejectRequestModalProps> = ({ request,
     }, [show, reset]);
 
     return (
-        <Modal show={show} title="Approve Visiting Request" close={close}>
+        <Modal show={show} title={title} close={close}>
             <form onSubmit={handleSubmit(deleteRequest)}>
-                <p className="mb-5">
-                    Are you sure you would like to reject {request.user.first_name} {request.user.last_name}'s visiting request?
-                </p>
+                <p className="mb-5">{confirmation}</p>
 
                 <TextAreaInput
                     {...register('reason')}
@@ -65,7 +67,7 @@ export const RejectRequestModal: React.FC<RejectRequestModalProps> = ({ request,
                     <Button className="bg-slate-300 shadow-slate-300/25" onClick={close}>
                         Cancel
                     </Button>
-                    <Button className="!bg-red-400 !shadow-red-400/25" type="submit">
+                    <Button className="!bg-red-400 !shadow-red-400/25" type="submit" disabled={isSubmitting}>
                         Reject
                     </Button>
                 </div>
@@ -74,15 +76,11 @@ export const RejectRequestModal: React.FC<RejectRequestModalProps> = ({ request,
     );
 };
 
-interface RejectRequestButtonProps {
-    request: VisitRequest;
-}
-
-export const RejectRequestButton: React.FC<RejectRequestButtonProps> = ({ request }) => (
+export const RejectRequestButton: React.FC<RejectRequestModalProps> = (props) => (
     <ModalButton
         className="!bg-red-400/[.10] !text-red-400"
         variant="secondary"
-        modal={<RejectRequestModal request={request} />}
+        modal={<RejectRequestModal {...props} />}
     >
         Reject
     </ModalButton>
