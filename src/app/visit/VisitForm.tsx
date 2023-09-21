@@ -5,18 +5,15 @@ import { useRouter } from 'next/navigation';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-toastify';
-import { type Profile } from 'next-auth';
+import { useSession } from 'next-auth/react';
 import { TextAreaInput, TextInput, ToggleInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
 import { fetchApi } from '@/utils/fetch';
 import { type VisitFormValues, visitSchema } from './visitSchema';
 
-interface VisitFormProps {
-    user: Profile;
-}
-
-export const VisitForm: React.FC<VisitFormProps> = ({ user }) => {
+export const VisitForm: React.FC = () => {
     const router = useRouter();
+    const { data: session } = useSession();
 
     const { register, handleSubmit, formState: { errors } } = useForm<VisitFormValues>({
         resolver: zodResolver(visitSchema),
@@ -35,11 +32,10 @@ export const VisitForm: React.FC<VisitFormProps> = ({ user }) => {
                 error: 'Something went wrong, check console for more info',
             },
         )
-            .then(() => {
-                router.back();
-                router.refresh();
-            });
+            .then(() => router.push('/'));
     }, [router]);
+
+    if (!session) { return null; }
 
     return (
         <form onSubmit={handleSubmit(postRequest)}>
@@ -49,38 +45,38 @@ export const VisitForm: React.FC<VisitFormProps> = ({ user }) => {
                         className="col-span-4"
                         disabled
                         label="CID"
-                        value={user.cid}
+                        value={session.user.cid}
                     />
                     <TextInput
                         className="col-span-4"
                         disabled
                         label="First Name"
-                        value={user.first_name}
+                        value={session.user.first_name}
                     />
                     <TextInput
                         className="col-span-4"
                         disabled
                         label="Last Name"
-                        value={user.last_name}
+                        value={session.user.last_name}
                     />
 
                     <TextInput
                         className="col-span-6"
                         disabled
                         label="Email"
-                        value={user.email}
+                        value={session.user.email}
                     />
                     <TextInput
                         className="col-span-3"
                         disabled
                         label="Home Facility"
-                        value={user.facility}
+                        value={session.user.facility}
                     />
                     <TextInput
                         className="col-span-3"
                         disabled
                         label="Rating"
-                        value={user.rating}
+                        value={session.user.rating}
                     />
                 </div>
 

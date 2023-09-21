@@ -1,7 +1,5 @@
 import React from 'react';
 import { type NextPage } from 'next';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { PageContent } from '@/components/PageContent';
 import { Page } from '@/components/Page';
 import { fetchApi } from '@/utils/fetch';
@@ -19,7 +17,6 @@ async function getVisitEligibility(): Promise<VisitEligibility> {
 }
 
 const Visit: NextPage = async () => {
-    const session = await getServerSession(authOptions);
     const eligibility = await getVisitEligibility();
 
     return (
@@ -65,7 +62,7 @@ const Visit: NextPage = async () => {
                         You are eligible to apply as a visiting controller at Houston
                     </li>
                 </ul>
-                {eligibility.is_eligible && <VisitForm user={session.user} />}
+                {eligibility.is_eligible && <VisitForm />}
             </PageContent>
         </Page>
     );
