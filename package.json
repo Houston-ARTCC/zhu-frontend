@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "3.1.1",
+    "@types/geojson": "7946.0.11",
     "autoprefixer": "10.4.14",
     "classnames": "2.3.2",
     "date-fns": "2.30.0",
@@ -19,6 +20,7 @@
     "eslint-config-next": "13.4.4",
     "focus-trap-react": "10.1.4",
     "html-react-parser": "4.0.0",
+    "mapbox-gl": "2.15.0",
     "next": "13.4.4",
     "next-auth": "4.22.1",
     "postcss": "8.4.24",
@@ -43,6 +45,7 @@
     "zod": "3.21.4"
   },
   "devDependencies": {
+    "@types/mapbox-gl": "2.7.14",
     "@types/node": "20.2.5",
     "@types/react": "18.2.8",
     "@types/react-calendar-heatmap": "1.6.3",

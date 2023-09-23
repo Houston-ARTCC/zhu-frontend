@@ -73,3 +73,7 @@
 .quill.error .ql-editor {
     @apply !border-red-400 !ring-red-400/25;
 }
+
+.mapboxgl-popup {
+    @apply !max-w-none;
+}
