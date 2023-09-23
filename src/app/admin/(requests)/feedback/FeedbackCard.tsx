@@ -1,5 +1,5 @@
 import React from 'react';
-import { LuStar } from 'react-icons/lu';
+import { LuMail, LuStar } from 'react-icons/lu';
 import classNames from 'classnames';
 import { Card } from '@/components/Card';
 import { type Feedback } from '@/types/feedback';
@@ -12,19 +12,7 @@ interface FeedbackCardProps {
 
 export const FeedbackCard: React.FC<FeedbackCardProps> = ({ feedback }) => (
     <Card className="flex flex-col">
-        <h4 className="text-xl font-bold">
-            {feedback.controller
-                ? `${feedback.controller.first_name} ${feedback.controller.last_name}`
-                : 'General ARTCC Feedback'}
-        </h4>
-        {feedback.controller_callsign && (
-            <h5>on <b>{feedback.controller_callsign}</b></h5>
-        )}
-        {feedback.event && (
-            <h5>during <b>{feedback.event.name}</b></h5>
-        )}
-
-        <div className="mb-3 mt-1 flex gap-2">
+        <div className="mb-3 flex gap-2">
             {Array(5).fill(undefined)
                 .map((_, i) => (
                     <LuStar
@@ -43,8 +31,32 @@ export const FeedbackCard: React.FC<FeedbackCardProps> = ({ feedback }) => (
                 ))}
         </div>
 
-        <blockquote className="mb-5 border-l-4 border-l-slate-200 pl-4">
-            {feedback.comments}
+        <h4 className="text-xl font-bold">
+            {feedback.controller
+                ? `${feedback.controller.first_name} ${feedback.controller.last_name}`
+                : 'General ARTCC Feedback'}
+        </h4>
+        <h5>
+            {feedback.controller_callsign && (
+                <span>on <b>{feedback.controller_callsign}</b></span>
+            )}
+            {feedback.event && (
+                <span> during <b>{feedback.event.name}</b></span>
+            )}
+        </h5>
+
+        <blockquote className="my-5 border-l-4 border-l-slate-200 pl-4">
+            <p>{feedback.comments}</p>
+            <p className="mt-1">&mdash;</p>
+            <p className="flex items-center gap-2">
+                <b className="font-medium">{feedback.pilot.first_name} {feedback.pilot.last_name} ({feedback.pilot.cid})</b>
+                <a className="text-inherit" href={`mailto:${feedback.pilot.email}`}>
+                    <LuMail size={18} />
+                </a>
+            </p>
+            {feedback.pilot_callsign && (
+                <p>as <b className="font-medium">{feedback.pilot_callsign}</b></p>
+            )}
         </blockquote>
 
         <div className="mt-auto flex gap-3">
