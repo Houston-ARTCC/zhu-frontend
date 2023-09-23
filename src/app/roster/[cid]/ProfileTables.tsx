@@ -7,7 +7,7 @@ import { LuCalendar, LuChevronDown, LuPlane, LuStar } from 'react-icons/lu';
 import { formatDuration } from '@/utils/time';
 import { dataTableStyle } from '@/utils/dataTableStyle';
 import { type Session } from '@/types/connections';
-import { type Feedback } from '@/types/feedback';
+import { type BasicFeedback } from '@/types/feedback';
 
 interface ConnectionsTable {
     data: Session[];
@@ -47,7 +47,7 @@ export const ConnectionsTable: React.FC<ConnectionsTable> = ({ data }) => (
 );
 
 interface ExpandedFeedbackRowProps {
-    data: Feedback;
+    data: BasicFeedback;
 }
 
 const ExpandedFeedbackRow: React.FC<ExpandedFeedbackRowProps> = ({ data }) => (
@@ -69,7 +69,7 @@ const ExpandedFeedbackRow: React.FC<ExpandedFeedbackRowProps> = ({ data }) => (
 );
 
 interface FeedbackTable {
-    data: Feedback[];
+    data: BasicFeedback[];
 }
 
 export const FeedbackTable: React.FC<FeedbackTable> = ({ data }) => (

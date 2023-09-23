@@ -7,14 +7,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
 import { RatingInput } from '@/app/feedback/RatingInput';
-import { SelectInput, TextAreaInput, TextInput } from '@/components/Forms';
+import { SelectInput, type SelectOption, TextAreaInput, TextInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
 import { fetchApi } from '@/utils/fetch';
 import { type FeedbackFormValues, feedbackSchema } from './feedbackSchema';
 
 interface VisitFormProps {
-    controllerOptions: { value: number | undefined, label: string }[];
-    eventOptions: { value: number, label: string }[];
+    controllerOptions: SelectOption<number | null>[];
+    eventOptions: SelectOption[];
 }
 
 export const FeedbackForm: React.FC<VisitFormProps> = ({ controllerOptions, eventOptions }) => {
@@ -23,10 +23,18 @@ export const FeedbackForm: React.FC<VisitFormProps> = ({ controllerOptions, even
 
     const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm<FeedbackFormValues>({
         resolver: zodResolver(feedbackSchema),
-        defaultValues: { rating: 3 },
+        defaultValues: {
+            controller: controllerOptions[0],
+            rating: 3,
+        },
     });
 
-    const postRequest: SubmitHandler<FeedbackFormValues> = useCallback((data) => {
+    const postRequest: SubmitHandler<FeedbackFormValues> = useCallback((values) => {
+        const data = {
+            ...values,
+            controller: values.controller.value,
+            event: values.event?.value,
+        };
         toast.promise(
             fetchApi(
                 '/feedback/',
@@ -69,27 +77,27 @@ export const FeedbackForm: React.FC<VisitFormProps> = ({ controllerOptions, even
                     <Controller
                         name="controller"
                         control={control}
-                        render={({ field: { value, ...field } }) => (
+                        render={({ field }) => (
                             <SelectInput
                                 {...field}
                                 className="col-span-3"
                                 label="Controller's Name"
                                 options={controllerOptions}
-                                value={controllerOptions.find((option) => option.value === value)}
+                                error={errors.controller?.message}
                             />
                         )}
                     />
                     <Controller
                         name="event"
                         control={control}
-                        render={({ field: { value, ...field } }) => (
+                        render={({ field }) => (
                             <SelectInput
                                 {...field}
                                 className="col-span-3"
                                 isClearable
                                 label="Event"
                                 options={eventOptions}
-                                value={eventOptions.find((option) => option.value === value)}
+                                error={errors.event?.message}
                             />
                         )}
                     />
@@ -97,11 +105,13 @@ export const FeedbackForm: React.FC<VisitFormProps> = ({ controllerOptions, even
                         {...register('controller_callsign')}
                         className="col-span-3"
                         label="Controller's Callsign"
+                        error={errors.controller_callsign?.message}
                     />
                     <TextInput
                         {...register('pilot_callsign')}
                         className="col-span-3"
                         label="Your Callsign"
+                        error={errors.pilot_callsign?.message}
                     />
                 </div>
 

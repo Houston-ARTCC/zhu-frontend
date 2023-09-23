@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import ReactDatePicker from 'react-datepicker';
 import classNames from 'classnames';
 import { toast } from 'react-toastify';
-import { SelectInput, TextInput, ToggleInput } from '@/components/Forms';
+import { SelectInput, type SelectOption, TextInput, ToggleInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
 import { fetchApi } from '@/utils/fetch';
 import { type TrainingSession } from '@/types/training';
@@ -22,7 +22,7 @@ interface FileSessionFormProps {
     session: TrainingSession;
     instructorOptions: {
         label: string;
-        options: { value: number, label: string }[];
+        options: SelectOption[];
     }[];
 }
 

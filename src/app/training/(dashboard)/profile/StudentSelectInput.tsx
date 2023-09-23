@@ -3,12 +3,12 @@
 import React, { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { CgSpinner } from 'react-icons/cg';
-import { SelectInput } from '@/components/Forms';
+import { SelectInput, type SelectOption } from '@/components/Forms';
 
 interface StudentSelectInputProps {
     options: {
         label: string;
-        options: { value: number, label: string }[];
+        options: SelectOption[];
     }[];
 }
 

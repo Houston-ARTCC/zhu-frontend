@@ -11,6 +11,10 @@ export type BasicUser = {
     profile: string;
 };
 
+export type AuthenticatedBasicUser = BasicUser & {
+    email: string;
+};
+
 export type User = {
     cid: number;
     rating: {

@@ -9,7 +9,7 @@ import { Card } from '@/components/Card';
 import { RoleBadge, CertBadge } from '@/components/ProfileBadges';
 import { fetchApi } from '@/utils/fetch';
 import { type AuthenticatedUser, type User } from '@/types/users';
-import { type Feedback } from '@/types/feedback';
+import { type BasicFeedback } from '@/types/feedback';
 import { type DailyStatistic, type Session } from '@/types/connections';
 import { ConnectionsTable, FeedbackTable } from './ProfileTables';
 import { Heatmap } from './Heatmap';
@@ -36,7 +36,7 @@ async function getUserStatistics(cid: string): Promise<DailyStatistic[]> {
     );
 }
 
-async function getUserFeedback(cid: string): Promise<Feedback[]> {
+async function getUserFeedback(cid: string): Promise<BasicFeedback[]> {
     return fetchApi(
         `/users/${cid}/feedback/`,
         { cache: 'no-store' },

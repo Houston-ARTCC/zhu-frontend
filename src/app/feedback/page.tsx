@@ -1,5 +1,6 @@
 import React from 'react';
 import { type NextPage } from 'next';
+import { type SelectOption } from '@/components/Forms';
 import { PageContent } from '@/components/PageContent';
 import { Page } from '@/components/Page';
 import { fetchApi } from '@/utils/fetch';
@@ -29,13 +30,13 @@ const Feedback: NextPage = async () => {
     const controllers = await getControllers();
     const events = await getEvents();
 
-    const controllerOptions: { label: string, value: number | undefined }[] = controllers.map(
+    const controllerOptions: SelectOption<number | null>[] = controllers.map(
         (controller) => ({
             label: `${controller.first_name} ${controller.last_name} — ${controller.cid}`,
             value: controller.cid,
         }),
     );
-    controllerOptions.unshift({ label: 'General ARTCC Feedback', value: undefined });
+    controllerOptions.unshift({ label: 'General ARTCC Feedback', value: null });
 
     const eventOptions = events
         .slice(0, 5)

@@ -3,11 +3,18 @@
 import { z } from 'zod';
 
 export const feedbackSchema = z.object({
-    controller: z.number().optional(),
+    controller: z.object({
+        value: z.number().nullable(),
+        label: z.string(),
+    }),
 
     controller_callsign: z.string().optional(),
 
-    event: z.number().optional(),
+    event: z.object({
+        value: z.number(),
+        label: z.string(),
+    })
+        .optional(),
 
     pilot_callsign: z.string().optional(),
 

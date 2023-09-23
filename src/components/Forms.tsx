@@ -4,7 +4,7 @@ import React, { type HTMLProps } from 'react';
 import classNames from 'classnames';
 import { BsUpload } from 'react-icons/bs';
 import Dropzone, { type DropEvent } from 'react-dropzone';
-import Select, { type GroupBase, type Props as SelectProps } from 'react-select';
+import Select, { type GroupBase, type Props as SelectProps, type SelectInstance } from 'react-select';
 
 interface InputProps extends Omit<HTMLProps<HTMLInputElement>, 'ref'> {
     label?: string;
@@ -142,29 +142,33 @@ export const ToggleInput: React.FC<Omit<InputProps, 'inputClassName'>> = React.f
 // React.forwardRef does not preserve this information, so we have to set it manually for debugging.
 ToggleInput.displayName = 'ToggleInput';
 
+export type SelectOption<T = number> = {
+    value: T;
+    label: string;
+    isFixed?: boolean;
+    isDisabled?: boolean;
+}
+
 // The crazy generic types are necessary to preserve the Option type throughout all of react-select's props.
 // More information is available at https://react-select.com/typescript
 interface SelectInputProps<
     Value,
-    Option extends { value: Value, label: string, isFixed?: boolean, isDisabled?: boolean },
     IsMulti extends boolean = false,
-    Group extends GroupBase<Option> = GroupBase<Option>,
-> extends Partial<SelectProps<Option, IsMulti, Group>> {
+    Group extends GroupBase<SelectOption<Value>> = GroupBase<SelectOption<Value>>,
+> extends Partial<SelectProps<SelectOption<Value>, IsMulti, Group>> {
     label: string;
     error?: string;
+    ref?: React.Ref<SelectInstance<SelectOption<Value>, IsMulti, Group>>
 }
 
-// For some reason, using generics with an arrow function breaks eslint's indent rule, so we'll just use a regular function.
-/* eslint-disable-next-line react/function-component-definition */
-export function SelectInput<
-    Value,
-    Option extends { value: Value, label: string, isFixed?: boolean, isDisabled?: boolean },
-    IsMulti extends boolean = false,
-    Group extends GroupBase<Option> = GroupBase<Option>
->(
-    { label, error, className, ...props }: SelectInputProps<Value, Option, IsMulti, Group>,
-) {
-    return (
+export const SelectInput = (
+    <
+        Value,
+        IsMulti extends boolean = false,
+        Group extends GroupBase<SelectOption<Value>> = GroupBase<SelectOption<Value>>
+    >(
+        { label, error, className, ref, ...props }: SelectInputProps<Value, IsMulti, Group>,
+    ) => (
         <div className={classNames('flex flex-col', className)}>
             <label
                 className="mb-2 max-w-fit font-medium"
@@ -174,6 +178,7 @@ export function SelectInput<
             </label>
             <Select
                 id={props.name}
+                ref={ref}
                 classNames={{
                     control: ({ isFocused }) => classNames(
                         '!transition-all !duration-200 !border-2',
@@ -194,8 +199,8 @@ export function SelectInput<
             />
             {error && <span className="mt-1 text-sm text-red-400">{error}</span>}
         </div>
-    );
-}
+    )
+);
 
 interface FileInputProps extends InputProps {
     currentFile?: File | string;
