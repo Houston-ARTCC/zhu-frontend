@@ -56,7 +56,8 @@ const UserProfile: NextPage<UserProfileParams> = async ({ params }) => {
     const connections = await getUserConnections(params.cid);
     const statistics = await getUserStatistics(params.cid);
 
-    const feedback = session?.user.is_staff && await getUserFeedback(params.cid);
+    const feedback = (session?.user.is_staff || session?.user.cid.toString() === params.cid)
+        && await getUserFeedback(params.cid);
 
     return (
         <Page
