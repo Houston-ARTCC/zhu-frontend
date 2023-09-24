@@ -10,10 +10,10 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 MapboxGl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_APIK as string;
 
 const FLIGHT_RULE_COLORS = {
-    VFR: 'text-green-500',
-    MVFR: 'text-cyan-500',
+    VFR: 'text-green-400',
+    MVFR: 'text-sky-500',
     IFR: 'text-yellow-500',
-    LIFR: 'text-red-500',
+    LIFR: 'text-red-400',
 };
 
 interface MapboxMapProps {

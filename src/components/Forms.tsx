@@ -10,7 +10,7 @@ interface InputProps extends Omit<HTMLProps<HTMLInputElement>, 'ref'> {
     label?: string;
     inputClassName?: string;
     error?: string;
-    onUpdate?: (value: string | boolean | number) => void;
+    onUpdate?: (value: string) => void;
 }
 
 export const TextInput: React.FC<InputProps> = React.forwardRef<HTMLInputElement, InputProps>(

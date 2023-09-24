@@ -15,3 +15,20 @@ export type AdminNotifications = {
     support_requests: number;
     loa_requests: number;
 }
+
+export enum LogEntryAction {
+    Create,
+    Update,
+    Delete,
+}
+
+export type LogEntry = {
+    id: number;
+    action: LogEntryAction;
+    actor: BasicUser | null;
+    changes: { [key: string]: [string, string] };
+    content_type: string;
+    object_id: number;
+    object_repr: string;
+    timestamp: string;
+}
