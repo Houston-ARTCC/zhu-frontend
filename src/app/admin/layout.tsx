@@ -29,7 +29,7 @@ const AdminLayout: React.FC<PropsWithChildren> = async ({ children }) => {
                                 members: [
                                     { title: 'ARTCC Information', route: '' },
                                     { title: 'Audit Log', route: 'audit' },
-                                    { title: 'Django Panel', url: 'https://api.zhuartcc.org/admin/' },
+                                    { title: 'Django Panel', url: `${process.env.NEXT_PUBLIC_API_URL}/admin/` },
                                 ],
                             },
                             {
