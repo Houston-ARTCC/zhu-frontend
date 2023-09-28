@@ -8,7 +8,7 @@ import { getPositionName } from '@/utils/facilities';
 import { formatDuration } from '@/utils/time';
 import { fetchApi } from '@/utils/fetch';
 import { type BasicUser } from '@/types/users';
-import { type Event } from '@/types/events';
+import { type BasicEvent } from '@/types/events';
 import { type Announcement } from '@/types/announcements';
 import { type OnlineConnection, type TopController, type TopPosition } from '@/types/connections';
 import { AnnouncementCard, EventCard } from './HomepageCards';
@@ -32,8 +32,8 @@ async function getRecentAnnouncements(): Promise<Announcement[]> {
     );
 }
 
-async function getUpcomingEvents(): Promise<Event[]> {
-    const data: Event[] = await fetchApi(
+async function getUpcomingEvents(): Promise<BasicEvent[]> {
+    const data: BasicEvent[] = await fetchApi(
         '/events/',
         { cache: 'no-store' },
     );

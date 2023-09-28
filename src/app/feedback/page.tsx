@@ -5,7 +5,7 @@ import { PageContent } from '@/components/PageContent';
 import { Page } from '@/components/Page';
 import { fetchApi } from '@/utils/fetch';
 import { type BasicUser, type Roster } from '@/types/users';
-import { type Event } from '@/types/events';
+import { type BasicEvent } from '@/types/events';
 import { FeedbackForm } from './FeedbackForm';
 
 export const metadata = { title: 'Leave Feedback' };
@@ -19,7 +19,7 @@ async function getControllers(): Promise<BasicUser[]> {
     return roster.home.concat(roster.visiting).concat(roster.mavp);
 }
 
-async function getEvents(): Promise<Event[]> {
+async function getEvents(): Promise<BasicEvent[]> {
     return fetchApi(
         '/events/archived/',
         { cache: 'no-store' },

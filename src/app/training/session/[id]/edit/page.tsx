@@ -1,4 +1,5 @@
 import React from 'react';
+import { notFound } from 'next/navigation';
 import { type NextPage } from 'next';
 import { LuAlertCircle } from 'react-icons/lu';
 import { Page } from '@/components/Page';
@@ -32,7 +33,7 @@ interface FileSessionParams {
 }
 
 const FileSession: NextPage<FileSessionParams> = async ({ params }) => {
-    const trainingSession = await getTrainingSession(params.id);
+    const trainingSession = await getTrainingSession(params.id).catch(notFound);
     const staff = await getStaff();
 
     const options = [

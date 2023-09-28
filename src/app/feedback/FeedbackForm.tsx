@@ -12,12 +12,12 @@ import { Button } from '@/components/Button';
 import { fetchApi } from '@/utils/fetch';
 import { type FeedbackFormValues, feedbackSchema } from './feedbackSchema';
 
-interface VisitFormProps {
+interface FeedbackFormProps {
     controllerOptions: SelectOption<number | null>[];
     eventOptions: SelectOption[];
 }
 
-export const FeedbackForm: React.FC<VisitFormProps> = ({ controllerOptions, eventOptions }) => {
+export const FeedbackForm: React.FC<FeedbackFormProps> = ({ controllerOptions, eventOptions }) => {
     const router = useRouter();
     const { data: session } = useSession();
 

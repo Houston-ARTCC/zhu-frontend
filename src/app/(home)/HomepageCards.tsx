@@ -8,7 +8,7 @@ import { Badge } from '@/components/Badge';
 import { Card } from '@/components/Card';
 import { ProfilePicture } from '@/components/ProfilePicture';
 import { type Announcement } from '@/types/announcements';
-import { type Event } from '@/types/events';
+import { type BasicEvent } from '@/types/events';
 
 interface AnnouncementCardProps {
     announcement: Announcement;
@@ -32,7 +32,7 @@ export const AnnouncementCard: React.FC<AnnouncementCardProps> = ({ announcement
 );
 
 interface EventCardProps {
-    event: Event;
+    event: BasicEvent;
 }
 
 export const EventCard: React.FC<EventCardProps> = ({ event }) => (

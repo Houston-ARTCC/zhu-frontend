@@ -1,4 +1,4 @@
-import { type Event } from '@/types/events';
+import { type BasicEvent } from '@/types/events';
 import { type AuthenticatedBasicUser } from '@/types/users';
 
 export type BasicFeedback = {
@@ -7,7 +7,7 @@ export type BasicFeedback = {
     pilot_callsign?: string;
     rating: number;
     comments: string;
-    event?: Event;
+    event?: BasicEvent;
     created: string;
 }
 

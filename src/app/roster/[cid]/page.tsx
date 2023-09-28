@@ -1,4 +1,5 @@
 import React from 'react';
+import { notFound } from 'next/navigation';
 import { type NextPage } from 'next';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
@@ -52,7 +53,7 @@ interface UserProfileParams {
 const UserProfile: NextPage<UserProfileParams> = async ({ params }) => {
     const session = await getServerSession(authOptions);
 
-    const user = await getUser(params.cid);
+    const user = await getUser(params.cid).catch(notFound);
     const connections = await getUserConnections(params.cid);
     const statistics = await getUserStatistics(params.cid);
 
