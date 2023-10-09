@@ -33,6 +33,36 @@
     }
 }
 
+@layer utilities {
+    .prose h1 {
+        @apply mb-5 mt-0 text-3xl font-medium;
+    }
+
+    .prose h2 {
+        @apply mb-5 mt-0 text-2xl font-medium;
+    }
+
+    .prose h3 {
+        @apply mb-3 mt-0 text-xl font-medium;
+    }
+
+    .prose h4 {
+        @apply mb-2 mt-0 text-lg font-medium;
+    }
+
+    .prose p {
+        @apply mt-0;
+    }
+
+    .prose a {
+        @apply opacity-100 transition-opacity duration-150 ease-out text-sky-500 hover:opacity-75;
+    }
+
+    .prose li {
+        @apply my-0;
+    }
+}
+
 .rc-slider-rail {
     @apply !bg-slate-200;
 }

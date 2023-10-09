@@ -6,11 +6,11 @@ import DataTable from 'react-data-table-component';
 import { LuCalendar, LuChevronDown, LuClock, LuFileCog, LuPlane, LuRadioTower } from 'react-icons/lu';
 import { format } from 'date-fns-tz';
 import { useSession } from 'next-auth/react';
-import parse from 'html-react-parser';
 import { RiArrowRightCircleFill, RiCheckboxCircleFill, RiCloseCircleFill, RiIndeterminateCircleFill } from 'react-icons/ri';
 import classNames from 'classnames';
 import { Badge } from '@/components/Badge';
 import { dataTableStyle } from '@/utils/dataTableStyle';
+import { parseHtml } from '@/utils/parseHtml';
 import { SESSION_LEVEL_STRING, SESSION_TYPE_STRING, SessionOTSStatus, SessionStatus, type TrainingSession } from '@/types/training';
 
 interface StatusIconProps {
@@ -102,7 +102,11 @@ const ExpandedSessionRow: React.FC<ExpandedSessionRowProps> = ({ data }) => (
                 {data.movements} Movements
             </div>
         </div>
-        {data.notes ? parse(data.notes) : 'No notes provided.'}
+        <div className="prose max-w-none">
+            {data.notes
+                ? parseHtml(data.notes)
+                : 'No notes provided.'}
+        </div>
     </div>
 );
 

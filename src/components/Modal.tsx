@@ -1,6 +1,6 @@
 'use client';
 
-import React, { type PropsWithChildren, type ReactElement, useEffect, useState } from 'react';
+import React, { type PropsWithChildren, type ReactElement, type ReactNode, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import FocusTrap from 'focus-trap-react';
@@ -12,12 +12,13 @@ import { Button, type ButtonProps } from '@/components/Button';
 export interface ModalProps extends PropsWithChildren {
     show?: boolean;
     title?: string;
+    footer?: ReactNode;
     large?: boolean;
     close?: () => void;
     onClose?: () => void;
 }
 
-export const Modal: React.FC<ModalProps> = ({ show = false, title, large, close, onClose, children }) => {
+export const Modal: React.FC<ModalProps> = ({ show = false, title, footer, large, close, onClose, children }) => {
     const { isMounted, isVisible } = usePresence(show, { transitionDuration: 250 });
 
     useEffect(() => {
@@ -44,13 +45,13 @@ export const Modal: React.FC<ModalProps> = ({ show = false, title, large, close,
     return (
         <div
             className={classNames(
-                'fixed inset-x-0 top-0 z-20 h-screen w-screen bg-black/40 transition-opacity duration-250 opacity-0',
+                'fixed inset-x-0 top-0 z-20 h-screen w-screen bg-black/40 transition-opacity duration-250 opacity-0 overflow-y-scroll',
                 { 'opacity-0': !isVisible, 'opacity-100': isVisible },
             )}
         >
             <Card
                 className={classNames(
-                    'mx-auto mt-40 transition-transform duration-250 ease-out',
+                    '!p-0 mx-auto mt-40 transition-transform duration-250 ease-out mb-20',
                     { 'max-w-lg': !large, 'max-w-3xl': large, '-translate-y-10': !isVisible, 'translate-y-0': isVisible },
                 )}
                 onClick={(e) => e.stopPropagation()}
@@ -58,7 +59,7 @@ export const Modal: React.FC<ModalProps> = ({ show = false, title, large, close,
                 <FocusTrap>
                     <section>
                         {title && (
-                            <div className="-m-5 mb-5 flex items-center rounded-t-md bg-slate-100 px-5 py-4">
+                            <div className="flex items-center rounded-t-md bg-slate-100 px-5 py-4">
                                 <h4 className="text-2xl font-medium">{title}</h4>
                                 {close && (
                                     <button className="ml-auto" type="button" onClick={close}>
@@ -67,7 +68,14 @@ export const Modal: React.FC<ModalProps> = ({ show = false, title, large, close,
                                 )}
                             </div>
                         )}
-                        {children}
+                        <div className="p-5">
+                            {children}
+                        </div>
+                        {footer && (
+                            <div className="flex items-center rounded-b-md bg-slate-50 px-5 py-4">
+                                {footer}
+                            </div>
+                        )}
                     </section>
                 </FocusTrap>
             </Card>
