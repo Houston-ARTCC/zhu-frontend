@@ -1,3 +1,10 @@
+@import '~react-toastify/dist/ReactToastify.css';
+@import '~react-datepicker/dist/react-datepicker.css';
+@import '~react-quill/dist/quill.snow.css';
+@import '~react-calendar-heatmap/dist/styles.css';
+@import '~rc-slider/assets/index.css';
+@import '~mapbox-gl/dist/mapbox-gl.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

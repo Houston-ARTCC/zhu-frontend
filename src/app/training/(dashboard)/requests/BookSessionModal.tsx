@@ -16,7 +16,6 @@ import { fetchApi } from '@/utils/fetch';
 import { type TrainingRequest } from '@/types/training';
 import { sessionLevels, sessionTypes } from '../../selectOptions';
 import { type BookSessionFormValues, bookSessionSchema } from './bookSessionSchema';
-import 'rc-slider/assets/index.css';
 
 interface BookSessionModalProps extends ModalProps {
     request: TrainingRequest;

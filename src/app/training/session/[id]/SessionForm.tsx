@@ -14,8 +14,6 @@ import { fetchApi } from '@/utils/fetch';
 import { type TrainingSession } from '@/types/training';
 import { otsStatuses, progress, sessionLevels, sessionTypes } from '../../selectOptions';
 import { type SessionFormValues, sessionSchema } from './sessionSchema';
-import 'react-datepicker/dist/react-datepicker.css';
-import 'react-quill/dist/quill.snow.css';
 
 interface FileSessionFormProps {
     editing?: boolean;

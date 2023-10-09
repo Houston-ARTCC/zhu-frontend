@@ -66,14 +66,14 @@ const AdminLayout: React.FC<PropsWithChildren> = async ({ children }) => {
                                     },
                                     {
                                         title: 'Event Support',
-                                        route: 'support',
+                                        route: 'events',
                                         alerts: notifications.support_requests,
                                     },
                                 ],
                             },
                         ]}
                     />
-                    <div className="grow overflow-x-scroll px-1">
+                    <div className="grow overflow-x-auto px-1">
                         {children}
                     </div>
                 </div>

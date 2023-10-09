@@ -1,4 +1,4 @@
-import { type BasicUser } from '@/types/users';
+import { type AuthenticatedBasicUser, type BasicUser } from '@/types/users';
 
 export type LoaRequest = {
     id: number;
@@ -7,6 +7,17 @@ export type LoaRequest = {
     end: string;
     remarks: string;
     approved: boolean;
+}
+
+export type SupportRequest = {
+    id: number;
+    user: AuthenticatedBasicUser;
+    name: string;
+    banner: string;
+    start: string;
+    end: string;
+    host: string;
+    description: string;
 }
 
 export type AdminNotifications = {

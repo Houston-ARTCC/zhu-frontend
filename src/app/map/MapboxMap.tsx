@@ -5,7 +5,6 @@ import MapboxGl, { type MapLayerMouseEvent } from 'mapbox-gl';
 import { type GeoJSON } from 'geojson';
 import { createRoot } from 'react-dom/client';
 import { type Metar } from '@/types/tmu';
-import 'mapbox-gl/dist/mapbox-gl.css';
 
 MapboxGl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_APIK as string;
 

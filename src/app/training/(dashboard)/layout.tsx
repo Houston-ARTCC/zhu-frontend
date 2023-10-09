@@ -47,7 +47,7 @@ const TrainingCenterLayout: React.FC<PropsWithChildren> = async ({ children }) =
                             },
                         ]}
                     />
-                    <div className="grow overflow-x-scroll px-1">
+                    <div className="grow overflow-x-auto px-1">
                         {children}
                     </div>
                 </div>

@@ -37,5 +37,6 @@ export const config = {
         // Just need to be logged in
         '/feedback',
         '/visit',
+        '/events/support',
     ],
 };

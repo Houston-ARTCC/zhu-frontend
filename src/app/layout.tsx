@@ -3,7 +3,6 @@ import { NextAuthProvider } from '@/components/static/NextAuthProvider';
 import { Footer } from '@/components/static/Footer';
 import { Navbar } from '@/components/static/Navbar';
 import { Toastify } from '@/components/Toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import './fonts.css';
 import './globals.css';
 
