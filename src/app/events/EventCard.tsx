@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { format } from 'date-fns-tz';
-import { LuArrowRight, LuCalendar, LuClock, LuTowerControl } from 'react-icons/lu';
+import { LuArrowRight, LuCalendar, LuClock, LuEyeOff, LuTowerControl } from 'react-icons/lu';
 import { Card } from '@/components/Card';
 import { type BasicEvent } from '@/types/events';
 
@@ -13,7 +13,12 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => (
     <Link className="text-inherit" href={`/events/${event.id}`} prefetch={false}>
         <Card className="!p-0" interactive>
             <div className="w-full shrink overflow-hidden p-5">
-                <h4 className="text-ellipsis whitespace-nowrap text-2xl font-bold">{event.name}</h4>
+                <h4 className="flex items-center gap-3 text-ellipsis whitespace-nowrap text-2xl font-bold">
+                    {event.name}
+                    {event.hidden && (
+                        <LuEyeOff size={25} className="text-red-500" />
+                    )}
+                </h4>
                 <h5 className="mb-5 text-ellipsis whitespace-nowrap text-lg font-medium text-slate-400">
                     Presented by {event.host}
                 </h5>
