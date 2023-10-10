@@ -48,3 +48,11 @@ export type TopPosition = {
     position: string;
     hours: string;
 };
+
+export type ControllerBooking = {
+    id: number;
+    user: BasicUser;
+    callsign: string;
+    start: string;
+    end: string;
+};

@@ -50,17 +50,20 @@ export enum SessionOTSStatus {
     Recommended,
 }
 
-export type TrainingSession = {
+export type BasicTrainingSession = {
     id: number;
     student: BasicUser;
-    instructor: BasicUser;
     start: string;
     end: string;
-    movements: number;
-    progress: number;
     position: string | null;
     type: SessionType;
     level: SessionLevel;
+}
+
+export type TrainingSession = BasicTrainingSession & {
+    instructor: BasicUser;
+    movements: number;
+    progress: number;
     status: SessionStatus;
     ots_status: SessionOTSStatus;
     notes: string | null;
