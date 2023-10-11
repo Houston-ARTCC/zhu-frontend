@@ -28,7 +28,7 @@ export default function Footer() {
                     <IoIosAirplane className="fill-gray mx-1"/>
                     <Link to="/feedback"><h6 className="text-lightgray font-w300">Feedback</h6></Link>
                     <IoIosAirplane className="fill-gray mx-1"/>
-                    <a href="https://discord.gg/Ag2cdZz" target="_blank" rel="noreferrer"><h6 className="text-lightgray font-w300">Discord</h6></a>
+                    <a href="https://discord.gg/93225ukwrW" target="_blank" rel="noreferrer"><h6 className="text-lightgray font-w300">Discord</h6></a>
                     <IoIosAirplane className="fill-gray mx-1"/>
                     <a href="https://github.com/Houston-ARTCC" target="_blank" rel="noreferrer"><h6 className="text-lightgray font-w300">GitHub</h6></a>
                 </div>
