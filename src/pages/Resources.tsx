@@ -15,6 +15,14 @@ import { useEffect, useState } from 'react'
 import { format } from 'date-fns-tz'
 import Fade from 'react-reveal/Fade'
 
+const categoryOptions = [
+    { value: 'POLY', label: 'Policies' },
+    { value: 'PROC', label: 'Procedures' },
+    { value: 'LOA', label: 'LOAs' },
+    { value: 'RVM', label: 'RVM Lists' },
+    { value: 'REF', label: 'References' },
+]
+
 export default function Resources() {
     const [resources, setResources] = useState<any>({})
     const [showEditModal, setShowEditModal] = useState(false)
@@ -22,8 +30,6 @@ export default function Resources() {
     const [newResource, setNewResource] = useState<any>({})
     const [loading, setLoading] = useState(true)
     const [uploadPending, setUploadPending] = useState(false)
-
-    const categories = ['VRC', 'vSTARS', 'vERAM', 'vATIS', 'SOP', 'LOA', 'MAVP', 'Misc']
 
     const { enqueueSnackbar } = useSnackbar()
 
@@ -183,8 +189,6 @@ export default function Resources() {
         </>
     )
 
-    const categoryOptions = categories.map(category => ({ value: category, label: category }))
-
     return (
         <>
             <Header title="Resources"/>
@@ -197,17 +201,14 @@ export default function Resources() {
                                 style={{ top: 150, zIndex: 0 }}
                                 className="p-0 mb-4 sticky-top"
                                 currentClassName="active"
-                                items={['VRC', 'vSTARS', 'vERAM', 'vATIS', 'SOP', 'LOA', 'MAVP', 'Misc']}
+                                items={['POLY', 'PROC', 'LOA', 'RVM', 'REF']}
                                 offset={-150}
                             >
-                                <ListGroup.Item as="li"><a href="#VRC">VRC</a></ListGroup.Item>
-                                <ListGroup.Item as="li"><a href="#vSTARS">vSTARS</a></ListGroup.Item>
-                                <ListGroup.Item as="li"><a href="#vERAM">vERAM</a></ListGroup.Item>
-                                <ListGroup.Item as="li"><a href="#vATIS">vATIS</a></ListGroup.Item>
-                                <ListGroup.Item as="li"><a href="#SOP">SOP</a></ListGroup.Item>
-                                <ListGroup.Item as="li"><a href="#LOA">LOA</a></ListGroup.Item>
-                                <ListGroup.Item as="li"><a href="#MAVP">MAVP</a></ListGroup.Item>
-                                <ListGroup.Item as="li"><a href="#Misc">Misc</a></ListGroup.Item>
+                                <ListGroup.Item as="li"><a href="#POLY">Policies</a></ListGroup.Item>
+                                <ListGroup.Item as="li"><a href="#PROC">Procedures</a></ListGroup.Item>
+                                <ListGroup.Item as="li"><a href="#LOA">LOAs</a></ListGroup.Item>
+                                <ListGroup.Item as="li"><a href="#RVM">RVM Lists</a></ListGroup.Item>
+                                <ListGroup.Item as="li"><a href="#REF">References</a></ListGroup.Item>
                             </ScrollSpy>
                         </Col>
                         <Col className="ml-0 ml-md-5">
@@ -216,14 +217,11 @@ export default function Resources() {
                                     <RiAddFill size={20}/> New Resource
                                 </Button>
                             }
-                            <section className="mb-5" id="VRC"><Category category="VRC" resources={resources['vrc']}/></section>
-                            <section className="mb-5" id="vSTARS"><Category category="vSTARS" resources={resources['vstars']}/></section>
-                            <section className="mb-5" id="vERAM"><Category category="vERAM" resources={resources['veram']}/></section>
-                            <section className="mb-5" id="vATIS"><Category category="vATIS" resources={resources['vatis']}/></section>
-                            <section className="mb-5" id="SOP"><Category category="SOP" resources={resources['sop']}/></section>
-                            <section className="mb-5" id="LOA"><Category category="LOA" resources={resources['loa']}/></section>
-                            <section className="mb-5" id="MAVP"><Category category="MAVP" resources={resources['mavp']}/></section>
-                            <section className="mb-5" id="Misc"><Category category="Misc" resources={resources['misc']}/></section>
+                            <section className="mb-5" id="POLY"><Category category="Policies" resources={resources['poly']}/></section>
+                            <section className="mb-5" id="PROC"><Category category="Procedures" resources={resources['proc']}/></section>
+                            <section className="mb-5" id="LOA"><Category category="LOAs" resources={resources['loa']}/></section>
+                            <section className="mb-5" id="RVM"><Category category="RVM Lists" resources={resources['rvm']}/></section>
+                            <section className="mb-5" id="REF"><Category category="References" resources={resources['ref']}/></section>
                         </Col>
                     </Row>
                 </Container>
