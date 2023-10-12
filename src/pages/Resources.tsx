@@ -16,11 +16,12 @@ import { format } from 'date-fns-tz'
 import Fade from 'react-reveal/Fade'
 
 const categoryOptions = [
-    { value: 'POLY', label: 'Policies' },
-    { value: 'PROC', label: 'Procedures' },
-    { value: 'LOA', label: 'LOAs' },
-    { value: 'RVM', label: 'RVM Lists' },
-    { value: 'REF', label: 'References' },
+    { value: 'POLY', label: 'Policy' },
+    { value: 'PROC', label: 'Procedure' },
+    { value: 'LOA', label: 'LOA' },
+    { value: 'vATIS', label: 'vATIS Profile' },
+    { value: 'RVM', label: 'RVM List' },
+    { value: 'REF', label: 'Reference' },
 ]
 
 export default function Resources() {
@@ -201,12 +202,13 @@ export default function Resources() {
                                 style={{ top: 150, zIndex: 0 }}
                                 className="p-0 mb-4 sticky-top"
                                 currentClassName="active"
-                                items={['POLY', 'PROC', 'LOA', 'RVM', 'REF']}
+                                items={['POLY', 'PROC', 'LOA', 'vATIS', 'RVM', 'REF']}
                                 offset={-150}
                             >
                                 <ListGroup.Item as="li"><a href="#POLY">Policies</a></ListGroup.Item>
                                 <ListGroup.Item as="li"><a href="#PROC">Procedures</a></ListGroup.Item>
                                 <ListGroup.Item as="li"><a href="#LOA">LOAs</a></ListGroup.Item>
+                                <ListGroup.Item as="li"><a href="#vATIS">vATIS Profiles</a></ListGroup.Item>
                                 <ListGroup.Item as="li"><a href="#RVM">RVM Lists</a></ListGroup.Item>
                                 <ListGroup.Item as="li"><a href="#REF">References</a></ListGroup.Item>
                             </ScrollSpy>
@@ -220,6 +222,7 @@ export default function Resources() {
                             <section className="mb-5" id="POLY"><Category category="Policies" resources={resources['poly']}/></section>
                             <section className="mb-5" id="PROC"><Category category="Procedures" resources={resources['proc']}/></section>
                             <section className="mb-5" id="LOA"><Category category="LOAs" resources={resources['loa']}/></section>
+                            <section className="mb-5" id="vATIS"><Category category="vATIS Profiles" resources={resources['vatis']}/></section>
                             <section className="mb-5" id="RVM"><Category category="RVM Lists" resources={resources['rvm']}/></section>
                             <section className="mb-5" id="REF"><Category category="References" resources={resources['ref']}/></section>
                         </Col>
