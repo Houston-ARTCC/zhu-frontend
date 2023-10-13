@@ -170,7 +170,6 @@ export default function EditUser() {
                                             <th><h6>TWR</h6></th>
                                             <th><h6>APP</h6></th>
                                             <th><h6>CTR</h6></th>
-                                            <th><h6>OCN</h6></th>
                                         </tr>
                                         <tr>
                                             <td>
@@ -211,14 +210,6 @@ export default function EditUser() {
                                                         {user.ctr_cert === 3 ? user.solo_facility : certLevel(user.ctr_cert)}
                                                     </Dropdown.Toggle>
                                                     <CertOptions cert="ctr_cert"/>
-                                                </Dropdown>
-                                            </td>
-                                            <td>
-                                                <Dropdown>
-                                                    <Dropdown.Toggle size="sm" variant={certColor(user.ocn_cert)}>
-                                                        {user.ocn_cert === 3 ? user.solo_facility : certLevel(user.ocn_cert)}
-                                                    </Dropdown.Toggle>
-                                                    <CertOptions cert="ocn_cert"/>
                                                 </Dropdown>
                                             </td>
                                         </tr>

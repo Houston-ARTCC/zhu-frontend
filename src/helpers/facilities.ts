@@ -2,7 +2,6 @@ const exceptions = {
     'I90_APP': 'Houston Approach',
     'HOU_APP': 'Houston Approach',
     'HOU_CTR': 'Houston Center',
-    'ZHU_FSS': 'Houston Oceanic',
 }
 
 const airports = {

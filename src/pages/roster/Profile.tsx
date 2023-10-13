@@ -125,7 +125,6 @@ export default function Profile() {
                                     <th><h6>Tower</h6></th>
                                     <th><h6>Approach</h6></th>
                                     <th><h6>Center</h6></th>
-                                    <th><h6>Oceanic</h6></th>
                                 </tr>
                                 <tr>
                                     <td>
@@ -153,11 +152,6 @@ export default function Profile() {
                                             {user.ctr_cert === 3 ? user.solo_facility : certLevel(user.ctr_cert)}
                                         </Badge>
                                     </td>
-                                    <td>
-                                        <Badge variant={certColor(user.ocn_cert) + ' rounded'}>
-                                            {user.ocn_cert === 3 ? user.solo_facility : certLevel(user.ocn_cert)}
-                                        </Badge>
-                                    </td>
                                 </tr>
                             </table>
                             <table className="w-100 text-center mb-5 d-table d-md-none" style={{ tableLayout: 'fixed' }}>
@@ -167,7 +161,6 @@ export default function Profile() {
                                     <th><h6>TWR</h6></th>
                                     <th><h6>APP</h6></th>
                                     <th><h6>CTR</h6></th>
-                                    <th><h6>OCN</h6></th>
                                 </tr>
                                 <tr>
                                     <td><FaCircle className={'fill-' + certColor(user.del_cert)}/></td>
@@ -175,7 +168,6 @@ export default function Profile() {
                                     <td><FaCircle className={'fill-' + certColor(user.twr_cert)}/></td>
                                     <td><FaCircle className={'fill-' + certColor(user.app_cert)}/></td>
                                     <td><FaCircle className={'fill-' + certColor(user.ctr_cert)}/></td>
-                                    <td><FaCircle className={'fill-' + certColor(user.ocn_cert)}/></td>
                                 </tr>
                             </table>
                             <StatisticCalendar data={userStats} height={window.innerWidth < 768 ? 1000 : 200} vertical={window.innerWidth < 768}/>

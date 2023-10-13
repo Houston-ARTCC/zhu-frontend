@@ -288,7 +288,6 @@ export default function RequestTraining({ updateNotifs }) {
                                         { value: 4, label: 'Minor Approach' },
                                         { value: 5, label: 'Major Approach' },
                                         { value: 6, label: 'Center' },
-                                        { value: 7, label: 'Oceanic' },
                                     ]}
                                     onChange={handleLevelChange}
                                 />

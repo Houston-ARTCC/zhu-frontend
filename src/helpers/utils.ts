@@ -45,7 +45,6 @@ export function maxCertLevel(user) {
 
 export function certName(certInt) {
     switch (certInt) {
-        case 6: return 'Oceanic'
         case 5: return 'Center'
         case 4: return 'Approach'
         case 3: return 'Tower'
@@ -82,7 +81,6 @@ export function levelDisplay(levelInt) {
         case 4: return 'Minor Approach'
         case 5: return 'Major Approach'
         case 6: return 'Center'
-        case 7: return 'Oceanic'
         default: return 'Unknown'
     }
 }

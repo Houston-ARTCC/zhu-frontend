@@ -120,7 +120,6 @@ export default function Roster() {
                                 <td><Certification user={user} cert={user.twr_cert}/></td>
                                 <td><Certification user={user} cert={user.app_cert}/></td>
                                 <td><Certification user={user} cert={user.ctr_cert}/></td>
-                                <td><Certification user={user} cert={user.ocn_cert}/></td>
                             </tr>
                             <tr>
                                 <th className="font-sm">DEL</th>
@@ -128,7 +127,6 @@ export default function Roster() {
                                 <th className="font-sm">TWR</th>
                                 <th className="font-sm">APP</th>
                                 <th className="font-sm">CTR</th>
-                                <th className="font-sm">OCN</th>
                             </tr>
                         </table>
                     </Card.Body>
@@ -244,15 +242,6 @@ export default function Roster() {
                                     sortable: true,
                                     sortFunction: (a, b) => {return a.ctr_cert > b.ctr_cert ? -1 : 1},
                                     format: row => <Certification user={row} cert={row.ctr_cert}/>,
-                                },
-                                {
-                                    name: 'OCN',
-                                    selector: 'ocn',
-                                    width: '10%',
-                                    center: true,
-                                    sortable: true,
-                                    sortFunction: (a, b) => {return a.ocn_cert > b.ocn_cert ? -1 : 1},
-                                    format: row => <Certification user={row} cert={row.ocn_cert}/>,
                                 },
                             ]}
                             customStyles={dataTableStyle}
