@@ -8,7 +8,7 @@ export type BasicUser = {
     first_name: string;
     last_name: string;
     initials: string;
-    profile: string;
+    profile?: string;
 };
 
 export type AuthenticatedBasicUser = BasicUser & {
@@ -24,7 +24,7 @@ export type User = {
     roles: Role[];
     first_name: string;
     last_name: string;
-    profile: string;
+    profile?: string;
     biography?: string;
     home_facility: string;
     status: number;
