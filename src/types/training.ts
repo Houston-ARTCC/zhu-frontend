@@ -22,7 +22,6 @@ export enum SessionLevel {
     MinorApproach,
     MajorApproach,
     Center,
-    Oceanic,
 }
 
 export const SESSION_LEVEL_STRING = {
@@ -33,7 +32,6 @@ export const SESSION_LEVEL_STRING = {
     [SessionLevel.MinorApproach]: 'Minor Approach',
     [SessionLevel.MajorApproach]: 'Major Approach',
     [SessionLevel.Center]: 'Center',
-    [SessionLevel.Oceanic]: 'Oceanic',
 };
 
 export enum SessionStatus {

@@ -35,7 +35,6 @@ export type User = {
     twr_cert: 0 | 1 | 2 | 3;
     app_cert: 0 | 1 | 2 | 3;
     ctr_cert: 0 | 1 | 2 | 3;
-    ocn_cert: 0 | 1 | 2 | 3;
     solo_facility?: string;
     cic_endorsed: boolean;
 };

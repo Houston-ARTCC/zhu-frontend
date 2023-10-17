@@ -5,7 +5,6 @@ import { type User } from '@/types/users';
 import { RosterCard } from './RosterCard';
 
 const SECTIONS = {
-    oceanic: 'Oceanic',
     center: 'Center',
     approach: 'Approach',
     tower: 'Tower',
@@ -20,7 +19,6 @@ interface CardsViewProps {
 
 export const CardsView: React.FC<CardsViewProps> = ({ data }) => {
     const levels: { [key in keyof typeof SECTIONS]: User[] } = {
-        oceanic: [],
         center: [],
         approach: [],
         tower: [],
@@ -30,8 +28,7 @@ export const CardsView: React.FC<CardsViewProps> = ({ data }) => {
     };
 
     data.forEach((user) => {
-        if (user.ocn_cert) levels.oceanic.push(user);
-        else if (user.ctr_cert) levels.center.push(user);
+        if (user.ctr_cert) levels.center.push(user);
         else if (user.app_cert) levels.approach.push(user);
         else if (user.twr_cert) levels.tower.push(user);
         else if (user.gnd_cert) levels.ground.push(user);

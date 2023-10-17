@@ -89,15 +89,6 @@ export const TableView: React.FC<TableViewProps> = ({ data }) => {
                     width: '120px',
                     center: true,
                 },
-                {
-                    name: 'OCN',
-                    selector: (row) => row.ocn_cert,
-                    sortable: true,
-                    sortFunction: (a, b) => (a.ocn_cert > b.ocn_cert ? 1 : -1),
-                    cell: (row) => <CertCircle cert={row.ocn_cert} />,
-                    width: '120px',
-                    center: true,
-                },
             ]}
         />
     );

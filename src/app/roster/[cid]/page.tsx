@@ -7,7 +7,7 @@ import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
 import { ProfilePicture } from '@/components/ProfilePicture';
 import { Card } from '@/components/Card';
-import { RoleBadge, CertBadge } from '@/components/ProfileBadges';
+import { CertBadge, RoleBadge } from '@/components/ProfileBadges';
 import { fetchApi } from '@/utils/fetch';
 import { type AuthenticatedUser, type User } from '@/types/users';
 import { type BasicFeedback } from '@/types/feedback';
@@ -82,7 +82,7 @@ const UserProfile: NextPage<UserProfileParams> = async ({ params }) => {
                                 <p className="break-words">{user.biography ? user.biography : 'This user has not set a biography.'}</p>
                             </div>
                         </div>
-                        <div className="mb-12 grid grid-cols-6">
+                        <div className="mb-12 grid grid-cols-5">
                             <div className="flex flex-col items-center gap-2">
                                 <p className="font-medium">Delivery</p>
                                 <CertBadge cert={user.del_cert} />
@@ -102,10 +102,6 @@ const UserProfile: NextPage<UserProfileParams> = async ({ params }) => {
                             <div className="flex flex-col items-center gap-2">
                                 <p className="font-medium">Center</p>
                                 <CertBadge cert={user.ctr_cert} />
-                            </div>
-                            <div className="flex flex-col items-center gap-2">
-                                <p className="font-medium">Oceanic</p>
-                                <CertBadge cert={user.ocn_cert} />
                             </div>
                         </div>
                         <Heatmap data={statistics} />

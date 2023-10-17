@@ -28,7 +28,7 @@ export const RosterCard: React.FC<RosterCardProps> = ({ user }) => (
                     <p>Rating</p>
                 </div>
             </div>
-            <div className="grid grid-cols-6">
+            <div className="grid grid-cols-5">
                 <div className="flex flex-col items-center">
                     <CertCircle cert={user.del_cert} />
                     <span className="text-sm">DEL</span>
@@ -48,10 +48,6 @@ export const RosterCard: React.FC<RosterCardProps> = ({ user }) => (
                 <div className="flex flex-col items-center">
                     <CertCircle cert={user.ctr_cert} />
                     <span className="text-sm">CTR</span>
-                </div>
-                <div className="flex flex-col items-center">
-                    <CertCircle cert={user.ocn_cert} />
-                    <span className="text-sm">OCN</span>
                 </div>
             </div>
         </Card>

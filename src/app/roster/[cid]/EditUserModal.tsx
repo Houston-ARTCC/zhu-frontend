@@ -117,7 +117,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
 
                 <hr className="my-5" />
 
-                <div className="mb-12 grid grid-cols-6">
+                <div className="mb-12 grid grid-cols-5">
                     <div className="flex flex-col items-center gap-2">
                         <p className="font-medium">Delivery</p>
                         <Controller
@@ -162,16 +162,6 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                         <p className="font-medium">Center</p>
                         <Controller
                             name="ctr_cert"
-                            control={control}
-                            render={({ field: { value, onChange } }) => (
-                                <CertDropdown cert={value} onUpdate={onChange} />
-                            )}
-                        />
-                    </div>
-                    <div className="flex flex-col items-center gap-2">
-                        <p className="font-medium">Oceanic</p>
-                        <Controller
-                            name="ocn_cert"
                             control={control}
                             render={({ field: { value, onChange } }) => (
                                 <CertDropdown cert={value} onUpdate={onChange} />

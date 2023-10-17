@@ -60,7 +60,6 @@ export const editUserSchema = z.object({
     twr_cert: z.number(),
     app_cert: z.number(),
     ctr_cert: z.number(),
-    ocn_cert: z.number(),
 });
 
 export type EditUserFormValues = z.infer<typeof editUserSchema>;
