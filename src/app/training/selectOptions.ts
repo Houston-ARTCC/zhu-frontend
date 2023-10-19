@@ -1,5 +1,3 @@
-import { type BasicUser } from '@/types/users';
-
 export const sessionTypes = [
     { value: 0, label: 'Classroom' },
     { value: 1, label: 'Sweatbox' },
@@ -31,10 +29,3 @@ export const progress = [
     { value: 4, label: 'Great Progress' },
     { value: 5, label: 'Exceptional Progress' },
 ];
-
-export function userToOption(user: BasicUser) {
-    return {
-        value: user.cid,
-        label: `${user.first_name} ${user.last_name}`,
-    };
-}

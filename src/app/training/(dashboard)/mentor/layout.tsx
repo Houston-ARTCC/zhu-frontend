@@ -1,7 +1,7 @@
 import React, { type PropsWithChildren } from 'react';
 import { fetchApi } from '@/utils/fetch';
 import { type Staff } from '@/types/users';
-import { userToOption } from '../../selectOptions';
+import { userToOption } from '@/utils';
 import { MentorSelectInput } from './MentorSelectInput';
 
 async function getStaff(): Promise<Staff> {

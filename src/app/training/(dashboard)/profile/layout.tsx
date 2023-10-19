@@ -1,9 +1,8 @@
 import React, { type PropsWithChildren } from 'react';
 import { fetchApi } from '@/utils/fetch';
 import { type BasicUser, type Roster } from '@/types/users';
+import { userToOption } from '@/utils';
 import { StudentSelectInput } from './StudentSelectInput';
-
-const userToOption = (user: BasicUser) => ({ value: user.cid, label: `${user.first_name} ${user.last_name}` });
 
 async function getStudents(): Promise<Roster<BasicUser>> {
     return fetchApi(

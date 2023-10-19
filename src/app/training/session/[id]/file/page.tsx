@@ -6,7 +6,7 @@ import { PageContent } from '@/components/PageContent';
 import { fetchApi } from '@/utils/fetch';
 import { type TrainingSession } from '@/types/training';
 import { type Staff } from '@/types/users';
-import { userToOption } from '../../../selectOptions';
+import { userToOption } from '@/utils';
 import { SessionForm } from '../SessionForm';
 
 export const metadata = { title: 'Training Center' };

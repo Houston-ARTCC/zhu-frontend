@@ -1,3 +1,6 @@
+import { type SelectOption } from '@/components/Forms';
+import { type BasicUser } from '@/types/users';
+
 export function ratingToInt(ratingStr: string): number {
     switch (ratingStr) {
         case 'OBS': return 0;
@@ -12,4 +15,11 @@ export function ratingToInt(ratingStr: string): number {
         case 'ADM': return 9;
         default: return -1;
     }
+}
+
+export function userToOption(user: BasicUser): SelectOption {
+    return {
+        value: user.cid,
+        label: `${user.first_name} ${user.last_name}`,
+    };
 }

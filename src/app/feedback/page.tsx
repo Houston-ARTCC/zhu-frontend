@@ -13,7 +13,7 @@ export const metadata = { title: 'Leave Feedback' };
 async function getControllers(): Promise<BasicUser[]> {
     const roster = await fetchApi<Roster<BasicUser>>(
         '/users/simplified/',
-        { cache: 'no-store' },
+        { next: { revalidate: 900 } },
     );
 
     return roster.home.concat(roster.visiting).concat(roster.mavp);

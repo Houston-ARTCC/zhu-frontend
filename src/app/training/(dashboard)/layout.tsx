@@ -35,6 +35,7 @@ const TrainingCenterLayout: React.FC<PropsWithChildren> = async ({ children }) =
                                 title: 'Mentor Resources',
                                 members: [
                                     { title: 'My Availability', route: 'availability' },
+                                    // TODO: Add alerts for how many sessions are scheduled with self.
                                     { title: 'Scheduled Sessions', route: 'scheduled' },
                                     {
                                         title: 'Training Requests',
