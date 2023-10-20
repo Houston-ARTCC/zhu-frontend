@@ -1,7 +1,6 @@
 import React from 'react';
-import { LuArrowRight, LuMail } from 'react-icons/lu';
+import { LuArrowRight, LuCalendar, LuClock, LuMail, LuTowerControl } from 'react-icons/lu';
 import { format } from 'date-fns-tz';
-import { HiOutlineCalendar, HiOutlineClock } from 'react-icons/hi2';
 import { Card } from '@/components/Card';
 import { type SupportRequest } from '@/types/admin';
 import { RejectRequestButton } from '../RejectRequestModal';
@@ -20,17 +19,25 @@ export const SupportRequestCard: React.FC<VisitRequestCardProps> = ({ request })
             Presented by {request.host}
         </p>
 
-        <div className="mb-2 flex items-center gap-3">
-            <HiOutlineCalendar size={23} />
-            <span className="font-medium">{format(new Date(request.start), 'MMM d, y')}</span>
-        </div>
-        <div className="mb-3 flex items-center gap-3">
-            <HiOutlineClock size={23} />
-            <span className="flex items-center gap-1.5 font-medium">
-                {format(new Date(request.start), 'HH:mm zzz')}
-                <LuArrowRight />
-                {format(new Date(request.end), 'HH:mm zzz')}
-            </span>
+        <div className="mb-4 flex flex-col gap-2">
+            <div className="flex items-center gap-3">
+                <LuCalendar size={23} />
+                <span className="font-medium">{format(new Date(request.start), 'MMM d, y')}</span>
+            </div>
+            <div className="flex items-center gap-3">
+                <LuClock size={23} />
+                <span className="flex items-center gap-1.5 font-medium">
+                    {format(new Date(request.start), 'HH:mm zzz')}
+                    <LuArrowRight />
+                    {format(new Date(request.end), 'HH:mm zzz')}
+                </span>
+            </div>
+            {request.requested_fields.length > 0 && (
+                <div className="flex items-center gap-3">
+                    <LuTowerControl size={23} />
+                    <span className="font-medium">{request.requested_fields.join(', ')}</span>
+                </div>
+            )}
         </div>
 
         <blockquote className="mb-3 border-l-4 border-l-slate-200 pl-4">

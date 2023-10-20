@@ -3,8 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { format } from 'date-fns-tz';
-import { HiOutlineCalendar, HiOutlineClock } from 'react-icons/hi2';
-import { LuArrowRight } from 'react-icons/lu';
+import { LuArrowRight, LuCalendar, LuClock } from 'react-icons/lu';
 import ReactDOM from 'react-dom';
 import { AnnouncementModal } from '@/components/AnnouncementModal';
 import { Badge } from '@/components/Badge';
@@ -62,11 +61,11 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => (
                         Presented by {event.host}
                     </h5>
                     <div className="mb-3 flex items-center gap-3">
-                        <HiOutlineCalendar size={25} />
+                        <LuCalendar size={23} />
                         <span className="font-medium">{format(new Date(event.start), 'MMM d, y')}</span>
                     </div>
                     <div className="flex items-center gap-3">
-                        <HiOutlineClock size={25} />
+                        <LuClock size={23} />
                         <span className="flex items-center gap-1.5 font-medium">
                             {format(new Date(event.start), 'HH:mm zzz')}
                             <LuArrowRight />

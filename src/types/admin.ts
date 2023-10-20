@@ -17,6 +17,7 @@ export type SupportRequest = {
     start: string;
     end: string;
     host: string;
+    requested_fields: string[];
     description: string;
 }
 

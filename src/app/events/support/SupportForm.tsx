@@ -7,10 +7,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
 import ReactDatePicker from 'react-datepicker';
-import { TextAreaInput, TextInput } from '@/components/Forms';
+import { SelectInput, TextAreaInput, TextInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
 import { fetchApi } from '@/utils/fetch';
-import { type SupportFormValues, supportSchema } from './supportSchema';
+import { airports, type SupportFormValues, supportSchema } from './supportSchema';
 
 export const SupportForm: React.FC = () => {
     const router = useRouter();
@@ -24,6 +24,7 @@ export const SupportForm: React.FC = () => {
         const data = {
             ...values,
             banner: values.banner_url,
+            requested_fields: values.requested_fields.map(({ value }) => value),
         };
         toast.promise(
             fetchApi(
@@ -128,6 +129,28 @@ export const SupportForm: React.FC = () => {
                 </div>
 
                 <div className="flex h-full flex-col gap-3">
+                    <Controller
+                        name="requested_fields"
+                        control={control}
+                        render={({ field }) => (
+                            <SelectInput
+                                {...field}
+                                label="Requested Fields"
+                                error={errors.requested_fields?.message}
+                                formatOptionLabel={({ value, label }) => (
+                                    <span>
+                                        <b>{value}</b>
+                                        {' '}
+                                        {label}
+                                    </span>
+                                )}
+                                options={airports}
+                                closeMenuOnSelect={false}
+                                isClearable={false}
+                                isMulti
+                            />
+                        )}
+                    />
                     <TextAreaInput
                         {...register('description')}
                         className="h-full"
