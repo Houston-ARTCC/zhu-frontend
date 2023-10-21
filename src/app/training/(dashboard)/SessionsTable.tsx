@@ -137,7 +137,7 @@ export const SessionsTable: React.FC<SessionsTableProps> = ({ data }) => {
                     selector: (row) => row.start,
                     sortable: true,
                     format: (row) => format(new Date(row.start), 'MMM d, y @ HH:mm zzz'),
-                    sortFunction: (a, b) => (new Date(a.start) > new Date(b.start) ? 1 : -1),
+                    sortFunction: (a, b) => a.start.localeCompare(b.start),
                     width: '20%',
                 },
                 {

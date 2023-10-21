@@ -3,7 +3,8 @@
 import React from 'react';
 import { format } from 'date-fns-tz';
 import DataTable from 'react-data-table-component';
-import { LuCalendar, LuChevronDown, LuPlane, LuStar } from 'react-icons/lu';
+import { LuCalendar, LuChevronDown, LuPlane } from 'react-icons/lu';
+import { RatingStars } from '@/components/RatingStars';
 import { formatDuration } from '@/utils/time';
 import { dataTableStyle } from '@/utils/dataTableStyle';
 import { type Session } from '@/types/connections';
@@ -27,7 +28,7 @@ export const ConnectionsTable: React.FC<ConnectionsTable> = ({ data }) => (
                 name: 'Date',
                 selector: (row) => row.start,
                 sortable: true,
-                sortFunction: (a, b) => (new Date(a.start) > new Date(b.start) ? 1 : -1),
+                sortFunction: (a, b) => a.start.localeCompare(b.start),
                 format: (row) => format(new Date(row.start), 'MMM d, y'),
             },
             {
@@ -90,7 +91,7 @@ export const FeedbackTable: React.FC<FeedbackTable> = ({ data }) => (
                 name: 'Date',
                 selector: (row) => row.created,
                 sortable: true,
-                sortFunction: (a, b) => (new Date(a.created) > new Date(b.created) ? 1 : -1),
+                sortFunction: (a, b) => a.created.localeCompare(b.created),
                 format: (row) => format(new Date(row.created), 'MMM d, y'),
             },
             {
@@ -102,15 +103,7 @@ export const FeedbackTable: React.FC<FeedbackTable> = ({ data }) => (
                 name: 'Rating',
                 selector: (row) => row.rating,
                 sortable: true,
-                format: ({ rating }) => (
-                    <div className="flex items-center gap-2">
-                        {[...Array(5)].map((x, i) => (
-                            i >= rating
-                                ? <LuStar key={i} size={20} className="" />
-                                : <LuStar key={i} size={20} className="fill-black" />
-                        ))}
-                    </div>
-                ),
+                format: ({ rating }) => <RatingStars rating={rating} />,
             },
         ]}
     />

@@ -65,6 +65,7 @@ export const TrainingRequestsTable: React.FC<TrainingRequestsTableProps> = ({ da
                         ? format(new Date(row.last_session), 'MMM d, y')
                         : 'Never'
                 ),
+                // TODO: Replace with some sort of localeCompare
                 sortFunction: (a, b) => (
                     new Date(a.last_session ?? 0) > new Date(b.last_session ?? 0)
                         ? 1

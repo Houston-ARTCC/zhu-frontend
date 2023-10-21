@@ -39,3 +39,13 @@ export type Event = Omit<BasicEvent, 'available_shifts'> & {
         local: EventPosition[];
     };
 };
+
+export type EventScore = {
+    event: BasicEvent;
+    score: number;
+    notes: {
+        target_duration: number;
+        total_duration: number;
+        feedback: { rating: number }[];
+    }
+};

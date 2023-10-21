@@ -17,6 +17,7 @@ const ROUTE_AUTH_MAP: {re: RegExp, verify: (token: JWT | null) => boolean }[] = 
     { re: /\/training\/session\/(d+)/, verify: isTrainingStaff },
     // Need to be member
     { re: /\/training/, verify: isMember },
+    { re: /\/events\/scores/, verify: isMember },
     // Just need to be logged in
     { re: /\/feedback/, verify: isLoggedIn },
     { re: /\/visit/, verify: isLoggedIn },

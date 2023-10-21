@@ -54,7 +54,7 @@ export const ResourceTable: React.FC<ResourceTableProps> = ({ data }) => {
                         name: 'Updated',
                         selector: (row) => row.updated,
                         sortable: true,
-                        sortFunction: (a, b) => (new Date(a.updated) > new Date(b.updated) ? 1 : -1),
+                        sortFunction: (a, b) => a.updated.localeCompare(b.updated),
                         format: (row) => format(new Date(row.updated), 'MMM d, y'),
                     },
                     {
