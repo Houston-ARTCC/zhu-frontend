@@ -105,7 +105,7 @@ export const ToggleInput: React.FC<Omit<InputProps, 'inputClassName'>> = React.f
                     <input
                         ref={ref}
                         id={props.name}
-                        className="peer h-5 w-9 opacity-0"
+                        className="peer h-5 w-9 cursor-pointer opacity-0"
                         onChange={(e) => {
                             onUpdate?.(e.target.checked);
                             props.onChange?.(e);
@@ -116,7 +116,7 @@ export const ToggleInput: React.FC<Omit<InputProps, 'inputClassName'>> = React.f
                     <div
                         className={classNames(
                             'absolute left-0 top-0 -z-10 h-5 w-9 rounded-full bg-slate-300/25',
-                            'peer-checked:bg-sky-400/25 transition-colors duration-100 ',
+                            'peer-checked:bg-sky-400/25 transition-colors duration-100',
                         )}
                     />
                     <div

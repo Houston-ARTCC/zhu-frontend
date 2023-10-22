@@ -1,40 +1,37 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { format } from 'date-fns-tz';
 import DataTable from 'react-data-table-component';
-import { LuChevronDown } from 'react-icons/lu';
+import { LuChevronDown, LuUserX } from 'react-icons/lu';
 import { subMonths } from 'date-fns';
 import classNames from 'classnames';
-import { TextInput } from '@/components/Forms';
+import ReactDOM from 'react-dom';
 import { Button, ButtonGroup } from '@/components/Button';
 import { ControllerHours } from '@/components/ControllerHours';
 import { dataTableStyle } from '@/utils/dataTableStyle';
-import { type Statistics } from '@/types/connections';
+import { type Statistics, type UserStatistic } from '@/types/connections';
 import { ratingToInt } from '@/utils';
+import { PurgeModal } from './PurgeModal';
 
-interface StatisticsTableProps {
+interface PurgeTableProps {
     data: Statistics;
 }
 
-export const StatisticsTable: React.FC<StatisticsTableProps> = ({ data }) => {
-    const router = useRouter();
-
-    const [searchString, setSearchString] = useState<string>('');
-    const [filter, setFilter] = useState<'home' | 'visiting' | 'mavp' | 'all'>('home');
+export const PurgeTable: React.FC<PurgeTableProps> = ({ data }) => {
+    const [showPurgeModal, setShowPurgeModal] = useState<boolean>(false);
+    const [selectedRows, setSelectedRows] = useState<UserStatistic[]>([]);
+    const [filter, setFilter] = useState<'home' | 'visiting' | 'all'>('home');
 
     const controllers = useMemo(() => {
         if (filter === 'home') return data.home;
         if (filter === 'visiting') return data.visiting;
-        if (filter === 'mavp') return data.mavp;
-        return data.home.concat(data.visiting).concat(data.mavp);
+        return data.home.concat(data.visiting);
     }, [data, filter]);
 
     return (
-        <div className="mt-10">
-            <div className="mb-5 flex justify-between">
-                <TextInput placeholder="Search for controller..." onUpdate={setSearchString} />
+        <>
+            <div className="mb-3 flex justify-between">
                 <ButtonGroup>
                     <Button
                         className={classNames(
@@ -59,16 +56,6 @@ export const StatisticsTable: React.FC<StatisticsTableProps> = ({ data }) => {
                     <Button
                         className={classNames(
                             'py-0.5 transition-colors duration-150',
-                            { '!bg-white !text-gray-500': filter !== 'mavp' },
-                        )}
-                        variant="secondary"
-                        onClick={() => setFilter('mavp')}
-                    >
-                        MAVP
-                    </Button>
-                    <Button
-                        className={classNames(
-                            'py-0.5 transition-colors duration-150',
                             { '!bg-white !text-gray-500': filter !== 'all' },
                         )}
                         variant="secondary"
@@ -79,16 +66,23 @@ export const StatisticsTable: React.FC<StatisticsTableProps> = ({ data }) => {
                 </ButtonGroup>
             </div>
             <DataTable
-                data={controllers
-                    .filter((row) => (
-                        `${row.first_name} ${row.last_name} (${row.initials})`.toLowerCase().includes(searchString.toLowerCase())
-                        || row.cid.toString().includes(searchString)
-                    ))}
+                data={controllers}
+                title={<p className="text-base">Select users to purge</p>}
                 defaultSortFieldId={1}
                 sortIcon={<LuChevronDown />}
-                highlightOnHover
-                pointerOnHover
-                onRowClicked={(row) => router.push(`/roster/${row.cid}`)}
+                pagination
+                paginationPerPage={10}
+                paginationRowsPerPageOptions={[10, 15, 20, 25]}
+                selectableRows
+                selectableRowsHighlight
+                selectableRowDisabled={(row) => row.is_staff}
+                onSelectedRowsChange={({ selectedRows: rows }) => setSelectedRows(rows)}
+                contextActions={(
+                    <Button className="!bg-red-400 !text-sm !shadow-red-400/25" onClick={() => setShowPurgeModal(true)}>
+                        <LuUserX size={17} />
+                        Purge
+                    </Button>
+                )}
                 customStyles={dataTableStyle}
                 columns={[
                     {
@@ -137,6 +131,14 @@ export const StatisticsTable: React.FC<StatisticsTableProps> = ({ data }) => {
                     },
                 ]}
             />
-        </div>
+            {ReactDOM.createPortal(
+                <PurgeModal
+                    show={showPurgeModal}
+                    users={selectedRows}
+                    close={() => setShowPurgeModal(false)}
+                />,
+                document.body,
+            )}
+        </>
     );
 };

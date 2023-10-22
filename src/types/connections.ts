@@ -18,6 +18,7 @@ export type UserStatistic = {
     last_name: string;
     rating: string;
     initials: string;
+    is_staff: boolean;
     curr_hours: string;
     prev_hours: string;
     prev_prev_hours: string;

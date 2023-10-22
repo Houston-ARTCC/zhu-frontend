@@ -1,5 +1,5 @@
 import { type NextPage } from 'next';
 
-const Sessions: NextPage = async () => null;
+const AdminHome: NextPage = async () => null;
 
-export default Sessions;
+export default AdminHome;
