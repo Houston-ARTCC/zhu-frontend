@@ -23,7 +23,8 @@ export const PurgeModal: React.FC<PurgeModalProps> = ({ users, show, close }) =>
         resolver: zodResolver(purgeSchema),
     });
 
-    const postPreset: SubmitHandler<PurgeFormValues> = useCallback((data) => {
+    const deleteUsers: SubmitHandler<PurgeFormValues> = useCallback((values) => {
+        const data = { reason: values.reason };
         const deleteRequests = users.map((user) => (
             fetchApi(`/users/${user.cid}/`, { method: 'DELETE', body: JSON.stringify(data) })
         ));
@@ -43,7 +44,7 @@ export const PurgeModal: React.FC<PurgeModalProps> = ({ users, show, close }) =>
 
     return (
         <Modal show={show} title="Roster Purge" close={close}>
-            <form onSubmit={handleSubmit(postPreset)}>
+            <form onSubmit={handleSubmit(deleteUsers)}>
                 <p className="mb-3">
                     Confirming this action will automatically remove the following users from both the
                     Houston ARTCC and VATUSA rosters. <b>This action cannot be undone!</b>
