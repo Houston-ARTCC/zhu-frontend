@@ -1,15 +1,14 @@
-import { Component } from 'react'
+import {Component} from 'react'
 import DataTable from 'react-data-table-component'
-import { BsArrowDown, HiCheck } from 'react-icons/all'
-import { Button, ButtonGroup, Container, Form } from 'react-bootstrap'
+import {BsArrowDown, HiCheck} from 'react-icons/all'
+import {Button, ButtonGroup, Container, Form} from 'react-bootstrap'
 import Fade from 'react-reveal/Fade'
 import Header from '../components/Header'
 import StatisticCalendar from '../components/StatisticCalendar'
-import { formatDurationStr, durationStrAsSeconds, ratingInt } from '../helpers/utils'
+import {durationStrAsSeconds, formatDurationStr, ratingInt} from '../helpers/utils'
 import axiosInstance from '../helpers/axiosInstance'
-import { dataTableStyle } from '../helpers/constants'
+import {dataTableStyle} from '../helpers/constants'
 import BounceLoader from '../components/BounceLoader'
-import { format, subMonths } from 'date-fns'
 
 export default class Statistics extends Component<any, any> {
     constructor(props) {
@@ -140,59 +139,78 @@ export default class Statistics extends Component<any, any> {
                                     sortable: true,
                                 },
                                 {
-                                    name: format(subMonths(new Date(new Date().getUTCFullYear(), new Date().getUTCMonth()), 2), 'MMMM'),
-                                    selector: 'prev_prev_hours',
+                                    name: `Q1 ${new Date().getUTCFullYear()}`,
+                                    selector: 'q1',
                                     sortable: true,
-                                    sortFunction: (a, b) => {return durationStrAsSeconds(a.prev_prev_hours) > durationStrAsSeconds(b.prev_prev_hours) ? 1 : -1},
+                                    sortFunction: (a, b) => {return durationStrAsSeconds(a.q1) > durationStrAsSeconds(b.q1) ? 1 : -1},
                                     cell: row => <div>
                                         <HiCheck
                                             size={25}
                                             className={
-                                                (durationStrAsSeconds(row.activity_requirement) !== 0 && durationStrAsSeconds(row.prev_prev_hours) >= durationStrAsSeconds(row.activity_requirement)
+                                                (durationStrAsSeconds(row.activity_requirement) !== 0 && durationStrAsSeconds(row.q1) >= durationStrAsSeconds(row.activity_requirement)
                                                     ? 'fill-green'
                                                     : 'fill-transparent'
                                                 ) + ' mr-2'
                                             }
                                         />
-                                        {formatDurationStr(row.prev_prev_hours)}
+                                        {formatDurationStr(row.q1)}
                                     </div>,
                                     minWidth: '150px',
                                 },
                                 {
-                                    name: format(subMonths(new Date(new Date().getUTCFullYear(), new Date().getUTCMonth()), 1), 'MMMM'),
-                                    selector: 'prev_hours',
+                                    name: `Q2 ${new Date().getUTCFullYear()}`,
+                                    selector: 'q2',
                                     sortable: true,
-                                    sortFunction: (a, b) => {return durationStrAsSeconds(a.prev_hours) > durationStrAsSeconds(b.prev_hours) ? 1 : -1},
+                                    sortFunction: (a, b) => {return durationStrAsSeconds(a.q2) > durationStrAsSeconds(b.q2) ? 1 : -1},
                                     cell: row => <div>
                                         <HiCheck
                                             size={25}
                                             className={
-                                                (durationStrAsSeconds(row.activity_requirement) !== 0 && durationStrAsSeconds(row.prev_hours) >= durationStrAsSeconds(row.activity_requirement)
-                                                    ? 'fill-green'
-                                                    : 'fill-transparent'
+                                                (durationStrAsSeconds(row.activity_requirement) !== 0 && durationStrAsSeconds(row.q2) >= durationStrAsSeconds(row.activity_requirement)
+                                                        ? 'fill-green'
+                                                        : 'fill-transparent'
                                                 ) + ' mr-2'
                                             }
                                         />
-                                        {formatDurationStr(row.prev_hours)}
+                                        {formatDurationStr(row.q2)}
                                     </div>,
                                     minWidth: '150px',
                                 },
                                 {
-                                    name: format(new Date(new Date().getUTCFullYear(), new Date().getUTCMonth()), 'MMMM'),
-                                    selector: 'curr_hours',
+                                    name: `Q3 ${new Date().getUTCFullYear()}`,
+                                    selector: 'q3',
                                     sortable: true,
-                                    sortFunction: (a, b) => {return durationStrAsSeconds(a.curr_hours) > durationStrAsSeconds(b.curr_hours) ? 1 : -1},
+                                    sortFunction: (a, b) => {return durationStrAsSeconds(a.q3) > durationStrAsSeconds(b.q3) ? 1 : -1},
                                     cell: row => <div>
                                         <HiCheck
                                             size={25}
                                             className={
-                                                (durationStrAsSeconds(row.activity_requirement) !== 0 && durationStrAsSeconds(row.curr_hours) >= durationStrAsSeconds(row.activity_requirement)
-                                                    ? 'fill-green'
-                                                    : 'fill-transparent'
+                                                (durationStrAsSeconds(row.activity_requirement) !== 0 && durationStrAsSeconds(row.q3) >= durationStrAsSeconds(row.activity_requirement)
+                                                        ? 'fill-green'
+                                                        : 'fill-transparent'
                                                 ) + ' mr-2'
                                             }
                                         />
-                                        {formatDurationStr(row.curr_hours)}
+                                        {formatDurationStr(row.q3)}
+                                    </div>,
+                                    minWidth: '150px',
+                                },
+                                {
+                                    name: `Q4 ${new Date().getUTCFullYear()}`,
+                                    selector: 'q4',
+                                    sortable: true,
+                                    sortFunction: (a, b) => {return durationStrAsSeconds(a.q4) > durationStrAsSeconds(b.q4) ? 1 : -1},
+                                    cell: row => <div>
+                                        <HiCheck
+                                            size={25}
+                                            className={
+                                                (durationStrAsSeconds(row.activity_requirement) !== 0 && durationStrAsSeconds(row.q4) >= durationStrAsSeconds(row.activity_requirement)
+                                                        ? 'fill-green'
+                                                        : 'fill-transparent'
+                                                ) + ' mr-2'
+                                            }
+                                        />
+                                        {formatDurationStr(row.q4)}
                                     </div>,
                                     minWidth: '150px',
                                 },
