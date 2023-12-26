@@ -9,6 +9,7 @@ const isLoggedIn = (token: JWT | null) => token !== null;
 const ROUTE_AUTH_MAP: {re: RegExp, verify: (token: JWT | null) => boolean }[] = [
     // Need to be staff
     { re: /\/admin(\/(.*))?/, verify: isStaff },
+    { re: /\/events\/presets/, verify: isStaff },
     // Need to be training staff
     { re: /\/training\/mentor/, verify: isTrainingStaff },
     { re: /\/training\/profile/, verify: isTrainingStaff },

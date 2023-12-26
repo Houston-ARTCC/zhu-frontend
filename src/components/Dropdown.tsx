@@ -30,7 +30,7 @@ export const Dropdown: React.FC<DropdownProps> = ({ title, className, menuClassN
         </DropdownToggle>
         <div
             className={classNames(
-                'absolute left-1/2 mt-3 flex w-40 -translate-x-1/2 flex-col rounded-md bg-white py-1 shadow',
+                'absolute left-1/2 mt-3 flex w-40 -translate-x-1/2 flex-col rounded-md bg-white py-1 shadow z-10',
                 'invisible active:visible peer-focus:visible',
                 menuClassName,
             )}
@@ -49,7 +49,14 @@ export const DropdownItem: React.FC<LinkProps> = ({ className, children, ...prop
 );
 
 export const DropdownButton: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({ className, children, ...props }) => (
-    <button type="button" className={classNames('px-5 py-1 whitespace-nowrap text-gray-900 text-left', className)} {...props}>
+    <button
+        type="button"
+        className={classNames(
+            'px-5 py-1 flex items-center gap-2 whitespace-nowrap text-gray-900 text-left',
+            className,
+        )}
+        {...props}
+    >
         {children}
     </button>
 );

@@ -49,3 +49,14 @@ export type EventScore = {
         feedback: { rating: number }[];
     }
 };
+
+export type PresetPosition = {
+    callsign: string;
+    shifts: number;
+}
+
+export type PositionPreset = {
+    id: number;
+    name: string;
+    positions: PresetPosition[];
+}
