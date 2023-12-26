@@ -15,7 +15,7 @@ const metadata = { title: 'Resources' };
 async function getResources(): Promise<ResourceData> {
     return fetchApi(
         '/resources/',
-        { cache: 'no-cache' },
+        { cache: 'no-store' },
     );
 }
 

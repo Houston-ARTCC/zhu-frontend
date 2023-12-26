@@ -48,10 +48,7 @@ export const sessionSchema = z.object({
             && level.label === object.label
         ))),
 
-    movements: z.string()
-        .min(1, 'Required')
-        .or(z.number())
-        .pipe(z.coerce.number().nonnegative('May not be negative')),
+    movements: z.number().nonnegative('May not be negative'),
 
     position: z.string().optional(),
 

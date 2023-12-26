@@ -40,7 +40,7 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
             level: sessionLevels.find(({ value }) => value === session.level),
             ots_status: otsStatuses.find(({ value }) => value === session.ots_status),
             progress: progress.find(({ value }) => value === session.progress),
-            movements: session.movements ?? undefined,
+            movements: session.movements ?? 0,
             position: session.position ?? undefined,
             solo_granted: session.solo_granted,
             notes: session.notes ?? undefined,
@@ -188,7 +188,7 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
                         )}
                     />
                     <TextInput
-                        {...register('movements')}
+                        {...register('movements', { valueAsNumber: true })}
                         className="col-span-2"
                         label="Movements"
                         type="number"
