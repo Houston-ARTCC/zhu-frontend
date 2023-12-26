@@ -1,14 +1,18 @@
 import { type ReactNode } from 'react';
-import parse from 'react-html-parser';
+import parse from 'html-react-parser';
+import { ElementType } from 'domelementtype';
 
 export const parseHtml = (source: string): ReactNode => (
     parse(
         source,
         {
             // eslint-disable-next-line consistent-return
-            transform: (node) => {
+            replace: (node) => {
                 // Gets rid of excessive whitespace when <br> tags are inserted.
-                if (node.type === 'tag' && node.children.length === 1 && node.children[0].name === 'br') {
+                if (
+                    node.type === ElementType.Tag && node.children.length === 1
+                    && node.children[0].type === ElementType.Tag && node.children[0].name === 'br'
+                ) {
                     return null;
                 }
             },
