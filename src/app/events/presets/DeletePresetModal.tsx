@@ -24,8 +24,8 @@ export const DeletePresetModal: React.FC<DeletePresetModalProps> = ({ preset, sh
         toast.promise(
             fetchApi(`/events/presets/${preset.id}/`, { method: 'DELETE' }),
             {
-                pending: 'Cancelling session',
-                success: 'Successfully cancelled',
+                pending: 'Deleting preset',
+                success: 'Successfully deleted',
                 error: 'Something went wrong, check console for more info',
             },
         )
