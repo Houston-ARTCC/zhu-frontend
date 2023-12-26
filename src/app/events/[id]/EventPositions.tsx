@@ -9,17 +9,19 @@ import { ShiftRequestButton } from './ShiftRequestButton';
 
 interface EventShiftInfoProps {
     index: number;
+    preventSignup: boolean;
     position: EventPosition;
     shift: EventShift;
 }
 
-const EventShiftInfo: React.FC<EventShiftInfoProps> = async ({ index, position, shift }) => {
+const EventShiftInfo: React.FC<EventShiftInfoProps> = async ({ index, preventSignup, position, shift }) => {
     const session = await getServerSession(authOptions);
 
     return (
         <Popover
             className={classNames(
-                'grow basis-0 border-r-2 border-neutral-100 first:rounded-l-md last:rounded-r-md last:border-r-0',
+                'grow basis-0 min-w-0 px-1.5',
+                'border-r-2 border-neutral-100 first:rounded-l-md last:rounded-r-md last:border-r-0',
                 { 'bg-green-400': shift.user, 'bg-gray-200': !shift.user },
             )}
             title={(
@@ -35,10 +37,13 @@ const EventShiftInfo: React.FC<EventShiftInfoProps> = async ({ index, position, 
                 </span>
             )}
         >
-            <div className="flex h-6 items-center justify-center text-sm">
+            <div className={classNames(
+                'flex h-6 items-center justify-center text-sm font-medium',
+                { 'text-green-50': shift.user },
+            )}>
                 {shift.user
                     ? `${shift.user.first_name} ${shift.user.last_name}`
-                    : (session && session.user.is_member)
+                    : (session && session.user.is_member && !preventSignup)
                         ? (
                             <ShiftRequestButton
                                 shift={shift}
@@ -54,9 +59,10 @@ const EventShiftInfo: React.FC<EventShiftInfoProps> = async ({ index, position, 
 interface EventPositionsProps {
     label: string;
     positions: EventPosition[];
+    preventSignup: boolean;
 }
 
-export const EventPositions: React.FC<EventPositionsProps> = ({ label, positions }) => (
+export const EventPositions: React.FC<EventPositionsProps> = ({ label, positions, preventSignup }) => (
     <div>
         <h3 className="mb-3 text-2xl font-bold">{label}</h3>
         <div className="flex flex-col gap-4">
@@ -67,6 +73,7 @@ export const EventPositions: React.FC<EventPositionsProps> = ({ label, positions
                         {position.shifts.map((shift, i) => (
                             <EventShiftInfo
                                 key={shift.id}
+                                preventSignup={preventSignup}
                                 index={i + 1}
                                 position={position}
                                 shift={shift}

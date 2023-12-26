@@ -4,3 +4,7 @@ export type Paginated<T> = {
     previous: string | null;
     results: T[];
 }
+
+export interface SchemaError {
+    non_field_errors?: [string];
+}

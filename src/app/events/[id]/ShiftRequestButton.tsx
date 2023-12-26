@@ -25,11 +25,7 @@ export const ShiftRequestButton: React.FC<ShiftRequestButtonProps> = ({ shift, r
     }, [shift, requested]);
 
     return (
-        <button
-            className="h-full w-full text-center"
-            onClick={toggleRequest}
-            type="button"
-        >
+        <button className="h-full w-full text-center" onClick={toggleRequest} type="button">
             {requested ? 'Unrequest' : 'Request'}
         </button>
     );

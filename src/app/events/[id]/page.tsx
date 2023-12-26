@@ -1,15 +1,15 @@
 import React from 'react';
-import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { type NextPage } from 'next';
-import { LuEdit2, LuEyeOff, LuFolderClosed } from 'react-icons/lu';
-import { format } from 'date-fns-tz';
+import { notFound } from 'next/navigation';
 import { formatDistance } from 'date-fns';
+import { format } from 'date-fns-tz';
+import { type NextPage } from 'next';
 import { getServerSession } from 'next-auth';
+import { LuEdit2, LuEyeOff, LuFolderClosed } from 'react-icons/lu';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { Button } from '@/components/Button';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
-import { Button } from '@/components/Button';
 import { fetchApi } from '@/utils/fetch';
 import { type Event } from '@/types/events';
 import { EventPositions } from './EventPositions';
@@ -80,7 +80,9 @@ const ViewEvent: NextPage<EventParams> = async ({ params }) => {
                             </div>
                             <div>
                                 <h4 className="text-xl font-bold">Time Until Event</h4>
-                                <h5 className="text-lg">{formatTimeUntilEvent(new Date(event.start), new Date(event.end))}</h5>
+                                <h5 className="text-lg">
+                                    {formatTimeUntilEvent(new Date(event.start), new Date(event.end))}
+                                </h5>
                             </div>
                         </div>
                         <p>{event.description}</p>
@@ -98,9 +100,21 @@ const ViewEvent: NextPage<EventParams> = async ({ params }) => {
                     <img src={event.banner} alt={event.name} />
                 </div>
                 <div className="grid grid-cols-3 gap-5">
-                    <EventPositions label="Enroute" positions={event.positions.enroute} />
-                    <EventPositions label="TRACON" positions={event.positions.tracon} />
-                    <EventPositions label="Local" positions={event.positions.local} />
+                    <EventPositions
+                        label="Enroute"
+                        positions={event.positions.enroute}
+                        preventSignup={event.archived}
+                    />
+                    <EventPositions
+                        label="TRACON"
+                        positions={event.positions.tracon}
+                        preventSignup={event.archived}
+                    />
+                    <EventPositions
+                        label="Local"
+                        positions={event.positions.local}
+                        preventSignup={event.archived}
+                    />
                 </div>
             </PageContent>
         </Page>

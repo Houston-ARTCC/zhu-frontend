@@ -1,4 +1,4 @@
-import React, { type ButtonHTMLAttributes, type HTMLProps, type RefAttributes } from 'react';
+import React, { type ButtonHTMLAttributes, type HTMLProps, ReactNode, type RefAttributes } from 'react';
 import Link, { type LinkProps as InternalLinkProps } from 'next/link';
 import classNames from 'classnames';
 import { LuChevronDown } from 'react-icons/lu';
@@ -13,8 +13,8 @@ export const DropdownToggle: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> =
     </button>
 );
 
-interface DropdownProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    title: string;
+interface DropdownProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'title'> {
+    title: ReactNode;
     menuClassName?: string;
 }
 
