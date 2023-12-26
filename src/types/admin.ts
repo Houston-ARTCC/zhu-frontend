@@ -1,6 +1,6 @@
 import { type AuthenticatedBasicUser, type BasicUser } from '@/types/users';
 
-export type LoaRequest = {
+export type LeaveOfAbsence = {
     id: number;
     user: BasicUser;
     start: string;

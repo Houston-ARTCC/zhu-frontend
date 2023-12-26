@@ -41,7 +41,7 @@ const AdminLayout: React.FC<PropsWithChildren> = async ({ children }) => {
                             {
                                 title: 'Roster',
                                 members: [
-                                    { title: 'Find User', route: 'user' },
+                                    { title: 'Active LOAs', route: 'loa' },
                                     { title: 'Roster Purge', route: 'purge' },
                                     { title: 'Event Scores', route: 'scores' },
                                 ],
@@ -51,22 +51,22 @@ const AdminLayout: React.FC<PropsWithChildren> = async ({ children }) => {
                                 members: [
                                     {
                                         title: 'LOA Requests',
-                                        route: 'loa',
+                                        route: 'queue/loa',
                                         alerts: notifications.loa_requests,
                                     },
                                     {
                                         title: 'Visiting Requests',
-                                        route: 'visit',
+                                        route: 'queue/visit',
                                         alerts: notifications.visiting_applications,
                                     },
                                     {
                                         title: 'Pending Feedback',
-                                        route: 'feedback',
+                                        route: 'queue/feedback',
                                         alerts: notifications.pending_feedback,
                                     },
                                     {
                                         title: 'Event Support',
-                                        route: 'events',
+                                        route: 'queue/events',
                                         alerts: notifications.support_requests,
                                     },
                                 ],

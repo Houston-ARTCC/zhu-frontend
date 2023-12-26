@@ -1,5 +1,5 @@
 /* eslint-disable */
-import NextAuth, { type Account } from 'next-auth';
+import { type Account } from 'next-auth';
 
 type UserId = {
     first_name: string;

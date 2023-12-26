@@ -31,6 +31,11 @@ export type Statistics = {
     mavp: UserStatistic[];
 };
 
+export type AdminStatistics = {
+    month: number;
+    year: number;
+}
+
 export type OnlineConnection = {
     id: number;
     user: BasicUser;
