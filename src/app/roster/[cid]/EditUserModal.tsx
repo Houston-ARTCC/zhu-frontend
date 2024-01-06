@@ -4,14 +4,14 @@ import React, { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { LuUserCog } from 'react-icons/lu';
+import { LuPlusCircle, LuUserCog } from 'react-icons/lu';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { SelectInput, TextInput, ToggleInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
-import { CertDropdown } from '@/components/ProfileBadges';
 import { fetchApi } from '@/utils/fetch';
 import { type AuthenticatedUser } from '@/types/users';
+import { ToggleEndorsementButton } from './ToggleEndorsementButton';
 import { type EditUserFormValues, editUserSchema, roles } from './editUserSchema';
 
 interface EditUserModalProps extends ModalProps {
@@ -63,7 +63,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                         error={errors.last_name?.message}
                     />
                     <TextInput readOnly label="CID" value={user.cid} />
-                    <TextInput readOnly label="Rating" value={user.rating.long} />
+                    <TextInput readOnly label="Rating" value={user.rating.short} />
                 </div>
                 <div className="grid grid-cols-6 gap-3">
                     <TextInput
@@ -117,62 +117,143 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
 
                 <hr className="my-5" />
 
-                <div className="mb-12 grid grid-cols-5">
-                    <div className="flex flex-col items-center gap-2">
-                        <p className="font-medium">Delivery</p>
+                <div className="mb-5 grid grid-cols-[auto_1fr] gap-x-5 gap-y-3">
+                    <div />
+                    <small className="flex items-center gap-1 text-slate-400">
+                        Click endorsements to toggle. Click <LuPlusCircle className="inline" /> to add solo endorsement.
+                    </small>
+                    <p className="text-right font-medium">Delivery + Ground</p>
+                    <div className="flex gap-2">
                         <Controller
-                            name="del_cert"
+                            name="endorsements.del"
                             control={control}
                             render={({ field: { value, onChange } }) => (
-                                <CertDropdown cert={value} onUpdate={onChange} />
+                                <ToggleEndorsementButton
+                                    name="DEL"
+                                    status={value}
+                                    onUpdate={onChange}
+                                />
+                            )}
+                        />
+                        <Controller
+                            name="endorsements.gnd"
+                            control={control}
+                            render={({ field: { value, onChange } }) => (
+                                <ToggleEndorsementButton
+                                    name="GND"
+                                    status={value}
+                                    onUpdate={onChange}
+                                />
+                            )}
+                        />
+                        <Controller
+                            name="endorsements.hou_gnd"
+                            control={control}
+                            render={({ field: { value, onChange } }) => (
+                                <ToggleEndorsementButton
+                                    specialized
+                                    name="HOU GND T1"
+                                    status={value}
+                                    onUpdate={onChange}
+                                />
+                            )}
+                        />
+                        <Controller
+                            name="endorsements.iah_gnd"
+                            control={control}
+                            render={({ field: { value, onChange } }) => (
+                                <ToggleEndorsementButton
+                                    specialized
+                                    name="IAH GND T1"
+                                    status={value}
+                                    onUpdate={onChange}
+                                />
                             )}
                         />
                     </div>
-                    <div className="flex flex-col items-center gap-2">
-                        <p className="font-medium">Ground</p>
+                    <p className="text-right font-medium">Local</p>
+                    <div className="flex gap-2">
                         <Controller
-                            name="gnd_cert"
+                            name="endorsements.twr"
                             control={control}
                             render={({ field: { value, onChange } }) => (
-                                <CertDropdown cert={value} onUpdate={onChange} />
+                                <ToggleEndorsementButton
+                                    name="TWR"
+                                    status={value}
+                                    onUpdate={onChange}
+                                />
+                            )}
+                        />
+                        <Controller
+                            name="endorsements.hou_twr"
+                            control={control}
+                            render={({ field: { value, onChange } }) => (
+                                <ToggleEndorsementButton
+                                    specialized
+                                    name="HOU TWR T1"
+                                    status={value}
+                                    onUpdate={onChange}
+                                />
+                            )}
+                        />
+                        <Controller
+                            name="endorsements.iah_twr"
+                            control={control}
+                            render={({ field: { value, onChange } }) => (
+                                <ToggleEndorsementButton
+                                    specialized
+                                    name="IAH TWR T1"
+                                    status={value}
+                                    onUpdate={onChange}
+                                />
                             )}
                         />
                     </div>
-                    <div className="flex flex-col items-center gap-2">
-                        <p className="font-medium">Tower</p>
+                    <p className="text-right font-medium">Approach</p>
+                    <div className="flex gap-2">
                         <Controller
-                            name="twr_cert"
+                            name="endorsements.app"
                             control={control}
                             render={({ field: { value, onChange } }) => (
-                                <CertDropdown cert={value} onUpdate={onChange} />
+                                <ToggleEndorsementButton
+                                    name="APP"
+                                    status={value}
+                                    onUpdate={onChange}
+                                />
+                            )}
+                        />
+                        <Controller
+                            name="endorsements.i90_app"
+                            control={control}
+                            render={({ field: { value, onChange } }) => (
+                                <ToggleEndorsementButton
+                                    specialized
+                                    name="I90 APP T1"
+                                    status={value}
+                                    onUpdate={onChange}
+                                />
                             )}
                         />
                     </div>
-                    <div className="flex flex-col items-center gap-2">
-                        <p className="font-medium">Approach</p>
+                    <p className="text-right font-medium">Center</p>
+                    <div className="flex gap-2">
                         <Controller
-                            name="app_cert"
+                            name="endorsements.zhu"
                             control={control}
                             render={({ field: { value, onChange } }) => (
-                                <CertDropdown cert={value} onUpdate={onChange} />
-                            )}
-                        />
-                    </div>
-                    <div className="flex flex-col items-center gap-2">
-                        <p className="font-medium">Center</p>
-                        <Controller
-                            name="ctr_cert"
-                            control={control}
-                            render={({ field: { value, onChange } }) => (
-                                <CertDropdown cert={value} onUpdate={onChange} />
+                                <ToggleEndorsementButton
+                                    specialized
+                                    name="ZHU"
+                                    status={value}
+                                    onUpdate={onChange}
+                                />
                             )}
                         />
                     </div>
                 </div>
-
                 <div className="flex justify-end gap-3">
                     <Button className="bg-slate-300 shadow-slate-300/25" onClick={close}>
-                        Close
+                        Cancel
                     </Button>
                     <Button type="submit" disabled={isSubmitting}>
                         Submit

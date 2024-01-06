@@ -1,10 +1,10 @@
 import React from 'react';
-import { type NextPage } from 'next';
+import type { NextPage } from 'next';
+import { RosterTable } from '@/app/roster/RosterTable';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
 import { fetchApi } from '@/utils/fetch';
-import { type Roster } from '@/types/users';
-import { RosterOptions } from './RosterOptions';
+import type { Roster } from '@/types/users';
 
 export const metadata = { title: 'Controller Roster' };
 
@@ -21,7 +21,7 @@ const RosterPage: NextPage = async () => {
     return (
         <Page {...metadata}>
             <PageContent>
-                <RosterOptions data={roster} />
+                <RosterTable data={roster} />
             </PageContent>
         </Page>
     );

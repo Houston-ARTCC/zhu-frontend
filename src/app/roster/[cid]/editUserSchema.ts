@@ -55,11 +55,18 @@ export const editUserSchema = z.object({
     prevent_event_signup: z.boolean(),
     cic_endorsed: z.boolean(),
 
-    del_cert: z.number(),
-    gnd_cert: z.number(),
-    twr_cert: z.number(),
-    app_cert: z.number(),
-    ctr_cert: z.number(),
+    endorsements: z.object({
+        del: z.boolean().or(z.string()),
+        gnd: z.boolean().or(z.string()),
+        hou_gnd: z.boolean().or(z.string()),
+        iah_gnd: z.boolean().or(z.string()),
+        twr: z.boolean().or(z.string()),
+        hou_twr: z.boolean().or(z.string()),
+        iah_twr: z.boolean().or(z.string()),
+        app: z.boolean().or(z.string()),
+        i90_app: z.boolean().or(z.string()),
+        zhu: z.boolean().or(z.string()),
+    }),
 });
 
 export type EditUserFormValues = z.infer<typeof editUserSchema>;

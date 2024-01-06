@@ -3,6 +3,19 @@ export type Role = {
     long: string;
 };
 
+export type Endorsements = {
+    del: boolean | string;
+    gnd: boolean | string;
+    hou_gnd: boolean | string;
+    iah_gnd: boolean | string;
+    twr: boolean | string;
+    hou_twr: boolean | string;
+    iah_twr: boolean | string;
+    app: boolean | string;
+    i90_app: boolean | string;
+    zhu: boolean | string;
+};
+
 export type BasicUser = {
     cid: number;
     first_name: string;
@@ -30,12 +43,7 @@ export type User = {
     status: number;
     initials: string;
     joined: string;
-    del_cert: 0 | 1 | 2 | 3;
-    gnd_cert: 0 | 1 | 2 | 3;
-    twr_cert: 0 | 1 | 2 | 3;
-    app_cert: 0 | 1 | 2 | 3;
-    ctr_cert: 0 | 1 | 2 | 3;
-    solo_facility?: string;
+    endorsements: Endorsements;
     cic_endorsed: boolean;
 };
 

@@ -33,7 +33,7 @@ export const ProfilePicture: React.FC<ProfilePictureProps> = ({ user, size, alt 
                 style={{
                     width: size,
                     height: size,
-                    fontSize: Math.sqrt(size) * 3,
+                    fontSize: size / 2,
                 }}
             >
                 <span className="font-medium text-slate-600">{user.initials}</span>

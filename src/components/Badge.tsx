@@ -1,5 +1,4 @@
-import { type HTMLProps } from 'react';
-import React from 'react';
+import React, { type HTMLProps } from 'react';
 import classNames from 'classnames';
 
 interface BadgeProps extends HTMLProps<HTMLDivElement> {
@@ -9,7 +8,7 @@ interface BadgeProps extends HTMLProps<HTMLDivElement> {
 export const Badge: React.FC<BadgeProps> = ({ small = false, className, children }) => (
     <div
         className={classNames(
-            'flex shrink-0 justify-center bg-sky-500 shadow-sky-500/25',
+            'flex shrink-0 justify-center items-center bg-sky-500 shadow-sky-500/25',
             'font-semibold text-white whitespace-nowrap',
             {
                 'min-w-[8rem] rounded-md text-sm py-1 px-3 shadow-sm': !small,

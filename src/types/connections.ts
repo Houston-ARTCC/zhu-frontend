@@ -1,4 +1,4 @@
-import { type BasicUser } from '@/types/users';
+import { type BasicUser, Roster } from '@/types/users';
 
 export type Session = {
     id: number;
@@ -25,11 +25,7 @@ export type UserStatistic = {
     activity_requirement: string;
 };
 
-export type Statistics = {
-    home: UserStatistic[];
-    visiting: UserStatistic[];
-    mavp: UserStatistic[];
-};
+export type Statistics = Roster<UserStatistic>;
 
 export type AdminStatistics = {
     month: number;
