@@ -86,24 +86,26 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                     name: 'CID',
                     selector: (user) => user.cid,
                     sortable: true,
+                    width: '20%',
                 },
                 {
                     name: 'Rating',
                     selector: (user) => user.rating.short,
                     sortFunction: (a, b) => ratingToInt(b.rating.short) - ratingToInt(a.rating.short),
                     sortable: true,
+                    width: '10%',
                 },
                 {
                     name: 'Minor',
                     sortable: true,
                     sortFunction: sortMinor,
                     cell: (user) => {
-                        if (user.endorsements.app) return <EndorsementBadge name="APP" status={user.endorsements.app} />;
-                        if (user.endorsements.twr) return <EndorsementBadge name="TWR" status={user.endorsements.twr} />;
-                        if (user.endorsements.gnd) return <EndorsementBadge name="GND" status={user.endorsements.gnd} />;
-                        return <EndorsementBadge name="DEL" status={user.endorsements.del} />;
+                        if (user.endorsements.app) return <EndorsementBadge tier={0} name="APP" status={user.endorsements.app} />;
+                        if (user.endorsements.twr) return <EndorsementBadge tier={0} name="TWR" status={user.endorsements.twr} />;
+                        if (user.endorsements.gnd) return <EndorsementBadge tier={0} name="GND" status={user.endorsements.gnd} />;
+                        return <EndorsementBadge tier={0} name="DEL" status={user.endorsements.del} />;
                     },
-                    width: '120px',
+                    width: '110px',
                     center: true,
                 },
                 {
@@ -111,10 +113,11 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                     sortable: true,
                     sortFunction: sortHOU,
                     cell: (user) => {
-                        if (user.endorsements.hou_twr) return <EndorsementBadge specialized name="HOU TWR T1" status={user.endorsements.hou_twr} />;
-                        return <EndorsementBadge specialized name="HOU GND T1" status={user.endorsements.hou_gnd} />;
+                        if (user.endorsements.hou_twr) return <EndorsementBadge tier={1} name="HOU TWR T1" status={user.endorsements.hou_twr} />;
+                        if (user.endorsements.hou_gnd) return <EndorsementBadge tier={1} name="HOU GND T1" status={user.endorsements.hou_gnd} />;
+                        return <EndorsementBadge tier={1} name="HOU T1" status={false} />;
                     },
-                    width: '120px',
+                    width: '110px',
                     center: true,
                 },
                 {
@@ -122,26 +125,30 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                     sortable: true,
                     sortFunction: sortIAH,
                     cell: (user) => {
-                        if (user.endorsements.hou_twr) return <EndorsementBadge specialized name="IAH TWR T1" status={user.endorsements.iah_twr} />;
-                        return <EndorsementBadge specialized name="IAH GND T1" status={user.endorsements.iah_gnd} />;
+                        if (user.endorsements.iah_twr) return <EndorsementBadge tier={1} name="IAH TWR T1" status={user.endorsements.iah_twr} />;
+                        if (user.endorsements.iah_gnd) return <EndorsementBadge tier={1} name="IAH GND T1" status={user.endorsements.iah_gnd} />;
+                        return <EndorsementBadge tier={1} name="IAH T1" status={false} />;
                     },
-                    width: '120px',
+                    width: '110px',
                     center: true,
                 },
                 {
                     name: 'I90',
                     sortable: true,
                     sortFunction: sortI90,
-                    cell: (user) => <EndorsementBadge specialized name="I90 APP T1" status={user.endorsements.i90_app} />,
-                    width: '120px',
+                    cell: (user) => {
+                        if (user.endorsements.i90_app) return <EndorsementBadge tier={1} name="I90 APP T1" status={user.endorsements.i90_app} />;
+                        return <EndorsementBadge tier={1} name="I90 T1" status={false} />;
+                    },
+                    width: '110px',
                     center: true,
                 },
                 {
                     name: 'ZHU',
                     sortable: true,
                     sortFunction: sortZHU,
-                    cell: (user) => <EndorsementBadge specialized name="ZHU" status={user.endorsements.zhu} />,
-                    width: '120px',
+                    cell: (user) => <EndorsementBadge tier={2} name="ZHU" status={user.endorsements.zhu} />,
+                    width: '110px',
                     center: true,
                 },
             ]}

@@ -13,12 +13,11 @@ interface RosterOptionsProps<T extends BasicUser> {
 
 export const RosterOptions = <T extends BasicUser>({ data, component: Component }: RosterOptionsProps<T>) => {
     const [searchString, setSearchString] = useState<string>('');
-    const [filter, setFilter] = useState<'home' | 'visiting' | 'mavp' | 'all'>('home');
+    const [filter, setFilter] = useState<'home' | 'visiting' | 'all'>('home');
 
     const controllers = useMemo(() => {
         if (filter === 'home') return data.home;
         if (filter === 'visiting') return data.visiting;
-        if (filter === 'mavp') return data.mavp;
         return data.home.concat(data.visiting).concat(data.mavp);
     }, [data, filter]);
 
@@ -54,16 +53,6 @@ export const RosterOptions = <T extends BasicUser>({ data, component: Component 
                         onClick={() => setFilter('visiting')}
                     >
                         Visiting
-                    </Button>
-                    <Button
-                        className={classNames(
-                            'py-0.5 transition-colors duration-150',
-                            { '!bg-white !text-gray-500': filter !== 'mavp' },
-                        )}
-                        variant="secondary"
-                        onClick={() => setFilter('mavp')}
-                    >
-                        MAVP
                     </Button>
                     <Button
                         className={classNames(

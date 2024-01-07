@@ -4,21 +4,22 @@ import { Badge } from '@/components/Badge';
 import type { Role } from '@/types/users';
 
 export interface EndorsementBadgeProps extends PropsWithChildren {
-    specialized?: boolean;
+    tier: 0 | 1 | 2;
     name: string;
     status: boolean | string;
 }
 
-export const EndorsementBadge: React.FC<EndorsementBadgeProps> = ({ specialized = false, name, status, children }) => (
+export const EndorsementBadge: React.FC<EndorsementBadgeProps> = ({ tier, name, status, children }) => (
     <Badge
         small
         className={classNames(
             'w-24 rounded-full transition-colors duration-150 relative h-6',
             {
                 '!bg-gray-300 !shadow-gray-300/25': status === false,
-                '!bg-green-400 !shadow-green-400/25': status === true && !specialized,
-                '!bg-green-600 !shadow-green-600/25': status === true && specialized,
-                '!bg-teal-400 !shadow-teal-400/25': status !== false && status !== true,
+                '!bg-emerald-400 !shadow-emerald-400/25': status === true && tier === 0,
+                '!bg-emerald-600 !shadow-emerald-600/25': status === true && tier === 1,
+                '!bg-emerald-700 !shadow-emerald-700/25': status === true && tier === 2,
+                '!bg-cyan-400 !shadow-cyan-400/25': status !== false && status !== true,
             },
         )}
     >

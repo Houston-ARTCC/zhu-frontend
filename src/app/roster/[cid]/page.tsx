@@ -68,7 +68,7 @@ const UserProfile: NextPage<UserProfileParams> = async ({ params }) => {
             <PageContent>
                 <div className="grid grid-cols-2 gap-10">
                     <div>
-                        <div className="mb-10 flex items-start gap-5">
+                        <div className="mb-12 flex items-start gap-5">
                             <div className="flex flex-col items-center gap-5">
                                 <ProfilePicture user={user} size={150} />
                                 {session?.user.is_staff && (
@@ -90,34 +90,35 @@ const UserProfile: NextPage<UserProfileParams> = async ({ params }) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="mb-10">
-                            <Heatmap data={statistics} />
+                        <div className="mb-12">
+                            <h3 className="mb-5 text-2xl font-medium">Endorsements</h3>
+                            <div className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-3">
+                                <p className="text-right font-medium">Delivery + Ground</p>
+                                <div className="flex gap-2">
+                                    <EndorsementBadge tier={0} name="DEL" status={user.endorsements.del} />
+                                    <EndorsementBadge tier={0} name="GND" status={user.endorsements.gnd} />
+                                    <EndorsementBadge tier={1} name="HOU GND T1" status={user.endorsements.hou_gnd} />
+                                    <EndorsementBadge tier={1} name="IAH GND T1" status={user.endorsements.iah_gnd} />
+                                </div>
+                                <p className="text-right font-medium">Local</p>
+                                <div className="flex gap-2">
+                                    <EndorsementBadge tier={0} name="TWR" status={user.endorsements.twr} />
+                                    <EndorsementBadge tier={1} name="HOU TWR T1" status={user.endorsements.hou_twr} />
+                                    <EndorsementBadge tier={1} name="IAH TWR T1" status={user.endorsements.iah_twr} />
+                                </div>
+                                <p className="text-right font-medium">Approach</p>
+                                <div className="flex gap-2">
+                                    <EndorsementBadge tier={0} name="APP" status={user.endorsements.app} />
+                                    <EndorsementBadge tier={1} name="I90 T1" status={user.endorsements.i90_app} />
+                                </div>
+                                <p className="text-right font-medium">Center</p>
+                                <div className="flex gap-2">
+                                    <EndorsementBadge tier={2} name="ZHU" status={user.endorsements.zhu} />
+                                </div>
+                            </div>
                         </div>
-                        <h3 className="mb-3 text-2xl font-medium">Endorsements</h3>
-                        <div className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-3">
-                            <p className="text-right font-medium">Delivery + Ground</p>
-                            <div className="flex gap-2">
-                                <EndorsementBadge name="DEL" status={user.endorsements.del} />
-                                <EndorsementBadge name="GND" status={user.endorsements.gnd} />
-                                <EndorsementBadge specialized name="HOU GND T1" status={user.endorsements.hou_gnd} />
-                                <EndorsementBadge specialized name="IAH GND T1" status={user.endorsements.iah_gnd} />
-                            </div>
-                            <p className="text-right font-medium">Local</p>
-                            <div className="flex gap-2">
-                                <EndorsementBadge name="TWR" status={user.endorsements.twr} />
-                                <EndorsementBadge specialized name="HOU TWR T1" status={user.endorsements.hou_twr} />
-                                <EndorsementBadge specialized name="IAH TWR T1" status={user.endorsements.iah_twr} />
-                            </div>
-                            <p className="text-right font-medium">Approach</p>
-                            <div className="flex gap-2">
-                                <EndorsementBadge name="APP" status={user.endorsements.app} />
-                                <EndorsementBadge specialized name="I90 T1" status={user.endorsements.i90_app} />
-                            </div>
-                            <p className="text-right font-medium">Center</p>
-                            <div className="flex gap-2">
-                                <EndorsementBadge specialized name="ZHU" status={user.endorsements.zhu} />
-                            </div>
-                        </div>
+                        <h3 className="mb-5 text-2xl font-medium">Controlling Heatmap</h3>
+                        <Heatmap data={statistics} />
                     </div>
                     <div>
                         <Card>
