@@ -1,9 +1,10 @@
-export function durationToSeconds(duration: string): number {
-    if (duration == null || duration === '00:00:00') return 0;
+export function durationToSeconds(duration?: string): number {
+    if (!duration || duration === '00:00') return 0;
     const parts = duration.split(/[:.]/);
-    return parseInt(parts[0], 10) * 3600
+    return (
+        parseInt(parts[0], 10) * 3600
         + parseInt(parts[1], 10) * 60
-        + parseInt(parts[2], 10);
+    );
 }
 
 export function formatDuration(duration: string): string | null {

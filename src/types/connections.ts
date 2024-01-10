@@ -16,21 +16,30 @@ export type UserStatistic = {
     cid: number;
     first_name: string;
     last_name: string;
-    rating: string;
     initials: string;
-    is_staff: boolean;
-    curr_hours: string;
-    prev_hours: string;
-    prev_prev_hours: string;
-    activity_requirement: string;
+    rating: string;
+    month_1_hours?: string;
+    month_2_hours?: string;
+    month_3_hours?: string;
+    quarter_hours?: string;
+    quarter_active: boolean;
 };
 
 export type Statistics = Roster<UserStatistic>;
 
-export type AdminStatistics = {
-    month: number;
-    year: number;
-}
+export type AdminUserStatistic = UserStatistic & {
+    is_staff: boolean;
+    quarter_hou_t1_hours?: string;
+    quarter_iah_t1_hours?: string;
+    quarter_i90_t1_hours?: string;
+    quarter_t1_hours?: string;
+    quarter_t1_active: boolean;
+    training_hours?: string;
+    training_active: boolean;
+};
+
+export type AdminStatistics = Roster<AdminUserStatistic>;
+
 
 export type OnlineConnection = {
     id: number;

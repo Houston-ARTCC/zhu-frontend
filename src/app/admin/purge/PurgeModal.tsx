@@ -47,7 +47,10 @@ export const PurgeModal: React.FC<PurgeModalProps> = ({ users, show, close }) =>
             <form onSubmit={handleSubmit(deleteUsers)}>
                 <p className="mb-3">
                     Confirming this action will automatically remove the following users from both the
-                    Houston ARTCC and VATUSA rosters. <b>This action cannot be undone!</b>
+                    Houston ARTCC and VATUSA rosters.
+                </p>
+                <p className="mb-3">
+                    <b>This action cannot be undone!</b>
                 </p>
                 <ul className="mb-3">
                     {users.map((user) => (

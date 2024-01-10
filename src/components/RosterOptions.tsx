@@ -18,7 +18,7 @@ export const RosterOptions = <T extends BasicUser>({ data, component: Component 
     const controllers = useMemo(() => {
         if (filter === 'home') return data.home;
         if (filter === 'visiting') return data.visiting;
-        return data.home.concat(data.visiting).concat(data.mavp);
+        return data.home.concat(data.visiting);
     }, [data, filter]);
 
     const users = useMemo(() => (

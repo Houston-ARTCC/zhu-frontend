@@ -30,7 +30,9 @@ const StatisticsPage: NextPage = async () => {
     return (
         <Page {...metadata}>
             <PageContent>
-                <Heatmap data={aggregateStatistics} />
+                <div className="mb-12">
+                    <Heatmap data={aggregateStatistics} />
+                </div>
                 <StatisticsTable data={statistics} />
             </PageContent>
         </Page>

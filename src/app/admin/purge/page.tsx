@@ -2,11 +2,11 @@ import React from 'react';
 import { type NextPage } from 'next';
 import { PurgeTable } from '@/app/admin/purge/PurgeTable';
 import { fetchApi } from '@/utils/fetch';
-import { type Statistics } from '@/types/connections';
+import type { AdminStatistics } from '@/types/connections';
 
-async function getStatistics(): Promise<Statistics> {
+async function getStatistics(): Promise<AdminStatistics> {
     return fetchApi(
-        '/connections/statistics/',
+        '/connections/statistics/admin/',
         { next: { revalidate: 3600 } },
     );
 }

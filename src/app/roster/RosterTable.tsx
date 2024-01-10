@@ -81,19 +81,18 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                     sortable: true,
                     sortFunction: (a, b) => a.first_name.localeCompare(b.first_name) || a.last_name.localeCompare(b.last_name),
                     format: (user) => `${user.first_name} ${user.last_name} (${user.initials})`,
+                    width: '250px',
                 },
                 {
                     name: 'CID',
                     selector: (user) => user.cid,
                     sortable: true,
-                    width: '20%',
                 },
                 {
                     name: 'Rating',
                     selector: (user) => user.rating.short,
                     sortFunction: (a, b) => ratingToInt(b.rating.short) - ratingToInt(a.rating.short),
                     sortable: true,
-                    width: '10%',
                 },
                 {
                     name: 'Minor',

@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { Badge } from '@/components/Badge';
 import { dataTableStyle } from '@/utils/dataTableStyle';
 import { type LogEntry, LogEntryAction } from '@/types/admin';
+import { CgSpinner } from 'react-icons/cg';
 
 const LOG_ACTION_COLORS = ['!bg-green-400', '!bg-sky-500', '!bg-red-400'];
 
@@ -52,6 +53,7 @@ const ExpandedLogEntryRow: React.FC<ExpandedLogEntryRowProps> = ({ data }) => (
 );
 
 interface LogEntryTableProps {
+    loading: boolean;
     data: LogEntry[];
     totalEntries: number;
     pageSize: number;
@@ -59,9 +61,15 @@ interface LogEntryTableProps {
     setPageSize: (pageSize: number) => void;
 }
 
-export const LogEntryTable: React.FC<LogEntryTableProps> = ({ data, totalEntries, pageSize, setPage, setPageSize }) => (
+export const LogEntryTable: React.FC<LogEntryTableProps> = ({ loading, data, totalEntries, pageSize, setPage, setPageSize }) => (
     <DataTable
         data={data}
+        progressPending={loading}
+        progressComponent={(
+            <div className="flex justify-center">
+                <CgSpinner className="animate-spin text-darkblue" size={50} />
+            </div>
+        )}
         pagination
         paginationServer
         paginationTotalRows={totalEntries}

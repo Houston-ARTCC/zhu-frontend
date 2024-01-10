@@ -9,14 +9,14 @@ interface CertDropdownProps extends EndorsementBadgeProps {
     onUpdate: (status: boolean | string) => void;
 }
 
-export const ToggleEndorsementButton: React.FC<CertDropdownProps> = ({ specialized = false, name, status, onUpdate }) => {
+export const ToggleEndorsementButton: React.FC<CertDropdownProps> = ({ tier, name, status, onUpdate }) => {
     const [showSoloModal, setShowSoloModal] = useState<boolean>(false);
 
     return (
         <>
             <button type="button" onClick={() => onUpdate(status !== true)}>
-                <EndorsementBadge specialized={specialized} name={name} status={status}>
-                    {!specialized && (status === true || status === false) && (
+                <EndorsementBadge tier={tier} name={name} status={status}>
+                    {tier === 0 && (status === true || status === false) && (
                         <button
                             className="absolute left-1.5"
                             aria-label="Add Solo Endorsement"

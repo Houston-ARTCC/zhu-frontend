@@ -18,6 +18,17 @@ export const dataTableStyle = {
     headRow: {
         style: {
             backgroundColor: 'transparent',
+            fontSize: '1rem',
+        },
+    },
+    headCells: {
+        style: {
+            padding: '0 10px',
+        },
+    },
+    cells: {
+        style: {
+            padding: '0 10px',
         },
     },
     pagination: {

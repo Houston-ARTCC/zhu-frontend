@@ -1,133 +1,159 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { format } from 'date-fns-tz';
 import DataTable from 'react-data-table-component';
-import { LuChevronDown, LuUserX } from 'react-icons/lu';
-import { subMonths } from 'date-fns';
-import classNames from 'classnames';
+import { LuCheck, LuChevronDown, LuEye, LuUserX } from 'react-icons/lu';
+import { addMonths, getQuarter, startOfQuarter } from 'date-fns';
 import ReactDOM from 'react-dom';
-import { Button, ButtonGroup } from '@/components/Button';
-import { ControllerHours } from '@/components/ControllerHours';
+import classNames from 'classnames';
+import { Button } from '@/components/Button';
+import { RosterOptions } from '@/components/RosterOptions';
+import { ProfilePicture } from '@/components/ProfilePicture';
 import { dataTableStyle } from '@/utils/dataTableStyle';
-import { type Statistics, type UserStatistic } from '@/types/connections';
-import { ratingToInt } from '@/utils';
+import { durationToSeconds } from '@/utils/time';
+import type { AdminStatistics, AdminUserStatistic } from '@/types/connections';
 import { PurgeModal } from './PurgeModal';
 
-interface PurgeTableProps {
-    data: Statistics;
+interface PurgeViewProps {
+    data: AdminUserStatistic[];
 }
 
-export const PurgeTable: React.FC<PurgeTableProps> = ({ data }) => {
+export const PurgeView: React.FC<PurgeViewProps> = ({ data }) => {
+    const [showSelectedRows, setShowSelectedRows] = useState<boolean>(false);
     const [showPurgeModal, setShowPurgeModal] = useState<boolean>(false);
-    const [selectedRows, setSelectedRows] = useState<UserStatistic[]>([]);
-    const [filter, setFilter] = useState<'home' | 'visiting' | 'all'>('home');
 
-    const controllers = useMemo(() => {
-        if (filter === 'home') return data.home;
-        if (filter === 'visiting') return data.visiting;
-        return data.home.concat(data.visiting);
-    }, [data, filter]);
+    const [selectedRows, setSelectedRows] = useState<AdminUserStatistic[]>([]);
 
     return (
         <>
-            <div className="mb-3 flex justify-between">
-                <ButtonGroup>
-                    <Button
-                        className={classNames(
-                            'py-0.5 transition-colors duration-150',
-                            { '!bg-white !text-gray-500': filter !== 'home' },
-                        )}
-                        variant="secondary"
-                        onClick={() => setFilter('home')}
-                    >
-                        Home
-                    </Button>
-                    <Button
-                        className={classNames(
-                            'py-0.5 transition-colors duration-150',
-                            { '!bg-white !text-gray-500': filter !== 'visiting' },
-                        )}
-                        variant="secondary"
-                        onClick={() => setFilter('visiting')}
-                    >
-                        Visiting
-                    </Button>
-                    <Button
-                        className={classNames(
-                            'py-0.5 transition-colors duration-150',
-                            { '!bg-white !text-gray-500': filter !== 'all' },
-                        )}
-                        variant="secondary"
-                        onClick={() => setFilter('all')}
-                    >
-                        All
-                    </Button>
-                </ButtonGroup>
-            </div>
             <DataTable
-                data={controllers}
-                title={<p className="text-base">Select users to purge</p>}
-                defaultSortFieldId={1}
+                data={data.filter((row) => !showSelectedRows || selectedRows.includes(row))}
+                title={<p className="text-base font-medium">Select users to purge</p>}
+                defaultSortFieldId={2}
                 sortIcon={<LuChevronDown />}
                 pagination
                 paginationPerPage={10}
                 paginationRowsPerPageOptions={[10, 15, 20, 25]}
                 selectableRows
                 selectableRowsHighlight
+                selectableRowsNoSelectAll
                 selectableRowDisabled={(row) => row.is_staff}
-                onSelectedRowsChange={({ selectedRows: rows }) => setSelectedRows(rows)}
+                onSelectedRowsChange={({ selectedRows: rows }) => {
+                    setSelectedRows(rows);
+
+                    if (rows.length === 0) {
+                        setShowSelectedRows(false);
+                    }
+                }}
                 contextActions={(
-                    <Button className="!bg-red-400 !text-sm !shadow-red-400/25" onClick={() => setShowPurgeModal(true)}>
-                        <LuUserX size={17} />
-                        Purge
-                    </Button>
+                    <div className="flex gap-5">
+                        <Button
+                            variant={showSelectedRows ? 'primary' : 'secondary'}
+                            className="text-sm"
+                            onClick={() => setShowSelectedRows((show) => !show)}
+                        >
+                            <LuEye size={17} />
+                            Only Show Selected
+                        </Button>
+                        <Button
+                            className="!bg-red-400 !text-sm !shadow-red-400/25"
+                            onClick={() => setShowPurgeModal(true)}
+                        >
+                            <LuUserX size={17} />
+                            Purge
+                        </Button>
+                    </div>
                 )}
                 customStyles={dataTableStyle}
                 columns={[
                     {
-                        name: 'Name',
-                        selector: (row) => `${row.first_name} ${row.last_name}`,
+                        cell: (user) => <ProfilePicture user={user} size={30} />,
+                        width: '30px',
+                        compact: true,
+                        right: true,
+                    },
+                    {
+                        name: 'Controller',
+                        selector: (user) => `${user.first_name} ${user.last_name}`,
                         sortable: true,
                         sortFunction: (a, b) => a.first_name.localeCompare(b.first_name) || a.last_name.localeCompare(b.last_name),
-                        format: (row) => `${row.first_name} ${row.last_name} (${row.initials})`,
-                    },
-                    {
-                        name: 'CID',
-                        selector: (row) => row.cid,
-                        sortable: true,
-                        width: '120px',
-                    },
-                    {
-                        name: 'Rating',
-                        selector: (row) => row.rating,
-                        sortFunction: (a, b) => (ratingToInt(a.rating) > ratingToInt(b.rating) ? 1 : -1),
-                        sortable: true,
-                        width: '100px',
-                    },
-                    {
-                        name: format(subMonths(new Date(new Date().getUTCFullYear(), new Date().getUTCMonth()), 2), 'MMMM'),
-                        selector: (row) => row.prev_prev_hours,
-                        sortable: true,
-                        sortFunction: (a, b) => a.prev_prev_hours.localeCompare(b.prev_prev_hours),
-                        cell: (row) => <ControllerHours required={row.activity_requirement} completed={row.prev_prev_hours} />,
+                        format: (user) => `${user.first_name} ${user.last_name} (${user.initials})`,
                         width: '200px',
                     },
+                    { selector: (user) => user.cid, width: '90px' },
+                    { selector: (user) => user.rating, width: '60px' },
                     {
-                        name: format(subMonths(new Date(new Date().getUTCFullYear(), new Date().getUTCMonth()), 1), 'MMMM'),
-                        selector: (row) => row.prev_hours,
+                        name: format(startOfQuarter(new Date()), 'MMMM'),
+                        selector: (user) => user.month_1_hours ?? '',
                         sortable: true,
-                        sortFunction: (a, b) => a.prev_hours.localeCompare(b.prev_hours),
-                        cell: (row) => <ControllerHours required={row.activity_requirement} completed={row.prev_hours} />,
-                        width: '200px',
+                        sortFunction: (a, b) => durationToSeconds(a.month_1_hours) - durationToSeconds(b.month_1_hours),
+                        width: '107px',
+                        right: true,
+                        style: { fontFamily: 'monospace' },
                     },
                     {
-                        name: format(new Date(new Date().getUTCFullYear(), new Date().getUTCMonth()), 'MMMM'),
-                        selector: (row) => row.curr_hours,
+                        name: format(addMonths(startOfQuarter(new Date()), 1), 'MMMM'),
+                        selector: (user) => user.month_2_hours ?? '',
                         sortable: true,
-                        sortFunction: (a, b) => a.curr_hours.localeCompare(b.curr_hours),
-                        cell: (row) => <ControllerHours required={row.activity_requirement} completed={row.curr_hours} />,
-                        width: '200px',
+                        sortFunction: (a, b) => durationToSeconds(a.month_2_hours) - durationToSeconds(b.month_2_hours),
+                        width: '107px',
+                        right: true,
+                        style: { fontFamily: 'monospace' },
+                    },
+                    {
+                        name: format(addMonths(startOfQuarter(new Date()), 2), 'MMMM'),
+                        selector: (user) => user.month_3_hours ?? '',
+                        sortable: true,
+                        sortFunction: (a, b) => durationToSeconds(a.month_3_hours) - durationToSeconds(b.month_3_hours),
+                        width: '107px',
+                        right: true,
+                        style: { fontFamily: 'monospace' },
+                    },
+                    {
+                        name: `Q${getQuarter(new Date())} Total`,
+                        selector: (user) => user.quarter_hours ?? '',
+                        sortable: true,
+                        sortFunction: (a, b) => durationToSeconds(a.quarter_hours) - durationToSeconds(b.quarter_hours),
+                        cell: (user) => (
+                            <div className={classNames('flex gap-2', { 'text-green-500': user.quarter_active })}>
+                                {user.quarter_active && <LuCheck size={20} />}
+                                <p className="w-14 text-right">{user.quarter_hours}</p>
+                            </div>
+                        ),
+                        width: '125px',
+                        right: true,
+                        style: { fontFamily: 'monospace' },
+                    },
+                    {
+                        name: 'Tier 1',
+                        selector: (user) => user.quarter_t1_hours ?? '',
+                        sortable: true,
+                        sortFunction: (a, b) => durationToSeconds(a.quarter_t1_hours) - durationToSeconds(b.quarter_t1_hours),
+                        cell: (user) => (
+                            <div className={classNames('flex', { 'text-green-500': user.quarter_t1_active })}>
+                                {user.quarter_t1_active && <LuCheck size={20} />}
+                                <p className="w-12 text-right">{user.quarter_t1_hours}</p>
+                            </div>
+                        ),
+                        width: '125px',
+                        right: true,
+                        style: { fontFamily: 'monospace' },
+                    },
+                    {
+                        name: 'Training',
+                        selector: (user) => user.training_hours ?? '',
+                        sortable: true,
+                        sortFunction: (a, b) => durationToSeconds(a.training_hours) - durationToSeconds(b.training_hours),
+                        cell: (user) => (
+                            <div className={classNames('flex', { 'text-green-500': user.training_active })}>
+                                {user.training_active && <LuCheck size={20} />}
+                                <p className="w-12 text-right">{user.training_hours}</p>
+                            </div>
+                        ),
+                        width: '125px',
+                        right: true,
+                        style: { fontFamily: 'monospace' },
                     },
                 ]}
             />
@@ -142,3 +168,13 @@ export const PurgeTable: React.FC<PurgeTableProps> = ({ data }) => {
         </>
     );
 };
+
+
+interface StatisticsTableProps {
+    data: AdminStatistics;
+}
+
+// We can't import `PurgeView` inside the `page.tsx` server-side component, so we wrap it here instead
+export const PurgeTable: React.FC<StatisticsTableProps> = ({ data }) => (
+    <RosterOptions data={data} component={PurgeView} />
+);

@@ -9,6 +9,8 @@ import { type LogEntry } from '@/types/admin';
 import { type Paginated } from '@/types';
 
 const AuditLog: NextPage = () => {
+    const [loading, setLoading] = useState<boolean>(false);
+
     const [page, setPage] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(20);
     const [query, setQuery] = useState<string>('');
@@ -17,6 +19,8 @@ const AuditLog: NextPage = () => {
     const [logEntries, setLogEntries] = useState<LogEntry[]>([]);
 
     useEffect(() => {
+        setLoading(true);
+
         fetchApi<Paginated<LogEntry>>(
             `/administration/audit/?page=${page}&page_size=${pageSize}&query=${query}`,
             { cache: 'no-store' },
@@ -24,6 +28,7 @@ const AuditLog: NextPage = () => {
             .then((data) => {
                 setTotalEntries(data.count);
                 setLogEntries(data.results);
+                setLoading(false);
             });
     }, [page, pageSize, query]);
 
@@ -40,6 +45,7 @@ const AuditLog: NextPage = () => {
                 pageSize={pageSize}
                 setPage={setPage}
                 setPageSize={setPageSize}
+                loading={loading}
             />
         </>
     );
