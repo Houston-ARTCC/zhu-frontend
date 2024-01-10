@@ -2,10 +2,10 @@ import React from 'react';
 import DataTable from 'react-data-table-component';
 import { format } from 'date-fns-tz';
 import classNames from 'classnames';
+import { CgSpinner } from 'react-icons/cg';
 import { Badge } from '@/components/Badge';
 import { dataTableStyle } from '@/utils/dataTableStyle';
 import { type LogEntry, LogEntryAction } from '@/types/admin';
-import { CgSpinner } from 'react-icons/cg';
 
 const LOG_ACTION_COLORS = ['!bg-green-400', '!bg-sky-500', '!bg-red-400'];
 

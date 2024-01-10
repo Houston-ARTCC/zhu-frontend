@@ -1,6 +1,5 @@
 'use client';
 
-import { Button } from '@/components/Button';
 import React, { useCallback } from 'react';
 import Link from 'next/link';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,6 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { FaDiscord } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { Button } from '@/components/Button';
 import { TextAreaInput, TextInput, ToggleInput } from '@/components/Forms';
 import { fetchApi } from '@/utils/fetch';
 import { type Event } from '@/types/events';

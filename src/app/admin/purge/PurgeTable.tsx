@@ -169,7 +169,6 @@ export const PurgeView: React.FC<PurgeViewProps> = ({ data }) => {
     );
 };
 
-
 interface StatisticsTableProps {
     data: AdminStatistics;
 }

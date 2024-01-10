@@ -4,6 +4,7 @@
 @import '~react-calendar-heatmap/dist/styles.css';
 @import '~rc-slider/assets/index.css';
 @import '~mapbox-gl/dist/mapbox-gl.css';
+@import '~@toast-ui/calendar/dist/toastui-calendar.min.css';
 
 @tailwind base;
 @tailwind components;
@@ -113,45 +114,4 @@
 
 .mapboxgl-popup {
     @apply !max-w-none;
-}
-
-.fc-day-today {
-    @apply !bg-sky-500/10;
-}
-
-.fc-daygrid-day-top {
-    @apply !flex-row;
-}
-
-.fc-daygrid-day-frame {
-    @apply p-1 !min-h-[10rem];
-}
-
-.fc-daygrid-event {
-    @apply pr-1 cursor-pointer;
-}
-
-.fc-daygrid-block-event {
-    @apply px-1 cursor-pointer;
-}
-
-.fc-event, .fc-daygrid-day-number, .fc-col-header-cell-cushion {
-    @apply text-inherit hover:opacity-100;
-}
-
-.fc-event-selected, .fc-event:focus, .fc-event:hover {
-    @apply bg-neutral-200 shadow-none;
-}
-
-.fc-event-selected::before, .fc-event:focus::before,
-.fc-event-selected::after, .fc-event:focus::after{
-    content: none;
-}
-
-.fc-event-title {
-    @apply text-ellipsis whitespace-nowrap;
-}
-
-.fc-event-time {
-    @apply !overflow-visible;
 }

@@ -94,4 +94,5 @@ export type AvailabilitySlot = {
 
 export type TrainingNotifications = {
     training_requests: number;
+    scheduled_sessions: number;
 }

@@ -1,4 +1,4 @@
-import { type BasicUser, Roster } from '@/types/users';
+import { type BasicUser, type Roster } from '@/types/users';
 
 export type Session = {
     id: number;
@@ -39,7 +39,6 @@ export type AdminUserStatistic = UserStatistic & {
 };
 
 export type AdminStatistics = Roster<AdminUserStatistic>;
-
 
 export type OnlineConnection = {
     id: number;

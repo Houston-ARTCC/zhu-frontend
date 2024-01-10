@@ -2,7 +2,7 @@ import React, { type PropsWithChildren } from 'react';
 import { NextAuthProvider } from '@/components/static/NextAuthProvider';
 import { Footer } from '@/components/static/Footer';
 import { Navbar } from '@/components/static/Navbar';
-import { Toastify } from '@/components/Toastify';
+import { Toastify } from '@/components/static/Toastify';
 import './fonts.css';
 import './globals.css';
 

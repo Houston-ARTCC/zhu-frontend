@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React, { type PropsWithChildren } from 'react';
 import classNames from 'classnames';
 import { Badge } from '@/components/Badge';
 import type { Role } from '@/types/users';

@@ -1,4 +1,4 @@
-import React, { type ButtonHTMLAttributes, type HTMLProps, ReactNode, type RefAttributes } from 'react';
+import React, { type ButtonHTMLAttributes, type HTMLProps, type ReactNode, type RefAttributes } from 'react';
 import Link, { type LinkProps as InternalLinkProps } from 'next/link';
 import classNames from 'classnames';
 import { LuChevronDown } from 'react-icons/lu';

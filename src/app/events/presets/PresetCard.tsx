@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
 import React, { useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 import { DeletePresetButton } from '@/app/events/presets/DeletePresetModal';
 import { PresetPositions } from '@/app/events/presets/PresetPositions';
-import { Card } from '@/components/Card';
-import { type PositionPreset, type PresetPosition } from '@/types/events';
 import { AddPositionsButton } from '@/app/events/AddPositionsModal';
-import { AddPositionsFormValues } from '@/app/events/addPositionsSchema';
-import { toast } from 'react-toastify';
+import { type AddPositionsFormValues } from '@/app/events/addPositionsSchema';
+import { Card } from '@/components/Card';
 import { fetchApi } from '@/utils/fetch';
-import { SchemaError } from '@/types';
-import { useRouter } from 'next/navigation';
+import { type PositionPreset, type PresetPosition } from '@/types/events';
+import { type SchemaError } from '@/types';
 
 type SortedPositions = {
     enroute: PresetPosition[];
@@ -46,7 +46,7 @@ export const PresetCard: React.FC<PresetCardProps> = ({ preset }) => {
             fetchApi<SchemaError[]>(`/events/presets/${preset.id}/`, {
                 method: 'PUT',
                 body: JSON.stringify({
-                    positions: preset.positions.concat(values.positions)
+                    positions: preset.positions.concat(values.positions),
                 }),
             })
                 .then(() => undefined)
@@ -68,7 +68,7 @@ export const PresetCard: React.FC<PresetCardProps> = ({ preset }) => {
                 fetchApi(`/events/presets/${preset.id}/`, {
                     method: 'PUT',
                     body: JSON.stringify({
-                        positions: preset.positions.filter((p) => p.callsign !== position.callsign)
+                        positions: preset.positions.filter((p) => p.callsign !== position.callsign),
                     }),
                 }),
                 {
