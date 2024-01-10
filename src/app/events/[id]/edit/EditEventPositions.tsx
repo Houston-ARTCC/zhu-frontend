@@ -133,7 +133,12 @@ const EventPositionInfo: React.FC<EventPositionInfoProps> = ({ position, deleteP
                 {shifts.map((shift) => (
                     <EventShiftInfo key={shift.id} shift={shift} deleteShift={deleteShift} />
                 ))}
-                <button className="rounded-r-md bg-gray-200 px-1" onClick={addShift} type="button">
+                <button
+                    type="button"
+                    className="rounded-r-md bg-gray-200 px-1"
+                    onClick={addShift}
+                    aria-label="Add Shift"
+                >
                     <LuPlus />
                 </button>
             </div>

@@ -107,6 +107,7 @@ export const ScheduledSessionsTable: React.FC<ScheduledSessionsTableProps> = ({ 
                                     setCancelSession(row);
                                     setShowCancelSession(true);
                                 }}
+                                aria-label="Cancel Session"
                             >
                                 <LuX size={20} className="text-gray-900" />
                             </button>
@@ -123,6 +124,7 @@ export const ScheduledSessionsTable: React.FC<ScheduledSessionsTableProps> = ({ 
                                     setNoShowSession(row);
                                     setShowNoShowSession(true);
                                 }}
+                                aria-label="Student No-Show"
                             >
                                 <LuUserX size={20} className="text-gray-900" />
                             </button>

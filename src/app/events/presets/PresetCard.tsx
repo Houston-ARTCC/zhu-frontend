@@ -78,7 +78,7 @@ export const PresetCard: React.FC<PresetCardProps> = ({ preset }) => {
                 },
             ).then(() => router.refresh());
         },
-        [preset],
+        [router, preset],
     );
 
     return (
@@ -98,7 +98,6 @@ export const PresetCard: React.FC<PresetCardProps> = ({ preset }) => {
                 <div>
                     <h5 className="mb-2 text-xl font-medium">Enroute</h5>
                     <PresetPositions
-                        presetId={preset.id}
                         positions={positions.enroute}
                         deletePosition={deletePosition}
                     />
@@ -106,7 +105,6 @@ export const PresetCard: React.FC<PresetCardProps> = ({ preset }) => {
                 <div>
                     <h5 className="mb-2 text-xl font-medium">TRACON</h5>
                     <PresetPositions
-                        presetId={preset.id}
                         positions={positions.tracon}
                         deletePosition={deletePosition}
                     />
@@ -114,7 +112,6 @@ export const PresetCard: React.FC<PresetCardProps> = ({ preset }) => {
                 <div>
                     <h5 className="mb-2 text-xl font-medium">Local</h5>
                     <PresetPositions
-                        presetId={preset.id}
                         positions={positions.local}
                         deletePosition={deletePosition}
                     />

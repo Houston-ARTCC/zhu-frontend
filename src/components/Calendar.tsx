@@ -57,7 +57,7 @@ export const TuiCalendar: React.FC<TuiCalendarProps> = ({ events, ...props }) =>
 
                 eventMap.current.set(dateKey, newEvents);
             });
-    }, [dateKey, calendarRef]);
+    }, [events, dateKey, calendarRef]);
 
     return (
         <div>

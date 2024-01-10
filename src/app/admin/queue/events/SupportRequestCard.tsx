@@ -47,7 +47,7 @@ export const SupportRequestCard: React.FC<VisitRequestCardProps> = ({ request })
         <p>Requested by</p>
         <p className="mb-5 flex items-center gap-2">
             <b className="font-medium">{request.user.first_name} {request.user.last_name} ({request.user.cid})</b>
-            <a className="text-inherit" href={`mailto:${request.user.email}`}>
+            <a className="text-inherit" href={`mailto:${request.user.email}`} aria-label="Email User">
                 <LuMail size={18} />
             </a>
         </p>

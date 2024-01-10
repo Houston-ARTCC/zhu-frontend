@@ -50,7 +50,7 @@ export const FeedbackCard: React.FC<FeedbackCardProps> = ({ feedback }) => (
             <p className="mt-1">&mdash;</p>
             <p className="flex items-center gap-2">
                 <b className="font-medium">{feedback.pilot.first_name} {feedback.pilot.last_name} ({feedback.pilot.cid})</b>
-                <a className="text-inherit" href={`mailto:${feedback.pilot.email}`}>
+                <a className="text-inherit" href={`mailto:${feedback.pilot.email}`} aria-label="Email User">
                     <LuMail size={18} />
                 </a>
             </p>

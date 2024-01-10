@@ -3,7 +3,6 @@ import { LuX } from 'react-icons/lu';
 import { type PresetPosition } from '@/types/events';
 
 interface PresetPositionsProps {
-    presetId: number;
     positions: PresetPosition[];
     deletePosition: (position: PresetPosition) => void;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { LuMail } from 'react-icons/lu';
 import { Card } from '@/components/Card';
 import { ProfilePicture } from '@/components/ProfilePicture';
 import { type BasicUser } from '@/types/users';
@@ -11,7 +12,7 @@ interface StaffCardProps {
 }
 
 export const StaffCard: React.FC<StaffCardProps> = ({ user, title, description, email }) => (
-    <Card>
+    <Card className="flex flex-col gap-3">
         <div className="flex items-center gap-5">
             <ProfilePicture user={user} size={70} alt="Vacant" />
             <div>
@@ -21,8 +22,13 @@ export const StaffCard: React.FC<StaffCardProps> = ({ user, title, description, 
                 <p className="text-slate-400">{title}</p>
             </div>
         </div>
+        {email && (
+            <a className="flex items-center gap-2 font-medium text-inherit" href={`mailto:${email}`}>
+                <LuMail size={18} /> {email}
+            </a>
+        )}
         {description && (
-            <p className="mt-5">{description}</p>
+            <p>{description}</p>
         )}
     </Card>
 );

@@ -49,6 +49,7 @@ export const AnnouncementsTable: React.FC<AnnouncementsTableProps> = ({ data }) 
                                     setCurrentAnnouncement(row);
                                     setShowAnnouncement(true);
                                 }}
+                                aria-label="View Announcement"
                             >
                                 <LuEye size={20} className="text-gray-900" />
                             </button>
@@ -65,6 +66,7 @@ export const AnnouncementsTable: React.FC<AnnouncementsTableProps> = ({ data }) 
                                     setCurrentAnnouncement(row);
                                     setShowDelete(true);
                                 }}
+                                aria-label="Delete Announcement"
                             >
                                 <LuX size={20} className="text-gray-900" />
                             </button>

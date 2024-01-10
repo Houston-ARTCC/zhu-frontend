@@ -62,7 +62,12 @@ export const Modal: React.FC<ModalProps> = ({ show = false, title, footer, large
                             <div className="flex items-center rounded-t-md bg-slate-100 px-5 py-4">
                                 <h4 className="text-2xl font-medium">{title}</h4>
                                 {close && (
-                                    <button className="ml-auto" type="button" onClick={close}>
+                                    <button
+                                        className="ml-auto"
+                                        type="button"
+                                        onClick={close}
+                                        aria-label="Close Modal"
+                                    >
                                         <LuX size={20} />
                                     </button>
                                 )}
