@@ -43,7 +43,7 @@ export const SideNav: React.FC<SideNavProps> = ({ rootPath, sections }) => {
     const segment = useSelectedLayoutSegment();
 
     return (
-        <div className="shrink-0">
+        <div className="sticky top-32 shrink-0">
             {sections.map(({ title, members }) => (
                 <>
                     <h6 className="mb-2 mt-4 font-medium text-sky-500 first:mt-0">{title}</h6>

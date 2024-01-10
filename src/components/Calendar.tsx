@@ -24,21 +24,22 @@ type TuiCalendarProps = ReactCalendarOptions & ReactCalendarExternalEvents & {
     view?: CalendarView;
 };
 
-export const TuiCalendar: React.FC<TuiCalendarProps> = ({ ...props }) => {
+export const TuiCalendar: React.FC<TuiCalendarProps> = ({ events, ...props }) => {
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
 
     const dateKey = useMemo(() => `${currentDate.getFullYear()}/${currentDate.getMonth() + 1}`, [currentDate]);
 
     const calendarRef = useRef<ToastCalendar>(null);
 
-    const events = useRef<Map<string, EventObject[]>>(new Map());
+    const eventMap = useRef<Map<string, EventObject[]>>(new Map());
 
     useEffect(() => {
         const calendar = calendarRef.current?.getInstance();
 
-        if (calendar && events.current.has(dateKey)) {
+        if (calendar && eventMap.current.has(dateKey)) {
             calendar.clear();
-            calendar.createEvents(events.current.get(dateKey) ?? []);
+            calendar.createEvents(eventMap.current.get(dateKey) ?? []);
+            calendar.createEvents(events ?? []);
             return;
         }
 
@@ -51,9 +52,10 @@ export const TuiCalendar: React.FC<TuiCalendarProps> = ({ ...props }) => {
                 if (calendar) {
                     calendar.clear();
                     calendar.createEvents(newEvents);
+                    calendar.createEvents(events ?? []);
                 }
 
-                events.current.set(dateKey, newEvents);
+                eventMap.current.set(dateKey, newEvents);
             });
     }, [dateKey, calendarRef]);
 

@@ -20,7 +20,7 @@ const TrainingCenterLayout: React.FC<PropsWithChildren> = async ({ children }) =
     return (
         <Page {...metadata}>
             <PageContent>
-                <div className="flex gap-10">
+                <div className="flex items-start gap-10">
                     <SideNav
                         rootPath="training"
                         sections={[

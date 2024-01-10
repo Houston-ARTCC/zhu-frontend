@@ -3,7 +3,8 @@ import { format } from 'date-fns-tz';
 import type { DeepPartial } from 'react-hook-form';
 import type { ThemeState } from '@toast-ui/calendar/types/types/theme';
 import type { EventObject } from '@toast-ui/calendar';
-import { type BasicTrainingSession, SESSION_TYPE_STRING } from '@/types/training';
+import colors from 'tailwindcss/colors';
+import { type BasicTrainingSession, SESSION_TYPE_STRING, type TrainingRequest } from '@/types/training';
 import type { BasicEvent } from '@/types/events';
 import type { ControllerBooking } from '@/types/connections';
 
@@ -11,26 +12,26 @@ export const tuiCalendars: CalendarInfo[] = [
     {
         id: 'events',
         name: 'Events',
-        bgColor: '#109CF1',
-        borderColor: '#50b7ff',
+        backgroundColor: colors.sky[400],
+        borderColor: colors.sky[500],
     },
     {
         id: 'sessions',
         name: 'Training Sessions',
-        bgColor: '#F7685B',
-        borderColor: '#ff6b5f',
+        backgroundColor: colors.red[400],
+        borderColor: colors.red[500],
     },
     {
         id: 'requests',
         name: 'Training Requests',
-        bgColor: '#b0b0b0',
-        borderColor: '#949494',
+        backgroundColor: colors.gray[400],
+        borderColor: colors.gray[500],
     },
     {
         id: 'bookings',
         name: 'Controller Bookings',
-        bgColor: '#2ED47A',
-        borderColor: '#40e98d',
+        backgroundColor: colors.emerald[400],
+        borderColor: colors.emerald[500],
     },
 ];
 
@@ -51,8 +52,8 @@ export const tuiTimezones: TimezoneOptions = {
 export const tuiTheme: DeepPartial<ThemeState> = {
     common: {
         gridSelection: {
-            border: '1px solid #0ea5e9',
-            backgroundColor: '#0ea5e910',
+            border: `1px solid ${colors.sky[500]}`,
+            backgroundColor: `#${colors.sky[500]}10`,
         },
         backgroundColor: 'transparent',
     },
@@ -61,22 +62,22 @@ export const tuiTheme: DeepPartial<ThemeState> = {
             width: 100,
         },
         today: {
-            backgroundColor: '#0ea5e910',
+            backgroundColor: `#${colors.sky[400]}10`,
         },
         gridSelection: {
-            color: '#0ea5e9',
+            color: colors.sky[500],
         },
         nowIndicatorLabel: {
-            color: '#0ea5e9',
+            color: colors.sky[500],
         },
         nowIndicatorBullet: {
-            backgroundColor: '#0ea5e9',
+            backgroundColor: colors.sky[500],
         },
         nowIndicatorPast: {
-            border: '1px dashed #0ea5e9',
+            border: `1px dashed ${colors.sky[500]}`,
         },
         nowIndicatorToday: {
-            border: '1px solid #0ea5e9',
+            border: `1px solid ${colors.sky[500]}`,
         },
     },
 };
@@ -104,6 +105,18 @@ export function eventObjectFromSession(session: BasicTrainingSession): EventObje
         isReadOnly: true,
         start: session.start,
         end: session.end,
+    };
+}
+
+export function eventObjectFromRequest(request: TrainingRequest): EventObject {
+    return {
+        id: request.id.toString(),
+        calendarId: 'requests',
+        title: 'Training Request',
+        category: 'time',
+        isReadOnly: true,
+        start: request.start,
+        end: request.end,
     };
 }
 

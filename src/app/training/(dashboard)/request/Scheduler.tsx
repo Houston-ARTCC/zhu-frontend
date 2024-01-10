@@ -3,17 +3,24 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { TuiCalendar } from '@/components/Calendar';
+import { eventObjectFromRequest } from '@/utils/calendar';
+import { type TrainingRequest } from '@/types/training';
 import { RequestTrainingModal } from './RequestTrainingModal';
 
-export const Scheduler: React.FC = () => {
+interface SchedulerProps {
+    requests: TrainingRequest[];
+}
+
+export const Scheduler: React.FC<SchedulerProps> = ({ requests }) => {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [dateRange, setDateRange] = useState<{ start: Date, end: Date } | undefined>();
 
     return (
         <>
             <TuiCalendar
-                height="1000px"
-                week={{ taskView: false }}
+                height="75vh"
+                events={requests.map(eventObjectFromRequest)}
+                week={{ taskView: false, eventView: ['time'] }}
                 onSelectDateTime={({ start, end }) => {
                     setDateRange({ start, end });
                     setShowModal(true);

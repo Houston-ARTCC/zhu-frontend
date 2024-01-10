@@ -27,7 +27,7 @@ export const Navbar: React.FC = () => {
         <nav
             className={classNames(
                 'fixed inset-x-0 top-0 z-10 transition-all duration-500 ease-out',
-                { 'py-16': !shrink, 'bg-white py-6': shrink },
+                { 'py-12': !shrink, 'bg-white py-4': shrink },
             )}
         >
             <div className="container mx-auto flex items-center px-0 font-medium 2xl:px-20">
