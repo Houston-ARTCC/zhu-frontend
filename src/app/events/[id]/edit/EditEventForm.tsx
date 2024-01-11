@@ -8,6 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { FaDiscord } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { DeleteEventButton } from '@/app/events/[id]/edit/DeleteEventModal';
 import { Button } from '@/components/Button';
 import { TextAreaInput, TextInput, ToggleInput } from '@/components/Forms';
 import { fetchApi } from '@/utils/fetch';
@@ -129,7 +130,7 @@ export const EditEventForm: React.FC<EditEventFormProps> = ({ event }) => {
                 <Button type="submit" disabled={isSubmitting}>
                     Save
                 </Button>
-                <Button className="!bg-red-400 !shadow-red-400/25">Delete Event</Button>
+                <DeleteEventButton event={event} />
                 <Button className="ml-auto !bg-indigo-400 !shadow-indigo-400/25" onClick={putRequest}>
                     <FaDiscord />
                     Post Event Positions
