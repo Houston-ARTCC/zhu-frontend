@@ -14,7 +14,8 @@ export const feedbackSchema = z.object({
         value: z.number(),
         label: z.string(),
     })
-        .optional(),
+        .optional()
+        .nullable(),
 
     pilot_callsign: z.string().optional(),
 

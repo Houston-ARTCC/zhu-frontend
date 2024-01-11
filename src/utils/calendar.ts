@@ -53,7 +53,7 @@ export const tuiTheme: DeepPartial<ThemeState> = {
     common: {
         gridSelection: {
             border: `1px solid ${colors.sky[500]}`,
-            backgroundColor: `#${colors.sky[500]}10`,
+            backgroundColor: `${colors.sky[500]}20`,
         },
         backgroundColor: 'transparent',
     },
@@ -62,7 +62,7 @@ export const tuiTheme: DeepPartial<ThemeState> = {
             width: 100,
         },
         today: {
-            backgroundColor: `#${colors.sky[400]}10`,
+            backgroundColor: `${colors.sky[400]}10`,
         },
         gridSelection: {
             color: colors.sky[500],

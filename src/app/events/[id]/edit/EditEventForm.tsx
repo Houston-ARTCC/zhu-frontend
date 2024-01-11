@@ -116,7 +116,11 @@ export const EditEventForm: React.FC<EditEventFormProps> = ({ event }) => {
                 />
             </div>
 
-            <ToggleInput {...register('hidden')} className="mb-5" label="Event hidden from controllers." />
+            <ToggleInput
+                {...register('hidden')}
+                className="mb-5"
+                label="Event hidden from controllers."
+            />
 
             <div className="flex gap-3">
                 <Link href={`/events/${event.id}`}>
