@@ -18,6 +18,7 @@ export const Scheduler: React.FC<SchedulerProps> = ({ presets }) => {
         <>
             <TuiCalendar
                 height="75vh"
+                view="week"
                 week={{ taskView: false, eventView: ['time'] }}
                 onSelectDateTime={({ start, end }) => {
                     setDateRange({ start, end });

@@ -51,27 +51,27 @@ const StatisticsView: React.FC<StatisticsViewProps> = ({ data }) => {
                     selector: (user) => user.month_1_hours ?? '',
                     sortable: true,
                     sortFunction: (a, b) => durationToSeconds(a.month_1_hours) - durationToSeconds(b.month_1_hours),
-                    width: '110px',
+                    width: '120px',
                     right: true,
-                    style: { fontFamily: 'monospace' },
+                    style: { fontFamily: 'monospace', fontSize: '0.9rem' },
                 },
                 {
                     name: format(addMonths(startOfQuarter(new Date()), 1), 'MMMM'),
                     selector: (user) => user.month_2_hours ?? '',
                     sortable: true,
                     sortFunction: (a, b) => durationToSeconds(a.month_2_hours) - durationToSeconds(b.month_2_hours),
-                    width: '110px',
+                    width: '120px',
                     right: true,
-                    style: { fontFamily: 'monospace' },
+                    style: { fontFamily: 'monospace', fontSize: '0.9rem' },
                 },
                 {
                     name: format(addMonths(startOfQuarter(new Date()), 2), 'MMMM'),
                     selector: (user) => user.month_3_hours ?? '',
                     sortable: true,
                     sortFunction: (a, b) => durationToSeconds(a.month_3_hours) - durationToSeconds(b.month_3_hours),
-                    width: '110px',
+                    width: '120px',
                     right: true,
-                    style: { fontFamily: 'monospace' },
+                    style: { fontFamily: 'monospace', fontSize: '0.9rem' },
                 },
                 {
                     name: `Quarter ${getQuarter(new Date())} Total`,
@@ -79,14 +79,14 @@ const StatisticsView: React.FC<StatisticsViewProps> = ({ data }) => {
                     sortable: true,
                     sortFunction: (a, b) => durationToSeconds(a.quarter_hours) - durationToSeconds(b.quarter_hours),
                     cell: (user) => (
-                        <div className={classNames('flex', { 'text-green-500': user.quarter_active })}>
+                        <div className={classNames('flex items-center', { 'text-green-500': user.quarter_active })}>
                             {user.quarter_active && <LuCheck size={20} />}
-                            <p className="w-12 text-right">{user.quarter_hours}</p>
+                            <p className="w-16 text-right">{user.quarter_hours}</p>
                         </div>
                     ),
-                    width: '160px',
+                    width: '170px',
                     right: true,
-                    style: { fontFamily: 'monospace' },
+                    style: { fontFamily: 'monospace', fontSize: '0.9rem' },
                 },
             ]}
         />

@@ -90,7 +90,7 @@ export const PurgeView: React.FC<PurgeViewProps> = ({ data }) => {
                         sortFunction: (a, b) => durationToSeconds(a.month_1_hours) - durationToSeconds(b.month_1_hours),
                         width: '107px',
                         right: true,
-                        style: { fontFamily: 'monospace' },
+                        style: { fontFamily: 'monospace', fontSize: '0.9rem' },
                     },
                     {
                         name: format(addMonths(startOfQuarter(new Date()), 1), 'MMMM'),
@@ -99,7 +99,7 @@ export const PurgeView: React.FC<PurgeViewProps> = ({ data }) => {
                         sortFunction: (a, b) => durationToSeconds(a.month_2_hours) - durationToSeconds(b.month_2_hours),
                         width: '107px',
                         right: true,
-                        style: { fontFamily: 'monospace' },
+                        style: { fontFamily: 'monospace', fontSize: '0.9rem' },
                     },
                     {
                         name: format(addMonths(startOfQuarter(new Date()), 2), 'MMMM'),
@@ -108,7 +108,7 @@ export const PurgeView: React.FC<PurgeViewProps> = ({ data }) => {
                         sortFunction: (a, b) => durationToSeconds(a.month_3_hours) - durationToSeconds(b.month_3_hours),
                         width: '107px',
                         right: true,
-                        style: { fontFamily: 'monospace' },
+                        style: { fontFamily: 'monospace', fontSize: '0.9rem' },
                     },
                     {
                         name: `Q${getQuarter(new Date())} Total`,
@@ -116,14 +116,14 @@ export const PurgeView: React.FC<PurgeViewProps> = ({ data }) => {
                         sortable: true,
                         sortFunction: (a, b) => durationToSeconds(a.quarter_hours) - durationToSeconds(b.quarter_hours),
                         cell: (user) => (
-                            <div className={classNames('flex gap-2', { 'text-green-500': user.quarter_active })}>
+                            <div className={classNames('flex items-center', { 'text-green-500': user.quarter_active })}>
                                 {user.quarter_active && <LuCheck size={20} />}
                                 <p className="w-14 text-right">{user.quarter_hours}</p>
                             </div>
                         ),
                         width: '125px',
                         right: true,
-                        style: { fontFamily: 'monospace' },
+                        style: { fontFamily: 'monospace', fontSize: '0.9rem' },
                     },
                     {
                         name: 'Tier 1',
@@ -131,14 +131,14 @@ export const PurgeView: React.FC<PurgeViewProps> = ({ data }) => {
                         sortable: true,
                         sortFunction: (a, b) => durationToSeconds(a.quarter_t1_hours) - durationToSeconds(b.quarter_t1_hours),
                         cell: (user) => (
-                            <div className={classNames('flex', { 'text-green-500': user.quarter_t1_active })}>
+                            <div className={classNames('flex items-center', { 'text-green-500': user.quarter_t1_active })}>
                                 {user.quarter_t1_active && <LuCheck size={20} />}
-                                <p className="w-12 text-right">{user.quarter_t1_hours}</p>
+                                <p className="w-14 text-right">{user.quarter_t1_hours}</p>
                             </div>
                         ),
                         width: '125px',
                         right: true,
-                        style: { fontFamily: 'monospace' },
+                        style: { fontFamily: 'monospace', fontSize: '0.9rem' },
                     },
                     {
                         name: 'Training',
@@ -146,14 +146,14 @@ export const PurgeView: React.FC<PurgeViewProps> = ({ data }) => {
                         sortable: true,
                         sortFunction: (a, b) => durationToSeconds(a.training_hours) - durationToSeconds(b.training_hours),
                         cell: (user) => (
-                            <div className={classNames('flex', { 'text-green-500': user.training_active })}>
+                            <div className={classNames('flex items-center', { 'text-green-500': user.training_active })}>
                                 {user.training_active && <LuCheck size={20} />}
-                                <p className="w-12 text-right">{user.training_hours}</p>
+                                <p className="w-14 text-right">{user.training_hours}</p>
                             </div>
                         ),
                         width: '125px',
                         right: true,
-                        style: { fontFamily: 'monospace' },
+                        style: { fontFamily: 'monospace', fontSize: '0.9rem' },
                     },
                 ]}
             />

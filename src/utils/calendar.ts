@@ -51,11 +51,11 @@ export const tuiTimezones: TimezoneOptions = {
 
 export const tuiTheme: DeepPartial<ThemeState> = {
     common: {
+        backgroundColor: 'transparent',
         gridSelection: {
             border: `1px solid ${colors.sky[500]}`,
             backgroundColor: `${colors.sky[500]}20`,
         },
-        backgroundColor: 'transparent',
     },
     week: {
         timeGridLeft: {
