@@ -1,7 +1,7 @@
 import React from 'react';
 import { format } from 'date-fns';
 import { Card } from '@/components/Card';
-import { type LeaveOfAbsence } from '@/types/admin';
+import type { LeaveOfAbsence } from '@/types/loa';
 import { RejectRequestButton } from '../RejectRequestModal';
 import { ApproveRequestButton } from '../ApproveRequestModal';
 

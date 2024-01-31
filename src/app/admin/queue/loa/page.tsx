@@ -1,8 +1,8 @@
 import React from 'react';
-import { type NextPage } from 'next';
+import type { type NextPage } from 'next';
 import { LuCheckCircle } from 'react-icons/lu';
 import { fetchApi } from '@/utils/fetch';
-import { type LeaveOfAbsence } from '@/types/admin';
+import type { LeaveOfAbsence } from '@/types/loa';
 import { LoaRequestCard } from './LoaRequestCard';
 
 async function getLoaRequests(): Promise<LeaveOfAbsence[]> {

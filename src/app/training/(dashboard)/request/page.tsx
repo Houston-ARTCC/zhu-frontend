@@ -30,11 +30,14 @@ const RequestTraining: NextPage = async () => {
                     </div>
                     <div>
                         <h3 className="mb-0.5 text-2xl font-medium">How do I use this?</h3>
-                        <p>
+                        <p className="mb-3">
                             To request training, indicate the range of time for which you are <b>100% available</b>.
                             When your request is submitted, a mentor or instructor will be able to
                             accept the request and set any time within that range that works for them.
+                        </p>
+                        <p>
                             To select a time, drag your mouse across multiple boxes on the calendar below.
+                            Alternatively, you may click anywhere on the calendar and use the date pickers in the pop-up.
                         </p>
                     </div>
                 </div>

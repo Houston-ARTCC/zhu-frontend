@@ -5341,12 +5341,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-icons@npm:4.9.0":
-  version: 4.9.0
-  resolution: "react-icons@npm:4.9.0"
+"react-icons@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "react-icons@npm:5.0.1"
   peerDependencies:
     react: "*"
-  checksum: 66eb6d170643d2a35a92418e9fa4416f728ebb537d99d3d0d875faa3e46952667da31777f9ca10b7351515785b3d92dd052fd67b7863471d332cd3b68beec7d1
+  checksum: 717022d93a3b2b30082f86fbb3c725a94a603b3fa1c611533439cc886f691a13b1833c30446d257a177667779239eac57411fa7516d8a4787bd735e965c9f63d
   languageName: node
   linkType: hard
 
@@ -6817,7 +6817,7 @@ __metadata:
     react-dom: "npm:18.2.0"
     react-dropzone: "npm:14.2.3"
     react-hook-form: "npm:7.44.3"
-    react-icons: "npm:4.9.0"
+    react-icons: "npm:^5.0.1"
     react-is: "npm:^18.2.0"
     react-quill: "npm:2.0.0"
     react-scroll-parallax: "npm:3.4.2"

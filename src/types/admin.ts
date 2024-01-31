@@ -1,13 +1,4 @@
-import { type AuthenticatedBasicUser, type BasicUser } from '@/types/users';
-
-export type LeaveOfAbsence = {
-    id: number;
-    user: BasicUser;
-    start: string;
-    end: string;
-    remarks: string;
-    approved: boolean;
-}
+import type { AuthenticatedBasicUser, BasicUser } from '@/types/users';
 
 export type SupportRequest = {
     id: number;

@@ -6,9 +6,11 @@ const isTrainingStaff = (token: JWT | null) => token?.user.is_training_staff ?? 
 const isMember = (token: JWT | null) => token?.user.is_member ?? false;
 const isLoggedIn = (token: JWT | null) => token !== null;
 
-const ROUTE_AUTH_MAP: {re: RegExp, verify: (token: JWT | null) => boolean }[] = [
+const ROUTE_AUTH_MAP: { re: RegExp, verify: (token: JWT | null) => boolean }[] = [
     // Need to be staff
     { re: /\/admin(\/(.*))?/, verify: isStaff },
+    { re: /\/events\/(d+)\/edit/, verify: isStaff },
+    { re: /\/events\/new/, verify: isStaff },
     { re: /\/events\/presets/, verify: isStaff },
     // Need to be training staff
     { re: /\/training\/mentor/, verify: isTrainingStaff },
@@ -17,7 +19,8 @@ const ROUTE_AUTH_MAP: {re: RegExp, verify: (token: JWT | null) => boolean }[] = 
     { re: /\/training\/scheduled/, verify: isTrainingStaff },
     { re: /\/training\/session\/(d+)/, verify: isTrainingStaff },
     // Need to be member
-    { re: /\/training/, verify: isMember },
+    { re: /\/training(\/(.*))?/, verify: isMember },
+    { re: /\/dashboard(\/(.*))?/, verify: isMember },
     { re: /\/events\/scores/, verify: isMember },
     // Just need to be logged in
     { re: /\/feedback/, verify: isLoggedIn },

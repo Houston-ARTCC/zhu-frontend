@@ -22,7 +22,7 @@ type TuiCalendarProps = ReactCalendarOptions & ReactCalendarExternalEvents & {
     height: string;
     events?: Partial<EventObject>[];
     view?: CalendarView;
-    onSelectDateTime: (range: { start: Date, end: Date }) => void;
+    onSelectDateTime?: (range: { start: Date, end: Date }) => void;
 };
 
 export const TuiCalendar: React.FC<TuiCalendarProps> = ({ events, onSelectDateTime, ...props }) => {
@@ -117,7 +117,7 @@ export const TuiCalendar: React.FC<TuiCalendarProps> = ({ events, onSelectDateTi
                 theme={tuiTheme}
                 onSelectDateTime={(range) => {
                     calendarRef.current?.getInstance()?.clearGridSelections();
-                    onSelectDateTime(range);
+                    onSelectDateTime?.(range);
                 }}
                 {...props}
             />

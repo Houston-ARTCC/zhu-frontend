@@ -46,13 +46,13 @@ export const AddPositionsModal: React.FC<AddPositionsModalProps> = ({ addPositio
                     return;
                 }
 
-                for (const [i, error] of submitData.entries()) {
+                submitData.forEach((error, i) => {
                     if (error.non_field_errors) {
                         setError(`positions.${i}`, {
                             message: error.non_field_errors[0],
                         });
                     }
-                }
+                });
             });
         },
         [addPositions, setError, router, close],
