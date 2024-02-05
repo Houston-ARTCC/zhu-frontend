@@ -1,21 +1,23 @@
 import React from 'react';
-import type { type NextPage } from 'next';
+import type { NextPage } from 'next';
 import { LuCheckCircle } from 'react-icons/lu';
 import { fetchApi } from '@/utils/fetch';
 import type { LeaveOfAbsence } from '@/types/loa';
 import { LoaRequestCard } from './LoaRequestCard';
 
-async function getLoaRequests(): Promise<LeaveOfAbsence[]> {
+async function getLoas(): Promise<LeaveOfAbsence[]> {
     return fetchApi(
-        '/loa/requests/',
+        '/loa/admin/',
         { cache: 'no-store' },
     );
 }
 
 const LoaRequests: NextPage = async () => {
-    const requests = await getLoaRequests();
+    const loas = await getLoas();
 
-    if (requests.length === 0) {
+    const loaRequests = loas.filter((loa) => !loa.approved);
+
+    if (loaRequests.length === 0) {
         return (
             <div className="rounded-md bg-emerald-500/10 py-5 pl-7 pr-10 text-emerald-500">
                 <div className="flex gap-3">
@@ -33,7 +35,7 @@ const LoaRequests: NextPage = async () => {
 
     return (
         <div className="grid grid-cols-2 gap-5">
-            {requests.map((request) => (
+            {loaRequests.map((request) => (
                 <LoaRequestCard
                     key={request.id}
                     request={request}

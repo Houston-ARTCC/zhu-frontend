@@ -1,27 +1,21 @@
-import { type NextPage } from 'next';
-import { LogEntryTable } from '@/app/admin/audit/LogEntryTable';
+import type { NextPage } from 'next';
 import { fetchApi } from '@/utils/fetch';
-import { type LeaveOfAbsence } from '@/types/admin';
+import type { LeaveOfAbsence } from '@/types/loa';
+import { LoaTable } from './LoaTable';
 
-async function getActiveLoa(): Promise<LeaveOfAbsence> {
+async function getApprovedLoas(): Promise<LeaveOfAbsence[]> {
     return fetchApi(
-        '/loa/',
-        { next: { revalidate: 3600 } },
+        '/loa/admin/',
+        { cache: 'no-store' },
     );
 }
 
-const AuditLog: NextPage = async () => {
-    const loas = await getActiveLoa();
+const ApprovedLoas: NextPage = async () => {
+    const loas = await getApprovedLoas();
 
-    return (
-        <LogEntryTable
-            data={logEntries}
-            totalEntries={totalEntries}
-            pageSize={pageSize}
-            setPage={setPage}
-            setPageSize={setPageSize}
-        />
-    );
+    const approved = loas.filter((loa) => loa.approved);
+
+    return <LoaTable data={approved} />;
 };
 
-export default AuditLog;
+export default ApprovedLoas;

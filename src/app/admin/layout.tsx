@@ -41,7 +41,7 @@ const AdminLayout: React.FC<PropsWithChildren> = async ({ children }) => {
                             {
                                 title: 'Roster',
                                 members: [
-                                    { title: 'Active LOAs', route: 'loa' },
+                                    { title: 'Approved LOAs', route: 'loa' },
                                     { title: 'Roster Purge', route: 'purge' },
                                     { title: 'Event Scores', route: 'scores' },
                                 ],

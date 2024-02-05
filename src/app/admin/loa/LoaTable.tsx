@@ -2,10 +2,11 @@
 
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
-import { LuCheckCircle2, LuChevronDown, LuMessageCircle, LuX } from 'react-icons/lu';
+import { LuChevronDown, LuMessageCircle, LuX } from 'react-icons/lu';
 import { format } from 'date-fns-tz';
 import { Tooltip } from 'react-tooltip';
 import ReactDOM from 'react-dom';
+import { ProfilePicture } from '@/components/ProfilePicture';
 import { dataTableStyle } from '@/utils/dataTableStyle';
 import type { LeaveOfAbsence } from '@/types/loa';
 import { CancelLoaModal } from './CancelLoaModal';
@@ -27,16 +28,15 @@ export const LoaTable: React.FC<PendingRequestsTableProps> = ({ data }) => {
                 customStyles={dataTableStyle}
                 columns={[
                     {
-                        name: 'Approved',
-                        selector: (loa) => loa.approved,
-                        cell: (loa) => loa.approved && (
-                            <LuCheckCircle2
-                                size={20}
-                                className="text-green-400"
-                            />
-                        ),
-                        center: true,
-                        width: '100px',
+                        cell: (loa) => <ProfilePicture user={loa.user} size={30} />,
+                        width: '40px',
+                        compact: true,
+                        right: true,
+                    },
+                    {
+                        name: 'Controller',
+                        selector: (loa) => `${loa.user.first_name} ${loa.user.last_name}`,
+                        sortable: true,
                     },
                     {
                         name: 'From',
