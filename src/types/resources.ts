@@ -1,21 +1,19 @@
 export enum Category {
-    VRC = 'vrc',
-    VSTARS = 'vstars',
-    VERAM = 'veram',
-    VATIS = 'vatis',
-    SOP = 'sop',
-    MAVP = 'mavp',
-    Misc = 'misc',
+    POLY = 'POLY',
+    PROC = 'PROC',
+    LOA = 'LOA',
+    VATIS = 'vATIS',
+    RVM = 'RVM',
+    REF = 'REF',
 }
 
 export const CATEGORY_STRING = {
-    [Category.VRC]: 'VRC',
-    [Category.VSTARS]: 'vSTARS',
-    [Category.VERAM]: 'vERAM',
-    [Category.VATIS]: 'vATIS',
-    [Category.SOP]: 'SOP',
-    [Category.MAVP]: 'MAVP',
-    [Category.Misc]: 'Miscellaneous',
+    [Category.POLY]: 'Policy',
+    [Category.PROC]: 'Procedure',
+    [Category.LOA]: 'LOA',
+    [Category.VATIS]: 'vATIS Profile',
+    [Category.RVM]: 'RVM List',
+    [Category.REF]: 'Reference',
 };
 
 export type Resource = {
@@ -29,11 +27,10 @@ export type Resource = {
 }
 
 export type ResourceData = {
-    [Category.VRC]: Resource[];
-    [Category.VSTARS]: Resource[];
-    [Category.VERAM]: Resource[];
+    [Category.POLY]: Resource[];
+    [Category.PROC]: Resource[];
+    [Category.LOA]: Resource[];
     [Category.VATIS]: Resource[];
-    [Category.SOP]: Resource[];
-    [Category.MAVP]: Resource[];
-    [Category.Misc]: Resource[];
+    [Category.RVM]: Resource[];
+    [Category.REF]: Resource[];
 }
