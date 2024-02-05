@@ -20,7 +20,6 @@ export const roles = [
 
     { id: 14, value: 'HC', label: 'Home Controller', isFixed: true, isDisabled: true },
     { id: 15, value: 'VC', label: 'Visiting Controller', isFixed: true, isDisabled: true },
-    { id: 16, value: 'MC', label: 'MAVP Controller', isFixed: true, isDisabled: true },
 ];
 
 export const editUserSchema = z.object({

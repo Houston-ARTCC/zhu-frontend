@@ -23,10 +23,6 @@ const StudentProfileLayout: React.FC<PropsWithChildren> = async ({ children }) =
             label: 'Visiting Controllers',
             options: students.visiting.map(userToOption),
         },
-        {
-            label: 'MAVP Controllers',
-            options: students.mavp.map(userToOption),
-        },
     ];
 
     return (

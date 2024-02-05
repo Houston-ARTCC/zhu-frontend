@@ -84,5 +84,4 @@ export type Staff = {
 export type Roster<T extends BasicUser = User> = {
     home: T[];
     visiting: T[];
-    mavp: T[];
 };

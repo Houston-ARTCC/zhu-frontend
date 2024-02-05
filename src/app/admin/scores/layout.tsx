@@ -23,10 +23,6 @@ const EventScoresLayout: React.FC<PropsWithChildren> = async ({ children }) => {
             label: 'Visiting Controllers',
             options: controllers.visiting.map(userToOption),
         },
-        {
-            label: 'MAVP Controllers',
-            options: controllers.mavp.map(userToOption),
-        },
     ];
 
     return (

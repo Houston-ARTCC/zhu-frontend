@@ -51,10 +51,6 @@ export const ManualAssignModal: React.FC<ManualAssignModalProps> = ({ assignCont
                     label: 'Visiting Controllers',
                     options: data.visiting.map(userToOption),
                 },
-                {
-                    label: 'MAVP Controllers',
-                    options: data.mavp.map(userToOption),
-                },
             ]);
         });
     }, [show, reset]);

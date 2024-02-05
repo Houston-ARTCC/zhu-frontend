@@ -16,7 +16,7 @@ async function getControllers(): Promise<BasicUser[]> {
         { next: { revalidate: 900 } },
     );
 
-    return roster.home.concat(roster.visiting).concat(roster.mavp);
+    return roster.home.concat(roster.visiting);
 }
 
 async function getEvents(): Promise<BasicEvent[]> {
