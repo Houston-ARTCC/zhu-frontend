@@ -5,7 +5,7 @@ import { formatDistance } from 'date-fns';
 import { format } from 'date-fns-tz';
 import { type NextPage } from 'next';
 import { getServerSession } from 'next-auth';
-import { LuEdit2, LuEyeOff, LuFolderClosed } from 'react-icons/lu';
+import { LuEyeOff, LuFolderClosed, LuPencil } from 'react-icons/lu';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { Button } from '@/components/Button';
 import { Page } from '@/components/Page';
@@ -90,7 +90,7 @@ const ViewEvent: NextPage<EventParams> = async ({ params }) => {
                             <div className="mt-5 flex justify-center">
                                 <Link href={`/events/${event.id}/edit`}>
                                     <Button>
-                                        <LuEdit2 />
+                                        <LuPencil />
                                         Edit Event
                                     </Button>
                                 </Link>

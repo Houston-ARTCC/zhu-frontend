@@ -18,7 +18,7 @@ type ReactCalendarEventNames = `on${Capitalize<CalendarExternalEventNames>}`;
 type ReactCalendarEventHandler = ExternalEventTypes[CalendarExternalEventNames];
 type ReactCalendarExternalEvents = { [events in ReactCalendarEventNames]: ReactCalendarEventHandler; };
 
-type TuiCalendarProps = ReactCalendarOptions & ReactCalendarExternalEvents & {
+export type TuiCalendarProps = ReactCalendarOptions & ReactCalendarExternalEvents & {
     height: string;
     events?: Partial<EventObject>[];
     view?: CalendarView;
