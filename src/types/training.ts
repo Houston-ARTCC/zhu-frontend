@@ -70,7 +70,6 @@ export type TrainingSession = BasicTrainingSession & {
 
 export type TrainingRequest = {
     id: number;
-    user: number;
     start: string;
     end: string;
     type: SessionType;

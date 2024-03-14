@@ -6,14 +6,14 @@ import { BsUpload } from 'react-icons/bs';
 import Dropzone, { type DropEvent } from 'react-dropzone';
 import Select, { type GroupBase, type Props as SelectProps, type SelectInstance } from 'react-select';
 
-interface InputProps extends Omit<HTMLProps<HTMLInputElement>, 'ref'> {
+interface InputProps<T> extends Omit<HTMLProps<HTMLInputElement>, 'ref'> {
     label?: string;
     inputClassName?: string;
     error?: string;
-    onUpdate?: (value: string) => void;
+    onUpdate?: (value: T) => void;
 }
 
-export const TextInput: React.FC<InputProps> = React.forwardRef<HTMLInputElement, InputProps>(
+export const TextInput: React.FC<InputProps<string>> = React.forwardRef<HTMLInputElement, InputProps<string>>(
     (
         { label, inputClassName, error, onUpdate, className, ...props },
         ref,
@@ -94,7 +94,7 @@ export const TextAreaInput: React.FC<TextAreaProps> = React.forwardRef<HTMLTextA
 // React.forwardRef does not preserve this information, so we have to set it manually for debugging.
 TextAreaInput.displayName = 'TextAreaInput';
 
-export const ToggleInput: React.FC<Omit<InputProps, 'inputClassName'>> = React.forwardRef<HTMLInputElement, InputProps>(
+export const ToggleInput: React.FC<Omit<InputProps<boolean>, 'inputClassName'>> = React.forwardRef<HTMLInputElement, InputProps<boolean>>(
     (
         { label, error, onUpdate, className, ...props },
         ref,
@@ -202,7 +202,7 @@ export const SelectInput = (
     )
 );
 
-interface FileInputProps extends InputProps {
+interface FileInputProps extends InputProps<string> {
     currentFile?: File | string;
     onUpload: (acceptedFiles: File[], event: DropEvent) => void
 }

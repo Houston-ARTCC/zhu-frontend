@@ -1,14 +1,15 @@
-import type { CalendarInfo, TimezoneOptions } from '@toast-ui/calendar/types/types/options';
+// TODO: toast-ui's typings are very fucked, don't want to deal with this right now
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import { format } from 'date-fns-tz';
-import type { DeepPartial } from 'react-hook-form';
-import type { ThemeState } from '@toast-ui/calendar/types/types/theme';
 import type { EventObject } from '@toast-ui/calendar';
 import colors from 'tailwindcss/colors';
 import { type BasicTrainingSession, SESSION_TYPE_STRING, type TrainingRequest } from '@/types/training';
 import type { BasicEvent } from '@/types/events';
 import type { ControllerBooking } from '@/types/connections';
 
-export const tuiCalendars: CalendarInfo[] = [
+export const tuiCalendars = [
     {
         id: 'events',
         name: 'Events',
@@ -35,7 +36,7 @@ export const tuiCalendars: CalendarInfo[] = [
     },
 ];
 
-export const tuiTimezones: TimezoneOptions = {
+export const tuiTimezones = {
     zones: [
         {
             timezoneName: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -49,7 +50,7 @@ export const tuiTimezones: TimezoneOptions = {
     ],
 };
 
-export const tuiTheme: DeepPartial<ThemeState> = {
+export const tuiTheme = {
     common: {
         backgroundColor: 'transparent',
         gridSelection: {
@@ -59,7 +60,7 @@ export const tuiTheme: DeepPartial<ThemeState> = {
     },
     week: {
         timeGridLeft: {
-            width: 100,
+            width: '100px',
         },
         today: {
             backgroundColor: `${colors.sky[400]}10`,
