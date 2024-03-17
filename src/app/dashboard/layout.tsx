@@ -21,14 +21,13 @@ const DashboardLayout: React.FC<PropsWithChildren> = async ({ children }) => (
                         {
                             title: 'Membership',
                             members: [
-                                { title: 'Bookings', route: 'booking' },
                                 { title: 'Leave of Absence', route: 'loa' },
                                 { title: 'Quarterly Status', route: 'status' },
                             ],
                         },
                     ]}
                 />
-                <div className="grow overflow-x-auto px-1">
+                <div className="grow px-1">
                     {children}
                 </div>
             </div>

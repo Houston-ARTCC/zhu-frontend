@@ -20,7 +20,7 @@ jobs:
           cache: "yarn"
 
       - name: Create .env
-        run: echo ${{ secrets.NEXT_PUBLIC_ENV }} >> .env
+        run: echo ${{ secrets.NEXT_ENV }} >> .env
 
       - name: Install dependencies
         run: yarn install --immutable

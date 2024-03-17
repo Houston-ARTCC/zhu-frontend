@@ -73,7 +73,7 @@ const AdminLayout: React.FC<PropsWithChildren> = async ({ children }) => {
                             },
                         ]}
                     />
-                    <div className="grow overflow-x-auto px-1">
+                    <div className="grow px-1">
                         {children}
                     </div>
                 </div>

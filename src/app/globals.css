@@ -1,10 +1,10 @@
-@import '~react-toastify/dist/ReactToastify.css';
-@import '~react-datepicker/dist/react-datepicker.css';
-@import '~react-quill/dist/quill.snow.css';
-@import '~react-calendar-heatmap/dist/styles.css';
-@import '~rc-slider/assets/index.css';
-@import '~mapbox-gl/dist/mapbox-gl.css';
-@import '~@toast-ui/calendar/dist/toastui-calendar.min.css';
+@import "react-toastify/dist/ReactToastify.css";
+@import "react-datepicker/dist/react-datepicker.css";
+@import "react-quill/dist/quill.snow.css";
+@import "react-calendar-heatmap/dist/styles.css";
+@import "rc-slider/assets/index.css";
+@import "mapbox-gl/dist/mapbox-gl.css";
+@import "@toast-ui/calendar/dist/toastui-calendar.min.css";
 
 @tailwind base;
 @tailwind components;
@@ -14,11 +14,15 @@
     :root {
         @apply bg-neutral-100 text-gray-900;
 
-        font-feature-settings: 'pnum' on, 'salt' on, 'case' on, 'kern' off;
+        font-feature-settings:
+            "pnum" on,
+            "salt" on,
+            "case" on,
+            "kern" off;
     }
 
     a {
-        @apply opacity-100 transition-opacity duration-150 ease-out text-sky-500 hover:opacity-75;
+        @apply text-sky-500 opacity-100 transition-opacity duration-150 ease-out hover:opacity-75;
     }
 
     ul {
@@ -30,7 +34,7 @@
     }
 
     hr {
-        @apply border-b border-slate-100
+        @apply border-b border-slate-100;
     }
 }
 
@@ -56,7 +60,7 @@
     }
 
     .prose a {
-        @apply opacity-100 transition-opacity duration-150 ease-out text-sky-500 hover:opacity-75;
+        @apply text-sky-500 opacity-100 transition-opacity duration-150 ease-out hover:opacity-75;
     }
 
     .prose li {
@@ -76,7 +80,8 @@
     @apply !border-slate-200;
 }
 
-.rc-slider-handle, .rc-slider-dot-active {
+.rc-slider-handle,
+.rc-slider-dot-active {
     @apply !border-sky-400 !opacity-100;
 }
 
@@ -89,15 +94,16 @@
 }
 
 .quill {
-    @apply flex flex-col flex-grow;
+    @apply flex flex-grow flex-col;
 }
 
-.ql-toolbar, .ql-editor {
+.ql-toolbar,
+.ql-editor {
     @apply !border-2 !font-sans;
 }
 
 .ql-toolbar {
-    @apply !border-slate-200 !rounded-t-md !bg-slate-200;
+    @apply !rounded-t-md !border-slate-200 !bg-slate-200;
 }
 
 .ql-container {
@@ -105,7 +111,7 @@
 }
 
 .ql-editor {
-    @apply border-slate-200 ring-sky-400/25 rounded-b-md bg-white transition-all duration-200 focus:border-sky-400 focus:ring-2;
+    @apply rounded-b-md border-slate-200 bg-white ring-sky-400/25 transition-all duration-200 focus:border-sky-400 focus:ring-2;
 }
 
 .quill.error .ql-editor {
@@ -114,4 +120,8 @@
 
 .mapboxgl-popup {
     @apply !max-w-none;
+}
+
+.react-calendar-heatmap text {
+    font-size: 0.5rem !important;
 }
