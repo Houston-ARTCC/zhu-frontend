@@ -40,7 +40,7 @@ export async function fetchApi<T extends object>(route: string, config?: NextFet
     return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api${route}`, { ...config, headers })
         .then(async (resp) => {
             if (!resp.ok) {
-                return Promise.reject(resp);
+                return Promise.reject(new Error(`${resp.url}: ${resp.status} ${resp.statusText}`));
             }
 
             if (resp.headers.get('Content-Type') === 'application/json') {
