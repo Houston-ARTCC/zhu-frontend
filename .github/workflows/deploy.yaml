@@ -10,6 +10,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Configure environment
+        run: |
+          echo NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL }} >> $GITHUB_ENV
+          echo NEXT_PUBLIC_MAPBOX_APIK=${{ vars.NEXT_PUBLIC_MAPBOX_APIK }} >> $GITHUB_ENV
+
       - name: Enable corepack
         run: corepack enable
 
@@ -18,9 +23,6 @@ jobs:
         with:
           node-version: 20
           cache: "yarn"
-
-      - name: Create .env
-        run: echo ${{ secrets.NEXT_ENV }} >> .env
 
       - name: Install dependencies
         run: yarn install --immutable
