@@ -32,8 +32,8 @@ export const AddSoloModal: React.FC<AddSoloModalProps> = ({ update, show, close 
                     <TextInput
                         {...register('position')}
                         className="col-span-2"
-                        label="Position"
-                        placeholder="eg. AUS_TWR"
+                        label="Airport"
+                        placeholder="eg. AUS, MSY"
                         error={errors.position?.message}
                     />
                 </div>

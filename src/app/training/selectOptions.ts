@@ -6,12 +6,12 @@ export const sessionTypes = [
 ];
 
 export const sessionLevels = [
-    { value: 0, label: 'Minor Ground' },
-    { value: 1, label: 'Major Ground' },
-    { value: 2, label: 'Minor Tower' },
-    { value: 3, label: 'Major Tower' },
-    { value: 4, label: 'Minor Approach' },
-    { value: 5, label: 'Major Approach' },
+    { value: 0, label: 'Ground' },
+    { value: 1, label: 'Ground — Tier 1' },
+    { value: 2, label: 'Tower' },
+    { value: 3, label: 'Tower — Tier 1' },
+    { value: 4, label: 'Approach' },
+    { value: 5, label: 'Approach — Tier 1' },
     { value: 6, label: 'Center' },
 ];
 

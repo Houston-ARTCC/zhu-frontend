@@ -23,7 +23,7 @@ export const EndorsementBadge: React.FC<EndorsementBadgeProps> = ({ tier, name, 
             },
         )}
     >
-        {status !== false && status !== true ? status : name}
+        {status !== false && status !== true && status}{' '}{name}
         {children}
     </Badge>
 );

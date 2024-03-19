@@ -105,6 +105,14 @@ export const RequestTrainingModal: React.FC<RequestTrainingModalProps> = ({ star
                                 label="Level"
                                 error={errors.level?.message}
                                 options={sessionLevels}
+                                formatOptionLabel={(option) => (
+                                    <>
+                                        <span className="mr-2 inline-block w-3 text-right opacity-50">
+                                            {option.value + 1}.
+                                        </span>
+                                        {option.label}
+                                    </>
+                                )}
                             />
                         )}
                     />
