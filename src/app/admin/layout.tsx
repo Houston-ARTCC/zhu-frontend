@@ -22,7 +22,7 @@ const AdminLayout: React.FC<PropsWithChildren> = async ({ children }) => {
             <PageContent>
                 <div className="flex items-start gap-10">
                     <SideNav
-                        rootPath="admin"
+                        rootPath="/admin"
                         sections={[
                             {
                                 title: 'General',

@@ -86,7 +86,7 @@ const ViewEvent: NextPage<EventParams> = async ({ params }) => {
                             </div>
                         </div>
                         <p>{event.description}</p>
-                        {session?.user.is_staff && (
+                        {session?.user.permissions.is_staff && (
                             <div className="mt-5 flex justify-center">
                                 <Link href={`/events/${event.id}/edit`}>
                                     <Button>

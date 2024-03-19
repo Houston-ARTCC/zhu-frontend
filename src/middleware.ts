@@ -1,9 +1,9 @@
 import { withAuth } from 'next-auth/middleware';
 import { type JWT } from 'next-auth/jwt';
 
-const isStaff = (token: JWT | null) => token?.user.is_staff ?? false;
-const isTrainingStaff = (token: JWT | null) => token?.user.is_training_staff ?? false;
-const isMember = (token: JWT | null) => token?.user.is_member ?? false;
+const isStaff = (token: JWT | null) => token?.user.permissions.is_staff ?? false;
+const isTrainingStaff = (token: JWT | null) => token?.user.permissions.is_training_staff ?? false;
+const isMember = (token: JWT | null) => token?.user.permissions.is_member ?? false;
 const isLoggedIn = (token: JWT | null) => token !== null;
 
 const ROUTE_AUTH_MAP: { re: RegExp, verify: (token: JWT | null) => boolean }[] = [
@@ -13,6 +13,7 @@ const ROUTE_AUTH_MAP: { re: RegExp, verify: (token: JWT | null) => boolean }[] =
     { re: /\/events\/new/, verify: isStaff },
     { re: /\/events\/presets/, verify: isStaff },
     // Need to be training staff
+    { re: /\/training\/availability/, verify: isTrainingStaff },
     { re: /\/training\/mentor/, verify: isTrainingStaff },
     { re: /\/training\/profile/, verify: isTrainingStaff },
     { re: /\/training\/requests/, verify: isTrainingStaff },
@@ -30,13 +31,21 @@ const ROUTE_AUTH_MAP: { re: RegExp, verify: (token: JWT | null) => boolean }[] =
 
 export default withAuth({
     callbacks: {
-        authorized: ({ req, token }) => (
-            ROUTE_AUTH_MAP.find(({ re }) => re.test(req.nextUrl.pathname))
+        authorized: async ({ req, token }) => {
+            const now = Date.now() / 1000;
+
+            // Check if refresh token is still valid
+            if (token && now > token.account.refresh_token_exp) {
+                return false;
+            }
+
+            // Check if user has access to current path
+            return ROUTE_AUTH_MAP.find(({ re }) => re.test(req.nextUrl.pathname))
                 // Protected route, check verify function
                 ?.verify(token)
                 // Unprotected route
-                ?? true
-        ),
+                ?? true;
+        },
     },
 });
 

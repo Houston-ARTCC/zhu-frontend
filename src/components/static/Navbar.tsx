@@ -3,11 +3,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import classNames from 'classnames';
 import { Dropdown, DropdownButton, DropdownItem, DropdownSeparator } from '@/components/Dropdown';
 
 export const Navbar: React.FC = () => {
+    const router = useRouter();
     const { data: session, status: authStatus } = useSession();
 
     const [shrink, setShrink] = useState(false);
@@ -63,7 +65,26 @@ export const Navbar: React.FC = () => {
                         <DropdownSeparator />
                         <DropdownItem href="https://vzhuids.net/" target="_blank" rel="noreferrer">IDS</DropdownItem>
                     </Dropdown>
-                    {authStatus === 'unauthenticated' ? (
+                    {authStatus === 'authenticated' && session ? (
+                        <Dropdown title={`${session.user.first_name} ${session.user.last_name}`} className={linkColor}>
+                            <DropdownItem href={`/roster/${session.user.cid}`}>My Profile</DropdownItem>
+                            <DropdownItem href="/training">Training Center</DropdownItem>
+                            <DropdownSeparator />
+                            {session.user.permissions.is_staff && (
+                                <DropdownItem href="/admin">Administration</DropdownItem>
+                            )}
+                            <DropdownItem href="/dashboard">Dashboard</DropdownItem>
+                            <DropdownSeparator />
+                            <DropdownButton
+                                onClick={() => {
+                                    signOut({ redirect: false });
+                                    router.push('/');
+                                }}
+                            >
+                                Log Out
+                            </DropdownButton>
+                        </Dropdown>
+                    ) : (
                         <button
                             type="button"
                             onClick={() => signIn('vatsim')}
@@ -84,18 +105,6 @@ export const Navbar: React.FC = () => {
                                 Login with VATSIM
                             </span>
                         </button>
-                    ) : (
-                        <Dropdown title={`${session?.user.first_name} ${session?.user.last_name}`} className={linkColor}>
-                            <DropdownItem href={`/roster/${session?.user.cid}`}>My Profile</DropdownItem>
-                            <DropdownItem href="/training">Training Center</DropdownItem>
-                            <DropdownSeparator />
-                            {session?.user.is_staff && (
-                                <DropdownItem href="/admin">Administration</DropdownItem>
-                            )}
-                            <DropdownItem href="/dashboard">Dashboard</DropdownItem>
-                            <DropdownSeparator />
-                            <DropdownButton onClick={() => signOut()}>Log Out</DropdownButton>
-                        </Dropdown>
                     )}
                 </div>
             </div>

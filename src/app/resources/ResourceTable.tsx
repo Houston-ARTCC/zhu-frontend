@@ -72,7 +72,7 @@ export const ResourceTable: React.FC<ResourceTableProps> = ({ data }) => {
                                 <LuFileEdit size={20} />
                             </button>
                         ),
-                        omit: !session?.user.is_staff,
+                        omit: !session?.user.permissions.is_staff,
                     },
                 ]}
             />

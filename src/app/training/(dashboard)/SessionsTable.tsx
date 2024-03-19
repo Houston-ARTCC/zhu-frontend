@@ -195,7 +195,7 @@ export const SessionsTable: React.FC<SessionsTableProps> = ({ data }) => {
                             <LuFileCog size={20} className="text-gray-900" />
                         </Link>
                     ),
-                    omit: !session?.user.is_training_staff,
+                    omit: !session?.user.permissions.is_training_staff,
                     width: '60px',
                 },
             ]}

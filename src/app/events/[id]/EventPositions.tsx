@@ -45,7 +45,7 @@ const EventShiftInfo: React.FC<EventShiftInfoProps> = async ({ index, preventSig
             >
                 {shift.user
                     ? `${shift.user.first_name} ${shift.user.last_name}`
-                    : (session && session.user.is_member && !preventSignup)
+                    : (session && session.user.permissions.is_member && !preventSignup)
                         ? (
                             <ShiftRequestButton
                                 shift={shift}

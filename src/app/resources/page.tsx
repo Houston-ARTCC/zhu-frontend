@@ -27,7 +27,7 @@ const Resources: NextPage = async () => {
     return (
         <Page {...metadata}>
             <PageContent>
-                {session?.user.is_staff && (
+                {session?.user.permissions.is_staff && (
                     <NewResourceButton />
                 )}
                 {Object.values(Category).map((category) => (
