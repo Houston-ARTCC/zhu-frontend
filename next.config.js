@@ -4,7 +4,20 @@ const { withSentryConfig } = require('@sentry/nextjs');
 const nextConfig = {
     output: 'standalone',
     images: {
-        domains: ['127.0.0.1', 'localhost', 'api.houston.center'],
+        remotePatterns: [
+            {
+                protocol: 'http',
+                hostname: 'localhost',
+                port: '8000',
+                pathname: '/media/**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'api.houston.center',
+                port: '80',
+                pathname: '/media/**',
+            },
+        ],
     },
     redirects: async () => [
         {
