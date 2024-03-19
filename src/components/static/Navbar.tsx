@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import classNames from 'classnames';
-import { Dropdown, DropdownButton, DropdownItem, DropdownSeparator, DropdownToggle } from '@/components/Dropdown';
+import { Dropdown, DropdownButton, DropdownItem, DropdownSeparator } from '@/components/Dropdown';
 
 export const Navbar: React.FC = () => {
     const { data: session, status: authStatus } = useSession();
@@ -41,9 +41,6 @@ export const Navbar: React.FC = () => {
                     <h6 className={classNames('text-xl font-bold', linkColor)}>Houston ARTCC</h6>
                 </Link>
                 <div className="ml-auto flex items-center gap-10">
-                    <Link href="/calendar" className={linkColor}>
-                        <DropdownToggle>Calendar</DropdownToggle>
-                    </Link>
                     <Dropdown title="Events" className={linkColor}>
                         <DropdownItem href="/events">Events</DropdownItem>
                         <DropdownItem href="/events/support">Request Support</DropdownItem>
