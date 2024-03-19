@@ -31,7 +31,7 @@ export const Heatmap: React.FC<HeatmapProps> = ({ data }) => (
             startDate={subDays(startOfYear(new Date()), 2)}
             endDate={endOfYear(new Date())}
             values={data}
-            classForValue={(cell: DailyStatistic | null) => cellColor(cell?.count ?? 0)}
+            classForValue={(cell) => cellColor((cell as DailyStatistic | undefined)?.count ?? 0)}
             tooltipDataAttrs={(value: DailyStatistic) => (
                 value.count
                     ? { 'data-tooltip-html': `<b>${value.date}:</b> ${value.count.toFixed(2)} hours` }

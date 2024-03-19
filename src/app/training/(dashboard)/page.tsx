@@ -1,6 +1,6 @@
 import { type NextPage } from 'next';
 import { type Session, getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/utils/auth';
 import { fetchApi } from '@/utils/fetch';
 import { type TrainingSession } from '@/types/training';
 import { SessionsTable } from './SessionsTable';

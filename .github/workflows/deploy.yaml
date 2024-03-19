@@ -14,6 +14,7 @@ jobs:
         run: |
           echo NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL }} >> $GITHUB_ENV
           echo NEXT_PUBLIC_MAPBOX_APIK=${{ vars.NEXT_PUBLIC_MAPBOX_APIK }} >> $GITHUB_ENV
+          echo SENTRY_AUTH_TOKEN=${{ vars.SENTRY_AUTH_TOKEN }} >> $GITHUB_ENV
 
       - name: Enable corepack
         run: corepack enable

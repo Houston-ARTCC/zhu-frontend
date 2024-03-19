@@ -1,10 +1,10 @@
 import React from 'react';
 import { type NextPage } from 'next';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { PageContent } from '@/components/PageContent';
 import { Page } from '@/components/Page';
 import { Card } from '@/components/Card';
+import { authOptions } from '@/utils/auth';
 import { fetchApi } from '@/utils/fetch';
 import { Category, CATEGORY_STRING, type ResourceData } from '@/types/resources';
 import { ResourceTable } from './ResourceTable';

@@ -2,8 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 import { format } from 'date-fns-tz';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { Popover } from '@/components/Popover';
+import { authOptions } from '@/utils/auth';
 import { type EventPosition, type EventShift } from '@/types/events';
 import { ShiftRequestButton } from './ShiftRequestButton';
 

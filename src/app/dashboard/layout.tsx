@@ -10,7 +10,7 @@ const DashboardLayout: React.FC<PropsWithChildren> = async ({ children }) => (
         <PageContent>
             <div className="flex items-start gap-10">
                 <SideNav
-                    rootPath="dashboard"
+                    rootPath="/dashboard"
                     sections={[
                         {
                             title: 'Settings',
