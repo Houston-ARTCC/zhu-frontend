@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 import { TuiCalendar } from '@/components/Calendar';
+import { ClientPortal } from '@/components/ClientPortal';
 import { eventObjectFromRequest } from '@/utils/calendar';
 import { type TrainingRequest } from '@/types/training';
 import { RequestTrainingModal } from './RequestTrainingModal';
@@ -27,15 +27,14 @@ export const Scheduler: React.FC<SchedulerProps> = ({ requests }) => {
                     setShowModal(true);
                 }}
             />
-            {ReactDOM.createPortal(
+            <ClientPortal>
                 <RequestTrainingModal
                     {...dateRange}
                     show={showModal}
                     close={() => setShowModal(false)}
                     onClose={() => setDateRange(undefined)}
-                />,
-                document.body,
-            )}
+                />
+            </ClientPortal>
         </>
     );
 };

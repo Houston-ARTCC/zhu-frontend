@@ -1,13 +1,13 @@
 'use client';
 
 import React, { type PropsWithChildren, type ReactElement, type ReactNode, useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import FocusTrap from 'focus-trap-react';
 import { LuX } from 'react-icons/lu';
 import usePresence from 'use-presence';
 import { Card } from '@/components/Card';
 import { Button, type ButtonProps } from '@/components/Button';
+import { ClientPortal } from './ClientPortal';
 
 export interface ModalProps extends PropsWithChildren {
     show?: boolean;
@@ -100,12 +100,9 @@ export const ModalButton: React.FC<ModalButtonProps> = ({ modal, children, ...pr
             <Button onClick={() => setOpen(true)} {...props}>
                 {children}
             </Button>
-            {ReactDOM.createPortal(
-                <>
-                    {React.cloneElement(modal, { show: open, close: () => setOpen(false) })}
-                </>,
-                document.body,
-            )}
+            <ClientPortal>
+                {React.cloneElement(modal, { show: open, close: () => setOpen(false) })}
+            </ClientPortal>
         </>
     );
 };

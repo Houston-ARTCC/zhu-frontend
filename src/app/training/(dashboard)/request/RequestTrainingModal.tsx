@@ -122,7 +122,7 @@ export const RequestTrainingModal: React.FC<RequestTrainingModalProps> = ({ star
                         Cancel
                     </Button>
                     <Button type="submit" disabled={isSubmitting}>
-                        Book
+                        Request
                     </Button>
                 </div>
             </form>

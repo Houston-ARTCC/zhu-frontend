@@ -24,7 +24,7 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({ controllerOptions, e
     const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm<FeedbackFormValues>({
         resolver: zodResolver(feedbackSchema),
         defaultValues: {
-            controller: controllerOptions[0],
+            controller: undefined,
             rating: 3,
         },
     });
@@ -81,7 +81,9 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({ controllerOptions, e
                             <SelectInput
                                 {...field}
                                 className="col-span-3"
+                                isClearable
                                 label="Controller's Name"
+                                placeholder="General ARTCC Feedback"
                                 options={controllerOptions}
                                 error={errors.controller?.message}
                             />

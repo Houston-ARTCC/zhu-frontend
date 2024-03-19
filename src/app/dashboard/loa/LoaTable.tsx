@@ -5,7 +5,7 @@ import DataTable from 'react-data-table-component';
 import { LuCheckCircle2, LuChevronDown, LuMessageCircle, LuX } from 'react-icons/lu';
 import { format } from 'date-fns-tz';
 import { Tooltip } from 'react-tooltip';
-import ReactDOM from 'react-dom';
+import { ClientPortal } from '@/components/ClientPortal';
 import { dataTableStyle } from '@/utils/dataTableStyle';
 import type { LeaveOfAbsence } from '@/types/loa';
 import { CancelLoaModal } from './CancelLoaModal';
@@ -85,15 +85,14 @@ export const LoaTable: React.FC<PendingRequestsTableProps> = ({ data }) => {
                 ]}
             />
             <Tooltip id="remarks-tooltip" className="max-w-lg" />
-            {ReactDOM.createPortal(
+            <ClientPortal>
                 <CancelLoaModal
                     loa={cancelLoa}
                     show={showModal}
                     close={() => setShowModal(false)}
                     onClose={() => setCancelLoa(undefined)}
-                />,
-                document.body,
-            )}
+                />
+            </ClientPortal>
         </>
     );
 };

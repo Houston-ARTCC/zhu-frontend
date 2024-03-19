@@ -4,7 +4,7 @@ const { withSentryConfig } = require('@sentry/nextjs');
 const nextConfig = {
     output: 'standalone',
     images: {
-        domains: ['localhost', 'api.zhuartcc.org', 'api.zhuartcc.devel'],
+        domains: ['127.0.0.1', 'localhost', 'api.houston.center'],
     },
     redirects: async () => [
         {
@@ -16,7 +16,7 @@ const nextConfig = {
     sentry: {
         hideSourceMaps: true,
         disableLogger: true,
-    }
+    },
 };
 
 const sentryOptions = {

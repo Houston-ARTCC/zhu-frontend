@@ -1,13 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import classNames from 'classnames';
-import ReactDOM from 'react-dom';
 import { type SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { LuMinusCircle, LuPlus } from 'react-icons/lu';
 import { Button } from '@/components/Button';
 import { TextInput } from '@/components/Forms';
-import { Modal, type ModalProps } from '@/components/Modal';
+import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { type SchemaError } from '@/types';
 import { type AddPositionsFormValues, addPositionsSchema } from './addPositionsSchema';
 
@@ -122,19 +121,13 @@ export const AddPositionsModal: React.FC<AddPositionsModalProps> = ({ addPositio
     );
 };
 
-export const AddPositionsButton: React.FC<AddPositionsModalProps> = ({ addPositions }) => {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <>
-            <Button className="text-sm" variant="tertiary" onClick={() => setOpen(true)}>
-                <LuPlus />
-                Add Position
-            </Button>
-            {ReactDOM.createPortal(
-                <AddPositionsModal addPositions={addPositions} show={open} close={() => setOpen(false)} />,
-                document.body,
-            )}
-        </>
-    );
-};
+export const AddPositionsButton: React.FC<AddPositionsModalProps> = ({ addPositions }) => (
+    <ModalButton
+        className="text-sm"
+        variant="tertiary"
+        modal={<AddPositionsModal addPositions={addPositions} />}
+    >
+        <LuPlus />
+        Add Position
+    </ModalButton>
+);

@@ -4,11 +4,11 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { format } from 'date-fns-tz';
 import { LuArrowRight, LuCalendar, LuClock } from 'react-icons/lu';
-import ReactDOM from 'react-dom';
 import { AnnouncementModal } from '@/components/AnnouncementModal';
 import { Badge } from '@/components/Badge';
 import { Card } from '@/components/Card';
 import { ProfilePicture } from '@/components/ProfilePicture';
+import { ClientPortal } from '@/components/ClientPortal';
 import { type Announcement } from '@/types/announcements';
 import { type BasicEvent } from '@/types/events';
 
@@ -23,7 +23,7 @@ export const AnnouncementCard: React.FC<AnnouncementCardProps> = ({ announcement
         <>
             <Card interactive onClick={() => setShowModal(true)}>
                 <div className="mb-3 flex w-full gap-5">
-                    <h4 className="w-full shrink overflow-hidden text-ellipsis whitespace-nowrap text-xl font-bold">
+                    <h4 className="w-full shrink truncate text-xl font-bold">
                         {announcement.title}
                     </h4>
                     <Badge className="ml-auto">{format(new Date(announcement.posted), 'MMM d, y')}</Badge>
@@ -35,14 +35,13 @@ export const AnnouncementCard: React.FC<AnnouncementCardProps> = ({ announcement
                     </span>
                 </div>
             </Card>
-            {ReactDOM.createPortal(
+            <ClientPortal>
                 <AnnouncementModal
                     show={showModal}
                     announcement={announcement}
                     close={() => setShowModal(false)}
-                />,
-                document.body,
-            )}
+                />
+            </ClientPortal>
         </>
     );
 };

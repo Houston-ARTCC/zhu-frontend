@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { format } from 'date-fns-tz';
 import { LuEye, LuX } from 'react-icons/lu';
-import ReactDOM from 'react-dom';
 import { AnnouncementModal } from '@/components/AnnouncementModal';
+import { ClientPortal } from '@/components/ClientPortal';
 import { dataTableStyle } from '@/utils/dataTableStyle';
 import { type Announcement } from '@/types/announcements';
 import { DeleteAnnouncementModal } from './DeleteAnnouncementModal';
@@ -75,24 +75,22 @@ export const AnnouncementsTable: React.FC<AnnouncementsTableProps> = ({ data }) 
                     },
                 ]}
             />
-            {ReactDOM.createPortal(
+            <ClientPortal>
                 <AnnouncementModal
                     show={showAnnouncement}
                     announcement={currentAnnouncement}
                     close={() => setShowAnnouncement(false)}
                     onClose={() => setCurrentAnnouncement(undefined)}
-                />,
-                document.body,
-            )}
-            {ReactDOM.createPortal(
+                />
+            </ClientPortal>
+            <ClientPortal>
                 <DeleteAnnouncementModal
                     show={showDelete}
                     announcement={currentAnnouncement}
                     close={() => setShowDelete(false)}
                     onClose={() => setCurrentAnnouncement(undefined)}
-                />,
-                document.body,
-            )}
+                />
+            </ClientPortal>
         </>
     );
 };

@@ -62,7 +62,7 @@ export const TrainingRequestsTable: React.FC<TrainingRequestsTableProps> = ({ da
                     format: (row) => `${row.user.first_name} ${row.user.last_name}`,
                     sortFunction: (a, b) => (
                         a.user.first_name.localeCompare(b.user.first_name)
-                            || a.user.last_name.localeCompare(b.user.last_name)
+                        || a.user.last_name.localeCompare(b.user.last_name)
                     ),
                 },
                 {
@@ -74,12 +74,11 @@ export const TrainingRequestsTable: React.FC<TrainingRequestsTableProps> = ({ da
                             ? format(new Date(row.last_session), 'MMM d, y')
                             : 'Never'
                     ),
-                    // TODO: Replace with some sort of localeCompare
-                    sortFunction: (a, b) => (
-                        new Date(a.last_session ?? 0) > new Date(b.last_session ?? 0)
-                            ? 1
-                            : -1
-                    ),
+                    sortFunction: (a, b) => {
+                        if (!a.last_session) return 1;
+                        if (!b.last_session) return -1;
+                        return a.last_session.localeCompare(b.last_session);
+                    },
                 },
                 {
                     name: 'Requests',

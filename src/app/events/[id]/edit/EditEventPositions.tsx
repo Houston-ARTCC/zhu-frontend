@@ -9,7 +9,6 @@ import { Dropdown, DropdownButton, DropdownSeparator } from '@/components/Dropdo
 import { fetchApi } from '@/utils/fetch';
 import { type EventPosition, type EventShift } from '@/types/events';
 import { type BasicUser } from '@/types/users';
-import { type SchemaError } from '@/types';
 import { AddPositionsButton } from '../../AddPositionsModal';
 import { type AddPositionsFormValues } from '../../addPositionsSchema';
 import { ManualAssignButton } from './ManualAssignModal';
@@ -53,7 +52,7 @@ const EventShiftInfo: React.FC<EventShiftInfoProps> = ({ shift, deleteShift }) =
             <Dropdown
                 title={
                     controller ? (
-                        <span className="min-w-0 max-w-fit grow basis-0 overflow-hidden text-ellipsis whitespace-nowrap">
+                        <span className="min-w-0 max-w-fit grow basis-0 truncate">
                             {controller.first_name} {controller.last_name}
                         </span>
                     ) : (
@@ -157,11 +156,11 @@ export const EditEventPositions: React.FC<EditEventPositionsProps> = ({ eventId,
 
     const addPositions = useCallback(
         async (values: AddPositionsFormValues) => toast.promise(
-            fetchApi<SchemaError[]>(`/events/${eventId}/`, {
+            fetchApi<EventPosition[]>(`/events/${eventId}/`, {
                 method: 'POST',
                 body: JSON.stringify(values.positions),
             })
-                .then(() => undefined)
+                .then((data) => setCurrPositions((pos) => pos.concat(data)))
                 .catch(async (resp) => {
                     if (resp.headers.get('Content-Type') === 'application/json') {
                         const data = await resp.json();

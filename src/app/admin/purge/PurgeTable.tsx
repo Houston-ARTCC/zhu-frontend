@@ -5,11 +5,11 @@ import { format } from 'date-fns-tz';
 import DataTable from 'react-data-table-component';
 import { LuCheck, LuChevronDown, LuEye, LuUserX } from 'react-icons/lu';
 import { addMonths, getQuarter, startOfQuarter } from 'date-fns';
-import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import { Button } from '@/components/Button';
 import { RosterOptions } from '@/components/RosterOptions';
 import { ProfilePicture } from '@/components/ProfilePicture';
+import { ClientPortal } from '@/components/ClientPortal';
 import { dataTableStyle } from '@/utils/dataTableStyle';
 import { durationToSeconds } from '@/utils/time';
 import type { AdminStatistics, AdminUserStatistic } from '@/types/connections';
@@ -157,14 +157,13 @@ export const PurgeView: React.FC<PurgeViewProps> = ({ data }) => {
                     },
                 ]}
             />
-            {ReactDOM.createPortal(
+            <ClientPortal>
                 <PurgeModal
                     show={showPurgeModal}
                     users={selectedRows}
                     close={() => setShowPurgeModal(false)}
-                />,
-                document.body,
-            )}
+                />
+            </ClientPortal>
         </>
     );
 };

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { LuPlusCircle } from 'react-icons/lu';
-import ReactDOM from 'react-dom';
-import { AddSoloModal } from '@/app/roster/[cid]/AddSoloModal';
 import type { EndorsementBadgeProps } from '@/app/roster/ProfileBadges';
 import { EndorsementBadge } from '@/app/roster/ProfileBadges';
+import { ClientPortal } from '@/components/ClientPortal';
+import { AddSoloModal } from './AddSoloModal';
 
 interface CertDropdownProps extends EndorsementBadgeProps {
     onUpdate: (status: boolean | string) => void;
@@ -31,14 +31,13 @@ export const ToggleEndorsementButton: React.FC<CertDropdownProps> = ({ tier, nam
                     )}
                 </EndorsementBadge>
             </button>
-            {ReactDOM.createPortal(
+            <ClientPortal>
                 <AddSoloModal
                     update={onUpdate}
                     show={showSoloModal}
                     close={() => setShowSoloModal(false)}
-                />,
-                document.body,
-            )}
+                />
+            </ClientPortal>
         </>
     );
 };

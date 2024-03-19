@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 import { TuiCalendar } from '@/components/Calendar';
+import { ClientPortal } from '@/components/ClientPortal';
 import { RequestLoaModal } from './RequestLoaModal';
 
 export const Scheduler: React.FC = () => {
@@ -19,15 +19,14 @@ export const Scheduler: React.FC = () => {
                     setShowModal(true);
                 }}
             />
-            {ReactDOM.createPortal(
+            <ClientPortal>
                 <RequestLoaModal
                     {...dateRange}
                     show={showModal}
                     close={() => setShowModal(false)}
                     onClose={() => setDateRange(undefined)}
-                />,
-                document.body,
-            )}
+                />
+            </ClientPortal>
         </>
     );
 };

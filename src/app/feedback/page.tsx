@@ -36,7 +36,6 @@ const Feedback: NextPage = async () => {
             value: controller.cid,
         }),
     );
-    controllerOptions.unshift({ label: 'General ARTCC Feedback', value: null });
 
     const eventOptions = events
         .slice(0, 5)

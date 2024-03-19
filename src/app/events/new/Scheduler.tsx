@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 import { TuiCalendar } from '@/components/Calendar';
 import type { SelectOption } from '@/components/Forms';
+import { ClientPortal } from '@/components/ClientPortal';
 import { NewEventModal } from './NewEventModal';
 
 interface SchedulerProps {
@@ -25,16 +25,15 @@ export const Scheduler: React.FC<SchedulerProps> = ({ presets }) => {
                     setShowModal(true);
                 }}
             />
-            {ReactDOM.createPortal(
+            <ClientPortal>
                 <NewEventModal
                     {...dateRange}
                     presets={presets}
                     show={showModal}
                     close={() => setShowModal(false)}
                     onClose={() => setDateRange(undefined)}
-                />,
-                document.body,
-            )}
+                />
+            </ClientPortal>
         </>
     );
 };

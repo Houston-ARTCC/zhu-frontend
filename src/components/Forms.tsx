@@ -224,7 +224,7 @@ export const FileInput: React.FC<FileInputProps> = ({ error, currentFile, onUplo
                     <BsUpload className="mb-2" size={35} />
                     <p className="font-medium">Drag and drop files here, or click to select files</p>
                     {currentFile && (
-                        <p className="max-w-full overflow-hidden text-ellipsis whitespace-nowrap">
+                        <p className="max-w-full truncate">
                             Current File: {currentFile instanceof File
                                 ? currentFile.name
                                 : currentFile.split('/').pop()}

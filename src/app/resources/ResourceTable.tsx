@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 import { LuChevronDown, LuFileEdit } from 'react-icons/lu';
 import { format } from 'date-fns-tz';
 import DataTable from 'react-data-table-component';
 import { useSession } from 'next-auth/react';
+import { ClientPortal } from '@/components/ClientPortal';
 import { dataTableStyle } from '@/utils/dataTableStyle';
 import { type Resource } from '@/types/resources';
 import { ResourceModal } from './ResourceModal';
@@ -76,15 +76,14 @@ export const ResourceTable: React.FC<ResourceTableProps> = ({ data }) => {
                     },
                 ]}
             />
-            {ReactDOM.createPortal(
+            <ClientPortal>
                 <ResourceModal
                     show={showEditResource}
                     resource={editResource}
                     close={() => setShowEditResource(false)}
                     onClose={() => setEditResource(undefined)}
-                />,
-                document.body,
-            )}
+                />
+            </ClientPortal>
         </>
     );
 };

@@ -2,12 +2,12 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import ReactDOM from 'react-dom';
 import DataTable from 'react-data-table-component';
 import { LuChevronDown, LuFileBadge, LuUserX, LuX } from 'react-icons/lu';
 import { format } from 'date-fns-tz';
 import { useSession } from 'next-auth/react';
 import { Badge } from '@/components/Badge';
+import { ClientPortal } from '@/components/ClientPortal';
 import { dataTableStyle } from '@/utils/dataTableStyle';
 import { SESSION_LEVEL_STRING, SESSION_TYPE_STRING, type TrainingSession } from '@/types/training';
 import { CancelSessionModal } from './CancelSessionModal';
@@ -133,24 +133,22 @@ export const ScheduledSessionsTable: React.FC<ScheduledSessionsTableProps> = ({ 
                     },
                 ]}
             />
-            {ReactDOM.createPortal(
+            <ClientPortal>
                 <CancelSessionModal
                     show={showCancelSession}
                     session={cancelSession}
                     close={() => setShowCancelSession(false)}
                     onClose={() => setCancelSession(undefined)}
-                />,
-                document.body,
-            )}
-            {ReactDOM.createPortal(
+                />
+            </ClientPortal>
+            <ClientPortal>
                 <NoShowSessionModal
                     show={showNoShowSession}
                     session={noShowSession}
                     close={() => setShowNoShowSession(false)}
                     onClose={() => setNoShowSession(undefined)}
-                />,
-                document.body,
-            )}
+                />
+            </ClientPortal>
         </>
     );
 };

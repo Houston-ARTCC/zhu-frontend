@@ -50,7 +50,7 @@ export const sessionSchema = z.object({
 
     movements: z.number().nonnegative('May not be negative'),
 
-    position: z.string().optional(),
+    position: z.string(),
 
     notes: z.string(),
 
