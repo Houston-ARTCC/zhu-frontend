@@ -90,6 +90,6 @@ export const NewAnnouncementButton: React.FC = () => (
         modal={<NewAnnouncementModal />}
     >
         <LuPlus size={20} />
-        New Resource
+        New Announcement
     </ModalButton>
 );

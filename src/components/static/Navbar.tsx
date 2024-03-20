@@ -47,13 +47,17 @@ export const Navbar: React.FC = () => {
                         <DropdownItem href="/events">Events</DropdownItem>
                         <DropdownItem href="/events/support">Request Support</DropdownItem>
                         <DropdownItem href="/events/scores">Event Scores</DropdownItem>
-                        <DropdownSeparator />
-                        <DropdownItem href="/events/new">New Event</DropdownItem>
-                        <DropdownItem href="/events/presets">Position Presets</DropdownItem>
+                        {authStatus === 'authenticated' && session && session.user.permissions.is_staff && (
+                            <>
+                                <DropdownSeparator />
+                                <DropdownItem href="/events/new">New Event</DropdownItem>
+                                <DropdownItem href="/events/presets">Position Presets</DropdownItem>
+                            </>
+                        )}
                     </Dropdown>
                     <Dropdown title="Pilots" className={linkColor}>
                         <DropdownItem href="/feedback">Leave Feedback</DropdownItem>
-                        <DropdownItem href="/map">ARTCC Map</DropdownItem>
+                        <DropdownItem href="/map">Airspace Map</DropdownItem>
                         <DropdownSeparator />
                         <DropdownItem href="https://flightaware.com/statistics/ifr-route/" target="_blank" rel="noreferrer">Routes</DropdownItem>
                     </Dropdown>
@@ -67,13 +71,19 @@ export const Navbar: React.FC = () => {
                     </Dropdown>
                     {authStatus === 'authenticated' && session ? (
                         <Dropdown title={`${session.user.first_name} ${session.user.last_name}`} className={linkColor}>
-                            <DropdownItem href={`/roster/${session.user.cid}`}>My Profile</DropdownItem>
-                            <DropdownItem href="/training">Training Center</DropdownItem>
-                            <DropdownSeparator />
-                            {session.user.permissions.is_staff && (
-                                <DropdownItem href="/admin">Administration</DropdownItem>
+                            {session.user.permissions.is_member ? (
+                                <>
+                                    <DropdownItem href={`/roster/${session.user.cid}`}>My Profile</DropdownItem>
+                                    <DropdownItem href="/dashboard">Dashboard</DropdownItem>
+                                    <DropdownItem href="/training">Training Center</DropdownItem>
+                                    <DropdownSeparator />
+                                    {session.user.permissions.is_staff && (
+                                        <DropdownItem href="/admin">Administration</DropdownItem>
+                                    )}
+                                </>
+                            ) : (
+                                <DropdownItem href="/visit">Apply to Visit</DropdownItem>
                             )}
-                            <DropdownItem href="/dashboard">Dashboard</DropdownItem>
                             <DropdownSeparator />
                             <DropdownButton
                                 onClick={() => {

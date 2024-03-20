@@ -24,7 +24,7 @@ const EventSupportRequests: NextPage = async () => {
                     </div>
                     <div>
                         <h4 className="mb-0.5 text-2xl font-medium">All caught up!</h4>
-                        <p>There are no pending visiting requests, check back later.</p>
+                        <p>There are no pending event support requests, check back later.</p>
                     </div>
                 </div>
             </div>
