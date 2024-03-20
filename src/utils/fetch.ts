@@ -26,12 +26,10 @@ export async function fetchApi<T extends object>(route: string, config?: NextFet
     const session = await (typeof window === 'undefined' ? getServerSession(authOptions) : getSession());
 
     const headers = new Headers(config?.headers);
-    headers.append(
-        'Content-Type',
-        config?.body instanceof FormData
-            ? 'multipart/form-data'
-            : 'application/json',
-    );
+
+    if (!(config?.body instanceof FormData)) {
+        headers.append('Content-Type', 'application/json');
+    }
 
     if (session) {
         headers.append('Authorization', `Bearer ${session.access_token}`);
