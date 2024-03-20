@@ -5,9 +5,7 @@ import Link from 'next/link';
 import { format } from 'date-fns-tz';
 import { LuArrowRight, LuCalendar, LuClock } from 'react-icons/lu';
 import { AnnouncementModal } from '@/components/AnnouncementModal';
-import { Badge } from '@/components/Badge';
 import { Card } from '@/components/Card';
-import { ProfilePicture } from '@/components/ProfilePicture';
 import { ClientPortal } from '@/components/ClientPortal';
 import { type Announcement } from '@/types/announcements';
 import { type BasicEvent } from '@/types/events';
@@ -22,17 +20,13 @@ export const AnnouncementCard: React.FC<AnnouncementCardProps> = ({ announcement
     return (
         <>
             <Card interactive onClick={() => setShowModal(true)}>
-                <div className="mb-3 flex w-full gap-5">
-                    <h4 className="w-full shrink truncate text-xl font-bold">
+                <div className="flex w-full items-center">
+                    <p className="inline-block w-32 whitespace-pre text-gray-400">
+                        {format(new Date(announcement.posted), 'MMM d, y')}
+                    </p>
+                    <h4 className="w-full shrink truncate text-lg font-medium">
                         {announcement.title}
                     </h4>
-                    <Badge className="ml-auto">{format(new Date(announcement.posted), 'MMM d, y')}</Badge>
-                </div>
-                <div className="flex items-center gap-2">
-                    <ProfilePicture user={announcement.author} size={40} />
-                    <span className="font-medium">
-                        {announcement.author.first_name} {announcement.author.last_name}
-                    </span>
                 </div>
             </Card>
             <ClientPortal>
@@ -55,17 +49,17 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => (
         <Card interactive>
             <div className="grid grid-cols-2">
                 <div>
-                    <h4 className="text-ellipsis whitespace-nowrap text-xl font-bold">{event.name}</h4>
-                    <h5 className="mb-5 text-ellipsis whitespace-nowrap text-lg font-medium text-slate-400">
+                    <h4 className="text-ellipsis whitespace-nowrap text-lg font-medium">{event.name}</h4>
+                    <h5 className="mb-5 text-ellipsis whitespace-nowrap text-slate-400">
                         Presented by {event.host}
                     </h5>
                     <div className="mb-3 flex items-center gap-3">
                         <LuCalendar size={23} />
-                        <span className="font-medium">{format(new Date(event.start), 'MMM d, y')}</span>
+                        {format(new Date(event.start), 'MMM d, y')}
                     </div>
                     <div className="flex items-center gap-3">
                         <LuClock size={23} />
-                        <span className="flex items-center gap-1.5 font-medium">
+                        <span className="flex items-center gap-1.5">
                             {format(new Date(event.start), 'HH:mm zzz')}
                             <LuArrowRight />
                             {format(new Date(event.end), 'HH:mm zzz')}

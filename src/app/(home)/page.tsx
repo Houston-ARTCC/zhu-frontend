@@ -96,7 +96,7 @@ const Home: NextPage = async () => {
                     <div className="ml-auto min-w-[50%]">
                         <h2 className="mb-5 text-3xl font-medium">Who's Online?</h2>
                         <div className="flex flex-col gap-3">
-                            {onlineConnections.length === 0 && <p>Nobody is online.</p>}
+                            {onlineConnections.length === 0 && <p>Nobody 😢</p>}
                             {onlineConnections.map((connection) => (
                                 <div key={connection.id} className="flex items-center gap-3">
                                     <Badge>{connection.callsign}</Badge>
@@ -111,8 +111,7 @@ const Home: NextPage = async () => {
 
                 <div className="mb-16 grid grid-cols-2 gap-10">
                     <div>
-                        <h2 className="text-3xl font-medium">Announcements</h2>
-                        <h3 className="mb-5 font-medium text-slate-400">What's happening at Houston?</h3>
+                        <h2 className="mb-5 text-3xl font-medium">Announcements</h2>
                         <div className="flex flex-col gap-5">
                             {recentAnnouncements.map((announcement) => (
                                 <AnnouncementCard key={announcement.id} announcement={announcement} />
@@ -120,8 +119,7 @@ const Home: NextPage = async () => {
                         </div>
                     </div>
                     <div>
-                        <h2 className="text-3xl font-medium">Events</h2>
-                        <h3 className="mb-5 font-medium text-slate-400">Are y'all busy?</h3>
+                        <h2 className="mb-5 text-3xl font-medium">Events</h2>
                         <div className="flex flex-col gap-5">
                             {upcomingEvents.length === 0 && <p>There are no published events, check back later.</p>}
                             {upcomingEvents.map((event) => (

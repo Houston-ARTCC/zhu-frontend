@@ -97,7 +97,9 @@ const ViewEvent: NextPage<EventParams> = async ({ params }) => {
                             </div>
                         )}
                     </div>
-                    <img src={event.banner} alt={event.name} />
+                    {event.banner && (
+                        <img src={event.banner} alt={event.name} />
+                    )}
                 </div>
                 <div className="grid grid-cols-3 gap-5">
                     <EventPositions

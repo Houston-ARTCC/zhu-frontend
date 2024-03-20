@@ -23,6 +23,7 @@ export const ConnectionsTable: React.FC<ConnectionsTable> = ({ data }) => (
         defaultSortFieldId={1}
         defaultSortAsc={false}
         sortIcon={<LuChevronDown />}
+        customStyles={dataTableStyle}
         columns={[
             {
                 name: 'Date',

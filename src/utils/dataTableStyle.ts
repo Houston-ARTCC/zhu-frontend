@@ -12,13 +12,13 @@ export const dataTableStyle = {
                 backgroundColor: '#e5e5e5!important',
                 outline: 'none!important',
             },
-            'fontSize': '1rem',
+            'fontSize': '0.9rem',
         },
     },
     headRow: {
         style: {
             backgroundColor: 'transparent',
-            fontSize: '1rem',
+            fontSize: '0.9rem',
         },
     },
     headCells: {

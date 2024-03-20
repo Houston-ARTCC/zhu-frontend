@@ -5,7 +5,7 @@ import { z } from 'zod';
 export const editEventSchema = z.object({
     name: z.string().min(1, 'Required'),
     host: z.string().min(1, 'Required'),
-    banner: z.string(),
+    banner: z.string().optional(),
     description: z.string(),
 
     start: z.date(),
