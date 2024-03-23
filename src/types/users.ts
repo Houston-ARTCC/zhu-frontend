@@ -4,7 +4,6 @@ export type Role = {
 };
 
 export type Endorsements = {
-    del: boolean | string;
     gnd: boolean | string;
     hou_gnd: boolean | string;
     iah_gnd: boolean | string;

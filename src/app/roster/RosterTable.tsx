@@ -18,8 +18,6 @@ function sortMinor(a: User, b: User): number {
     if (!a.endorsements.twr && b.endorsements.twr) return -1;
     if (a.endorsements.gnd && !b.endorsements.gnd) return 1;
     if (!a.endorsements.gnd && b.endorsements.gnd) return -1;
-    if (a.endorsements.del && !b.endorsements.del) return 1;
-    if (!a.endorsements.del && b.endorsements.del) return -1;
     return 0;
 }
 
@@ -101,43 +99,42 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                     cell: (user) => {
                         if (user.endorsements.app) return <EndorsementBadge tier={0} name="APP" status={user.endorsements.app} />;
                         if (user.endorsements.twr) return <EndorsementBadge tier={0} name="TWR" status={user.endorsements.twr} />;
-                        if (user.endorsements.gnd) return <EndorsementBadge tier={0} name="GND" status={user.endorsements.gnd} />;
-                        return <EndorsementBadge tier={0} name="DEL" status={user.endorsements.del} />;
+                        return <EndorsementBadge tier={0} name="GND" status={user.endorsements.gnd} />;
                     },
                     width: '110px',
                     center: true,
                 },
                 {
-                    name: 'HOU',
+                    name: 'HOU T1',
                     sortable: true,
                     sortFunction: sortHOU,
                     cell: (user) => {
-                        if (user.endorsements.hou_twr) return <EndorsementBadge tier={1} name="HOU TWR T1" status={user.endorsements.hou_twr} />;
-                        if (user.endorsements.hou_gnd) return <EndorsementBadge tier={1} name="HOU GND T1" status={user.endorsements.hou_gnd} />;
-                        return <EndorsementBadge tier={1} name="HOU T1" status={false} />;
+                        if (user.endorsements.hou_twr) return <EndorsementBadge tier={1} name="HOU TWR" status={user.endorsements.hou_twr} />;
+                        if (user.endorsements.hou_gnd) return <EndorsementBadge tier={1} name="HOU GND" status={user.endorsements.hou_gnd} />;
+                        return <EndorsementBadge tier={1} name="HOU" status={false} />;
                     },
                     width: '110px',
                     center: true,
                 },
                 {
-                    name: 'IAH',
+                    name: 'IAH T1',
                     sortable: true,
                     sortFunction: sortIAH,
                     cell: (user) => {
-                        if (user.endorsements.iah_twr) return <EndorsementBadge tier={1} name="IAH TWR T1" status={user.endorsements.iah_twr} />;
-                        if (user.endorsements.iah_gnd) return <EndorsementBadge tier={1} name="IAH GND T1" status={user.endorsements.iah_gnd} />;
-                        return <EndorsementBadge tier={1} name="IAH T1" status={false} />;
+                        if (user.endorsements.iah_twr) return <EndorsementBadge tier={1} name="IAH TWR" status={user.endorsements.iah_twr} />;
+                        if (user.endorsements.iah_gnd) return <EndorsementBadge tier={1} name="IAH GND" status={user.endorsements.iah_gnd} />;
+                        return <EndorsementBadge tier={1} name="IAH" status={false} />;
                     },
                     width: '110px',
                     center: true,
                 },
                 {
-                    name: 'I90',
+                    name: 'I90 T1',
                     sortable: true,
                     sortFunction: sortI90,
                     cell: (user) => {
-                        if (user.endorsements.i90_app) return <EndorsementBadge tier={1} name="I90 APP T1" status={user.endorsements.i90_app} />;
-                        return <EndorsementBadge tier={1} name="I90 T1" status={false} />;
+                        if (user.endorsements.i90_app) return <EndorsementBadge tier={1} name="I90 APP" status={user.endorsements.i90_app} />;
+                        return <EndorsementBadge tier={1} name="I90" status={false} />;
                     },
                     width: '110px',
                     center: true,

@@ -55,7 +55,6 @@ export const editUserSchema = z.object({
     cic_endorsed: z.boolean(),
 
     endorsements: z.object({
-        del: z.boolean().or(z.string()),
         gnd: z.boolean().or(z.string()),
         hou_gnd: z.boolean().or(z.string()),
         iah_gnd: z.boolean().or(z.string()),

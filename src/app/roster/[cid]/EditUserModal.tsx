@@ -125,18 +125,6 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                     <p className="text-right font-medium">Delivery + Ground</p>
                     <div className="flex gap-2">
                         <Controller
-                            name="endorsements.del"
-                            control={control}
-                            render={({ field: { value, onChange } }) => (
-                                <ToggleEndorsementButton
-                                    tier={0}
-                                    name="DEL"
-                                    status={value}
-                                    onUpdate={onChange}
-                                />
-                            )}
-                        />
-                        <Controller
                             name="endorsements.gnd"
                             control={control}
                             render={({ field: { value, onChange } }) => (

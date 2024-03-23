@@ -95,7 +95,6 @@ const UserProfile: NextPage<UserProfileParams> = async ({ params }) => {
                             <div className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-3">
                                 <p className="text-right font-medium">Delivery + Ground</p>
                                 <div className="flex gap-2">
-                                    <EndorsementBadge tier={0} name="DEL" status={user.endorsements.del} />
                                     <EndorsementBadge tier={0} name="GND" status={user.endorsements.gnd} />
                                     <EndorsementBadge tier={1} name="HOU GND T1" status={user.endorsements.hou_gnd} />
                                     <EndorsementBadge tier={1} name="IAH GND T1" status={user.endorsements.iah_gnd} />
