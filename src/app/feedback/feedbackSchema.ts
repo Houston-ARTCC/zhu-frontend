@@ -4,9 +4,11 @@ import { z } from 'zod';
 
 export const feedbackSchema = z.object({
     controller: z.object({
-        value: z.number().nullable(),
+        value: z.number(),
         label: z.string(),
-    }),
+    })
+        .optional()
+        .nullable(),
 
     controller_callsign: z.string().optional(),
 

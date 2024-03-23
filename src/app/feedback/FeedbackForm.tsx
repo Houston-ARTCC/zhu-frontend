@@ -32,7 +32,7 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({ controllerOptions, e
     const postRequest: SubmitHandler<FeedbackFormValues> = useCallback((values) => {
         const data = {
             ...values,
-            controller: values.controller.value,
+            controller: values.controller?.value,
             event: values.event?.value,
         };
         toast.promise(
