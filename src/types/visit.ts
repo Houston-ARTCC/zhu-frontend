@@ -7,9 +7,12 @@ export type VisitRequest = {
 };
 
 export type VisitEligibility = {
-    rating_check: boolean;
-    rating_time_check: boolean;
-    rating_hours_check: boolean;
+    has_home_facility: boolean;
+    rce_completed: boolean;
+    has_s3_rating: boolean;
+    time_since_visit: boolean;
+    time_since_promo: boolean;
+    controlling_time: boolean;
     membership_check: boolean;
     pending_application_check: boolean;
     is_eligible: boolean;

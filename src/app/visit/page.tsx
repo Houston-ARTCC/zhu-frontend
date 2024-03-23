@@ -37,16 +37,28 @@ const Visit: NextPage = async () => {
                 <h3 className="mb-3 text-2xl font-medium">Visiting Checklist</h3>
                 <ul className="mb-8 ml-0 list-none">
                     <li className="flex items-center gap-2">
-                        <VisitCriterion status={eligibility.rating_check} />
-                        You hold an S2 controller rating or greater
+                        <VisitCriterion status={eligibility.has_home_facility} />
+                        You have a home facility
                     </li>
                     <li className="flex items-center gap-2">
-                        <VisitCriterion status={eligibility.rating_time_check} />
-                        You have held your current rating for at least 90 days
+                        <VisitCriterion status={eligibility.rce_completed} />
+                        You have completed the appropriate rating competency exam
                     </li>
                     <li className="flex items-center gap-2">
-                        <VisitCriterion status={eligibility.rating_hours_check} />
-                        You have at least 50 hours of controlling time at your current rating
+                        <VisitCriterion status={eligibility.has_s3_rating} />
+                        You have earned at least an S3 rating
+                    </li>
+                    <li className="flex items-center gap-2">
+                        <VisitCriterion status={eligibility.time_since_visit} />
+                        It has been at least 60 days since you joined a visiting roster
+                    </li>
+                    <li className="flex items-center gap-2">
+                        <VisitCriterion status={eligibility.time_since_promo} />
+                        It has been at least 90 days since promotion to S1, S2, S3, or C1
+                    </li>
+                    <li className="flex items-center gap-2">
+                        <VisitCriterion status={eligibility.controlling_time} />
+                        You have controlled 50 hours since promotion to S1, S2, S3, or C1
                     </li>
                     <li className="flex items-center gap-2">
                         <VisitCriterion status={eligibility.membership_check} />
