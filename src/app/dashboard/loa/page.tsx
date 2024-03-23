@@ -54,7 +54,9 @@ const RequestLoa: NextPage = async () => {
                     </>
                 )}
                 <p>
-                    If you have any questions, do not hesitate to reach out to <a href="mailto:zhu-datm@vatusa.net">zhu-datm@vatusa.net</a>.
+                    If you have any questions, do not hesitate to reach out to
+                    {' '}
+                    <a href="mailto:management@houston.center">management@houston.center</a>.
                 </p>
                 {loas.length > 0 && (
                     <>
