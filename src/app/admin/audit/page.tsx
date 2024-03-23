@@ -6,7 +6,7 @@ import { LogEntryTable } from '@/app/admin/audit/LogEntryTable';
 import { TextInput } from '@/components/Forms';
 import { fetchApi } from '@/utils/fetch';
 import { type LogEntry } from '@/types/admin';
-import { type Paginated } from '@/types';
+import { type Paginated } from '@/types/api';
 
 const AuditLog: NextPage = () => {
     const [loading, setLoading] = useState<boolean>(false);

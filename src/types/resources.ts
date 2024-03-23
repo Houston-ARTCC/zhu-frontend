@@ -1,19 +1,12 @@
-export enum Category {
-    POLY = 'POLY',
-    PROC = 'PROC',
-    LOA = 'LOA',
-    VATIS = 'vATIS',
-    RVM = 'RVM',
-    REF = 'REF',
-}
+export type Category = 'poly' | 'proc' | 'loa' | 'vatis' | 'rvm' | 'ref';
 
-export const CATEGORY_STRING = {
-    [Category.POLY]: 'Policy',
-    [Category.PROC]: 'Procedure',
-    [Category.LOA]: 'LOA',
-    [Category.VATIS]: 'vATIS Profile',
-    [Category.RVM]: 'RVM List',
-    [Category.REF]: 'Reference',
+export const CATEGORY_STRING: { [key in Category]: string } = {
+    poly: 'Policy',
+    proc: 'Procedure',
+    loa: 'LOA',
+    vatis: 'vATIS Profile',
+    rvm: 'RVM List',
+    ref: 'Reference',
 };
 
 export type Resource = {
@@ -24,13 +17,6 @@ export type Resource = {
     category: Category;
     path: string;
     updated: string;
-}
+};
 
-export type ResourceData = {
-    [Category.POLY]: Resource[];
-    [Category.PROC]: Resource[];
-    [Category.LOA]: Resource[];
-    [Category.VATIS]: Resource[];
-    [Category.RVM]: Resource[];
-    [Category.REF]: Resource[];
-}
+export type ResourceData = { [key in Category]: Resource[] };

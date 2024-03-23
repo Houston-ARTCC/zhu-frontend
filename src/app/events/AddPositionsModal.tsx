@@ -7,7 +7,7 @@ import { LuMinusCircle, LuPlus } from 'react-icons/lu';
 import { Button } from '@/components/Button';
 import { TextInput } from '@/components/Forms';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
-import { type SchemaError } from '@/types';
+import { type SchemaError } from '@/types/api';
 import { type AddPositionsFormValues, addPositionsSchema } from './addPositionsSchema';
 
 interface AddPositionsModalProps extends ModalProps {

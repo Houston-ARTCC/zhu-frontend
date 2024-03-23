@@ -10,7 +10,7 @@ import { type AddPositionsFormValues } from '@/app/events/addPositionsSchema';
 import { Card } from '@/components/Card';
 import { fetchApi } from '@/utils/fetch';
 import { type PositionPreset, type PresetPosition } from '@/types/events';
-import { type SchemaError } from '@/types';
+import { type SchemaError } from '@/types/api';
 
 type SortedPositions = {
     enroute: PresetPosition[];

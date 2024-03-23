@@ -1,13 +1,16 @@
 'use client';
 
 import { z } from 'zod';
-import { Category } from '@/types/resources';
+import { CATEGORY_STRING } from '@/types/resources';
 
 export const resourceSchema = z.object({
     name: z.string().min(1, 'This field is required'),
 
     category: z.object({
-        value: z.nativeEnum(Category, { errorMap: () => ({ message: 'Invalid category' }) }),
+        value: z.enum(
+            Object.keys(CATEGORY_STRING) as [string, ...string[]],
+            { errorMap: () => ({ message: 'Invalid category' }) },
+        ),
         label: z.string(),
     }, { required_error: 'This field is required' }),
 
