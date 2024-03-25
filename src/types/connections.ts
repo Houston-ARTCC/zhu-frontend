@@ -1,4 +1,4 @@
-import { type BasicUser, type Roster } from '@/types/users';
+import { type BasicUser, type Endorsements, type Roster } from '@/types/users';
 
 export type Session = {
     id: number;
@@ -29,13 +29,21 @@ export type Statistics = Roster<UserStatistic>;
 
 export type AdminUserStatistic = UserStatistic & {
     is_staff: boolean;
-    quarter_hou_t1_hours?: string;
-    quarter_iah_t1_hours?: string;
-    quarter_i90_t1_hours?: string;
-    quarter_t1_hours?: string;
-    quarter_t1_active: boolean;
+    t1_hours?: string;
+    t1_active: boolean;
     training_hours?: string;
     training_active: boolean;
+};
+
+export type UserStatusStatistics = AdminUserStatistic & {
+    endorsements: Endorsements;
+    quarter_quota: string;
+    hou_gnd_hours?: string;
+    hou_twr_hours?: string;
+    iah_gnd_hours?: string;
+    iah_twr_hours?: string;
+    i90_hours?: string;
+    zhu_hours?: string;
 };
 
 export type AdminStatistics = Roster<AdminUserStatistic>;

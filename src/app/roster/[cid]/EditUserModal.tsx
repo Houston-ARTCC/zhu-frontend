@@ -215,7 +215,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                             )}
                         />
                         <Controller
-                            name="endorsements.i90_app"
+                            name="endorsements.i90"
                             control={control}
                             render={({ field: { value, onChange } }) => (
                                 <ToggleEndorsementButton

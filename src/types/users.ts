@@ -11,7 +11,7 @@ export type Endorsements = {
     hou_twr: boolean | string;
     iah_twr: boolean | string;
     app: boolean | string;
-    i90_app: boolean | string;
+    i90: boolean | string;
     zhu: boolean | string;
 };
 

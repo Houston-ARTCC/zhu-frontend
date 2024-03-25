@@ -38,8 +38,8 @@ function sortIAH(a: User, b: User): number {
 }
 
 function sortI90(a: User, b: User): number {
-    if (a.endorsements.i90_app && !b.endorsements.i90_app) return 1;
-    if (!a.endorsements.i90_app && b.endorsements.i90_app) return -1;
+    if (a.endorsements.i90 && !b.endorsements.i90) return 1;
+    if (!a.endorsements.i90 && b.endorsements.i90) return -1;
     return sortIAH(a, b);
 }
 
@@ -133,7 +133,7 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                     sortable: true,
                     sortFunction: sortI90,
                     cell: (user) => {
-                        if (user.endorsements.i90_app) return <EndorsementBadge tier={1} name="I90 APP" status={user.endorsements.i90_app} />;
+                        if (user.endorsements.i90) return <EndorsementBadge tier={1} name="I90 APP" status={user.endorsements.i90} />;
                         return <EndorsementBadge tier={1} name="I90" status={false} />;
                     },
                     width: '110px',

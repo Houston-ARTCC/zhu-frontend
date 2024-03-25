@@ -62,7 +62,7 @@ export const editUserSchema = z.object({
         hou_twr: z.boolean().or(z.string()),
         iah_twr: z.boolean().or(z.string()),
         app: z.boolean().or(z.string()),
-        i90_app: z.boolean().or(z.string()),
+        i90: z.boolean().or(z.string()),
         zhu: z.boolean().or(z.string()),
     }),
 });

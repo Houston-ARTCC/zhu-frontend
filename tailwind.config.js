@@ -8,6 +8,7 @@ module.exports = {
     theme: {
         fontFamily: {
             sans: ['"Cera Pro"', 'sans-serif'],
+            mono: ['monospace'],
         },
         extend: {
             colors: {

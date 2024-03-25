@@ -108,7 +108,7 @@ const UserProfile: NextPage<UserProfileParams> = async ({ params }) => {
                                 <p className="text-right font-medium">Approach</p>
                                 <div className="flex gap-2">
                                     <EndorsementBadge tier={0} name="APP" status={user.endorsements.app} />
-                                    <EndorsementBadge tier={1} name="I90 T1" status={user.endorsements.i90_app} />
+                                    <EndorsementBadge tier={1} name="I90 T1" status={user.endorsements.i90} />
                                 </div>
                                 <p className="text-right font-medium">Center</p>
                                 <div className="flex gap-2">
