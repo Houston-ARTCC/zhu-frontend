@@ -30,7 +30,7 @@ const RequestLoa: NextPage = async () => {
                 {currentLoa ? (
                     <>
                         <p className="mb-2 flex items-center gap-2 text-lg font-medium">
-                            <LuCheckCircle2 size={20} className="text-green-400" />
+                            <LuCheckCircle2 size={20} className="text-green-500" />
                             <span>
                                 You are currently on a leave of absence until <b>{format(new Date(currentLoa.end), 'MMMM d, y')}</b>.
                             </span>

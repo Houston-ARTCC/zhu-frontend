@@ -7,6 +7,6 @@ interface VisitCriterionProps {
 
 export const VisitCriterion: React.FC<VisitCriterionProps> = ({ status }) => (
     status
-        ? <LuCheck size={25} className="text-emerald-400" />
+        ? <LuCheck size={25} className="text-green-500" />
         : <LuX size={25} className="text-red-400" />
 );

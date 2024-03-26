@@ -12,11 +12,7 @@ export type DailyStatistic = {
     count: number;
 };
 
-export type UserStatistic = {
-    cid: number;
-    first_name: string;
-    last_name: string;
-    initials: string;
+export type UserStatistic = BasicUser & {
     rating: string;
     month_1_hours?: string;
     month_2_hours?: string;

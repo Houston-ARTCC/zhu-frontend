@@ -11,7 +11,7 @@ import { dataTableStyle } from '@/utils/dataTableStyle';
 import type { Roster, User } from '@/types/users';
 import { ratingToInt } from '@/utils';
 
-function sortMinor(a: User, b: User): number {
+function sortUnrestricted(a: User, b: User): number {
     if (a.endorsements.app && !b.endorsements.app) return 1;
     if (!a.endorsements.app && b.endorsements.app) return -1;
     if (a.endorsements.twr && !b.endorsements.twr) return 1;
@@ -26,7 +26,7 @@ function sortHOU(a: User, b: User): number {
     if (!a.endorsements.hou_twr && b.endorsements.hou_twr) return -1;
     if (a.endorsements.hou_gnd && !b.endorsements.hou_gnd) return 1;
     if (!a.endorsements.hou_gnd && b.endorsements.hou_gnd) return -1;
-    return sortMinor(a, b);
+    return sortUnrestricted(a, b);
 }
 
 function sortIAH(a: User, b: User): number {
@@ -93,16 +93,16 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                     sortable: true,
                 },
                 {
-                    name: 'Minor',
+                    name: 'Unrestricted',
                     sortable: true,
-                    sortFunction: sortMinor,
+                    sortFunction: sortUnrestricted,
                     cell: (user) => {
                         if (user.endorsements.app) return <EndorsementBadge tier={0} name="APP" status={user.endorsements.app} />;
                         if (user.endorsements.twr) return <EndorsementBadge tier={0} name="TWR" status={user.endorsements.twr} />;
                         return <EndorsementBadge tier={0} name="GND" status={user.endorsements.gnd} />;
                     },
-                    width: '110px',
-                    center: true,
+                    width: '130px',
+                    right: true,
                 },
                 {
                     name: 'HOU T1',
@@ -114,7 +114,7 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                         return <EndorsementBadge tier={1} name="HOU" status={false} />;
                     },
                     width: '110px',
-                    center: true,
+                    right: true,
                 },
                 {
                     name: 'IAH T1',
@@ -126,7 +126,7 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                         return <EndorsementBadge tier={1} name="IAH" status={false} />;
                     },
                     width: '110px',
-                    center: true,
+                    right: true,
                 },
                 {
                     name: 'I90 T1',
@@ -137,7 +137,7 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                         return <EndorsementBadge tier={1} name="I90" status={false} />;
                     },
                     width: '110px',
-                    center: true,
+                    right: true,
                 },
                 {
                     name: 'ZHU',
@@ -145,7 +145,7 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                     sortFunction: sortZHU,
                     cell: (user) => <EndorsementBadge tier={2} name="ZHU" status={user.endorsements.zhu} />,
                     width: '110px',
-                    center: true,
+                    right: true,
                 },
             ]}
         />

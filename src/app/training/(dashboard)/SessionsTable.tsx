@@ -62,7 +62,7 @@ const ExpandedSessionRow: React.FC<ExpandedSessionRowProps> = ({ data }) => (
                 className={classNames(
                     'mb-5 flex items-center gap-3 rounded-md px-6 py-4 font-medium',
                     {
-                        'bg-green-400/10 text-green-400': data.ots_status === SessionOTSStatus.Passed,
+                        'bg-green-400/10 text-green-500': data.ots_status === SessionOTSStatus.Passed,
                         'bg-red-400/10 text-red-400': data.ots_status === SessionOTSStatus.Failed,
                         'bg-sky-500/10 text-sky-500': data.ots_status === SessionOTSStatus.Recommended,
                     },

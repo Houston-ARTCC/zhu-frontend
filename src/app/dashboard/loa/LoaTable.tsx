@@ -32,7 +32,7 @@ export const LoaTable: React.FC<PendingRequestsTableProps> = ({ data }) => {
                         cell: (loa) => loa.approved && (
                             <LuCheckCircle2
                                 size={20}
-                                className="text-green-400"
+                                className="text-green-500"
                             />
                         ),
                         center: true,

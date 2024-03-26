@@ -19,7 +19,7 @@ const LoaRequests: NextPage = async () => {
 
     if (loaRequests.length === 0) {
         return (
-            <div className="rounded-md bg-emerald-500/10 py-5 pl-7 pr-10 text-emerald-500">
+            <div className="rounded-md bg-green-500/10 py-5 pl-7 pr-10 text-green-500">
                 <div className="flex gap-3">
                     <div className="pt-1">
                         <LuCheckCircle size={25} />

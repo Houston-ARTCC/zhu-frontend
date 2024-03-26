@@ -47,7 +47,7 @@ export const ApproveRequestModal: React.FC<AcceptRequestModalProps> = ({ title, 
                 <Button className="bg-slate-300 shadow-slate-300/25" onClick={close}>
                     Cancel
                 </Button>
-                <Button className="!bg-emerald-400 !shadow-emerald-400/25" onClick={putRequest} disabled={isSubmitting}>
+                <Button className="!bg-green-500 !shadow-green-500/25" onClick={putRequest} disabled={isSubmitting}>
                     Approve
                 </Button>
             </div>
@@ -57,7 +57,7 @@ export const ApproveRequestModal: React.FC<AcceptRequestModalProps> = ({ title, 
 
 export const ApproveRequestButton: React.FC<AcceptRequestModalProps> = (props) => (
     <ModalButton
-        className="!bg-emerald-400/[.10] !text-emerald-400"
+        className="!bg-green-500/[.10] !text-green-500"
         variant="secondary"
         modal={<ApproveRequestModal {...props} />}
     >

@@ -2,7 +2,7 @@ import React, { type PropsWithChildren } from 'react';
 import type { NextPage } from 'next';
 import { format } from 'date-fns-tz';
 import { addMonths, getQuarter, startOfQuarter } from 'date-fns';
-import { LuCheckCircle, LuHelpCircle, LuMinusCircle, LuXCircle } from 'react-icons/lu';
+import { LuBadgeCheck, LuCheckCircle, LuHelpCircle, LuMinusCircle, LuXCircle } from 'react-icons/lu';
 import classNames from 'classnames';
 import { Card } from '@/components/Card';
 import { fetchApi } from '@/utils/fetch';
@@ -48,7 +48,7 @@ const QuarterlyStatus: NextPage = async () => {
                     {status.rating === 'OBS'
                         ? <LuMinusCircle size={25} className="text-slate-400" />
                         : status.quarter_active
-                            ? <LuCheckCircle size={25} className="text-green-400" />
+                            ? <LuCheckCircle size={25} className="text-green-500" />
                             : <LuXCircle size={25} className="text-red-400" />}
                     <h3 className="text-2xl font-medium">General Controlling Activity</h3>
                     <Explain>
@@ -89,10 +89,12 @@ const QuarterlyStatus: NextPage = async () => {
                                     <th className="text-right">{format(addMonths(quarter, 2), 'MMMM')}</th>
                                     <td className="font-mono text-sm">{status.month_3_hours ?? '00:00'}</td>
                                 </tr>
-                                <tr />
+                                <tr>
+                                    <td colSpan={2} className="border-b-2 border-b-gray-300" aria-label="Table divider" />
+                                </tr>
                                 <tr>
                                     <th className="text-right">Quarter {getQuarter(new Date())} Total</th>
-                                    <td className="font-mono text-sm">{status.quarter_hours ?? '00:00'} / {status.quarter_quota}</td>
+                                    <td className="font-mono text-sm">{status.quarter_hours ?? '00:00'}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -105,7 +107,7 @@ const QuarterlyStatus: NextPage = async () => {
                     {(!houTier1 && !iahTier1 && !i90Tier1)
                         ? <LuMinusCircle size={25} className="text-slate-400" />
                         : status.t1_active
-                            ? <LuCheckCircle size={25} className="text-green-400" />
+                            ? <LuCheckCircle size={25} className="text-green-500" />
                             : <LuXCircle size={25} className="text-red-400" />}
                     <h3 className="text-2xl font-medium">Tier 1 Currency</h3>
                     <Explain>
@@ -167,33 +169,53 @@ const QuarterlyStatus: NextPage = async () => {
                         <table className="border-separate border-spacing-x-3 border-spacing-y-0.5">
                             <tbody>
                                 <tr>
+                                    <td className="text-green-500">
+                                        {status.endorsements.hou_gnd && <LuBadgeCheck />}
+                                    </td>
                                     <th className="text-right">HOU GND</th>
                                     <td className="font-mono text-sm">{status.hou_gnd_hours ?? '00:00'}</td>
                                 </tr>
                                 <tr>
+                                    <td className="text-green-500">
+                                        {status.endorsements.hou_twr && <LuBadgeCheck />}
+                                    </td>
                                     <th className="text-right">HOU TWR</th>
                                     <td className="font-mono text-sm">{status.hou_twr_hours ?? '00:00'}</td>
                                 </tr>
                                 <tr>
+                                    <td className="text-green-500">
+                                        {status.endorsements.iah_gnd && <LuBadgeCheck />}
+                                    </td>
                                     <th className="text-right">IAH GND</th>
                                     <td className="font-mono text-sm">{status.iah_gnd_hours ?? '00:00'}</td>
                                 </tr>
                                 <tr>
+                                    <td className="text-green-500">
+                                        {status.endorsements.iah_twr && <LuBadgeCheck />}
+                                    </td>
                                     <th className="text-right">IAH TWR</th>
                                     <td className="font-mono text-sm">{status.iah_twr_hours ?? '00:00'}</td>
                                 </tr>
                                 <tr>
+                                    <td className="text-green-500">
+                                        {status.endorsements.i90 && <LuBadgeCheck />}
+                                    </td>
                                     <th className="text-right">I90</th>
                                     <td className="font-mono text-sm">{status.i90_hours ?? '00:00'}</td>
                                 </tr>
                                 <tr>
+                                    <td className="text-green-500">
+                                        {status.endorsements.zhu && <LuBadgeCheck />}
+                                    </td>
                                     <th className="text-right">ZHU</th>
                                     <td className="font-mono text-sm">{status.zhu_hours ?? '00:00'}</td>
                                 </tr>
-                                <tr />
                                 <tr>
-                                    <th className="text-right">Tier 1 Total</th>
-                                    <td className="font-mono text-sm">{status.t1_hours ?? '00:00'} / 03:00</td>
+                                    <td colSpan={3} className="border-b-2 border-b-gray-300" aria-label="Table divider" />
+                                </tr>
+                                <tr>
+                                    <th colSpan={2} className="text-right">Tier 1 Total</th>
+                                    <td className="font-mono text-sm">{status.t1_hours ?? '00:00'}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -206,7 +228,7 @@ const QuarterlyStatus: NextPage = async () => {
                     {status.rating !== 'OBS'
                         ? <LuMinusCircle size={25} className="text-slate-400" />
                         : status.training_active
-                            ? <LuCheckCircle size={25} className="text-green-400" />
+                            ? <LuCheckCircle size={25} className="text-green-500" />
                             : <LuXCircle size={25} className="text-red-400" />}
                     <h3 className="text-2xl font-medium">Training Activity</h3>
                     <Explain>
@@ -224,13 +246,12 @@ const QuarterlyStatus: NextPage = async () => {
                     </p>
                 ) : (
                     <p>
+                        Since you hold an OBS rating, you are expected to complete complete at least <b>three (3) hours</b> of training.
                         This quarter, you have completed
                         {' '}
                         <b className="font-mono text-sm">{status.training_hours ?? '00:00'}</b>
-                        {' / '}
-                        <b className="font-mono text-sm">03:00</b>
                         {' '}
-                        hours of training.
+                        hours.
                     </p>
                 )}
             </div>
