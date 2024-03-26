@@ -33,7 +33,7 @@ jobs:
 
       - name: Copy static files
         run: |
-          cp -r public yarn.lock .yarnrc.yml .next/standalone
+          cp -r public next.config.js yarn.lock .yarnrc.yml .next/standalone
           cp -r .next/static .next/standalone/.next/static
 
       - name: Create archive
