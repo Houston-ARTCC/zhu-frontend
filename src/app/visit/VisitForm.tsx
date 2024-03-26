@@ -70,7 +70,7 @@ export const VisitForm: React.FC = () => {
                         className="col-span-3"
                         disabled
                         label="Home Facility"
-                        value={session.user.facility}
+                        value={session.user.home_facility}
                     />
                     <TextInput
                         className="col-span-3"

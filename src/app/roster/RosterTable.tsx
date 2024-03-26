@@ -93,7 +93,7 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                     sortable: true,
                 },
                 {
-                    name: 'Unrestricted',
+                    name: 'Unrstd.',
                     sortable: true,
                     sortFunction: sortUnrestricted,
                     cell: (user) => {
@@ -101,8 +101,8 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                         if (user.endorsements.twr) return <EndorsementBadge tier={0} name="TWR" status={user.endorsements.twr} />;
                         return <EndorsementBadge tier={0} name="GND" status={user.endorsements.gnd} />;
                     },
-                    width: '130px',
-                    right: true,
+                    width: '110px',
+                    center: true,
                 },
                 {
                     name: 'HOU T1',
@@ -114,7 +114,7 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                         return <EndorsementBadge tier={1} name="HOU" status={false} />;
                     },
                     width: '110px',
-                    right: true,
+                    center: true,
                 },
                 {
                     name: 'IAH T1',
@@ -126,7 +126,7 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                         return <EndorsementBadge tier={1} name="IAH" status={false} />;
                     },
                     width: '110px',
-                    right: true,
+                    center: true,
                 },
                 {
                     name: 'I90 T1',
@@ -137,7 +137,7 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                         return <EndorsementBadge tier={1} name="I90" status={false} />;
                     },
                     width: '110px',
-                    right: true,
+                    center: true,
                 },
                 {
                     name: 'ZHU',
@@ -145,7 +145,7 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                     sortFunction: sortZHU,
                     cell: (user) => <EndorsementBadge tier={2} name="ZHU" status={user.endorsements.zhu} />,
                     width: '110px',
-                    right: true,
+                    center: true,
                 },
             ]}
         />

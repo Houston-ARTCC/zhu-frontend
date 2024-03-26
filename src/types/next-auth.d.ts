@@ -7,7 +7,7 @@ type UserId = {
     cid: number;
     email: string;
     rating: string;
-    facility: string;
+    home_facility: string;
     permissions: {
         is_member: boolean;
         is_training_staff: boolean;

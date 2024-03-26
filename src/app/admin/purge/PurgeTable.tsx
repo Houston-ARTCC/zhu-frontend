@@ -127,13 +127,13 @@ export const PurgeView: React.FC<PurgeViewProps> = ({ data }) => {
                     },
                     {
                         name: 'Tier 1',
-                        selector: (user) => user.t1_active ?? '',
+                        selector: (user) => user.t1_hours ?? '',
                         sortable: true,
                         sortFunction: (a, b) => durationToSeconds(a.t1_hours) - durationToSeconds(b.t1_hours),
                         cell: (user) => (
                             <div className={classNames('flex items-center', { 'text-green-500': user.t1_active })}>
                                 {user.t1_active && <LuCheck size={20} />}
-                                <p className="w-14 text-right">{user.t1_active}</p>
+                                <p className="w-14 text-right">{user.t1_hours}</p>
                             </div>
                         ),
                         width: '125px',

@@ -1,9 +1,10 @@
-import { type AuthOptions } from 'next-auth';
-import { type UserId } from '@/types/next-auth';
+import type { AuthOptions } from 'next-auth';
+import type { UserId } from '@/types/next-auth';
 
 type RefreshedTokens = {
     access: string;
     refresh: string;
+    profile: UserId;
 }
 
 type JWTPayload = {
@@ -58,15 +59,20 @@ export const authOptions: AuthOptions = {
             if (Date.now() / 1000 > token.account.access_token_exp) {
                 const body = JSON.stringify({ refresh: token.account.refresh_token });
 
-                const refreshResp = await fetch(
+                // Obtain new token pair and new profile data
+                const { access, refresh, profile } = await fetch(
                     `${process.env.NEXT_PUBLIC_API_URL}/auth/token/refresh/`,
-                    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body },
-                );
-
-                const { access, refresh } = await refreshResp.json() as RefreshedTokens;
+                    {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body,
+                    },
+                )
+                    .then<RefreshedTokens>((resp) => resp.json());
 
                 return {
                     ...token,
+                    user: profile,
                     account: {
                         ...token.account,
                         access_token: access,
