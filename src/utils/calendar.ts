@@ -7,7 +7,6 @@ import type { EventObject } from '@toast-ui/calendar';
 import colors from 'tailwindcss/colors';
 import { type BasicTrainingSession, SESSION_TYPE_STRING, type TrainingRequest } from '@/types/training';
 import type { BasicEvent } from '@/types/events';
-import type { ControllerBooking } from '@/types/connections';
 
 export const tuiCalendars = [
     {
@@ -27,12 +26,6 @@ export const tuiCalendars = [
         name: 'Training Requests',
         backgroundColor: colors.gray[400],
         borderColor: colors.gray[500],
-    },
-    {
-        id: 'bookings',
-        name: 'Controller Bookings',
-        backgroundColor: colors.emerald[400],
-        borderColor: colors.emerald[500],
     },
 ];
 
@@ -118,18 +111,5 @@ export function eventObjectFromRequest(request: TrainingRequest): EventObject {
         isReadOnly: true,
         start: request.start,
         end: request.end,
-    };
-}
-
-export function eventObjectFromBooking(booking: ControllerBooking): EventObject {
-    return {
-        id: booking.id.toString(),
-        calendarId: 'bookings',
-        title: `${booking.callsign} [${booking.user.first_name} ${booking.user.last_name}]`,
-        location: booking.callsign,
-        category: 'time',
-        isReadOnly: true,
-        start: booking.start,
-        end: booking.end,
     };
 }

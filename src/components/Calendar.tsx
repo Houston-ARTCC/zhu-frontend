@@ -8,7 +8,7 @@ import { LuArrowLeft, LuArrowRight } from 'react-icons/lu';
 import type { EventObject, ExternalEventTypes } from '@toast-ui/calendar';
 import { Button } from '@/components/Button';
 import { fetchApi } from '@/utils/fetch';
-import { eventObjectFromBooking, eventObjectFromEvent, eventObjectFromSession, tuiCalendars, tuiTheme, tuiTimezones } from '@/utils/calendar';
+import { eventObjectFromEvent, eventObjectFromSession, tuiCalendars, tuiTheme, tuiTimezones } from '@/utils/calendar';
 import type { Calendar } from '@/types/calendar';
 
 type ReactCalendarOptions = Omit<Options, 'defaultView'>;
@@ -47,8 +47,7 @@ export const TuiCalendar: React.FC<TuiCalendarProps> = ({ events, onSelectDateTi
         fetchApi<Calendar>(`/calendar/${dateKey}/`)
             .then((data) => {
                 const newEvents = data.events.map(eventObjectFromEvent)
-                    .concat(data.sessions.map(eventObjectFromSession))
-                    .concat(data.bookings.map(eventObjectFromBooking));
+                    .concat(data.sessions.map(eventObjectFromSession));
 
                 if (calendar) {
                     calendar.clear();
