@@ -11,9 +11,20 @@ module.exports = {
         },
         extend: {
             colors: {
-                darkblue: '#334d6e',
                 zinc: {
                     850: '#202023',
+                },
+                heatmap: {
+                    900: '#334d6e',
+                    800: '#3e6184',
+                    700: '#497599',
+                    600: '#558bad',
+                    500: '#6c9eb8',
+                    400: '#82b0c2',
+                    300: '#98c0cc',
+                    200: '#aed0d7',
+                    100: '#c4dee1',
+                    50: '#daebec',
                 },
             },
             boxShadow: {

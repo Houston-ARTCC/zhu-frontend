@@ -224,3 +224,11 @@
 .toastui-calendar-weekday-event-title {
     @apply !text-inherit;
 }
+
+.mapboxgl-popup-content {
+    @apply !bg-white dark:!bg-zinc-850 dark:!shadow-stone-900;
+}
+
+.mapboxgl-popup-tip {
+    @apply !border-t-white dark:!border-t-zinc-850;
+}

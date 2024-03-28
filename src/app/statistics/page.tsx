@@ -4,8 +4,8 @@ import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
 import { fetchApi } from '@/utils/fetch';
 import { type DailyStatistic, type Statistics } from '@/types/connections';
+import { Heatmap } from '../../components/Heatmap';
 import { StatisticsTable } from './StatisticsTable';
-import { Heatmap } from './Heatmap';
 
 export const metadata = { title: 'Controller Statistics' };
 

@@ -7,13 +7,13 @@ import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
 import { ProfilePicture } from '@/components/ProfilePicture';
 import { Card } from '@/components/Card';
+import { Heatmap } from '@/components/Heatmap';
 import { authOptions } from '@/utils/auth';
 import { fetchApi } from '@/utils/fetch';
 import { type AuthenticatedUser, type User } from '@/types/users';
 import { type BasicFeedback } from '@/types/feedback';
 import { type DailyStatistic, type Session } from '@/types/connections';
 import { ConnectionsTable, FeedbackTable } from './ProfileTables';
-import { Heatmap } from './Heatmap';
 import { EditUserButton } from './EditUserModal';
 
 async function getUser(cid: string): Promise<User | AuthenticatedUser> {
