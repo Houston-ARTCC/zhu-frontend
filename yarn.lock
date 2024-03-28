@@ -5343,6 +5343,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"next-themes@npm:0.3.0":
+  version: 0.3.0
+  resolution: "next-themes@npm:0.3.0"
+  peerDependencies:
+    react: ^16.8 || ^17 || ^18
+    react-dom: ^16.8 || ^17 || ^18
+  checksum: 72bd670ad6b9f547dc18cece340dfd1ac41e3e7b37eb321d4767db90bfa2c239f937011cd0efe35ca0081f1ea260051bc0868808ef39b0fbff2ddefd7146cec6
+  languageName: node
+  linkType: hard
+
 "next@npm:14.1.3":
   version: 14.1.3
   resolution: "next@npm:14.1.3"
@@ -7947,6 +7957,7 @@ __metadata:
     mapbox-gl: "npm:3.2.0"
     next: "npm:14.1.3"
     next-auth: "npm:4.24.7"
+    next-themes: "npm:0.3.0"
     postcss: "npm:8.4.36"
     postcss-import: "npm:16.0.1"
     prop-types: "npm:15.8.1"

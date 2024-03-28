@@ -37,7 +37,7 @@ export const StudentSelectInput: React.FC<StudentSelectInputProps> = ({ options 
             />
             {loading && (
                 <div className="mt-10 flex justify-center">
-                    <CgSpinner className="animate-spin text-darkblue" size={50} />
+                    <CgSpinner className="animate-spin text-sky-500" size={50} />
                 </div>
             )}
         </>

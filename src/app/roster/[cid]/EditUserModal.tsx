@@ -25,7 +25,10 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
         resolver: zodResolver(editUserSchema),
     });
 
-    useEffect(() => reset({ ...user, roles: user.roles.map(({ short }) => roles.find(({ value }) => value === short)) }), [user, show, reset]);
+    useEffect(
+        () => reset({ ...user, roles: user.roles.map(({ short }) => roles.find(({ value }) => value === short)) }),
+        [user, show, reset],
+    );
 
     const patchResource: SubmitHandler<EditUserFormValues> = useCallback((values) => {
         const body = {
@@ -244,7 +247,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                     </div>
                 </div>
                 <div className="flex justify-end gap-3">
-                    <Button className="bg-slate-300 shadow-slate-300/25" onClick={close}>
+                    <Button color="gray-300" onClick={close}>
                         Cancel
                     </Button>
                     <Button type="submit" disabled={isSubmitting}>

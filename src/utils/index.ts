@@ -1,5 +1,6 @@
-import { type SelectOption } from '@/components/Forms';
-import { type BasicUser } from '@/types/users';
+import type { SelectOption } from '@/components/Forms';
+import type { BadgeColor } from '@/components/Badge';
+import type { BasicUser } from '@/types/users';
 
 export function ratingToInt(ratingStr: string): number {
     switch (ratingStr) {
@@ -24,8 +25,8 @@ export function userToOption(user: BasicUser): SelectOption {
     };
 }
 
-export function scoreToBadgeColor(score: number): string {
-    if (score < 65) return '!bg-red-400 !shadow-red-400/25';
-    if (score < 90) return '!bg-amber-400 !shadow-amber-400/25';
-    return '!bg-green-400 !shadow-green-400/25';
+export function scoreToBadgeColor(score: number): BadgeColor {
+    if (score < 65) return 'red-400';
+    if (score < 90) return 'amber-400';
+    return 'green-500';
 }

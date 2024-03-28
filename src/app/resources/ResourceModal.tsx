@@ -145,11 +145,11 @@ export const ResourceModal: React.FC<ResourceModalProps> = ({ resource, show, cl
 
                 <div className="flex justify-end gap-3">
                     {resource && (
-                        <Button className="mr-auto bg-red-400 shadow-red-400/25" onClick={deleteResource}>
+                        <Button color="red-400" className="mr-auto" onClick={deleteResource}>
                             Delete
                         </Button>
                     )}
-                    <Button className="bg-slate-300 shadow-slate-300/25" onClick={close}>
+                    <Button color="gray-300" onClick={close}>
                         Close
                     </Button>
                     <Button type="submit" disabled={isSubmitting}>

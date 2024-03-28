@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import classNames from 'classnames';
 import { Dropdown, DropdownButton, DropdownItem, DropdownSeparator } from '@/components/Dropdown';
+import { ThemeButton } from './ThemeButton';
 
 export const Navbar: React.FC = () => {
     const router = useRouter();
@@ -14,7 +15,7 @@ export const Navbar: React.FC = () => {
 
     const [shrink, setShrink] = useState(false);
 
-    const linkColor = useMemo(() => (shrink ? 'text-gray-900' : 'text-white'), [shrink]);
+    const linkColor = useMemo(() => (shrink ? 'text-gray-900 dark:text-zinc-200' : 'text-white'), [shrink]);
 
     useEffect(() => {
         const callback = () => setShrink(window.scrollY > 50);
@@ -29,7 +30,7 @@ export const Navbar: React.FC = () => {
         <nav
             className={classNames(
                 'fixed inset-x-0 top-0 z-10 transition-all duration-500 ease-out',
-                { 'py-12': !shrink, 'bg-white py-4': shrink },
+                { 'py-12': !shrink, 'bg-white dark:bg-zinc-950 py-4': shrink },
             )}
         >
             <div className="container mx-auto flex items-center px-0 font-medium 2xl:px-20">
@@ -116,6 +117,7 @@ export const Navbar: React.FC = () => {
                             </span>
                         </button>
                     )}
+                    <ThemeButton className={linkColor} />
                 </div>
             </div>
         </nav>

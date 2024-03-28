@@ -55,9 +55,11 @@ export const SideNav: React.FC<SideNavProps> = ({ rootPath, sections }) => {
                                 prefetch={false}
                             >
                                 {member.title}
-                                {member.alerts
-                                    ? <Badge small className="max-w-fit !bg-red-400 !shadow-red-400/25">{member.alerts}</Badge>
-                                    : null}
+                                {member.alerts ? (
+                                    <Badge small color="red-400" className="max-w-fit">
+                                        {member.alerts}
+                                    </Badge>
+                                ) : null}
                             </Link>
                         </SideNavItem>
                     ))}

@@ -17,7 +17,7 @@ const cellColor = (value: number): string => {
     if (value > 2) return 'fill-[#aed0d7]';
     if (value > 1) return 'fill-[#c4dee1]';
     if (value > 0) return 'fill-[#daebec]';
-    return 'fill-[#f0f0f0]';
+    return 'fill-gray-200 dark:fill-zinc-700';
 };
 
 interface HeatmapProps {

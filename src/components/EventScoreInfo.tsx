@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import { Badge } from '@/components/Badge';
 import { EventScoreTable } from '@/components/EventScoreTable';
 import { type EventScore } from '@/types/events';
@@ -17,7 +16,7 @@ export const EventScoreInfo: React.FC<EventScoreInfoProps> = ({ scores }) => {
             {scores.length > 0 && (
                 <h3 className="mb-3 mt-5 flex items-center gap-3 text-2xl font-medium">
                     Overall Score:
-                    <Badge small className={classNames('!text-base', scoreToBadgeColor(overallScore))}>
+                    <Badge small color={scoreToBadgeColor(overallScore)} className="!text-base">
                         {overallScore}%
                     </Badge>
                 </h3>

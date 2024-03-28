@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import classNames from 'classnames';
 import { type SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { LuMinusCircle, LuPlus } from 'react-icons/lu';
 import { Button } from '@/components/Button';
@@ -75,10 +74,8 @@ export const AddPositionsModal: React.FC<AddPositionsModalProps> = ({ addPositio
                     {fields.map((item, i) => (
                         <div key={item.id} className="grid grid-cols-11 items-start gap-3">
                             <Button
-                                className={classNames('mt-2.5', {
-                                    '!text-gray-400': fields.length < 2,
-                                    '!text-red-500': fields.length >= 2,
-                                })}
+                                color={fields.length < 2 ? 'gray-300' : 'red-400'}
+                                className="mt-2.5"
                                 variant="tertiary"
                                 onClick={() => remove(i)}
                                 disabled={fields.length < 2}
@@ -109,7 +106,7 @@ export const AddPositionsModal: React.FC<AddPositionsModalProps> = ({ addPositio
                     Add Another Position
                 </Button>
                 <div className="flex justify-end gap-3">
-                    <Button className="bg-slate-300 shadow-slate-300/25" onClick={close}>
+                    <Button color="gray-300" onClick={close}>
                         Close
                     </Button>
                     <Button type="submit" disabled={isSubmitting}>

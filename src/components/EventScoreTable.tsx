@@ -31,7 +31,7 @@ export const EventScoreTable: React.FC<EventScoreTableProps> = ({ data }) => (
                 selector: (row) => row.score,
                 sortable: true,
                 format: (row) => (
-                    <Badge small className={scoreToBadgeColor(row.score)}>
+                    <Badge small color={scoreToBadgeColor(row.score)}>
                         {row.score}%
                     </Badge>
                 ),

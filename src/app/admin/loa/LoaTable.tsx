@@ -29,7 +29,7 @@ export const LoaTable: React.FC<PendingRequestsTableProps> = ({ data }) => {
                 columns={[
                     {
                         cell: (loa) => <ProfilePicture user={loa.user} size={30} />,
-                        width: '40px',
+                        width: '45px',
                         compact: true,
                         right: true,
                     },

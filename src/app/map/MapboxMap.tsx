@@ -2,8 +2,8 @@
 
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import MapboxGl, { type MapLayerMouseEvent } from 'mapbox-gl';
-import { type GeoJSON } from 'geojson';
 import { createRoot } from 'react-dom/client';
+import { useTheme } from 'next-themes';
 import { type Metar } from '@/types/tmu';
 
 MapboxGl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_APIK as string;
@@ -20,6 +20,8 @@ interface MapboxMapProps {
 }
 
 export const MapboxMap: React.FC<MapboxMapProps> = ({ metars }) => {
+    const { resolvedTheme } = useTheme();
+
     const containerRef = useRef<HTMLDivElement>(null);
 
     const mapRef = useRef<MapboxGl.Map>();
@@ -65,7 +67,9 @@ export const MapboxMap: React.FC<MapboxMapProps> = ({ metars }) => {
         if (containerRef.current && !mapRef.current) {
             mapRef.current = new MapboxGl.Map({
                 container: containerRef.current,
-                style: 'mapbox://styles/mikeroma/cknyy7hnt32ch17n1u1d7xon4',
+                style: resolvedTheme === 'light'
+                    ? 'mapbox://styles/mikeroma/cknyy7hnt32ch17n1u1d7xon4'
+                    : 'mapbox://styles/mikeroma/cknyyool032px17n1ljciyroy',
                 center: [-94, 28],
                 zoom: 5.5,
             });
@@ -79,7 +83,7 @@ export const MapboxMap: React.FC<MapboxMapProps> = ({ metars }) => {
 
             destroyPopup();
         };
-    }, [createPopup, destroyPopup]);
+    }, [resolvedTheme, createPopup, destroyPopup]);
 
     return (
         <div className="h-[700px]" ref={containerRef} />

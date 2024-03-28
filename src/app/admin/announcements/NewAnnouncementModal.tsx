@@ -72,7 +72,7 @@ export const NewAnnouncementModal: React.FC<ModalProps> = ({ show, close }) => {
                 </div>
 
                 <div className="flex justify-end gap-3">
-                    <Button className="bg-slate-300 shadow-slate-300/25" onClick={close}>
+                    <Button color="gray-300" onClick={close}>
                         Close
                     </Button>
                     <Button type="submit" disabled={isSubmitting}>

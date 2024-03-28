@@ -15,10 +15,11 @@ const DropdownToggle: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({ cla
 
 interface DropdownProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'title'> {
     title: ReactNode;
+    hideArrow?: boolean;
     menuClassName?: string;
 }
 
-export const Dropdown: React.FC<DropdownProps> = ({ title, className, menuClassName, children, ...props }) => (
+export const Dropdown: React.FC<DropdownProps> = ({ title, hideArrow = false, className, menuClassName, children, ...props }) => (
     <div className="relative">
         <DropdownToggle
             className={classNames('peer flex items-center gap-2', className)}
@@ -26,12 +27,12 @@ export const Dropdown: React.FC<DropdownProps> = ({ title, className, menuClassN
             {...props}
         >
             {title}
-            <LuChevronDown />
+            {!hideArrow && <LuChevronDown />}
         </DropdownToggle>
         <div
             className={classNames(
                 'absolute left-1/2 mt-3 flex w-40 -translate-x-1/2 flex-col rounded-md bg-white py-1 shadow z-10',
-                'invisible active:visible peer-focus:visible',
+                'invisible active:visible peer-focus:visible dark:bg-zinc-850 dark:shadow-stone-900',
                 menuClassName,
             )}
         >
@@ -43,7 +44,7 @@ export const Dropdown: React.FC<DropdownProps> = ({ title, className, menuClassN
 type LinkProps = Omit<HTMLProps<HTMLAnchorElement>, keyof InternalLinkProps> & InternalLinkProps & RefAttributes<HTMLAnchorElement>;
 
 export const DropdownItem: React.FC<LinkProps> = ({ className, children, ...props }) => (
-    <Link prefetch={false} className={classNames('px-5 py-1 whitespace-nowrap text-gray-900', className)} {...props}>
+    <Link prefetch={false} className={classNames('px-4 py-1 whitespace-nowrap text-inherit', className)} {...props}>
         {children}
     </Link>
 );
@@ -52,7 +53,7 @@ export const DropdownButton: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> =
     <button
         type="button"
         className={classNames(
-            'px-5 py-1 flex items-center gap-2 whitespace-nowrap text-gray-900 text-left',
+            'px-4 py-1 flex items-center gap-2 whitespace-nowrap text-inherit text-left',
             className,
         )}
         {...props}

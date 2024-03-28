@@ -50,6 +50,9 @@ export const tuiTheme = {
             border: `1px solid ${colors.sky[500]}`,
             backgroundColor: `${colors.sky[500]}20`,
         },
+        dayName: {
+            color: `${colors.zinc[400]}`,
+        },
     },
     week: {
         timeGridLeft: {

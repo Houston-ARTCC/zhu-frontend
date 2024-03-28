@@ -2,7 +2,7 @@ import React from 'react';
 import { LuPlane } from 'react-icons/lu';
 
 export const Footer: React.FC = () => (
-    <footer className="flex flex-col items-center bg-gray-700 py-14">
+    <footer className="flex flex-col items-center bg-zinc-700 py-10 dark:bg-zinc-950">
         <h6 className="mb-2 text-xl font-medium text-white">
             &copy; {new Date().getFullYear()}, Virtual Houston ARTCC. All Rights Reserved.
         </h6>

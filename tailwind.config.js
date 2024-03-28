@@ -1,9 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+    darkMode: 'selector',
     content: [
-        './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-        './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-        './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+        './src/**/*.{js,ts,jsx,tsx,mdx}',
     ],
     theme: {
         fontFamily: {
@@ -13,6 +12,9 @@ module.exports = {
         extend: {
             colors: {
                 darkblue: '#334d6e',
+                zinc: {
+                    850: '#202023',
+                },
             },
             boxShadow: {
                 sm: '0 4px 10px rgba(203, 203, 203, 0.25)',

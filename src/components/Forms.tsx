@@ -34,6 +34,8 @@ export const TextInput: React.FC<InputProps<string>> = React.forwardRef<HTMLInpu
                     'block rounded-md px-3 py-1.5 transition-all duration-200',
                     'border-2 border-slate-200 outline-0 ring-0 ring-sky-400/25 focus:border-sky-400 focus:ring-2',
                     'read-only:bg-neutral-100 read-only:!border-slate-200 read-only:!text-gray-500 read-only:!ring-0',
+                    'dark:bg-zinc-900 dark:border-zinc-700 dark:placeholder:text-zinc-500',
+                    'dark:read-only:bg-zinc-800 dark:read-only:!border-zinc-700 dark:read-only:!text-zinc-400',
                     { '!ring-red-400/25 !border-red-400': error },
                     inputClassName,
                 )}
@@ -78,6 +80,8 @@ export const TextAreaInput: React.FC<TextAreaProps> = React.forwardRef<HTMLTextA
                     'block rounded-md px-3 py-1.5 transition duration-200',
                     'border-2 border-slate-200 outline-0 ring-0 ring-sky-400/25 focus:border-sky-400 focus:ring-2',
                     'read-only:bg-neutral-50 read-only:!border-slate-200 read-only:!text-gray-500 read-only:!ring-0',
+                    'dark:bg-zinc-900 dark:border-zinc-700 dark:placeholder:text-zinc-500',
+                    'dark:read-only:bg-zinc-800 dark:read-only:!border-zinc-700 dark:read-only:!text-zinc-400',
                     { '!ring-red-400/25 !border-red-400': error },
                     inputClassName,
                 )}
@@ -179,21 +183,31 @@ export const SelectInput = (
             <Select
                 id={props.name}
                 ref={ref}
+                menuPortalTarget={document.body}
                 classNames={{
+                    menuPortal: () => '!z-50',
                     control: ({ isFocused }) => classNames(
-                        '!transition-all !duration-200 !border-2',
+                        '!transition-all !duration-200 !border-2 dark:!bg-zinc-900',
                         {
                             '!ring-0': !isFocused,
                             '!ring-2': isFocused,
-                            '!border-slate-200': !isFocused && !error,
+                            '!border-slate-200 dark:!border-zinc-700': !isFocused && !error,
                             '!ring-sky-400/25 !border-sky-400': isFocused && !error,
                             '!ring-red-400/25 !border-red-400': error,
                         },
                     ),
+                    input: () => '!text-inherit',
+                    singleValue: () => '!text-inherit',
+                    multiValue: () => '!text-inherit',
                     multiValueRemove: ({ data: { isFixed } }) => (isFixed ? '!hidden' : ''),
                     multiValueLabel: ({ data: { isFixed } }) => (isFixed ? '!px-2' : '!pl-2 !pr-1'),
-                    groupHeading: () => '-mt-2 !mb-0 py-2 sticky top-0 bg-white rounded-t-md font-bold',
-                    menuList: () => '!py-0',
+                    groupHeading: () => '-mt-2 !mb-0 py-2 sticky top-0 bg-white rounded-t-md font-bold dark:!bg-zinc-800',
+                    menuList: () => '!shadow !py-0 dark:!bg-zinc-800 dark:!shadow-stone-900',
+                    indicatorSeparator: () => 'dark:!bg-zinc-700/80',
+                    option: ({ isFocused, isSelected }) => classNames({
+                        '!bg-sky-500/10': isFocused && !isSelected,
+                        '!bg-sky-500 dark:!bg-sky-500/50': isSelected,
+                    }),
                 }}
                 {...props}
             />
@@ -214,8 +228,9 @@ export const FileInput: React.FC<FileInputProps> = ({ error, currentFile, onUplo
                 <div
                     className={classNames(
                         'flex flex-col items-center justify-center rounded-md px-5 py-10',
-                        'cursor-pointer text-center text-slate-400 transition-all duration-200',
+                        'cursor-pointer text-center text-slate-300 transition-all duration-200',
                         'border-2 border-dashed border-slate-200 outline-0 ring-0 ring-sky-400/25 focus:border-sky-400 focus:ring-2',
+                        'dark:border-zinc-700 dark:text-zinc-600',
                         { '!ring-red-400/25 !border-red-400 !text-red-400': error },
                     )}
                     {...getRootProps()}
@@ -224,7 +239,7 @@ export const FileInput: React.FC<FileInputProps> = ({ error, currentFile, onUplo
                     <BsUpload className="mb-2" size={35} />
                     <p className="font-medium">Drag and drop files here, or click to select files</p>
                     {currentFile && (
-                        <p className="max-w-full truncate">
+                        <p className="mt-3 max-w-full truncate text-slate-700 dark:text-zinc-400">
                             Current File: {currentFile instanceof File
                                 ? currentFile.name
                                 : currentFile.split('/').pop()}

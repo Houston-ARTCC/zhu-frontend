@@ -57,7 +57,8 @@ export const PurgeView: React.FC<PurgeViewProps> = ({ data }) => {
                             Only Show Selected
                         </Button>
                         <Button
-                            className="!bg-red-400 !text-sm !shadow-red-400/25"
+                            color="red-400"
+                            className="text-sm"
                             onClick={() => setShowPurgeModal(true)}
                         >
                             <LuUserX size={17} />
@@ -69,7 +70,7 @@ export const PurgeView: React.FC<PurgeViewProps> = ({ data }) => {
                 columns={[
                     {
                         cell: (user) => <ProfilePicture user={user} size={30} />,
-                        width: '30px',
+                        width: '45px',
                         compact: true,
                         right: true,
                     },

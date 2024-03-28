@@ -126,7 +126,7 @@ export const RequestTrainingModal: React.FC<RequestTrainingModalProps> = ({ star
                 />
 
                 <div className="flex justify-end gap-3">
-                    <Button className="bg-slate-300 shadow-slate-300/25" onClick={close}>
+                    <Button color="gray-300" onClick={close}>
                         Cancel
                     </Button>
                     <Button type="submit" disabled={isSubmitting}>

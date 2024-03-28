@@ -21,18 +21,16 @@ interface EventShiftInfoProps {
 const EventShiftInfo: React.FC<EventShiftInfoProps> = ({ shift, deleteShift }) => {
     const [controller, setController] = useState<BasicUser | null>(shift.user);
 
+    // FIXME: Something weird is going on here... The shifts get jumbled around.
     const assignController = useCallback(
         async (cid: number | null) => {
-            await toast
-                .promise(
-                    fetchApi<EventShift>(`/events/shift/${shift.id}/`, {
-                        method: 'PATCH',
-                        body: JSON.stringify({ user: cid }),
-                    }),
-                    {
-                        error: 'Something went wrong, check console for more info',
-                    },
-                )
+            await toast.promise(
+                fetchApi<EventShift>(`/events/shift/${shift.id}/`, {
+                    method: 'PATCH',
+                    body: JSON.stringify({ user: cid }),
+                }),
+                { error: 'Something went wrong, check console for more info' },
+            )
                 .then((data) => setController(data.user));
         },
         [shift],
@@ -41,11 +39,11 @@ const EventShiftInfo: React.FC<EventShiftInfoProps> = ({ shift, deleteShift }) =
     return (
         <div
             className={classNames(
-                'grow basis-0 min-w-0 px-1.5',
-                'border-r-2 border-neutral-100 first:rounded-l-md last:rounded-r-md last:border-r-0',
+                'grow basis-0 min-w-0 px-1.5 border-r-2 border-neutral-100 ',
+                'first:rounded-l-md last:rounded-r-md last:border-r-0 dark:border-zinc-850',
                 {
-                    'bg-green-400 text-green-50': controller,
-                    'bg-gray-200': !controller,
+                    'bg-green-500 text-green-50': controller,
+                    'bg-gray-200 dark:bg-zinc-700': !controller,
                 },
             )}
         >
@@ -59,7 +57,7 @@ const EventShiftInfo: React.FC<EventShiftInfoProps> = ({ shift, deleteShift }) =
                         'Unassigned'
                     )
                 }
-                className="flex h-6 w-full justify-center !gap-1 !p-0 text-sm font-medium"
+                className="flex h-6 w-full justify-center !gap-1 !p-0 text-sm font-medium hover:!bg-transparent"
                 menuClassName="w-64"
             >
                 <div className="flex">
@@ -94,22 +92,19 @@ const EventPositionInfo: React.FC<EventPositionInfoProps> = ({ position, deleteP
     const [shifts, setShifts] = useState<EventShift[]>(position.shifts);
 
     const addShift = useCallback(() => {
-        toast
-            .promise(
-                fetchApi<EventPosition>(`/events/position/${position.id}/`, {
-                    method: 'PUT',
-                }),
-                { error: 'Something went wrong, check console for more info' },
-            )
+        toast.promise(
+            fetchApi<EventPosition>(`/events/position/${position.id}/`, { method: 'PUT' }),
+            { error: 'Something went wrong, check console for more info' },
+        )
             .then((data) => setShifts(data.shifts));
     }, [position]);
 
     const deleteShift = useCallback(
         (shiftId: number) => {
-            toast
-                .promise(fetchApi(`/events/shift/${shiftId}/`, { method: 'DELETE' }), {
-                    error: 'Something went wrong, check console for more info',
-                })
+            toast.promise(
+                fetchApi(`/events/shift/${shiftId}/`, { method: 'DELETE' }),
+                { error: 'Something went wrong, check console for more info' },
+            )
                 .then(() => setShifts(shifts.filter((shift) => shift.id !== shiftId)));
         },
         [shifts],
@@ -120,7 +115,8 @@ const EventPositionInfo: React.FC<EventPositionInfoProps> = ({ position, deleteP
             <div className="mb-2 flex items-center justify-between">
                 <p>{position.callsign}</p>
                 <Button
-                    className="text-sm !text-red-400"
+                    color="red-400"
+                    className="text-sm"
                     variant="tertiary"
                     onClick={() => deletePosition(position.id)}
                 >
@@ -134,7 +130,7 @@ const EventPositionInfo: React.FC<EventPositionInfoProps> = ({ position, deleteP
                 ))}
                 <button
                     type="button"
-                    className="rounded-r-md bg-gray-200 px-1"
+                    className="rounded-r-md bg-gray-200 px-1 dark:bg-zinc-700"
                     onClick={addShift}
                     aria-label="Add Shift"
                 >
@@ -155,35 +151,33 @@ export const EditEventPositions: React.FC<EditEventPositionsProps> = ({ eventId,
     const [currPositions, setCurrPositions] = useState<EventPosition[]>(positions);
 
     const addPositions = useCallback(
-        async (values: AddPositionsFormValues) => toast.promise(
-            fetchApi<EventPosition[]>(`/events/${eventId}/`, {
-                method: 'POST',
-                body: JSON.stringify(values.positions),
-            })
-                .then((data) => setCurrPositions((pos) => pos.concat(data)))
-                .catch(async (resp) => {
-                    if (resp.headers.get('Content-Type') === 'application/json') {
-                        const data = await resp.json();
-                        return Promise.resolve(data);
-                    }
-                    return Promise.reject(resp);
-                }),
-            { error: 'Something went wrong, check console for more info' },
-        ),
+        async (values: AddPositionsFormValues) => (
+            toast.promise(
+                fetchApi<EventPosition[]>(`/events/${eventId}/`, {
+                    method: 'POST',
+                    body: JSON.stringify(values.positions),
+                })
+                    .then((data) => setCurrPositions((pos) => pos.concat(data)))
+                    .catch(async (resp) => {
+                        if (resp.headers.get('Content-Type') === 'application/json') {
+                            const data = await resp.json();
+                            return Promise.resolve(data);
+                        }
+                        return Promise.reject(resp);
+                    }),
+                { error: 'Something went wrong, check console for more info' },
+            )),
         [eventId],
     );
 
     const deletePosition = useCallback(
         (positionId: number) => {
-            toast
-                .promise(
-                    fetchApi(`/events/position/${positionId}/`, {
-                        method: 'DELETE',
-                    }),
-                    {
-                        error: 'Something went wrong, check console for more info',
-                    },
-                )
+            toast.promise(
+                fetchApi(`/events/position/${positionId}/`, {
+                    method: 'DELETE',
+                }),
+                { error: 'Something went wrong, check console for more info' },
+            )
                 .then(() => setCurrPositions(positions.filter((position) => position.id !== positionId)));
         },
         [positions],

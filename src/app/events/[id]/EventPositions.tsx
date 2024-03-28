@@ -21,8 +21,8 @@ const EventShiftInfo: React.FC<EventShiftInfoProps> = async ({ index, preventSig
         <Popover
             className={classNames(
                 'grow basis-0 min-w-0 px-1.5',
-                'border-r-2 border-neutral-100 first:rounded-l-md last:rounded-r-md last:border-r-0',
-                { 'bg-green-400': shift.user, 'bg-gray-200': !shift.user },
+                'border-r-2 border-neutral-100 first:rounded-l-md last:rounded-r-md last:border-r-0 dark:border-zinc-850',
+                { 'bg-green-500': shift.user, 'bg-gray-200 dark:bg-zinc-700': !shift.user },
             )}
             title={(
                 <span className="whitespace-nowrap">

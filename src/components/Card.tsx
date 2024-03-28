@@ -9,6 +9,7 @@ export const Card: React.FC<CardProps> = ({ className, interactive, children, ..
     <div
         className={classNames(
             'rounded-md bg-white px-5 py-4 shadow transition-all duration-500 ease-out overflow-clip',
+            'dark:bg-zinc-850 dark:shadow-stone-900',
             { 'cursor-pointer hover:-translate-y-1 hover:opacity-90 hover:shadow-lg': interactive },
             className,
         )}

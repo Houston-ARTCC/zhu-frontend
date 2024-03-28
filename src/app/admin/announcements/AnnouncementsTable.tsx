@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { format } from 'date-fns-tz';
-import { LuEye, LuX } from 'react-icons/lu';
+import { LuX } from 'react-icons/lu';
 import { AnnouncementModal } from '@/components/AnnouncementModal';
 import { ClientPortal } from '@/components/ClientPortal';
 import { dataTableStyle } from '@/utils/dataTableStyle';
@@ -27,6 +27,11 @@ export const AnnouncementsTable: React.FC<AnnouncementsTableProps> = ({ data }) 
                 pagination
                 paginationPerPage={10}
                 paginationRowsPerPageOptions={[10, 15, 20, 25]}
+                pointerOnHover
+                onRowClicked={(row) => {
+                    setCurrentAnnouncement(row);
+                    setShowAnnouncement(true);
+                }}
                 customStyles={dataTableStyle}
                 columns={[
                     {
@@ -40,23 +45,6 @@ export const AnnouncementsTable: React.FC<AnnouncementsTableProps> = ({ data }) 
                         maxWidth: '300px',
                     },
                     {
-                        name: 'View',
-                        button: true,
-                        cell: (row) => (
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    setCurrentAnnouncement(row);
-                                    setShowAnnouncement(true);
-                                }}
-                                aria-label="View Announcement"
-                            >
-                                <LuEye size={20} className="text-gray-900" />
-                            </button>
-                        ),
-                        width: '60px',
-                    },
-                    {
                         name: 'Delete',
                         button: true,
                         cell: (row) => (
@@ -68,10 +56,10 @@ export const AnnouncementsTable: React.FC<AnnouncementsTableProps> = ({ data }) 
                                 }}
                                 aria-label="Delete Announcement"
                             >
-                                <LuX size={20} className="text-gray-900" />
+                                <LuX size={20} />
                             </button>
                         ),
-                        width: '60px',
+                        width: '65px',
                     },
                 ]}
             />

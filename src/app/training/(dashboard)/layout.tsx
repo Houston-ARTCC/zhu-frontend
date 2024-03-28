@@ -34,7 +34,7 @@ const TrainingCenterLayout: React.FC<PropsWithChildren> = async ({ children }) =
                             {
                                 title: 'Mentor Resources',
                                 members: [
-                                    { title: 'My Availability', route: 'availability' },
+                                    // TODO: { title: 'My Availability', route: 'availability' },
                                     {
                                         title: 'Scheduled Sessions',
                                         route: 'scheduled',

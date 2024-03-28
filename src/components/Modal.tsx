@@ -45,13 +45,14 @@ export const Modal: React.FC<ModalProps> = ({ show = false, title, footer, large
     return (
         <div
             className={classNames(
-                'fixed inset-x-0 top-0 z-20 h-screen w-screen bg-black/40 transition-opacity duration-250 opacity-0 overflow-y-scroll',
+                'fixed inset-x-0 top-0 z-20 h-screen w-screen bg-black/40 overflow-y-scroll',
+                'transition-opacity duration-250 opacity-0',
                 { 'opacity-0': !isVisible, 'opacity-100': isVisible },
             )}
         >
             <Card
                 className={classNames(
-                    '!p-0 mx-auto mt-[10vh] transition-transform duration-250 ease-out mb-20',
+                    '!p-0 mx-auto mt-[10vh] transition-transform duration-250 ease-out mb-20 dark:!shadow-stone-950',
                     { 'max-w-lg': !large, 'max-w-3xl': large, '-translate-y-10': !isVisible, 'translate-y-0': isVisible },
                 )}
                 onClick={(e) => e.stopPropagation()}
@@ -59,7 +60,7 @@ export const Modal: React.FC<ModalProps> = ({ show = false, title, footer, large
                 <FocusTrap>
                     <section>
                         {title && (
-                            <div className="flex items-center rounded-t-md bg-slate-100 px-5 py-4">
+                            <div className="flex items-center rounded-t-md bg-slate-100 px-5 py-4 dark:bg-zinc-900">
                                 <h4 className="text-2xl font-medium">{title}</h4>
                                 {close && (
                                     <button
@@ -77,7 +78,7 @@ export const Modal: React.FC<ModalProps> = ({ show = false, title, footer, large
                             {children}
                         </div>
                         {footer && (
-                            <div className="flex items-center rounded-b-md bg-slate-50 px-5 py-4">
+                            <div className="flex items-center rounded-b-md bg-slate-100 px-5 py-4 dark:bg-zinc-900">
                                 {footer}
                             </div>
                         )}

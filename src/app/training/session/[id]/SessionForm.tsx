@@ -238,7 +238,7 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
             />
 
             <div className="flex gap-3">
-                <Button className="bg-slate-300 shadow-slate-300/25" onClick={() => router.back()}>
+                <Button color="gray-300" onClick={() => router.back()}>
                     Cancel
                 </Button>
                 <Button type="submit" disabled={isSubmitting}>

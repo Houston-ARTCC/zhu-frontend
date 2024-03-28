@@ -44,10 +44,10 @@ export const ApproveRequestModal: React.FC<AcceptRequestModalProps> = ({ title, 
             <p className="mb-5">{confirmation}</p>
 
             <div className="flex justify-end gap-3">
-                <Button className="bg-slate-300 shadow-slate-300/25" onClick={close}>
+                <Button color="gray-300" onClick={close}>
                     Cancel
                 </Button>
-                <Button className="!bg-green-500 !shadow-green-500/25" onClick={putRequest} disabled={isSubmitting}>
+                <Button color="green-500" onClick={putRequest} disabled={isSubmitting}>
                     Approve
                 </Button>
             </div>

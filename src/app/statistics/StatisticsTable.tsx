@@ -25,14 +25,13 @@ const StatisticsView: React.FC<StatisticsViewProps> = ({ data }) => {
             data={data}
             defaultSortFieldId={2}
             sortIcon={<LuChevronDown />}
-            highlightOnHover
             pointerOnHover
             onRowClicked={(row) => router.push(`/roster/${row.cid}`)}
             customStyles={dataTableStyle}
             columns={[
                 {
                     cell: (user) => <ProfilePicture user={user} size={30} />,
-                    width: '40px',
+                    width: '45px',
                     compact: true,
                     right: true,
                 },

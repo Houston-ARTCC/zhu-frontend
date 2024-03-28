@@ -125,13 +125,13 @@ export const EditEventForm: React.FC<EditEventFormProps> = ({ event }) => {
 
             <div className="flex gap-3">
                 <Link href={`/events/${event.id}`}>
-                    <Button className="bg-slate-300 shadow-slate-300/25">Return to Event</Button>
+                    <Button color="gray-300">Return to Event</Button>
                 </Link>
                 <Button type="submit" disabled={isSubmitting}>
                     Save
                 </Button>
                 <DeleteEventButton event={event} />
-                <Button className="ml-auto !bg-indigo-400 !shadow-indigo-400/25" onClick={putRequest}>
+                <Button color="indigo-400" className="ml-auto" onClick={putRequest}>
                     <FaDiscord />
                     Post Event Positions
                 </Button>

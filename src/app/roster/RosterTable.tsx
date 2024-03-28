@@ -62,14 +62,13 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
             defaultSortFieldId={9}
             defaultSortAsc={false}
             sortIcon={<LuChevronDown />}
-            highlightOnHover
             pointerOnHover
             onRowClicked={(row) => router.push(`/roster/${row.cid}`)}
             customStyles={dataTableStyle}
             columns={[
                 {
                     cell: (user) => <ProfilePicture user={user} size={30} />,
-                    width: '40px',
+                    width: '45px',
                     compact: true,
                     right: true,
                 },

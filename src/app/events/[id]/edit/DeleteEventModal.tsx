@@ -41,10 +41,10 @@ export const DeleteEventModal: React.FC<DeleteEventModalProps> = ({ event, show,
             <p className="mb-3">Are you sure you would like to delete <b>{event.name}</b>?</p>
 
             <div className="flex justify-end gap-3">
-                <Button className="bg-slate-300 shadow-slate-300/25" onClick={close}>
+                <Button color="gray-300" onClick={close}>
                     Cancel
                 </Button>
-                <Button className="!bg-red-400 !shadow-red-400/25" type="submit" onClick={deleteEvent} disabled={isSubmitting}>
+                <Button color="red-400" type="submit" onClick={deleteEvent} disabled={isSubmitting}>
                     Delete
                 </Button>
             </div>

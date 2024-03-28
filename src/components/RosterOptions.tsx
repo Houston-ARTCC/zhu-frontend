@@ -1,7 +1,6 @@
 'use client';
 
 import React, { type ComponentType, useMemo, useState } from 'react';
-import classNames from 'classnames';
 import { TextInput } from '@/components/Forms';
 import { Button, ButtonGroup } from '@/components/Button';
 import type { BasicUser, Roster } from '@/types/users';
@@ -35,30 +34,24 @@ export const RosterOptions = <T extends BasicUser>({ data, component: Component 
                 <TextInput placeholder="Search for controller..." onUpdate={setSearchString} />
                 <ButtonGroup>
                     <Button
-                        className={classNames(
-                            'py-0.5 transition-colors duration-150',
-                            { '!bg-white !text-gray-500': filter !== 'home' },
-                        )}
+                        color={filter === 'home' ? 'sky-500' : 'white'}
+                        className="py-0.5 transition-colors duration-150"
                         variant="secondary"
                         onClick={() => setFilter('home')}
                     >
                         Home
                     </Button>
                     <Button
-                        className={classNames(
-                            'py-0.5 transition-colors duration-150',
-                            { '!bg-white !text-gray-500': filter !== 'visiting' },
-                        )}
+                        color={filter === 'visiting' ? 'sky-500' : 'white'}
+                        className="py-0.5 transition-colors duration-150"
                         variant="secondary"
                         onClick={() => setFilter('visiting')}
                     >
                         Visiting
                     </Button>
                     <Button
-                        className={classNames(
-                            'py-0.5 transition-colors duration-150',
-                            { '!bg-white !text-gray-500': filter !== 'all' },
-                        )}
+                        color={filter === 'all' ? 'sky-500' : 'white'}
+                        className="py-0.5 transition-colors duration-150"
                         variant="secondary"
                         onClick={() => setFilter('all')}
                     >

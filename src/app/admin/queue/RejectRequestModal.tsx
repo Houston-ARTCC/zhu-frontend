@@ -64,10 +64,10 @@ export const RejectRequestModal: React.FC<RejectRequestModalProps> = ({ title, c
                 />
 
                 <div className="flex justify-end gap-3">
-                    <Button className="bg-slate-300 shadow-slate-300/25" onClick={close}>
+                    <Button color="gray-300" onClick={close}>
                         Cancel
                     </Button>
-                    <Button className="!bg-red-400 !shadow-red-400/25" type="submit" disabled={isSubmitting}>
+                    <Button color="red-400" type="submit" disabled={isSubmitting}>
                         Reject
                     </Button>
                 </div>

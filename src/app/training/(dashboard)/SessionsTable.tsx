@@ -20,13 +20,13 @@ interface StatusIconProps {
 const StatusIcon: React.FC<StatusIconProps> = ({ status }) => {
     switch (status) {
         case SessionStatus.Completed:
-            return <Badge small className="!bg-green-400">Completed</Badge>;
+            return <Badge small color="green-500">Completed</Badge>;
         case SessionStatus.Cancelled:
-            return <Badge small className="!bg-red-400">Cancelled</Badge>;
+            return <Badge small color="red-400">Cancelled</Badge>;
         case SessionStatus.Scheduled:
-            return <Badge small className="!bg-sky-500">Scheduled</Badge>;
+            return <Badge small color="sky-500">Scheduled</Badge>;
         case SessionStatus.NoShow:
-            return <Badge small className="!bg-amber-400">No Show</Badge>;
+            return <Badge small color="amber-400">No Show</Badge>;
         default:
             return null;
     }
@@ -39,13 +39,13 @@ interface OTSStatusIconProps {
 const OTSStatusIcon: React.FC<OTSStatusIconProps> = ({ status }) => {
     switch (status) {
         case SessionOTSStatus.Passed:
-            return <RiCheckboxCircleFill size={22} className="fill-green-400" />;
+            return <RiCheckboxCircleFill size={22} className="fill-green-500" />;
         case SessionOTSStatus.Failed:
             return <RiCloseCircleFill size={22} className="fill-red-400" />;
         case SessionOTSStatus.Recommended:
             return <RiArrowRightCircleFill size={22} className="fill-sky-500" />;
         case SessionOTSStatus.NonOTS:
-            return <RiIndeterminateCircleFill size={22} className="fill-slate-300" />;
+            return <RiIndeterminateCircleFill size={22} className="fill-gray-300 dark:fill-zinc-700" />;
         default:
             return null;
     }
@@ -62,7 +62,7 @@ const ExpandedSessionRow: React.FC<ExpandedSessionRowProps> = ({ data }) => (
                 className={classNames(
                     'mb-5 flex items-center gap-3 rounded-md px-6 py-4 font-medium',
                     {
-                        'bg-green-400/10 text-green-500': data.ots_status === SessionOTSStatus.Passed,
+                        'bg-green-500/10 text-green-500': data.ots_status === SessionOTSStatus.Passed,
                         'bg-red-400/10 text-red-400': data.ots_status === SessionOTSStatus.Failed,
                         'bg-sky-500/10 text-sky-500': data.ots_status === SessionOTSStatus.Recommended,
                     },
@@ -191,8 +191,8 @@ export const SessionsTable: React.FC<SessionsTableProps> = ({ data }) => {
                     name: 'Edit',
                     button: true,
                     cell: (row) => (
-                        <Link href={`/training/session/${row.id}/edit`}>
-                            <LuFileCog size={20} className="text-gray-900" />
+                        <Link className="text-inherit" href={`/training/session/${row.id}/edit`}>
+                            <LuFileCog size={20} />
                         </Link>
                     ),
                     omit: !session?.user.permissions.is_training_staff,

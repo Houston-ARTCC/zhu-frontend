@@ -12,7 +12,7 @@
 
 @layer base {
     :root {
-        @apply bg-neutral-100 text-gray-900;
+        @apply bg-neutral-100 dark:bg-zinc-900 text-gray-900 dark:text-zinc-200;
 
         font-feature-settings:
             "pnum" on,
@@ -34,11 +34,15 @@
     }
 
     hr {
-        @apply border-b border-slate-100;
+        @apply border-b border-slate-100 dark:border-zinc-600;
     }
 }
 
 @layer utilities {
+    .prose {
+        @apply text-inherit;
+    }
+
     .prose h1 {
         @apply mb-5 mt-0 text-3xl font-medium;
     }
@@ -97,13 +101,45 @@
     @apply flex flex-grow flex-col;
 }
 
+.ql-formats > button,
+.ql-picker-label,
+.ql-picker-item {
+    @apply hover:!text-sky-700 focus:!text-sky-500 dark:hover:!text-sky-200;
+}
+
+.ql-formats > button.ql-active,
+.ql-picker-label.ql-active,
+.ql-picker-item.ql-selected {
+    @apply !text-sky-500;
+}
+
 .ql-toolbar,
 .ql-editor {
     @apply !border-2 !font-sans;
 }
 
 .ql-toolbar {
-    @apply !rounded-t-md !border-slate-200 !bg-slate-200;
+    @apply !rounded-t-md !border-slate-200 !bg-slate-200 dark:!border-zinc-700 dark:!bg-zinc-700;
+}
+
+.ql-picker {
+    @apply !text-inherit;
+}
+
+.ql-picker-label {
+    @apply !border-0;
+}
+
+.ql-picker-options {
+    @apply !border-0 dark:!bg-zinc-800;
+}
+
+.ql-stroke {
+    @apply !stroke-current;
+}
+
+.ql-fill {
+    @apply !fill-current;
 }
 
 .ql-container {
@@ -111,7 +147,8 @@
 }
 
 .ql-editor {
-    @apply rounded-b-md border-slate-200 bg-white ring-sky-400/25 transition-all duration-200 focus:border-sky-400 focus:ring-2;
+    @apply rounded-b-md border-slate-200 bg-white ring-sky-400/25 transition-all duration-200 focus:border-sky-400 focus:ring-2
+           dark:border-zinc-700 dark:bg-zinc-900;
 }
 
 .quill.error .ql-editor {
@@ -123,5 +160,67 @@
 }
 
 .react-calendar-heatmap text {
-    font-size: 0.5rem !important;
+    @apply !text-xs;
+}
+
+.rdt_Table,
+.rdt_Table > *,
+.rdt_TableHeader,
+.rdt_TableHeadRow,
+.rdt_TableRow,
+.rdt_ExpanderRow,
+.rdt_Pagination {
+    @apply !bg-transparent !text-inherit;
+}
+
+.rdt_TableHead {
+    @apply !text-base border-b-2 border-b-gray-200 dark:border-b-zinc-700;
+}
+
+.rdt_TableCol,
+.rdt_TableCell {
+    @apply !px-2;
+}
+
+.rdt_TableRow,
+.rdt_TableRow:hover {
+    @apply !border-b-gray-200 dark:!border-b-zinc-700;
+}
+
+.rdt_TableRow:hover {
+    @apply !outline-0 !bg-gray-200/50 dark:!bg-zinc-700/50;
+}
+
+.rdt_Pagination button {
+    @apply !fill-current;
+}
+
+.__rdt_custom_sort_icon__ {
+    @apply !opacity-80;
+}
+
+.toastui-calendar-panel,
+.toastui-calendar-week,
+.toastui-calendar-column,
+.toastui-calendar-weekday-grid,
+.toastui-calendar-daygrid-cell,
+.toastui-calendar-gridline-half,
+.toastui-calendar-timegrid-hour-rows,
+.toastui-calendar-timezone-labels-slot,
+.toastui-calendar-timegrid-timezone-label {
+    @apply dark:!border-zinc-700;
+}
+
+.toastui-calendar-timegrid-hour-rows,
+.toastui-calendar-timegrid-timezone-label {
+    @apply !bg-transparent;
+}
+
+.toastui-calendar-timezone-labels-slot {
+    @apply dark:!bg-zinc-900;
+}
+
+.toastui-calendar-weekday-event,
+.toastui-calendar-weekday-event-title {
+    @apply !text-inherit;
 }
