@@ -56,7 +56,7 @@ export const ManualAssignModal: React.FC<ManualAssignModalProps> = ({ assignCont
     }, [show, reset]);
 
     return (
-        <Modal show={show} title="Manually Assign Controller" close={close}>
+        <Modal show={show} title="Manually Assign" close={close}>
             <form onSubmit={handleSubmit(postResource)}>
                 <Controller
                     name="controller"
@@ -65,6 +65,7 @@ export const ManualAssignModal: React.FC<ManualAssignModalProps> = ({ assignCont
                         <SelectInput
                             {...field}
                             autoFocus
+                            openInModal
                             isLoading={controllers === undefined}
                             className="mb-5"
                             label="Category"

@@ -139,9 +139,7 @@ export const SupportForm: React.FC = () => {
                                 error={errors.requested_fields?.message}
                                 formatOptionLabel={({ value, label }) => (
                                     <span>
-                                        <b>{value}</b>
-                                        {' '}
-                                        {label}
+                                        <b>{value}</b> {label}
                                     </span>
                                 )}
                                 options={airports}

@@ -127,6 +127,7 @@ export const BookSessionModal: React.FC<BookSessionModalProps> = ({ request, sho
                             <SelectInput
                                 {...field}
                                 label="Type"
+                                openInModal
                                 error={errors.type?.message}
                                 options={sessionTypes}
                             />
@@ -139,6 +140,7 @@ export const BookSessionModal: React.FC<BookSessionModalProps> = ({ request, sho
                             <SelectInput
                                 {...field}
                                 label="Level"
+                                openInModal
                                 error={errors.level?.message}
                                 options={sessionLevels}
                             />

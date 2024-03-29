@@ -60,6 +60,7 @@ export const RequestTrainingModal: React.FC<RequestTrainingModalProps> = ({ star
                                 <ReactDatePicker
                                     {...field}
                                     showTimeSelect
+                                    portalId="modal-container"
                                     dateFormat="MMM d, yyyy HH:mm"
                                     selected={value}
                                     customInput={<TextInput label="Start (Zulu)" error={errors.start?.message} />}
@@ -75,6 +76,7 @@ export const RequestTrainingModal: React.FC<RequestTrainingModalProps> = ({ star
                                 <ReactDatePicker
                                     {...field}
                                     showTimeSelect
+                                    portalId="modal-container"
                                     dateFormat="MMM d, yyyy HH:mm"
                                     selected={value}
                                     customInput={<TextInput label="End (Zulu)" error={errors.end?.message} />}
@@ -91,6 +93,7 @@ export const RequestTrainingModal: React.FC<RequestTrainingModalProps> = ({ star
                             <SelectInput
                                 {...field}
                                 label="Type"
+                                openInModal
                                 error={errors.type?.message}
                                 options={sessionTypes}
                             />
@@ -103,6 +106,7 @@ export const RequestTrainingModal: React.FC<RequestTrainingModalProps> = ({ star
                             <SelectInput
                                 {...field}
                                 label="Level"
+                                openInModal
                                 error={errors.level?.message}
                                 options={sessionLevels}
                                 formatOptionLabel={(option) => (

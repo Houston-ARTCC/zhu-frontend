@@ -98,7 +98,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                                 {...field}
                                 label="Roles"
                                 error={errors.roles?.message}
-                                options={roles}
+                                options={roles.filter((role) => !role.isFixed)}
                                 value={value.sort((a, b) => (a.id > b.id ? 1 : -1))}
                                 closeMenuOnSelect={false}
                                 isClearable={false}

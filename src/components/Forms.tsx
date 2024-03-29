@@ -1,6 +1,6 @@
 'use client';
 
-import React, { type HTMLProps } from 'react';
+import React, { type HTMLProps, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { BsUpload } from 'react-icons/bs';
 import Dropzone, { type DropEvent } from 'react-dropzone';
@@ -162,59 +162,89 @@ interface SelectInputProps<
 > extends Partial<SelectProps<SelectOption<Value>, IsMulti, Group>> {
     label: string;
     error?: string;
-    ref?: React.Ref<SelectInstance<SelectOption<Value>, IsMulti, Group>>
+    openInModal?: boolean;
 }
 
-export const SelectInput = (
+const SelectInputInner = (
     <
         Value,
         IsMulti extends boolean = false,
         Group extends GroupBase<SelectOption<Value>> = GroupBase<SelectOption<Value>>
     >(
-        { label, error, className, ref, ...props }: SelectInputProps<Value, IsMulti, Group>,
-    ) => (
-        <div className={classNames('flex flex-col', className)}>
-            <label
-                className="mb-2 max-w-fit font-medium"
-                htmlFor={props.name}
-            >
-                {label}
-            </label>
-            <Select
-                id={props.name}
-                ref={ref}
-                menuPortalTarget={document.body}
-                classNames={{
-                    menuPortal: () => '!z-50',
-                    control: ({ isFocused }) => classNames(
-                        '!transition-all !duration-200 !border-2 dark:!bg-zinc-900',
-                        {
-                            '!ring-0': !isFocused,
-                            '!ring-2': isFocused,
-                            '!border-slate-200 dark:!border-zinc-700': !isFocused && !error,
-                            '!ring-sky-400/25 !border-sky-400': isFocused && !error,
-                            '!ring-red-400/25 !border-red-400': error,
-                        },
-                    ),
-                    input: () => '!text-inherit',
-                    singleValue: () => '!text-inherit',
-                    multiValue: () => '!text-inherit',
-                    multiValueRemove: ({ data: { isFixed } }) => (isFixed ? '!hidden' : ''),
-                    multiValueLabel: ({ data: { isFixed } }) => (isFixed ? '!px-2' : '!pl-2 !pr-1'),
-                    groupHeading: () => '-mt-2 !mb-0 py-2 sticky top-0 bg-white rounded-t-md font-bold dark:!bg-zinc-800',
-                    menuList: () => '!shadow !py-0 dark:!bg-zinc-800 dark:!shadow-stone-900',
-                    indicatorSeparator: () => 'dark:!bg-zinc-700/80',
-                    option: ({ isFocused, isSelected }) => classNames({
-                        '!bg-sky-500/10': isFocused && !isSelected,
-                        '!bg-sky-500 dark:!bg-sky-500/50': isSelected,
-                    }),
-                }}
-                {...props}
-            />
-            {error && <span className="mt-1 text-sm text-red-400">{error}</span>}
-        </div>
-    )
+        { label, error, openInModal, className, ...props }: SelectInputProps<Value, IsMulti, Group>,
+        ref: React.ForwardedRef<SelectInstance<SelectOption<Value>, IsMulti, Group>>,
+    ) => {
+        const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
+
+        // Helps to resolve the case where the component mounts before the #modal-container element is mounted.
+        useEffect(() => {
+            const timeout = window.setTimeout(
+                () => setPortalTarget(document.getElementById('modal-container')),
+                10,
+            );
+
+            return () => window.clearTimeout(timeout);
+        }, [openInModal]);
+
+        return (
+            <div className={classNames('flex flex-col', className)}>
+                <label
+                    className="mb-2 max-w-fit font-medium"
+                    htmlFor={props.name}
+                >
+                    {label}
+                </label>
+                <Select
+                    ref={ref}
+                    id={props.name}
+                    menuPortalTarget={openInModal ? portalTarget : undefined}
+                    menuPosition={openInModal ? 'fixed' : undefined}
+                    classNames={{
+                        menuPortal: () => '!z-30',
+                        control: ({ isFocused }) => classNames(
+                            '!transition-all !duration-200 !border-2 dark:!bg-zinc-900',
+                            {
+                                '!ring-0': !isFocused,
+                                '!ring-2': isFocused,
+                                '!border-slate-200 dark:!border-zinc-700': !isFocused && !error,
+                                '!ring-sky-400/25 !border-sky-400': isFocused && !error,
+                                '!ring-red-400/25 !border-red-400': error,
+                            },
+                        ),
+                        input: () => '!text-inherit',
+                        singleValue: () => '!text-inherit',
+                        multiValue: () => '!text-inherit !bg-gray-300 dark:!bg-zinc-700',
+                        multiValueRemove: ({ data: { isFixed } }) => (isFixed ? '!hidden' : ''),
+                        multiValueLabel: ({ data: { isFixed } }) => classNames(
+                            '!text-inherit',
+                            { '!px-2': isFixed, '!pl-2 !pr-1': !isFixed },
+                        ),
+                        groupHeading: () => '-mt-2 !mb-0 py-2 sticky top-0 bg-white rounded-t-md font-bold dark:!bg-zinc-800',
+                        menuList: () => '!shadow !py-0 dark:!bg-zinc-800 dark:!shadow-stone-900',
+                        indicatorSeparator: () => 'dark:!bg-zinc-700/80',
+                        option: ({ isFocused, isSelected }) => classNames({
+                            '!bg-sky-500/10': isFocused && !isSelected,
+                            '!bg-sky-500 dark:!bg-sky-500/50': isSelected,
+                        }),
+                    }}
+                    {...props}
+                />
+                {error && <span className="mt-1 text-sm text-red-400">{error}</span>}
+            </div>
+        );
+    }
 );
+
+// Forwarded refs don't play nicely with generic typings, so it takes a lot of convincing to get it working...
+export const SelectInput = React.forwardRef(SelectInputInner) as <
+    Value,
+    IsMulti extends boolean = false,
+    // eslint-disable-next-line no-use-before-define
+    Group extends GroupBase<SelectOption<Value>> = GroupBase<SelectOption<Value>>,
+>(
+    // eslint-disable-next-line no-use-before-define
+    props: SelectInputProps<Value, IsMulti, Group> & { ref?: React.ForwardedRef<SelectInstance<SelectOption<Value>, IsMulti, Group>> },
+) => ReturnType<typeof SelectInputInner>;
 
 interface FileInputProps extends InputProps<string> {
     currentFile?: File | string;
