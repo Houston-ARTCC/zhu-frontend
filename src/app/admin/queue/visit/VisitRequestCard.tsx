@@ -32,6 +32,7 @@ export const VisitRequestCard: React.FC<VisitRequestCardProps> = ({ request }) =
             <RejectRequestButton
                 title="Reject Visiting Request"
                 confirmation={`Are you sure you would like to reject ${request.user.first_name} ${request.user.last_name}'s visiting request?`}
+                needsReason
                 endpoint={`/visit/${request.id}/`}
                 toastConfig={{
                     pending: 'Rejecting visiting request',

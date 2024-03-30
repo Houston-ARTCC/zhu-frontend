@@ -14,6 +14,7 @@ import { type RejectRequestFormValues, rejectRequestSchema } from './rejectReque
 interface RejectRequestModalProps extends ModalProps {
     title: string;
     confirmation: string;
+    needsReason?: boolean;
     endpoint: string;
     toastConfig: {
         pending: string;
@@ -21,11 +22,19 @@ interface RejectRequestModalProps extends ModalProps {
     };
 }
 
-export const RejectRequestModal: React.FC<RejectRequestModalProps> = ({ title, confirmation, endpoint, toastConfig, show, close }) => {
+export const RejectRequestModal: React.FC<RejectRequestModalProps> = ({
+    title,
+    needsReason = false,
+    confirmation,
+    endpoint,
+    toastConfig,
+    show,
+    close,
+}) => {
     const router = useRouter();
 
     const { reset, register, handleSubmit, formState: { errors, isSubmitting } } = useForm<RejectRequestFormValues>({
-        resolver: zodResolver(rejectRequestSchema),
+        resolver: needsReason ? zodResolver(rejectRequestSchema) : undefined,
     });
 
     const deleteRequest: SubmitHandler<RejectRequestFormValues> = useCallback((data) => {
@@ -56,12 +65,14 @@ export const RejectRequestModal: React.FC<RejectRequestModalProps> = ({ title, c
             <form onSubmit={handleSubmit(deleteRequest)}>
                 <p className="mb-5">{confirmation}</p>
 
-                <TextAreaInput
-                    {...register('reason')}
-                    className="mb-5"
-                    label="Reason"
-                    error={errors.reason?.message}
-                />
+                {needsReason && (
+                    <TextAreaInput
+                        {...register('reason')}
+                        className="mb-5"
+                        label="Reason"
+                        error={errors.reason?.message}
+                    />
+                )}
 
                 <div className="flex justify-end gap-3">
                     <Button color="gray-300" onClick={close}>

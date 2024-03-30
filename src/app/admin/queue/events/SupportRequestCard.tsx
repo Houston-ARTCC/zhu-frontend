@@ -56,6 +56,7 @@ export const SupportRequestCard: React.FC<VisitRequestCardProps> = ({ request })
             <RejectRequestButton
                 title="Reject Visiting Request"
                 confirmation={`Are you sure you would like to reject the support request for ${request.name}?`}
+                needsReason
                 endpoint={`/events/support/${request.id}/`}
                 toastConfig={{
                     pending: 'Rejecting Support request',

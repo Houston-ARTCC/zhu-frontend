@@ -1,12 +1,18 @@
 import { withAuth } from 'next-auth/middleware';
 import { type JWT } from 'next-auth/jwt';
 
+const isAdmin = (token: JWT | null) => token?.user.permissions.is_admin ?? false;
 const isStaff = (token: JWT | null) => token?.user.permissions.is_staff ?? false;
 const isTrainingStaff = (token: JWT | null) => token?.user.permissions.is_training_staff ?? false;
 const isMember = (token: JWT | null) => token?.user.permissions.is_member ?? false;
 const isLoggedIn = (token: JWT | null) => token !== null;
 
 const ROUTE_AUTH_MAP: { re: RegExp, verify: (token: JWT | null) => boolean }[] = [
+    // Need to be admin
+    { re: /\/admin\/purge/, verify: isAdmin },
+    { re: /\/admin\/queue\/loa/, verify: isAdmin },
+    { re: /\/admin\/queue\/visit/, verify: isAdmin },
+    { re: /\/admin\/queue\/feedback/, verify: isAdmin },
     // Need to be staff
     { re: /\/admin(\/(.*))?/, verify: isStaff },
     { re: /\/events\/(d+)\/edit/, verify: isStaff },

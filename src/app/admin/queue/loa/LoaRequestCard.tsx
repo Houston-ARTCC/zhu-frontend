@@ -28,6 +28,7 @@ export const LoaRequestCard: React.FC<LoaRequestCardProps> = ({ request }) => (
             <RejectRequestButton
                 title="Reject LOA Request"
                 confirmation={`Are you sure you would like to reject ${request.user.first_name} ${request.user.last_name}'s LOA request?`}
+                needsReason
                 endpoint={`/loa/admin/${request.id}/`}
                 toastConfig={{
                     pending: 'Rejecting LOA request',

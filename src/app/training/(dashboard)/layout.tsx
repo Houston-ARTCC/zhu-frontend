@@ -1,9 +1,9 @@
 import React, { type PropsWithChildren } from 'react';
+import { TrainingSideNav } from '@/app/training/(dashboard)/TrainingSideNav';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
-import { SideNav } from '@/components/SideNav';
 import { fetchApi } from '@/utils/fetch';
-import { type TrainingNotifications } from '@/types/training';
+import type { TrainingNotifications } from '@/types/training';
 
 export const metadata = { title: 'Training Center' };
 
@@ -21,36 +21,7 @@ const TrainingCenterLayout: React.FC<PropsWithChildren> = async ({ children }) =
         <Page {...metadata}>
             <PageContent>
                 <div className="flex items-start gap-10">
-                    <SideNav
-                        rootPath="/training"
-                        sections={[
-                            {
-                                title: 'Student Resources',
-                                members: [
-                                    { title: 'Sessions', route: '' },
-                                    { title: 'Request Training', route: 'request' },
-                                ],
-                            },
-                            {
-                                title: 'Mentor Resources',
-                                members: [
-                                    // TODO: { title: 'My Availability', route: 'availability' },
-                                    {
-                                        title: 'Scheduled Sessions',
-                                        route: 'scheduled',
-                                        alerts: notifications.scheduled_sessions,
-                                    },
-                                    {
-                                        title: 'Training Requests',
-                                        route: 'requests',
-                                        alerts: notifications.training_requests,
-                                    },
-                                    { title: 'Student Profile', route: 'profile' },
-                                    { title: 'Mentor Profile', route: 'mentor' },
-                                ],
-                            },
-                        ]}
-                    />
+                    <TrainingSideNav notifications={notifications} />
                     <div className="grow px-1">
                         {children}
                     </div>

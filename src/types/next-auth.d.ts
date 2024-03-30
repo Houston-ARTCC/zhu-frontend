@@ -12,7 +12,6 @@ type UserId = {
         is_member: boolean;
         is_training_staff: boolean;
         is_staff: boolean;
-        is_senior_staff: boolean;
         is_admin: boolean;
     }
 }
