@@ -15,7 +15,11 @@ export const TrainingSideNav: React.FC<TrainingSideNavProps> = ({ notifications 
             {
                 title: 'Student Resources',
                 children: [
-                    { title: 'Sessions', route: '' },
+                    {
+                        title: 'Sessions',
+                        route: '',
+                        alerts: notifications.scheduled_sessions,
+                    },
                     { title: 'Request Training', route: 'request' },
                 ],
             },
@@ -32,7 +36,7 @@ export const TrainingSideNav: React.FC<TrainingSideNavProps> = ({ notifications 
                     {
                         title: 'Training Requests',
                         route: 'requests',
-                        alerts: notifications.training_requests,
+                        alerts: notifications.instructor_sessions,
                     },
                     { title: 'Student Profile', route: 'profile' },
                     { title: 'Mentor Profile', route: 'mentor' },
