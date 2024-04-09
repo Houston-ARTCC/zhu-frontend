@@ -13,7 +13,7 @@ export const RatingStars: React.FC<RatingStarsProps> = ({ rating, size = 20, cla
         {[...Array(5)].map((_, i) => (
             i >= rating
                 ? <LuStar key={i} size={size} className="" />
-                : <LuStar key={i} size={size} className="fill-black" />
+                : <LuStar key={i} size={size} className="fill-current" />
         ))}
     </div>
 );

@@ -15,22 +15,22 @@ export const SESSION_TYPE_STRING = {
 };
 
 export enum SessionLevel {
-    MinorGround,
-    MajorGround,
-    MinorTower,
-    MajorTower,
-    MinorApproach,
-    MajorApproach,
+    Ground,
+    GroundT1,
+    Tower,
+    TowerT1,
+    Approach,
+    ApproachT1,
     Center,
 }
 
 export const SESSION_LEVEL_STRING = {
-    [SessionLevel.MinorGround]: 'Minor Ground',
-    [SessionLevel.MajorGround]: 'Major Ground',
-    [SessionLevel.MinorTower]: 'Minor Tower',
-    [SessionLevel.MajorTower]: 'Major Tower',
-    [SessionLevel.MinorApproach]: 'Minor Approach',
-    [SessionLevel.MajorApproach]: 'Major Approach',
+    [SessionLevel.Ground]: 'Ground',
+    [SessionLevel.GroundT1]: 'Ground — Tier 1',
+    [SessionLevel.Tower]: 'Tower',
+    [SessionLevel.TowerT1]: 'Tower — Tier 1',
+    [SessionLevel.Approach]: 'Approach',
+    [SessionLevel.ApproachT1]: 'Approach — Tier 1',
     [SessionLevel.Center]: 'Center',
 };
 

@@ -1,19 +1,8 @@
-export const sessionTypes = [
-    { value: 0, label: 'Classroom' },
-    { value: 1, label: 'Sweatbox' },
-    { value: 2, label: 'Online' },
-    { value: 3, label: 'OTS' },
-];
+import { SESSION_LEVEL_STRING, SESSION_TYPE_STRING } from '@/types/training';
 
-export const sessionLevels = [
-    { value: 0, label: 'Ground' },
-    { value: 1, label: 'Ground — Tier 1' },
-    { value: 2, label: 'Tower' },
-    { value: 3, label: 'Tower — Tier 1' },
-    { value: 4, label: 'Approach' },
-    { value: 5, label: 'Approach — Tier 1' },
-    { value: 6, label: 'Center' },
-];
+export const sessionTypes = Object.entries(SESSION_TYPE_STRING).map(([value, label]) => ({ value, label }));
+
+export const sessionLevels = Object.entries(SESSION_LEVEL_STRING).map(([value, label]) => ({ value, label }));
 
 export const otsStatuses = [
     { value: 0, label: 'Non-OTS' },
