@@ -91,8 +91,11 @@ export const ScheduledSessionsTable: React.FC<ScheduledSessionsTableProps> = ({ 
                         name: 'File',
                         button: true,
                         cell: (row) => (
-                            <Link href={`/training/session/${row.id}/file`}>
-                                <LuFileBadge size={20} className="text-gray-900" />
+                            <Link
+                                className="text-inherit"
+                                href={`/training/session/${row.id}/file`}
+                            >
+                                <LuFileBadge size={20} />
                             </Link>
                         ),
                         width: '60px',
@@ -109,7 +112,7 @@ export const ScheduledSessionsTable: React.FC<ScheduledSessionsTableProps> = ({ 
                                 }}
                                 aria-label="Cancel Session"
                             >
-                                <LuX size={20} className="text-gray-900" />
+                                <LuX size={20} />
                             </button>
                         ),
                         width: '60px',
@@ -126,7 +129,7 @@ export const ScheduledSessionsTable: React.FC<ScheduledSessionsTableProps> = ({ 
                                 }}
                                 aria-label="Student No-Show"
                             >
-                                <LuUserX size={20} className="text-gray-900" />
+                                <LuUserX size={20} />
                             </button>
                         ),
                         width: '60px',

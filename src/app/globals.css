@@ -174,17 +174,17 @@
 }
 
 .rdt_TableHead {
-    @apply !text-base border-b-2 border-b-gray-200 dark:border-b-zinc-700;
+    @apply border-b-2 border-b-gray-200 dark:border-b-zinc-700;
 }
 
 .rdt_TableCol,
 .rdt_TableCell {
-    @apply !px-2;
+    @apply !px-2 !text-[14px];
 }
 
 .rdt_TableRow,
 .rdt_TableRow:hover {
-    @apply !border-b-gray-200 dark:!border-b-zinc-700;
+    @apply !min-h-[45px] !border-b-gray-200 dark:!border-b-zinc-700;
 }
 
 .rdt_TableRow:hover {
@@ -192,7 +192,11 @@
 }
 
 .rdt_Pagination button {
-    @apply !fill-current;
+    @apply !text-inherit !fill-current;
+}
+
+.rdt_Pagination button:disabled {
+    @apply !text-neutral-300 dark:!text-zinc-600;
 }
 
 .__rdt_custom_sort_icon__ {

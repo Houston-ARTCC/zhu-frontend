@@ -10,9 +10,9 @@ const colorVariants = {
 
     'green-500': 'bg-green-500 shadow-green-500/25',
 
-    'emerald-400': 'bg-emerald-400 shadow-emerald-400/25',
-    'emerald-600': 'bg-emerald-600 shadow-emerald-600/25',
-    'emerald-700': 'bg-emerald-800 shadow-emerald-700/25',
+    'emerald-400': 'bg-emerald-400 shadow-emerald-400/25 dark:bg-emerald-700 dark:shadow-emerald-700/25',
+    'emerald-600': 'bg-emerald-600 shadow-emerald-600/25 dark:bg-emerald-600 dark:shadow-emerald-600/25',
+    'emerald-700': 'bg-emerald-700 shadow-emerald-700/25 dark:bg-emerald-400 dark:shadow-emerald-400/25',
 
     'cyan-400': 'bg-cyan-400 shadow-cyan-400/25 dark:bg-cyan-500 dark:shadow-cyan-500/25',
 

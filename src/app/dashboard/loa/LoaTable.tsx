@@ -63,7 +63,7 @@ export const LoaTable: React.FC<PendingRequestsTableProps> = ({ data }) => {
                                 data-tooltip-content={loa.remarks}
                             />
                         ),
-                        width: '70px',
+                        width: '85px',
                     },
                     {
                         name: 'Cancel',
@@ -80,7 +80,7 @@ export const LoaTable: React.FC<PendingRequestsTableProps> = ({ data }) => {
                                 <LuX size={20} />
                             </button>
                         ),
-                        width: '70px',
+                        width: '85px',
                     },
                 ]}
             />

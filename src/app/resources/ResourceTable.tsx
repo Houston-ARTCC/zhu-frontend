@@ -24,9 +24,6 @@ export const ResourceTable: React.FC<ResourceTableProps> = ({ data }) => {
         <>
             <DataTable
                 data={data}
-                pagination
-                paginationPerPage={5}
-                paginationRowsPerPageOptions={[5, 10, 15, 20]}
                 defaultSortFieldId={1}
                 defaultSortAsc={false}
                 sortIcon={<LuChevronDown />}
