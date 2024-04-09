@@ -1,8 +1,8 @@
 import { SESSION_LEVEL_STRING, SESSION_TYPE_STRING } from '@/types/training';
 
-export const sessionTypes = Object.entries(SESSION_TYPE_STRING).map(([value, label]) => ({ value, label }));
+export const sessionTypes = Object.entries(SESSION_TYPE_STRING).map(([value, label]) => ({ value: Number(value), label }));
 
-export const sessionLevels = Object.entries(SESSION_LEVEL_STRING).map(([value, label]) => ({ value, label }));
+export const sessionLevels = Object.entries(SESSION_LEVEL_STRING).map(([value, label]) => ({ value: Number(value), label }));
 
 export const otsStatuses = [
     { value: 0, label: 'Non-OTS' },
