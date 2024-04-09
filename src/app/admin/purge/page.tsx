@@ -15,7 +15,7 @@ const RosterPurge: NextPage = async () => {
     const statistics = await getStatistics();
 
     return (
-        <PurgeTable data={statistics} />
+        <PurgeTable initialData={statistics} />
     );
 };
 

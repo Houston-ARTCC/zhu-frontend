@@ -22,7 +22,7 @@ interface NextFetchConfig extends RequestInit {
  * @param route API route following /api (e.g. /connections/online/)
  * @param config Configuration for cache control
  */
-export async function fetchApi<T extends object>(route: string, config?: NextFetchConfig): Promise<T> {
+export async function fetchApi<T extends Record<string, unknown> | unknown[]>(route: string, config?: NextFetchConfig): Promise<T> {
     const session = await (typeof window === 'undefined' ? getServerSession(authOptions) : getSession());
 
     const headers = new Headers(config?.headers);

@@ -5,12 +5,16 @@ import { TextInput } from '@/components/Forms';
 import { Button, ButtonGroup } from '@/components/Button';
 import type { BasicUser, Roster } from '@/types/users';
 
-interface RosterOptionsProps<T extends BasicUser> {
+type RosterOptionsProps<T extends BasicUser, P extends Record<string, unknown>> = P & {
     data: Roster<T>;
-    component: ComponentType<{ data: T[] }>
+    component: ComponentType<Omit<P, 'data' | 'component'> & { data: T[] }>;
 }
 
-export const RosterOptions = <T extends BasicUser>({ data, component: Component }: RosterOptionsProps<T>) => {
+export const RosterOptions = <T extends BasicUser, P extends Record<string, unknown>>({
+    data,
+    component: Component,
+    ...props
+}: RosterOptionsProps<T, P>) => {
     const [searchString, setSearchString] = useState<string>('');
     const [filter, setFilter] = useState<'home' | 'visiting' | 'all'>('home');
 
@@ -59,7 +63,7 @@ export const RosterOptions = <T extends BasicUser>({ data, component: Component 
                     </Button>
                 </ButtonGroup>
             </div>
-            <Component data={users} />
+            <Component data={users} {...props} />
         </>
     );
 };

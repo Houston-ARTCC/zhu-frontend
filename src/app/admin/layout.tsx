@@ -22,7 +22,7 @@ const AdminLayout: React.FC<PropsWithChildren> = async ({ children }) => {
             <PageContent>
                 <div className="flex items-start gap-10">
                     <AdminSideNav notifications={notifications} />
-                    <div className="grow px-1">
+                    <div className="grow overflow-x-auto px-1">
                         {children}
                     </div>
                 </div>

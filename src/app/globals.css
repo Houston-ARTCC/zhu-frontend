@@ -34,7 +34,7 @@
     }
 
     hr {
-        @apply border-b border-slate-100 dark:border-zinc-600;
+        @apply border-b border-slate-200 dark:border-zinc-600;
     }
 }
 

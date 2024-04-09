@@ -61,11 +61,11 @@ export const TuiCalendar: React.FC<TuiCalendarProps> = ({ events, onSelectDateTi
 
     return (
         <div>
-            <div className="flex justify-between">
-                <h2 className="mb-5 text-center text-3xl">
+            <div className="mb-5 flex justify-between">
+                <h2 className="text-center text-3xl">
                     {format(currentDate, 'MMMM y')}
                 </h2>
-                <div className="mb-5 flex justify-center gap-3">
+                <div className="flex justify-center gap-3">
                     <Button
                         variant="secondary"
                         className="gap-1"
