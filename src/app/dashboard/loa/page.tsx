@@ -40,6 +40,10 @@ const RequestLoa: NextPage = async () => {
                             you may still be expected to fulfill them by the end of the quarter.
                             You can check your quarterly status <Link href="/dashboard/status">here</Link>.
                         </p>
+                        <p className="mb-3">
+                            If you would like to return from your leave early, you may do so at any time by
+                            simply cancelling your active leave of absence.
+                        </p>
                     </>
                 ) : (
                     <>
@@ -73,8 +77,9 @@ const RequestLoa: NextPage = async () => {
                     <div>
                         <h3 className="mb-0.5 text-2xl font-medium">How do I use this?</h3>
                         <p className="mb-3">
-                            If you expect to be unable to meet roster currency requirements for any reason,
-                            you may submit a leave of absence to prevent you from being removed from the roster.
+                            If you expect to be unable to meet roster currency requirements for any reason
+                            for a duration of <b>at least 30 days</b>, then you may submit a leave of absence
+                            to prevent you from being erroneously removed from the roster.
                         </p>
                         <p>
                             To select the dates, drag your mouse across multiple boxes on the calendar below.
