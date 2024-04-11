@@ -6,6 +6,7 @@ import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { LuPlusCircle, LuUserCog } from 'react-icons/lu';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useSession } from 'next-auth/react';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { SelectInput, TextInput, ToggleInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
@@ -21,6 +22,8 @@ interface EditUserModalProps extends ModalProps {
 export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close }) => {
     const router = useRouter();
 
+    const { data: session } = useSession();
+
     const { reset, register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm<EditUserFormValues>({
         resolver: zodResolver(editUserSchema),
     });
@@ -31,10 +34,17 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
     );
 
     const patchResource: SubmitHandler<EditUserFormValues> = useCallback((values) => {
-        const body = {
-            ...values,
-            roles: values.roles.map(({ value, label }) => ({ short: value, long: label })),
-        };
+        let body;
+        if (session?.user.permissions.is_admin && values.roles) {
+            body = {
+                ...values,
+                roles: values.roles.map(({ value, label }) => ({ short: value, long: label })),
+            };
+        } else {
+            body = values;
+            delete body.roles;
+        }
+
         toast.promise(
             fetchApi(`/users/${user.cid}/`, { method: 'PATCH', body: JSON.stringify(body) }),
             {
@@ -47,7 +57,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                 router.refresh();
                 close?.();
             });
-    }, [user, router, close]);
+    }, [user, router, session, close]);
 
     return (
         <Modal large show={show} title="Modify User" close={close}>
@@ -90,22 +100,24 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                 <hr className="my-5" />
 
                 <div className="flex flex-col gap-3">
-                    <Controller
-                        name="roles"
-                        control={control}
-                        render={({ field: { value, ...field } }) => (
-                            <SelectInput
-                                {...field}
-                                label="Roles"
-                                error={errors.roles?.message}
-                                options={roles.filter((role) => !role.isFixed)}
-                                value={value.sort((a, b) => (a.id > b.id ? 1 : -1))}
-                                closeMenuOnSelect={false}
-                                isClearable={false}
-                                isMulti
-                            />
-                        )}
-                    />
+                    {session?.user.permissions.is_admin && (
+                        <Controller
+                            name="roles"
+                            control={control}
+                            render={({ field: { value, ...field } }) => (
+                                <SelectInput
+                                    {...field}
+                                    label="Roles"
+                                    error={errors.roles?.message}
+                                    options={roles.filter((role) => !role.isFixed)}
+                                    value={value?.sort((a, b) => (a.id > b.id ? 1 : -1))}
+                                    closeMenuOnSelect={false}
+                                    isClearable={false}
+                                    isMulti
+                                />
+                            )}
+                        />
+                    )}
 
                     <ToggleInput
                         {...register('prevent_event_signup')}

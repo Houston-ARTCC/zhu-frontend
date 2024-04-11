@@ -49,7 +49,8 @@ export const editUserSchema = z.object({
                     && role.isFixed === object.isFixed
                     && role.isDisabled === object.isDisabled
             ))),
-    ),
+    )
+        .optional(),
 
     prevent_event_signup: z.boolean(),
     cic_endorsed: z.boolean(),
