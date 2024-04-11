@@ -27,6 +27,7 @@ export const StudentSelectInput: React.FC<StudentSelectInputProps> = ({ options 
         <>
             <SelectInput
                 label="Select a Student"
+                menuPortalTarget={document.body}
                 options={options}
                 onChange={(option) => {
                     if (option) {

@@ -27,6 +27,7 @@ export const MentorSelectInput: React.FC<MentorSelectInputProps> = ({ options })
         <>
             <SelectInput
                 label="Select a Mentor"
+                menuPortalTarget={document.body}
                 options={options}
                 onChange={(option) => {
                     if (option) {
