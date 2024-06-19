@@ -134,11 +134,12 @@ const PrivacyPolicy: NextPage = () => (
             </p>
             <p className="mb-3">
                 The first step is to deactivate and request VATSIM to purge your data.
-                Please head to <a href="https://membership.vatsim.net/">membership.vatsim.net</a> to do so.
+                Please <a href="https://support.vatsim.net/open.php?topicId=2">open a ticket</a> with VATSIM's Membership
+                Department to do so.
             </p>
             <p className="mb-3">
                 After VATSIM has purged your data, please send a written request to Virtual Houston ARTCC's Air Traffic
-                Manager by emailing <a href="mailto:atm@zhuartcc.org">atm@zhuartcc.org</a>. It is a manual process, so
+                Manager by emailing <a href="mailto:atm@houston.center">atm@houston.center</a>. It is a manual process, so
                 please allow up to 30 days for information to be purged. You will receive an email response once the data
                 has been purged.
             </p>
