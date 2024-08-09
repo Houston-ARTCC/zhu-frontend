@@ -1,6 +1,8 @@
 import React from 'react';
 import { type NextPage } from 'next';
 import { getServerSession } from 'next-auth';
+import slugify from 'slugify';
+import classNames from 'classnames';
 import { PageContent } from '@/components/PageContent';
 import { Page } from '@/components/Page';
 import { Card } from '@/components/Card';
@@ -32,7 +34,18 @@ const Resources: NextPage = async () => {
                 )}
                 {Object.entries(CATEGORY_STRING).map(([category, title]) => (
                     <div key={category} className="mb-10">
-                        <h2 className="text-4xl font-medium">{title}</h2>
+                        <a className="text-inherit" href={`#${slugify(title, { lower: true })}`}>
+                            <h2
+                                className={classNames(
+                                    'after:text-md relative text-4xl font-medium duration-150',
+                                    "after:pl-3 after:text-3xl after:text-gray-400 after:content-['#']",
+                                    'after:opacity-0 hover:after:opacity-100 target:after:opacity-100',
+                                )}
+                                id={slugify(title, { lower: true })}
+                            >
+                                {title}
+                            </h2>
+                        </a>
                         <h3 className="mb-5 font-medium text-slate-400">
                             {resources[category]?.length}
                             {resources[category]?.length === 1 ? ' resource' : ' resources'}

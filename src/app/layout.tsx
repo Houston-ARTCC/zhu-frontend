@@ -14,7 +14,7 @@ export const metadata = {
 };
 
 const Root = ({ children }: PropsWithChildren) => (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="scroll-pt-36" suppressHydrationWarning>
         <body>
             <ThemeProvider attribute="class">
                 <NextAuthProvider>
