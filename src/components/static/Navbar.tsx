@@ -68,7 +68,8 @@ export const Navbar: React.FC = () => {
                         <DropdownItem href="/resources">Resources</DropdownItem>
                         <DropdownItem href="/statistics">Statistics</DropdownItem>
                         <DropdownSeparator />
-                        <DropdownItem href="https://vzhuids.net/" target="_blank" rel="noreferrer">IDS</DropdownItem>
+                        <DropdownItem href="https://alias.houston.center/" target="_blank" rel="noreferrer">Alias Reference</DropdownItem>
+                        <DropdownItem href="https://rvm.houston.center/" target="_blank" rel="noreferrer">RVM Reference</DropdownItem>
                     </Dropdown>
                     {authStatus === 'authenticated' && session ? (
                         <Dropdown title={`${session.user.first_name} ${session.user.last_name}`} className={linkColor}>
