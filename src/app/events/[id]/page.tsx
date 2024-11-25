@@ -108,7 +108,7 @@ const ViewEvent: NextPage<EventParams> = async ({ params }) => {
                                 </h5>
                             </div>
                         </div>
-                        <p className="whitespace-pre">
+                        <p className="whitespace-pre-line">
                             {event.description}
                         </p>
                         {session?.user.permissions.is_staff && (

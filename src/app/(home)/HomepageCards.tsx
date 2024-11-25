@@ -21,7 +21,7 @@ export const AnnouncementCard: React.FC<AnnouncementCardProps> = ({ announcement
         <>
             <Card interactive onClick={() => setShowModal(true)}>
                 <div className="flex w-full items-center">
-                    <p className="inline-block w-32 whitespace-pre text-gray-400">
+                    <p className="inline-block w-32 whitespace-nowrap text-gray-400">
                         {format(new Date(announcement.posted), 'MMM d, y')}
                     </p>
                     <h4 className="w-full shrink truncate text-lg font-medium">
