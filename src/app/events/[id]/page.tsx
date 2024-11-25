@@ -2,8 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { formatDistance } from 'date-fns';
-import { format } from 'date-fns-tz';
-import { type NextPage } from 'next';
+import { format, formatInTimeZone } from 'date-fns-tz';
+import { type Metadata, type NextPage } from 'next';
 import { getServerSession } from 'next-auth';
 import { LuEyeOff, LuFolderClosed, LuPencil } from 'react-icons/lu';
 import { Button } from '@/components/Button';
@@ -32,6 +32,29 @@ async function getEvent(id: string): Promise<Event> {
 interface EventParams {
     params: {
         id: string;
+    };
+}
+
+export async function generateMetadata(
+    { params }: EventParams,
+): Promise<Metadata> {
+    const event = await getEvent(params.id).catch(notFound);
+
+    const start = formatInTimeZone(new Date(event.start), 'Etc/UTC', 'MMM dd, yyyy, HH:mm zzz');
+    const end = formatInTimeZone(new Date(event.end), 'Etc/UTC', 'MMM dd, yyyy, HH:mm zzz');
+    const description = `
+        Lasts from ${start} to ${end}.
+        ${event.description}
+    `;
+
+    return {
+        title: event.name,
+        description,
+        openGraph: {
+            title: event.name,
+            description,
+            images: [event.banner],
+        },
     };
 }
 
