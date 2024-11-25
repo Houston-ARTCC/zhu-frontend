@@ -7,6 +7,7 @@ export type VisitRequest = {
 };
 
 export type VisitEligibility = {
+    has_vatusa_user: boolean;
     has_home_facility: boolean;
     rce_completed: boolean;
     has_s3_rating: boolean;
