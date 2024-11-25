@@ -29,7 +29,7 @@ const nextConfig = {
 };
 
 const sentryOptions = {
-    org: 'houston-artcc-ym',
+    org: 'zhuartcc',
     project: 'zhu-frontend',
     authToken: process.env.SENTRY_AUTH_TOKEN,
     silent: true,
