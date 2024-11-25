@@ -23,7 +23,7 @@ export const Footer: React.FC = () => (
                 Feedback
             </a>
             <LuPlane className="rotate-45" />
-            <a className="text-slate-300" href="https://discord.gg/Ag2cdZz" target="_blank">
+            <a className="text-slate-300" href="https://discord.gg/CQFH72e4PR" target="_blank">
                 Discord
             </a>
             <LuPlane className="rotate-45" />
