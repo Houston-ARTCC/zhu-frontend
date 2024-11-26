@@ -13,16 +13,10 @@ const DashboardLayout: React.FC<PropsWithChildren> = async ({ children }) => (
                     rootPath="/dashboard"
                     sections={[
                         {
-                            title: 'Settings',
-                            children: [
-                                { title: 'Profile', route: 'profile' },
-                            ],
-                        },
-                        {
                             title: 'Membership',
                             children: [
-                                { title: 'Leave of Absence', route: 'loa' },
                                 { title: 'Quarterly Status', route: 'status' },
+                                { title: 'Leave of Absence', route: 'loa' },
                             ],
                         },
                     ]}
