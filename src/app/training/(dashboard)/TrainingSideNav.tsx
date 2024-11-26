@@ -21,6 +21,10 @@ export const TrainingSideNav: React.FC<TrainingSideNavProps> = ({ notifications 
                         alerts: notifications.scheduled_sessions,
                     },
                     { title: 'Request Training', route: 'request' },
+                    {
+                        title: 'Academy Courses',
+                        url: 'https://academy.vatusa.net/course/index.php?categoryid=58',
+                    },
                 ],
             },
             {
