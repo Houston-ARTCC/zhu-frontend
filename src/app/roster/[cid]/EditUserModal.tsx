@@ -62,7 +62,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
     return (
         <Modal large show={show} title="Modify User" close={close}>
             <form onSubmit={handleSubmit(patchResource)}>
-                <div className="mb-3 grid grid-cols-6 gap-3">
+                <div className="mb-3 grid grid-cols-2 gap-3 md:grid-cols-6">
                     <TextInput
                         {...register('first_name')}
                         className="col-span-2"
@@ -78,10 +78,10 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                     <TextInput readOnly label="CID" value={user.cid} />
                     <TextInput readOnly label="Rating" value={user.rating.short} />
                 </div>
-                <div className="grid grid-cols-6 gap-3">
+                <div className="grid grid-cols-2 gap-3 md:grid-cols-6">
                     <TextInput
                         {...register('email')}
-                        className="col-span-4"
+                        className="col-span-2 md:col-span-4"
                         label="Email"
                         error={errors.email?.message}
                     />
@@ -134,11 +134,11 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
 
                 <div className="mb-5 grid grid-cols-[auto_1fr] gap-x-5 gap-y-3">
                     <div />
-                    <small className="flex items-center gap-1 text-slate-400">
+                    <small className="text-slate-400">
                         Click endorsements to toggle. Click <LuPlusCircle className="inline" /> to add solo endorsement.
                     </small>
                     <p className="text-right font-medium">Delivery + Ground</p>
-                    <div className="flex gap-2">
+                    <div className="flex flex-col gap-2 sm:flex-row">
                         <Controller
                             name="endorsements.gnd"
                             control={control}
@@ -177,7 +177,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                         />
                     </div>
                     <p className="text-right font-medium">Local</p>
-                    <div className="flex gap-2">
+                    <div className="flex flex-col gap-2 sm:flex-row">
                         <Controller
                             name="endorsements.twr"
                             control={control}
@@ -216,7 +216,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                         />
                     </div>
                     <p className="text-right font-medium">Approach</p>
-                    <div className="flex gap-2">
+                    <div className="flex flex-col gap-2 sm:flex-row">
                         <Controller
                             name="endorsements.app"
                             control={control}
@@ -243,7 +243,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                         />
                     </div>
                     <p className="text-right font-medium">Center</p>
-                    <div className="flex gap-2">
+                    <div className="flex flex-col gap-2 sm:flex-row">
                         <Controller
                             name="endorsements.zhu"
                             control={control}

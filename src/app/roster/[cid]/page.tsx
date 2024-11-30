@@ -94,24 +94,24 @@ const UserProfile: NextPage<UserProfileParams> = async ({ params }) => {
                             <h3 className="mb-5 text-2xl font-medium">Endorsements</h3>
                             <div className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-3">
                                 <p className="text-right font-medium">Delivery + Ground</p>
-                                <div className="flex gap-2">
+                                <div className="flex flex-col gap-2 sm:flex-row">
                                     <EndorsementBadge tier={0} name="GND" status={user.endorsements.gnd} />
                                     <EndorsementBadge tier={1} name="HOU GND T1" status={user.endorsements.hou_gnd} />
                                     <EndorsementBadge tier={1} name="IAH GND T1" status={user.endorsements.iah_gnd} />
                                 </div>
                                 <p className="text-right font-medium">Local</p>
-                                <div className="flex gap-2">
+                                <div className="flex flex-col gap-2 sm:flex-row">
                                     <EndorsementBadge tier={0} name="TWR" status={user.endorsements.twr} />
                                     <EndorsementBadge tier={1} name="HOU TWR T1" status={user.endorsements.hou_twr} />
                                     <EndorsementBadge tier={1} name="IAH TWR T1" status={user.endorsements.iah_twr} />
                                 </div>
                                 <p className="text-right font-medium">Approach</p>
-                                <div className="flex gap-2">
+                                <div className="flex flex-col gap-2 sm:flex-row">
                                     <EndorsementBadge tier={0} name="APP" status={user.endorsements.app} />
                                     <EndorsementBadge tier={1} name="I90 T1" status={user.endorsements.i90} />
                                 </div>
                                 <p className="text-right font-medium">Center</p>
-                                <div className="flex gap-2">
+                                <div className="flex flex-col gap-2 sm:flex-row">
                                     <EndorsementBadge tier={2} name="ZHU" status={user.endorsements.zhu} />
                                 </div>
                             </div>
