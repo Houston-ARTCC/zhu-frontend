@@ -8,7 +8,7 @@ export const metadata = { title: 'Dashboard' };
 const DashboardLayout: React.FC<PropsWithChildren> = async ({ children }) => (
     <Page {...metadata}>
         <PageContent>
-            <div className="flex items-start gap-10">
+            <div className="flex flex-col gap-5 md:flex-row md:items-start md:gap-10">
                 <SideNav
                     rootPath="/dashboard"
                     sections={[
@@ -27,7 +27,7 @@ const DashboardLayout: React.FC<PropsWithChildren> = async ({ children }) => (
                         },
                     ]}
                 />
-                <div className="grow overflow-x-auto  px-1">
+                <div className="md:grow md:overflow-x-auto md:px-1">
                     {children}
                 </div>
             </div>

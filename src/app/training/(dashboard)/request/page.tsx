@@ -23,7 +23,7 @@ const RequestTraining: NextPage = async () => {
                 <h3 className="mb-5 text-2xl font-medium">Pending Requests</h3>
                 <PendingRequestsTable data={trainingRequests} />
             </Card>
-            <div className="rounded-md bg-indigo-500/10 py-5 pl-7 pr-10 text-indigo-500">
+            <div className="rounded-md bg-indigo-500/10 p-5 text-indigo-500 md:pl-7 md:pr-10">
                 <div className="flex gap-3">
                     <div className="pt-1">
                         <LuHelpCircle size={25} />
