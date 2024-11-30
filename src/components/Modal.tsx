@@ -47,7 +47,7 @@ export const Modal: React.FC<ModalProps> = ({ show = false, title, footer, large
             <div
                 id="modal-container"
                 className={classNames(
-                    'fixed inset-x-0 top-0 z-20 h-screen w-screen bg-black/40 overflow-y-scroll',
+                    'fixed inset-x-0 top-0 z-20 h-screen w-screen px-4 bg-black/40 overflow-y-scroll',
                     'transition-opacity duration-250 opacity-0',
                     { 'opacity-0': !isVisible, 'opacity-100': isVisible },
                 )}

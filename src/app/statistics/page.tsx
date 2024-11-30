@@ -2,9 +2,9 @@ import React from 'react';
 import { type NextPage } from 'next';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
+import { Heatmap } from '@/components/Heatmap';
 import { fetchApi } from '@/utils/fetch';
 import { type DailyStatistic, type Statistics } from '@/types/connections';
-import { Heatmap } from '../../components/Heatmap';
 import { StatisticsTable } from './StatisticsTable';
 
 export const metadata = { title: 'Controller Statistics' };
@@ -30,7 +30,7 @@ const StatisticsPage: NextPage = async () => {
     return (
         <Page {...metadata}>
             <PageContent>
-                <div className="mb-12">
+                <div className="mb-12 hidden md:block">
                     <Heatmap data={aggregateStatistics} />
                 </div>
                 <StatisticsTable data={statistics} />

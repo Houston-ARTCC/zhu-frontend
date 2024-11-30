@@ -25,8 +25,8 @@ export const viewport = {
 };
 
 const Root = ({ children }: PropsWithChildren) => (
-    <html lang="en" className="scroll-pt-36" suppressHydrationWarning>
-        <body>
+    <html lang="en" className="h-full scroll-pt-36" suppressHydrationWarning>
+        <body className="h-full">
             <ThemeProvider attribute="class">
                 <NextAuthProvider>
                     <Navbar />

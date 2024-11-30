@@ -80,7 +80,7 @@ const Home: NextPage = async () => {
         <>
             <HomepageBanner />
             <PageContent>
-                <div className="mb-16 grid grid-cols-2 gap-10">
+                <div className="mb-16 grid grid-cols-1 gap-10 lg:grid-cols-2">
                     <div>
                         <h1 className="text-[2.5rem] font-bold">Virtual Houston ARTCC</h1>
                         <h3 className="mb-5 text-2xl font-medium text-slate-400">
@@ -93,7 +93,7 @@ const Home: NextPage = async () => {
                             professional air traffic control services to support your flight.
                         </p>
                     </div>
-                    <div className="ml-auto min-w-[50%]">
+                    <div className="lg:ml-auto lg:min-w-[50%]">
                         <h2 className="mb-5 text-3xl font-medium">Who's Online?</h2>
                         <div className="flex flex-col gap-3">
                             {onlineConnections.length === 0 && <p>Nobody 😢</p>}
@@ -109,7 +109,7 @@ const Home: NextPage = async () => {
                     </div>
                 </div>
 
-                <div className="mb-16 grid grid-cols-2 gap-10">
+                <div className="mb-16 grid grid-cols-1 gap-10 lg:grid-cols-2">
                     <div>
                         <h2 className="mb-5 text-3xl font-medium">Announcements</h2>
                         <div className="flex flex-col gap-5">
@@ -129,7 +129,7 @@ const Home: NextPage = async () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-3 gap-10">
+                <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
                     <div>
                         <h2 className="mb-5 text-3xl font-medium">Newest Controllers</h2>
                         <div className="flex flex-col gap-5">

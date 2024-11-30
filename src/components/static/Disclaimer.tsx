@@ -3,7 +3,7 @@ import { LuAlertCircle } from 'react-icons/lu';
 
 export const Disclaimer: React.FC = () => (
     <div className="container mx-auto">
-        <div className="mx-64 mb-16 rounded-md bg-sky-500/10 py-5 pl-7 pr-10 text-sky-500">
+        <div className="mx-8 mb-16 rounded-md bg-sky-500/10 p-5 text-sky-500 md:mx-16 md:pl-7 md:pr-10 lg:mx-64">
             <div className="flex gap-3">
                 <div className="pt-1">
                     <LuAlertCircle size={25} />

@@ -20,7 +20,7 @@ const Events: NextPage = async () => {
     return (
         <Page {...metadata}>
             <PageContent>
-                <div className="grid grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
                     {events.map((event) => (
                         <EventCard key={event.id} event={event} />
                     ))}

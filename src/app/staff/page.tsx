@@ -23,7 +23,7 @@ const StaffPage: NextPage = async () => {
             <PageContent>
                 <h2 className="text-4xl font-medium">ARTCC Staff</h2>
                 <h3 className="mb-5 font-medium text-slate-400">Responsible for the bulk of ARTCC operations.</h3>
-                <div className="mb-16 grid grid-cols-3 gap-5">
+                <div className="mb-16 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
                     <StaffCard
                         user={staff.atm.user}
                         title="Air Traffic Manager"
@@ -66,7 +66,7 @@ const StaffPage: NextPage = async () => {
 
                 <h2 className="text-4xl font-medium">Assistant Staff</h2>
                 <h3 className="mb-5 font-medium text-slate-400">Assist the ARTCC staff in their respetive duties.</h3>
-                <div className="mb-16 grid grid-cols-3 gap-5">
+                <div className="mb-16 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
                     {staff.ta.assistants.map((user) => (
                         <StaffCard key={user.cid} user={user} title="Assistant Training Administrator" />
                     ))}
@@ -83,7 +83,7 @@ const StaffPage: NextPage = async () => {
 
                 <h2 className="text-4xl font-medium">Training Team</h2>
                 <h3 className="mb-5 font-medium text-slate-400">Responsible for mentoring and training controllers.</h3>
-                <div className="mb-16 grid grid-cols-3 gap-5">
+                <div className="mb-16 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
                     {staff.ins.map((user) => (
                         <StaffCard key={user.cid} user={user} title="Instructor" />
                     ))}
@@ -94,7 +94,7 @@ const StaffPage: NextPage = async () => {
 
                 <h2 className="text-4xl font-medium">Web Team</h2>
                 <h3 className="mb-5 font-medium text-slate-400">Assist the webmaster with maintaining ARTCC IT services.</h3>
-                <div className="mb-16 grid grid-cols-3 gap-5">
+                <div className="mb-16 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
                     {staff.web.map((user) => (
                         <StaffCard key={user.cid} user={user} title="Web Team" />
                     ))}

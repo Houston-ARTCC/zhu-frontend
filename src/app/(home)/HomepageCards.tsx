@@ -47,10 +47,10 @@ interface EventCardProps {
 export const EventCard: React.FC<EventCardProps> = ({ event }) => (
     <Link className="text-inherit" href={`/events/${event.id}`} prefetch={false}>
         <Card interactive>
-            <div className="grid grid-cols-2">
-                <div>
-                    <h4 className="text-ellipsis whitespace-nowrap text-lg font-medium">{event.name}</h4>
-                    <h5 className="mb-5 text-ellipsis whitespace-nowrap text-slate-400">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="order-last sm:order-first">
+                    <h4 className="text-ellipsis text-lg font-medium">{event.name}</h4>
+                    <h5 className="mb-5 text-ellipsis text-slate-400">
                         Presented by {event.host}
                     </h5>
                     <div className="mb-3 flex items-center gap-3">

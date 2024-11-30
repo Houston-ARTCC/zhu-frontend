@@ -34,7 +34,7 @@ export const RosterOptions = <T extends BasicUser, P extends Record<string, unkn
 
     return (
         <>
-            <div className="mb-5 flex items-center justify-between">
+            <div className="mb-5 flex flex-col items-center justify-between gap-5 md:flex-row">
                 <TextInput placeholder="Search for controller..." onUpdate={setSearchString} />
                 <ButtonGroup>
                     <Button

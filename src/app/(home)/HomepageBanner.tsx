@@ -33,14 +33,14 @@ export const HomepageBanner = () => {
                 </Parallax>
                 <div
                     className={classNames(
-                        'absolute top-0 flex h-screen w-screen flex-col items-center justify-center backdrop-blur-sm',
+                        'absolute top-0 flex h-screen w-screen flex-col items-center justify-center px-6 backdrop-blur-sm',
                         'mix-blend-overlay dark:mix-blend-normal',
                     )}
                 >
-                    <h2 className="mb-5 text-3xl font-medium text-white">
+                    <h2 className="mb-5 text-center text-xl font-medium text-white md:text-3xl">
                         From longhorns to space ships, we've got it all!
                     </h2>
-                    <h1 className="text-center text-8xl font-semibold text-white">
+                    <h1 className="text-center text-5xl font-semibold text-white md:text-8xl">
                         Welcome to
                         <br />
                         Houston

@@ -1,7 +1,7 @@
 import React, { type PropsWithChildren } from 'react';
 
 export const PageContent: React.FC<PropsWithChildren> = ({ children }) => (
-    <main className="container mx-auto px-0 py-16 2xl:px-20">
+    <main className="container mx-auto px-6 py-8 sm:py-16">
         {children}
     </main>
 );

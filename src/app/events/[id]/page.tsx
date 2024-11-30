@@ -67,7 +67,7 @@ const ViewEvent: NextPage<EventParams> = async ({ params }) => {
         <Page title={event.name}>
             <PageContent>
                 {event.hidden && (
-                    <div className="mb-5 rounded-md bg-red-500/10 py-5 pl-7 pr-10 text-red-500">
+                    <div className="mb-5 rounded-md bg-red-500/10 p-5 text-red-500 md:pl-7 md:pr-10">
                         <div className="flex gap-3">
                             <div className="pt-1">
                                 <LuEyeOff size={25} />
@@ -80,7 +80,7 @@ const ViewEvent: NextPage<EventParams> = async ({ params }) => {
                     </div>
                 )}
                 {event.archived && (
-                    <div className="mb-5 rounded-md bg-indigo-500/10 py-5 pl-7 pr-10 text-indigo-500">
+                    <div className="mb-5 rounded-md bg-indigo-500/10 p-5 text-indigo-500 md:pl-7 md:pr-10">
                         <div className="flex gap-3">
                             <div className="pt-1">
                                 <LuFolderClosed size={25} />
@@ -92,9 +92,9 @@ const ViewEvent: NextPage<EventParams> = async ({ params }) => {
                         </div>
                     </div>
                 )}
-                <div className="mb-10 grid grid-cols-2 items-center gap-5">
-                    <div className="text-center">
-                        <div className="mb-5 flex items-center justify-around">
+                <div className="mb-10 grid grid-cols-1 items-center gap-5 md:grid-cols-2">
+                    <div className="order-last text-center md:order-first">
+                        <div className="mb-5 flex flex-col items-center justify-around lg:flex-row">
                             <div>
                                 <h4 className="text-xl font-bold">Start</h4>
                                 <h5 className="text-lg">{format(new Date(event.start), 'MMM dd, yyyy, HH:mm zzz')}</h5>
@@ -126,7 +126,7 @@ const ViewEvent: NextPage<EventParams> = async ({ params }) => {
                         <img src={event.banner} alt={event.name} />
                     )}
                 </div>
-                <div className="grid grid-cols-3 gap-5">
+                <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
                     <EventPositions
                         label="Enroute"
                         positions={event.positions.enroute}

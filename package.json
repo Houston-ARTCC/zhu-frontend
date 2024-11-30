@@ -10,6 +10,7 @@
     "lint:fix": "next lint --fix"
   },
   "dependencies": {
+    "@headlessui/react": "2.2.0",
     "@hookform/resolvers": "3.3.4",
     "@sentry/nextjs": "^7.107.0",
     "@tailwindcss/typography": "0.5.10",
