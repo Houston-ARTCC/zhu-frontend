@@ -66,7 +66,7 @@ const UserProfile: NextPage<UserProfileParams> = async ({ params }) => {
             subtitle={`${user.first_name} ${user.last_name}`}
         >
             <PageContent>
-                <div className="grid grid-cols-2 gap-10">
+                <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
                     <div>
                         <div className="mb-12 flex items-start gap-5">
                             <div className="flex flex-col items-center gap-5">

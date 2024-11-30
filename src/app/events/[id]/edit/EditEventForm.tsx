@@ -61,11 +61,11 @@ export const EditEventForm: React.FC<EditEventFormProps> = ({ event }) => {
 
     return (
         <form className="mb-10" onSubmit={handleSubmit(patchRequest)}>
-            <div className="mb-5 grid grid-cols-2 items-start gap-5">
-                <div className="grid grid-cols-2 gap-3">
+            <div className="mb-5 grid grid-cols-1 items-start gap-5 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                     <TextInput
                         {...register('name')}
-                        className="col-span-2"
+                        className="md:col-span-2"
                         label="Event Name"
                         error={errors.name?.message}
                     />
@@ -123,15 +123,15 @@ export const EditEventForm: React.FC<EditEventFormProps> = ({ event }) => {
                 label="Event hidden from controllers."
             />
 
-            <div className="flex gap-3">
-                <Link href={`/events/${event.id}`}>
+            <div className="flex flex-col gap-3 md:flex-row">
+                <Link className="flex flex-col" href={`/events/${event.id}`}>
                     <Button color="gray-300">Return to Event</Button>
                 </Link>
                 <Button type="submit" disabled={isSubmitting}>
                     Save
                 </Button>
                 <DeleteEventButton event={event} />
-                <Button color="indigo-400" className="ml-auto" onClick={putRequest}>
+                <Button color="indigo-400" className="md:ml-auto" onClick={putRequest}>
                     <FaDiscord />
                     Post Event Positions
                 </Button>

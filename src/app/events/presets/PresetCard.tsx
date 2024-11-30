@@ -94,7 +94,7 @@ export const PresetCard: React.FC<PresetCardProps> = ({ preset }) => {
                 <DeletePresetButton preset={preset} />
             </div>
 
-            <div className="grid grid-cols-3">
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
                 <div>
                     <h5 className="mb-2 text-xl font-medium">Enroute</h5>
                     <PresetPositions

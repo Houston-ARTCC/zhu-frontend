@@ -22,7 +22,7 @@ const PositionPresets: NextPage = async () => {
         <Page {...metadata}>
             <PageContent>
                 <NewPresetButton />
-                <div className="grid grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
                     {presets.map((preset) => (
                         <PresetCard key={preset.id} preset={preset} />
                     ))}

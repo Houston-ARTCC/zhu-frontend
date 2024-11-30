@@ -28,7 +28,7 @@ const EditEvent: NextPage<EventParams> = async ({ params }) => {
         <Page title={event.name}>
             <PageContent>
                 <EditEventForm event={event} />
-                <div className="grid grid-cols-3 gap-5">
+                <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
                     <EditEventPositions eventId={event.id} label="Enroute" positions={event.positions.enroute} />
                     <EditEventPositions eventId={event.id} label="TRACON" positions={event.positions.tracon} />
                     <EditEventPositions eventId={event.id} label="Local" positions={event.positions.local} />
