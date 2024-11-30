@@ -48,7 +48,7 @@ export const SideNav: React.FC<SideNavProps> = ({ rootPath, sections }) => {
     const { data: session } = useSession();
 
     return (
-        <div className="sticky top-32 shrink-0">
+        <div className="sticky top-40 shrink-0">
             {sections
                 .filter((section) => section.auth?.(session?.user) ?? true)
                 .map(({ title, children }) => (
