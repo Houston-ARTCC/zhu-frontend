@@ -29,6 +29,7 @@ export const Dropdown: React.FC<DropdownProps> = ({ title, hideArrow = false, cl
                 'dark:bg-zinc-850 dark:shadow-stone-900',
                 menuClassName,
             )}
+            unmount={false}
             modal={false}
         >
             {children}
