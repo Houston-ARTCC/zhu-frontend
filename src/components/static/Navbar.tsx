@@ -214,52 +214,58 @@ export const Navbar: React.FC = () => {
 
                 <PopoverPanel
                     transition
-                    className="absolute inset-x-0 top-0 z-30 mx-auto flex max-h-screen w-full max-w-3xl flex-col p-2
-                               transition-opacity data-[closed]:opacity-0"
+                    className="absolute inset-x-0 top-0 z-30 mx-auto flex max-h-screen w-full flex-col p-2
+                               transition-opacity data-[closed]:opacity-0 sm:max-w-screen-sm md:max-w-screen-md"
                 >
-                    <div className="overflow-y-scroll rounded-md bg-white py-4 shadow dark:bg-zinc-850 dark:shadow-stone-900">
-                        <div className="flex items-center px-4">
-                            <Brand />
-                            <div className="ml-auto" />
-                            <ThemeButton />
-                            <PopoverButton className="rounded-md p-1.5 transition-colors duration-150 hover:bg-white/[.10]">
-                                <span className="sr-only">Close menu</span>
-                                <LuX size={32} aria-hidden="true" />
-                            </PopoverButton>
+                    {({ close }) => (
+                        <div className="overflow-y-scroll rounded-md bg-white py-4 shadow dark:bg-zinc-850 dark:shadow-stone-900">
+                            <div className="flex items-center px-4">
+                                <Brand />
+                                <div className="ml-auto" />
+                                <ThemeButton />
+                                <PopoverButton className="rounded-md p-1.5 transition-colors duration-150 hover:bg-white/[.10]">
+                                    <span className="sr-only">Close menu</span>
+                                    <LuX size={32} aria-hidden="true" />
+                                </PopoverButton>
+                            </div>
+
+                            {sections.map(({ title, children }) => (
+                                <Fragment key={title}>
+                                    <h6 className="mt-4 px-4 py-2 text-xl font-medium text-gray-400">{title}</h6>
+                                    {children.map((child) => (
+                                        <Fragment key={child.href}>
+                                            {child.separate && <hr className="mx-4 my-1" />}
+                                            {child.href && (
+                                                <Link
+                                                    className="block whitespace-nowrap px-4 py-1 text-inherit"
+                                                    href={child.href}
+                                                    prefetch={false}
+                                                    onClick={() => close()}
+                                                >
+                                                    {child.title}
+                                                </Link>
+                                            )}
+                                            {child.action && (
+                                                <button
+                                                    type="button"
+                                                    className="block w-full whitespace-nowrap px-4 py-1 text-left text-inherit
+                                                               transition-opacity hover:opacity-75"
+                                                    onClick={() => {
+                                                        child.action!();
+                                                        close();
+                                                    }}
+                                                >
+                                                    {child.title}
+                                                </button>
+                                            )}
+                                        </Fragment>
+                                    ))}
+                                </Fragment>
+                            ))}
+
+                            {!session && <SignInButton className="mx-4 mt-6" />}
                         </div>
-
-                        {sections.map(({ title, children }) => (
-                            <Fragment key={title}>
-                                <h6 className="mt-4 px-4 py-2 text-xl font-medium text-gray-400">{title}</h6>
-                                {children.map((child) => (
-                                    <Fragment key={child.href}>
-                                        {child.separate && <hr className="mx-4 my-1" />}
-                                        {child.href && (
-                                            <Link
-                                                className="block whitespace-nowrap px-4 py-1 text-inherit"
-                                                href={child.href}
-                                                prefetch={false}
-                                            >
-                                                {child.title}
-                                            </Link>
-                                        )}
-                                        {child.action && (
-                                            <button
-                                                type="button"
-                                                className="block w-full whitespace-nowrap px-4 py-1 text-left text-inherit
-                                                           transition-opacity hover:opacity-75"
-                                                onClick={child.action}
-                                            >
-                                                {child.title}
-                                            </button>
-                                        )}
-                                    </Fragment>
-                                ))}
-                            </Fragment>
-                        ))}
-
-                        {!session && <SignInButton className="mx-4 mt-6" />}
-                    </div>
+                    )}
                 </PopoverPanel>
             </div>
         </Popover>
