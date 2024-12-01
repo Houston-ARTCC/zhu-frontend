@@ -44,22 +44,22 @@ export const SupportForm: React.FC = () => {
 
     return (
         <form onSubmit={handleSubmit(postRequest)}>
-            <div className="mb-5 grid grid-cols-2 items-start gap-5">
-                <div className="grid grid-cols-6 gap-3">
+            <div className="mb-5 grid grid-cols-1 items-start gap-5 md:grid-cols-2">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 2xl:grid-cols-6">
                     <TextInput
-                        className="col-span-2"
+                        className="2xl:col-span-2"
                         readOnly
                         label="First Name"
                         value={session.user.first_name}
                     />
                     <TextInput
-                        className="col-span-2"
+                        className="2xl:col-span-2"
                         readOnly
                         label="Last Name"
                         value={session.user.last_name}
                     />
                     <TextInput
-                        className="col-span-2"
+                        className="sm:col-span-2"
                         readOnly
                         label="Email"
                         value={session.user.email}
@@ -67,19 +67,19 @@ export const SupportForm: React.FC = () => {
 
                     <TextInput
                         {...register('name')}
-                        className="col-span-2"
+                        className="sm:col-span-2"
                         label="Event Name"
                         error={errors.name?.message}
                     />
                     <TextInput
                         {...register('host')}
-                        className="col-span-2"
+                        className="md:col-span-2 lg:col-span-1 2xl:col-span-2"
                         label="Event Host"
                         error={errors.host?.message}
                     />
                     <TextInput
                         {...register('banner_url')}
-                        className="col-span-2"
+                        className="md:col-span-2 lg:col-span-1 2xl:col-span-2"
                         label="Banner URL"
                         type="url"
                         error={errors.banner_url?.message}
@@ -89,7 +89,7 @@ export const SupportForm: React.FC = () => {
                         name="start"
                         control={control}
                         render={({ field: { value, ...field } }) => (
-                            <div className="col-span-3 flex flex-col">
+                            <div className="flex flex-col 2xl:col-span-3">
                                 <ReactDatePicker
                                     {...field}
                                     showTimeSelect
@@ -110,7 +110,7 @@ export const SupportForm: React.FC = () => {
                         name="end"
                         control={control}
                         render={({ field: { value, ...field } }) => (
-                            <div className="col-span-3 flex flex-col">
+                            <div className="flex flex-col 2xl:col-span-3">
                                 <ReactDatePicker
                                     {...field}
                                     showTimeSelect

@@ -39,41 +39,41 @@ export const VisitForm: React.FC = () => {
 
     return (
         <form onSubmit={handleSubmit(postRequest)}>
-            <div className="mb-5 grid grid-cols-2 items-start gap-5">
+            <div className="mb-5 grid grid-cols-1 items-start gap-5 sm:grid-cols-2">
                 <div className="grid grid-cols-12 gap-3">
                     <TextInput
-                        className="col-span-4"
+                        className="col-span-12 lg:col-span-4"
                         disabled
                         label="CID"
                         value={session.user.cid}
                     />
                     <TextInput
-                        className="col-span-4"
+                        className="col-span-12 sm:col-span-6 lg:col-span-4"
                         disabled
                         label="First Name"
                         value={session.user.first_name}
                     />
                     <TextInput
-                        className="col-span-4"
+                        className="col-span-12 sm:col-span-6 lg:col-span-4"
                         disabled
                         label="Last Name"
                         value={session.user.last_name}
                     />
 
                     <TextInput
-                        className="col-span-6"
+                        className="col-span-12 lg:col-span-6"
                         disabled
                         label="Email"
                         value={session.user.email}
                     />
                     <TextInput
-                        className="col-span-3"
+                        className="col-span-6 lg:col-span-3"
                         disabled
                         label="Home Facility"
                         value={session.user.home_facility}
                     />
                     <TextInput
-                        className="col-span-3"
+                        className="col-span-6 lg:col-span-3"
                         disabled
                         label="Rating"
                         value={session.user.rating}

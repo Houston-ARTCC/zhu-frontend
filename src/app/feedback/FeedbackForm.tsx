@@ -53,22 +53,22 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({ controllerOptions, e
 
     return (
         <form onSubmit={handleSubmit(postRequest)}>
-            <div className="mb-5 grid grid-cols-2 items-start gap-5">
-                <div className="grid grid-cols-6 gap-3">
+            <div className="mb-5 grid grid-cols-1 items-start gap-5 md:grid-cols-2">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 2xl:grid-cols-6">
                     <TextInput
-                        className="col-span-2"
+                        className="2xl:col-span-2"
                         readOnly
                         label="First Name"
                         value={session.user.first_name}
                     />
                     <TextInput
-                        className="col-span-2"
+                        className="2xl:col-span-2"
                         readOnly
                         label="Last Name"
                         value={session.user.last_name}
                     />
                     <TextInput
-                        className="col-span-2"
+                        className="sm:col-span-2"
                         readOnly
                         label="Email"
                         value={session.user.email}
@@ -80,7 +80,7 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({ controllerOptions, e
                         render={({ field }) => (
                             <SelectInput
                                 {...field}
-                                className="col-span-3"
+                                className="sm:col-span-2 xl:col-span-1 2xl:col-span-3"
                                 isClearable
                                 label="Controller's Name"
                                 placeholder="General ARTCC Feedback"
@@ -95,7 +95,7 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({ controllerOptions, e
                         render={({ field }) => (
                             <SelectInput
                                 {...field}
-                                className="col-span-3"
+                                className="sm:col-span-2 xl:col-span-1 2xl:col-span-3"
                                 isClearable
                                 label="Event"
                                 options={eventOptions}
@@ -105,13 +105,13 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({ controllerOptions, e
                     />
                     <TextInput
                         {...register('controller_callsign')}
-                        className="col-span-3"
+                        className="2xl:col-span-3"
                         label="Controller's Callsign"
                         error={errors.controller_callsign?.message}
                     />
                     <TextInput
                         {...register('pilot_callsign')}
-                        className="col-span-3"
+                        className="2xl:col-span-3"
                         label="Your Callsign"
                         error={errors.pilot_callsign?.message}
                     />
