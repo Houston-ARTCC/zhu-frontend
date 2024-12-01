@@ -4,6 +4,7 @@ import type { NextPage } from 'next';
 import { LuCheckCircle2, LuCircleDashed, LuHelpCircle } from 'react-icons/lu';
 import { format } from 'date-fns';
 import { Card } from '@/components/Card';
+import { Alert, AlertTitle } from '@/components/Alert';
 import { fetchApi } from '@/utils/fetch';
 import type { LeaveOfAbsence } from '@/types/loa';
 import { Scheduler } from './Scheduler';
@@ -69,25 +70,18 @@ const RequestLoa: NextPage = async () => {
                     </>
                 )}
             </Card>
-            <div className="rounded-md bg-indigo-500/10 py-5 pl-7 pr-10 text-indigo-500">
-                <div className="flex gap-3">
-                    <div className="pt-1">
-                        <LuHelpCircle size={25} />
-                    </div>
-                    <div>
-                        <h3 className="mb-0.5 text-2xl font-medium">How do I use this?</h3>
-                        <p className="mb-3">
-                            If you expect to be unable to meet roster currency requirements for any reason
-                            for a duration of <b>at least 30 days</b>, then you may submit a leave of absence
-                            to prevent you from being erroneously removed from the roster.
-                        </p>
-                        <p>
-                            To select the dates, drag your mouse across multiple boxes on the calendar below.
-                            Alternatively, you may click anywhere on the calendar and use the date pickers in the pop-up.
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <Alert color="indigo-500" icon={LuHelpCircle}>
+                <AlertTitle>How do I use this?</AlertTitle>
+                <p className="mb-3">
+                    If you expect to be unable to meet roster currency requirements for any reason
+                    for a duration of <b>at least 30 days</b>, then you may submit a leave of absence
+                    to prevent you from being erroneously removed from the roster.
+                </p>
+                <p>
+                    To select the dates, drag your mouse across multiple boxes on the calendar below.
+                    Alternatively, you may click anywhere on the calendar and use the date pickers in the pop-up.
+                </p>
+            </Alert>
             <Scheduler />
         </div>
     );

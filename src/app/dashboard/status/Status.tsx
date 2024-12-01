@@ -5,6 +5,7 @@ import { format } from 'date-fns-tz';
 import { addQuarters, isEqual, startOfQuarter, subQuarters } from 'date-fns';
 import { LuAlertCircle, LuArrowLeft, LuArrowRight } from 'react-icons/lu';
 import { Button } from '@/components/Button';
+import { Alert, AlertTitle } from '@/components/Alert';
 import { useStatistics } from '@/utils/useStatistics';
 import type { UserStatusStatistics } from '@/types/connections';
 import { StatusBreakdown } from './StatusBreakdown';
@@ -24,21 +25,14 @@ export const Status: React.FC<StatusProps> = ({ initialData }) => {
     return (
         <>
             {!isCurrentQuarter && (
-                <div className="mb-5 rounded-md bg-amber-500/10 py-5 pl-7 pr-10 text-amber-500">
-                    <div className="flex gap-3">
-                        <div className="pt-1">
-                            <LuAlertCircle size={25} />
-                        </div>
-                        <div>
-                            <h4 className="mb-0.5 text-2xl font-medium">Warning</h4>
-                            <p className="mb-3">
-                                The data you are currently viewing is from a previous quarter, but is not representative of your
-                                activity status during that quarter! The status below is determined by your <b>current</b> endorsements
-                                and rating, and <b>not</b> your historical endorsements and rating.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <Alert color="amber-500" icon={LuAlertCircle}>
+                    <AlertTitle>Warning</AlertTitle>
+                    <p>
+                        The data you are currently viewing is from a previous quarter, but is not representative of your
+                        activity status during that quarter! The status below is determined by your <b>current</b> endorsements
+                        and rating, and <b>not</b> your historical endorsements and rating.
+                    </p>
+                </Alert>
             )}
             <div className="flex justify-between">
                 <h2 className="text-center text-3xl">

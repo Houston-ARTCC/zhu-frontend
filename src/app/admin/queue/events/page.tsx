@@ -1,6 +1,7 @@
 import React from 'react';
 import { type NextPage } from 'next';
 import { LuCheckCircle } from 'react-icons/lu';
+import { Alert, AlertTitle } from '@/components/Alert';
 import { fetchApi } from '@/utils/fetch';
 import { type SupportRequest } from '@/types/admin';
 import { SupportRequestCard } from './SupportRequestCard';
@@ -17,17 +18,10 @@ const EventSupportRequests: NextPage = async () => {
 
     if (requests.length === 0) {
         return (
-            <div className="rounded-md bg-green-500/10 py-5 pl-7 pr-10 text-green-500">
-                <div className="flex gap-3">
-                    <div className="pt-1">
-                        <LuCheckCircle size={25} />
-                    </div>
-                    <div>
-                        <h4 className="mb-0.5 text-2xl font-medium">All caught up!</h4>
-                        <p>There are no pending event support requests, check back later.</p>
-                    </div>
-                </div>
-            </div>
+            <Alert color="green-500" icon={LuCheckCircle}>
+                <AlertTitle>All caught up!</AlertTitle>
+                <p>There are no pending event support requests, check back later.</p>
+            </Alert>
         );
     }
 

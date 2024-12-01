@@ -9,6 +9,7 @@ import { LuEyeOff, LuFolderClosed, LuPencil } from 'react-icons/lu';
 import { Button } from '@/components/Button';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
+import { Alert, AlertTitle } from '@/components/Alert';
 import { authOptions } from '@/utils/auth';
 import { fetchApi } from '@/utils/fetch';
 import { type Event } from '@/types/events';
@@ -67,30 +68,16 @@ const ViewEvent: NextPage<EventParams> = async ({ params }) => {
         <Page title={event.name}>
             <PageContent>
                 {event.hidden && (
-                    <div className="mb-5 rounded-md bg-red-500/10 p-5 text-red-500 md:pl-7 md:pr-10">
-                        <div className="flex gap-3">
-                            <div className="pt-1">
-                                <LuEyeOff size={25} />
-                            </div>
-                            <div>
-                                <h4 className="mb-0.5 text-2xl font-medium">Event Hidden</h4>
-                                <p>This event is currently hidden from controllers. Edit the event to make it visible.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <Alert color="red-500" icon={LuEyeOff} className="mb-5">
+                        <AlertTitle>Event Hidden</AlertTitle>
+                        <p>This event is currently hidden from controllers. Edit the event to make it visible.</p>
+                    </Alert>
                 )}
                 {event.archived && (
-                    <div className="mb-5 rounded-md bg-indigo-500/10 p-5 text-indigo-500 md:pl-7 md:pr-10">
-                        <div className="flex gap-3">
-                            <div className="pt-1">
-                                <LuFolderClosed size={25} />
-                            </div>
-                            <div>
-                                <h4 className="mb-0.5 text-2xl font-medium">Event Archived</h4>
-                                <p>This event has passed and is now archived.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <Alert color="indigo-500" icon={LuFolderClosed} className="mb-5">
+                        <AlertTitle>Event Archived</AlertTitle>
+                        <p>This event has passed and is now archived.</p>
+                    </Alert>
                 )}
                 <div className="mb-10 grid grid-cols-1 items-center gap-5 md:grid-cols-2">
                     <div className="order-last text-center md:order-first">
