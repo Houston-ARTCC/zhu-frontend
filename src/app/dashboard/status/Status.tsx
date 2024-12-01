@@ -25,7 +25,7 @@ export const Status: React.FC<StatusProps> = ({ initialData }) => {
     return (
         <>
             {!isCurrentQuarter && (
-                <Alert color="amber-500" icon={LuAlertCircle}>
+                <Alert color="amber-500" icon={LuAlertCircle} className="mb-5">
                     <AlertTitle>Warning</AlertTitle>
                     <p>
                         The data you are currently viewing is from a previous quarter, but is not representative of your
@@ -34,7 +34,7 @@ export const Status: React.FC<StatusProps> = ({ initialData }) => {
                     </p>
                 </Alert>
             )}
-            <div className="flex justify-between">
+            <div className="flex flex-col justify-between gap-2 sm:flex-row">
                 <h2 className="text-center text-3xl">
                     {format(currentDate, 'yyyy, \'Quarter\' Q')}
                 </h2>
