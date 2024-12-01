@@ -26,7 +26,7 @@ const EventSupportRequests: NextPage = async () => {
     }
 
     return (
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
             {requests.map((request) => (
                 <SupportRequestCard
                     key={request.id}

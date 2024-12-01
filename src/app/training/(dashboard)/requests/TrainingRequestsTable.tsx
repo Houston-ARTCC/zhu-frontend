@@ -14,7 +14,7 @@ interface ExpandedSessionRowProps {
 }
 
 const ExpandedSessionRow: React.FC<ExpandedSessionRowProps> = ({ data }) => (
-    <div className="flex flex-col gap-2 py-5 pl-16">
+    <div className="flex flex-col gap-2 py-5 sm:pl-16">
         {data.requests.map((request) => (
             <div key={request.id} className="flex items-center gap-2">
                 <BookSessionButton request={request} />

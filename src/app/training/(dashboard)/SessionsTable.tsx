@@ -56,7 +56,7 @@ interface ExpandedSessionRowProps {
 }
 
 const ExpandedSessionRow: React.FC<ExpandedSessionRowProps> = ({ data }) => (
-    <div className="py-5 pl-16">
+    <div className="py-5 sm:pl-16">
         {data.ots_status !== SessionOTSStatus.NonOTS && (
             <div
                 className={classNames(
