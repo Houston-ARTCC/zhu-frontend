@@ -229,7 +229,7 @@
     @apply !text-inherit;
 }
 
-.toastui-calendar-template-time {
+.toastui-calendar-event-time {
     @apply whitespace-normal break-words;
 }
 
