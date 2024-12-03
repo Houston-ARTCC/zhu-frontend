@@ -229,6 +229,10 @@
     @apply !text-inherit;
 }
 
+.toastui-calendar-template-time {
+    @apply whitespace-normal break-words;
+}
+
 .mapboxgl-popup-content {
     @apply !bg-white dark:!bg-zinc-850 dark:!shadow-stone-900;
 }
