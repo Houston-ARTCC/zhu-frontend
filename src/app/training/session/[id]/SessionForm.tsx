@@ -75,10 +75,10 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
 
     return (
         <form onSubmit={handleSubmit(saveSession)}>
-            <div className="mb-5 grid grid-cols-2 gap-5">
-                <div className="grid grid-cols-6 gap-3">
+            <div className="mb-5 grid grid-cols-1 gap-5 lg:grid-cols-2">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-6">
                     <TextInput
-                        className="col-span-3"
+                        className="xl:col-span-3"
                         disabled
                         label="Student"
                         value={`${session.student.first_name} ${session.student.last_name}`}
@@ -89,7 +89,7 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
                         render={({ field }) => (
                             <SelectInput
                                 {...field}
-                                className="col-span-3"
+                                className="xl:col-span-3"
                                 label="Instructor"
                                 options={instructorOptions}
                             />
@@ -99,7 +99,7 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
                         name="start"
                         control={control}
                         render={({ field: { value, ...field } }) => (
-                            <div className="col-span-3 flex flex-col">
+                            <div className="flex flex-col xl:col-span-3">
                                 <ReactDatePicker
                                     {...field}
                                     showTimeSelect
@@ -119,7 +119,7 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
                         name="end"
                         control={control}
                         render={({ field: { value, ...field } }) => (
-                            <div className="col-span-3 flex flex-col">
+                            <div className="flex flex-col xl:col-span-3">
                                 <ReactDatePicker
                                     {...field}
                                     showTimeSelect
@@ -141,7 +141,7 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
                         render={({ field }) => (
                             <SelectInput
                                 {...field}
-                                className="col-span-2"
+                                className="xl:col-span-2"
                                 label="Type"
                                 error={errors.type?.message}
                                 options={sessionTypes}
@@ -154,7 +154,7 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
                         render={({ field }) => (
                             <SelectInput
                                 {...field}
-                                className="col-span-2"
+                                className="xl:col-span-2"
                                 label="Level"
                                 error={errors.level?.message}
                                 options={sessionLevels}
@@ -167,7 +167,7 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
                         render={({ field }) => (
                             <SelectInput
                                 {...field}
-                                className="col-span-2"
+                                className="xl:col-span-2"
                                 label="OTS Status"
                                 error={errors.ots_status?.message}
                                 options={otsStatuses}
@@ -180,7 +180,7 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
                         render={({ field }) => (
                             <SelectInput
                                 {...field}
-                                className="col-span-2"
+                                className="xl:col-span-2"
                                 label="Progress"
                                 error={errors.progress?.message}
                                 options={progress}
@@ -189,14 +189,14 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
                     />
                     <TextInput
                         {...register('movements', { valueAsNumber: true })}
-                        className="col-span-2"
+                        className="xl:col-span-2"
                         label="Movements"
                         type="number"
                         error={errors.movements?.message}
                     />
                     <TextInput
                         {...register('position')}
-                        className="col-span-2"
+                        className="xl:col-span-2"
                         label="Position"
                         error={errors.position?.message}
                     />
