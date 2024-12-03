@@ -14,7 +14,7 @@ interface StaffCardProps {
 export const StaffCard: React.FC<StaffCardProps> = ({ user, title, description, email }) => (
     <Card className="flex flex-col gap-3">
         <div className="flex items-center gap-5">
-            <ProfilePicture user={user} size={70} alt="Vacant" />
+            <ProfilePicture user={user} size={70} />
             <div>
                 <p className="text-2xl font-medium">
                     {user ? `${user.first_name} ${user.last_name}` : 'Vacant'}

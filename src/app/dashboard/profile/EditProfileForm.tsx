@@ -9,6 +9,7 @@ import { TextAreaInput } from '@/components/Forms';
 import { ProfilePicture } from '@/components/ProfilePicture';
 import { fetchApi } from '@/utils/fetch';
 import { type User } from '@/types/users';
+import { ChangeProfilePictureButton } from './ChangeProfilePictureModal';
 import { type EditProfileFormValues, editProfileSchema } from './editProfileSchema';
 
 interface EditProfileFormProps {
@@ -38,22 +39,27 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({ user }) => {
     }, [user]);
 
     return (
-        <form onSubmit={handleSubmit(putRequest)}>
-            <div className="mb-5 flex items-center gap-5">
-                <ProfilePicture user={user} size={64} />
-                <p className="italic">Profile picture updates coming soon!</p>
+        <>
+            <div className="mb-5">
+                <p className="mb-2 font-medium">Profile Picture</p>
+                <div className="flex items-center gap-5">
+                    <ProfilePicture user={user} size={64} />
+                    <ChangeProfilePictureButton user={user} />
+                </div>
             </div>
 
-            <TextAreaInput
-                {...register('biography')}
-                className="mb-5"
-                label="Biography"
-                error={errors.biography?.message}
-            />
+            <form onSubmit={handleSubmit(putRequest)}>
+                <TextAreaInput
+                    {...register('biography')}
+                    className="mb-5"
+                    label="Biography"
+                    error={errors.biography?.message}
+                />
 
-            <Button type="submit" disabled={isSubmitting}>
-                Save
-            </Button>
-        </form>
+                <Button type="submit" disabled={isSubmitting}>
+                    Save
+                </Button>
+            </form>
+        </>
     );
 };
