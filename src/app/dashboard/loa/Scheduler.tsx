@@ -1,8 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
+import { LuAlertCircle } from 'react-icons/lu';
 import { TuiCalendar } from '@/components/Calendar';
 import { ClientPortal } from '@/components/ClientPortal';
+import { Alert, AlertTitle } from '@/components/Alert';
+import { Button } from '@/components/Button';
 import { RequestLoaModal } from './RequestLoaModal';
 
 export const Scheduler: React.FC = () => {
@@ -12,6 +15,7 @@ export const Scheduler: React.FC = () => {
     return (
         <>
             <TuiCalendar
+                className="hidden lg:block"
                 height="75vh"
                 view="month"
                 onSelectDateTime={({ start, end }) => {
@@ -19,6 +23,17 @@ export const Scheduler: React.FC = () => {
                     setShowModal(true);
                 }}
             />
+            <Alert className="lg:hidden" color="amber-500" icon={LuAlertCircle}>
+                <AlertTitle>Larger screen needed!</AlertTitle>
+                <p className="mb-3">
+                    Your device is too small to view the LOA scheduler.
+                    We recommend switching to a larger device, or trying landscape mode.
+                    Alternatively, you can request an LOA without viewing the calendar.
+                </p>
+                <Button variant="secondary" color="red-400" onClick={() => setShowModal(true)}>
+                    Proceed Anyway
+                </Button>
+            </Alert>
             <ClientPortal>
                 <RequestLoaModal
                     {...dateRange}

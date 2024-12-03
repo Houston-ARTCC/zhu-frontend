@@ -19,13 +19,14 @@ type ReactCalendarEventHandler = ExternalEventTypes[CalendarExternalEventNames];
 type ReactCalendarExternalEvents = { [events in ReactCalendarEventNames]: ReactCalendarEventHandler; };
 
 export type TuiCalendarProps = ReactCalendarOptions & ReactCalendarExternalEvents & {
+    className?: string;
     height: string;
     events?: Partial<EventObject>[];
     view?: CalendarView;
     onSelectDateTime?: (range: { start: Date, end: Date }) => void;
 };
 
-export const TuiCalendar: React.FC<TuiCalendarProps> = ({ events, onSelectDateTime, ...props }) => {
+export const TuiCalendar: React.FC<TuiCalendarProps> = ({ className, events, onSelectDateTime, ...props }) => {
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
 
     const dateKey = useMemo(() => `${currentDate.getFullYear()}/${currentDate.getMonth() + 1}`, [currentDate]);
@@ -60,7 +61,7 @@ export const TuiCalendar: React.FC<TuiCalendarProps> = ({ events, onSelectDateTi
     }, [events, dateKey, calendarRef]);
 
     return (
-        <div>
+        <div className={className}>
             <div className="mb-5 flex flex-col justify-between gap-2 lg:flex-row">
                 <h2 className="text-center text-3xl">
                     {format(currentDate, 'MMMM y')}
