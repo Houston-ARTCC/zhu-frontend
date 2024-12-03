@@ -53,10 +53,10 @@ export const NewEventModal: React.FC<RequestTrainingModalProps> = ({ presets, st
     return (
         <Modal show={show} title="New Event" close={close}>
             <form onSubmit={handleSubmit(putRequest)}>
-                <div className="mb-3 grid grid-cols-2 gap-3">
+                <div className="mb-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
                     <TextInput
                         {...register('name')}
-                        className="col-span-2"
+                        className="sm:col-span-2"
                         label="Event Name"
                         error={errors.name?.message}
                     />
@@ -105,7 +105,7 @@ export const NewEventModal: React.FC<RequestTrainingModalProps> = ({ presets, st
                             <SelectInput
                                 {...field}
                                 label="Position Preset"
-                                className="col-span-2"
+                                className="sm:col-span-2"
                                 error={errors.preset?.message}
                                 options={presets}
                                 isClearable

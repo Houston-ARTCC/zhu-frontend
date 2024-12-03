@@ -51,7 +51,7 @@ export const RequestTrainingModal: React.FC<RequestTrainingModalProps> = ({ star
     return (
         <Modal show={show} title="Request Training" close={close}>
             <form onSubmit={handleSubmit(putRequest)}>
-                <div className="mb-3 grid grid-cols-2 gap-3">
+                <div className="mb-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
                     <Controller
                         name="start"
                         control={control}
@@ -85,7 +85,7 @@ export const RequestTrainingModal: React.FC<RequestTrainingModalProps> = ({ star
                         )}
                     />
                 </div>
-                <div className="mb-3 grid grid-cols-2 gap-3">
+                <div className="mb-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
                     <Controller
                         name="type"
                         control={control}
