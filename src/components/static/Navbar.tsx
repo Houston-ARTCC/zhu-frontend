@@ -35,7 +35,7 @@ const Brand: React.FC<BrandProps> = ({ light }) => (
         />
         <h6
             className={classNames(
-                'text-xl font-bold',
+                'mt-1 text-xl font-bold leading-none',
                 { 'text-gray-900 dark:text-zinc-200': !light, 'text-white': light },
             )}
         >
