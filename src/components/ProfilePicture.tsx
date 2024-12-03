@@ -19,6 +19,7 @@ export const ProfilePicture: React.FC<ProfilePictureProps> = ({ user, size, clas
                 alt={`${user.first_name} ${user.last_name}`}
                 height={size}
                 width={size}
+                unoptimized
             />
         );
     }
