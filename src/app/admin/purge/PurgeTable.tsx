@@ -26,7 +26,7 @@ export const PurgeTable: React.FC<StatisticsTableProps> = ({ initialData }) => {
 
     return (
         <>
-            <div className="flex justify-between">
+            <div className="flex flex-col justify-between gap-2 sm:flex-row">
                 <h2 className="text-center text-3xl">
                     {format(currentDate, 'yyyy, \'Quarter\' Q')}
                 </h2>
