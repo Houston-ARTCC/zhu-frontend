@@ -6,7 +6,7 @@ module.exports = {
     ],
     theme: {
         fontFamily: {
-            sans: ['"Cera Pro"', 'sans-serif'],
+            sans: ['"Montserrat"', 'sans-serif'],
             mono: ['monospace'],
         },
         extend: {

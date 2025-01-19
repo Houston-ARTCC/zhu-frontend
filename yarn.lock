@@ -496,6 +496,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fontsource/montserrat@npm:5.1.1":
+  version: 5.1.1
+  resolution: "@fontsource/montserrat@npm:5.1.1"
+  checksum: 755d3af7026094cbc1cfffb45cd9f06dbf4ef3d0399aa1e18f2a3055c370cdf80f5c6b6a42a98a492244b9207f45da61364c437dba71423fae2a130ab2a6c37c
+  languageName: node
+  linkType: hard
+
 "@headlessui/react@npm:2.2.0":
   version: 2.2.0
   resolution: "@headlessui/react@npm:2.2.0"
@@ -8113,6 +8120,7 @@ __metadata:
   resolution: "zhu-frontend@workspace:."
   dependencies:
     "@biomejs/biome": "npm:1.6.1"
+    "@fontsource/montserrat": "npm:5.1.1"
     "@headlessui/react": "npm:2.2.0"
     "@hookform/resolvers": "npm:3.3.4"
     "@sentry/nextjs": "npm:^7.107.0"

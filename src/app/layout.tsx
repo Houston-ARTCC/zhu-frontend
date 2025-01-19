@@ -5,7 +5,7 @@ import { Disclaimer } from '@/components/static/Disclaimer';
 import { Footer } from '@/components/static/Footer';
 import { Navbar } from '@/components/static/Navbar';
 import { Toastify } from '@/components/static/Toastify';
-import './fonts.css';
+import './fonts';
 import './globals.css';
 
 export const metadata = {
