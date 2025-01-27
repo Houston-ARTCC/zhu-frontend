@@ -5,7 +5,7 @@ import { Disclaimer } from '@/components/static/Disclaimer';
 import { Footer } from '@/components/static/Footer';
 import { Navbar } from '@/components/static/Navbar';
 import { Toastify } from '@/components/static/Toastify';
-import './fonts';
+import { ceraPro } from '@/fonts';
 import './globals.css';
 
 export const metadata = {
@@ -25,7 +25,7 @@ export const viewport = {
 };
 
 const Root = ({ children }: PropsWithChildren) => (
-    <html lang="en" className="h-full scroll-pt-36" suppressHydrationWarning>
+    <html lang="en" className={`${ceraPro.variable} h-full scroll-pt-36`} suppressHydrationWarning>
         <body className="h-full">
             <ThemeProvider attribute="class">
                 <NextAuthProvider>
