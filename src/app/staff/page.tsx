@@ -29,38 +29,38 @@ const StaffPage: NextPage = async () => {
                         title="Air Traffic Manager"
                         description="Responsible for the macro-management of the ARTCC.
                         Oversees day-to-day operations and ensures the ARTCC runs smoothly."
-                        email="management@houston.center"
+                        email="atm@houston.center"
                     />
                     <StaffCard
                         user={staff.datm.user}
                         title="Deputy Air Traffic Manager"
                         description="Assists the Air Traffic Manager with the management of the ARTCC. Acts as the ATM when necessary."
-                        email="management@houston.center"
+                        email="datm@houston.center"
                     />
                     <StaffCard
                         user={staff.ta.user}
                         title="Training Administrator"
                         description="Responsible for the creation of training programs and procedures. Oversees instructors and mentors."
-                        email="training@houston.center"
+                        email="ta@houston.center"
                     />
                     <StaffCard
                         user={staff.fe.user}
                         title="Facility Engineer"
                         description="Responsible for the creation of sector files, radar client files, training scenarios, and other ARTCC resources."
-                        email="facilities@houston.center"
+                        email="fe@houston.center"
                     />
                     <StaffCard
                         user={staff.ec.user}
                         title="Events Coordinator"
                         description="Responsible for the planning and advertising of events
                         with neighboring facilities, virtual airlines, VATUSA, and VATSIM."
-                        email="events@houston.center"
+                        email="ec@houston.center"
                     />
                     <StaffCard
                         user={staff.wm.user}
                         title="Webmaster"
                         description="Responsible for the operation and maintenance of ARTCC IT services. Oversees the web team."
-                        email="web@houston.center"
+                        email="wm@houston.center"
                     />
                 </div>
 
