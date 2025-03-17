@@ -99,6 +99,7 @@ const generateMenu = (session: Session | null): Section[] => {
             children: [
                 { title: 'Leave Feedback', href: '/feedback' },
                 { title: 'Airspace Map', href: '/map' },
+                { title: 'KIAH Briefing', href: '/brief/kiah' },
                 { title: 'Routes', href: 'https://flightaware.com/statistics/ifr-route/', separate: true },
             ],
         },
