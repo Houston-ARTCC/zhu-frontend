@@ -204,8 +204,8 @@ const BushPilotBriefingPage: NextPage = async () => (
             <h2 className="mb-5 text-3xl font-medium">Departure Turns</h2>
             <p className="mb-3">
                 IAH departures often involve turns of more than 180 degrees off the departure end of the runway.
-                It is very important that you listen for and comply with the
-                <strong>direction of departure turn</strong> when reading back your take off clearance.
+                It is very important that you listen for and comply with
+                the <strong>direction of departure turn</strong> when reading back your take off clearance.
             </p>
             <p className="mb-3">
                 Most aircraft autopilot systems will command a turn in the shortest direction when a heading is selected.
