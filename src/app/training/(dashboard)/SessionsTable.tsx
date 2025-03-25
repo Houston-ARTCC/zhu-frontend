@@ -102,7 +102,7 @@ const ExpandedSessionRow: React.FC<ExpandedSessionRowProps> = ({ data }) => (
                 {data.movements} Movements
             </div>
         </div>
-        <div className="prose max-w-none">
+        <div className="prose max-w-none dark:prose-invert">
             {data.notes
                 ? parseHtml(data.notes)
                 : 'No notes provided.'}

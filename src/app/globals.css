@@ -39,10 +39,6 @@
 }
 
 @layer utilities {
-    .prose {
-        @apply text-inherit;
-    }
-
     .prose h1 {
         @apply mb-5 mt-0 text-3xl font-medium;
     }
