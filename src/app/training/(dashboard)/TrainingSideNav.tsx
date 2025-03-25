@@ -44,6 +44,7 @@ export const TrainingSideNav: React.FC<TrainingSideNavProps> = ({ notifications 
                     },
                     { title: 'Student Profile', route: 'profile' },
                     { title: 'Mentor Profile', route: 'mentor' },
+                    { title: 'All Sessions', route: 'all' },
                 ],
             },
         ]}
