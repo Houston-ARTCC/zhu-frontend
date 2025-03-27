@@ -32,7 +32,7 @@ export async function fetchApi<T extends Record<string, unknown> | unknown[]>(ro
     }
 
     if (session) {
-        headers.append('Authorization', `Bearer ${session.access_token}`);
+        headers.append('Authorization', `Bearer ${session.accessToken}`);
     }
 
     return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api${route}`, { ...config, headers })

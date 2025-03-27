@@ -1,5 +1,4 @@
-/* eslint-disable */
-import { type Account } from 'next-auth';
+import 'next-auth';
 
 type UserId = {
     first_name: string;
@@ -21,28 +20,18 @@ declare module 'next-auth' {
 
     interface Profile extends UserId { }
 
-    interface Account {
-        provider: 'vatsim';
-        type: 'oauth';
-        providerAccountId: string;
-        access_token: string;
-        access_token_exp: number;
-        refresh_token: string;
-        refresh_token_exp: number;
-    }
-
     interface Session {
         user: Profile;
-        access_token: string;
-        refresh_token: string;
+        accessToken: string;
     }
 }
 
-declare module "next-auth/jwt" {
+declare module 'next-auth/jwt' {
     interface User extends UserId { }
 
     interface JWT {
         user: User;
-        account: Account;
+        accessToken: string;
+        refreshToken: string;
     }
 }

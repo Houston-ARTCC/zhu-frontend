@@ -1,5 +1,6 @@
 import { withAuth } from 'next-auth/middleware';
 import { type JWT } from 'next-auth/jwt';
+import { parseJwt } from '@/utils/jwt';
 
 const isAdmin = (token: JWT | null) => token?.user.permissions.is_admin ?? false;
 const isStaff = (token: JWT | null) => token?.user.permissions.is_staff ?? false;
@@ -41,7 +42,7 @@ export default withAuth({
             const now = Date.now() / 1000;
 
             // Check if refresh token is still valid
-            if (token && now > token.account.refresh_token_exp) {
+            if (token && now > parseJwt(token.refreshToken).exp) {
                 return false;
             }
 

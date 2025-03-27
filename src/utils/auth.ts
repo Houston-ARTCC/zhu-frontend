@@ -1,4 +1,5 @@
 import type { AuthOptions } from 'next-auth';
+import { parseJwt } from '@/utils/jwt';
 import type { UserId } from '@/types/next-auth';
 
 type RefreshedTokens = {
@@ -7,19 +8,7 @@ type RefreshedTokens = {
     profile: UserId;
 }
 
-type JWTPayload = {
-    token_type: 'access' | 'refresh';
-    exp: number;
-    iat: number;
-    jti: string;
-    user_id: number;
-}
-
-function parseJwt(token: string): JWTPayload {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace('-', '+').replace('_', '/');
-    return JSON.parse(atob(base64));
-}
+const refreshTokenPromiseCache: { [key: string]: Promise<Response> } = {};
 
 export const authOptions: AuthOptions = {
     session: {
@@ -34,7 +23,7 @@ export const authOptions: AuthOptions = {
                 return {
                     ...session,
                     user: token.user,
-                    access_token: token.account.access_token,
+                    accessToken: token.accessToken,
                 };
             }
             return session;
@@ -47,39 +36,35 @@ export const authOptions: AuthOptions = {
 
                 return {
                     user: user as UserId,
-                    account: {
-                        ...account,
-                        access_token_exp: parseJwt(account.access_token).exp,
-                        refresh_token_exp: parseJwt(account.refresh_token).exp,
-                    },
+                    accessToken: account.access_token!,
+                    refreshToken: account.refresh_token!,
                 };
             }
 
             // Access token is expired :(
-            if (Date.now() / 1000 > token.account.access_token_exp) {
-                const body = JSON.stringify({ refresh: token.account.refresh_token });
+            if (Date.now() / 1000 > parseJwt(token.accessToken).exp) {
+                const body = JSON.stringify({ refresh: token.refreshToken });
+
+                const tokenId = parseJwt(token.refreshToken).jti;
 
                 // Obtain new token pair and new profile data
-                const { access, refresh, profile } = await fetch(
-                    `${process.env.NEXT_PUBLIC_API_URL}/auth/token/refresh/`,
-                    {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body,
-                    },
-                )
-                    .then<RefreshedTokens>((resp) => resp.json());
+                if (!refreshTokenPromiseCache[tokenId]) {
+                    refreshTokenPromiseCache[tokenId] = fetch(
+                        `${process.env.NEXT_PUBLIC_API_URL}/auth/token/refresh/`,
+                        {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body,
+                        },
+                    );
+                }
+                const resp = await refreshTokenPromiseCache[tokenId];
+                const { access, refresh, profile } = await resp.json() as RefreshedTokens;
 
                 return {
-                    ...token,
                     user: profile,
-                    account: {
-                        ...token.account,
-                        access_token: access,
-                        access_token_exp: parseJwt(access).exp,
-                        refresh_token: refresh,
-                        refresh_token_exp: parseJwt(refresh).exp,
-                    },
+                    accessToken: access,
+                    refreshToken: refresh,
                 };
             }
 
