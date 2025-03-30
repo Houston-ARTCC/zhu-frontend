@@ -8,7 +8,7 @@ type RefreshedTokens = {
     profile: UserId;
 }
 
-const refreshTokenPromiseCache: { [key: string]: Promise<Response> } = {};
+const refreshTokenPromiseCache: { [key: string]: Promise<RefreshedTokens> } = {};
 
 export const authOptions: AuthOptions = {
     session: {
@@ -43,26 +43,27 @@ export const authOptions: AuthOptions = {
 
             // Access token is expired :(
             if (Date.now() / 1000 > parseJwt(token.accessToken).exp) {
-                const body = JSON.stringify({ refresh: token.refreshToken });
-
                 const tokenId = parseJwt(token.refreshToken).jti;
 
                 // Obtain new token pair and new profile data
                 if (!refreshTokenPromiseCache[tokenId]) {
-                    refreshTokenPromiseCache[tokenId] = fetch(
-                        `${process.env.NEXT_PUBLIC_API_URL}/auth/token/refresh/`,
-                        {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body,
-                        },
-                    );
+                    refreshTokenPromiseCache[tokenId] = new Promise<RefreshedTokens>((resolve, reject) => {
+                        fetch(
+                            `${process.env.NEXT_PUBLIC_API_URL}/auth/token/`,
+                            {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json', },
+                                body: JSON.stringify({ refresh: token.refreshToken }),
+                            },
+                        )
+                            .then<RefreshedTokens>((resp) => resp.json())
+                            .then((resp) => resolve(resp))
+                            .catch((err) => reject(err));
+                    });
                 }
-                const resp = await refreshTokenPromiseCache[tokenId];
-                const { access, refresh, profile } = await resp.json() as RefreshedTokens;
+                const { access, refresh, profile } = await refreshTokenPromiseCache[tokenId];
 
                 return {
-                    ...token,
                     user: profile,
                     accessToken: access,
                     refreshToken: refresh,
