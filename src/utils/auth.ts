@@ -42,8 +42,9 @@ export const authOptions: AuthOptions = {
             }
 
             // Access token is expired :(
-            if (Date.now() / 1000 > parseJwt(token.accessToken).exp) {
-                const tokenId = parseJwt(token.refreshToken).jti;
+            const accessTokenPayload = parseJwt(token.accessToken);
+            if (Date.now() / 1000 > accessTokenPayload.exp) {
+                const tokenId = accessTokenPayload.jti;
 
                 // Obtain new token pair and new profile data
                 if (!refreshTokenPromiseCache[tokenId]) {
@@ -52,7 +53,7 @@ export const authOptions: AuthOptions = {
                             `${process.env.NEXT_PUBLIC_API_URL}/auth/token/`,
                             {
                                 method: 'POST',
-                                headers: { 'Content-Type': 'application/json', },
+                                headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({ refresh: token.refreshToken }),
                             },
                         )
