@@ -62,6 +62,7 @@ export const authOptions: AuthOptions = {
                 const { access, refresh, profile } = await resp.json() as RefreshedTokens;
 
                 return {
+                    ...token,
                     user: profile,
                     accessToken: access,
                     refreshToken: refresh,
