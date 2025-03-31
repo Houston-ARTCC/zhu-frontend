@@ -10,6 +10,25 @@ type RefreshedTokens = {
 
 const refreshTokenPromiseCache: { [key: string]: Promise<RefreshedTokens> } = {};
 
+const fetchNewToken = async (refreshToken: string): Promise<RefreshedTokens> => {
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/token/`,
+        {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ refresh: refreshToken }),
+        },
+    );
+
+    if (!response.ok) {
+        throw new Error('Failed to fetch new token');
+    }
+
+    const data = await response.json();
+
+    return data;
+};
+
 export const authOptions: AuthOptions = {
     session: {
         strategy: 'jwt',
@@ -48,19 +67,7 @@ export const authOptions: AuthOptions = {
 
                 // Obtain new token pair and new profile data
                 if (!refreshTokenPromiseCache[tokenId]) {
-                    refreshTokenPromiseCache[tokenId] = new Promise<RefreshedTokens>((resolve, reject) => {
-                        fetch(
-                            `${process.env.NEXT_PUBLIC_API_URL}/auth/token/`,
-                            {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ refresh: token.refreshToken }),
-                            },
-                        )
-                            .then<RefreshedTokens>((resp) => resp.json())
-                            .then((resp) => resolve(resp))
-                            .catch((err) => reject(err));
-                    });
+                    refreshTokenPromiseCache[tokenId] = fetchNewToken(token.refreshToken);
                 }
                 const { access, refresh, profile } = await refreshTokenPromiseCache[tokenId];
 
