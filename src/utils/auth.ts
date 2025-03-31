@@ -12,7 +12,7 @@ const refreshTokenPromiseCache: { [key: string]: Promise<RefreshedTokens> } = {}
 
 const fetchNewToken = async (refreshToken: string): Promise<RefreshedTokens> => {
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/token/`,
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/token/refresh/`,
         {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
