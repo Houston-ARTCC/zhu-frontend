@@ -104,7 +104,7 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                     center: true,
                 },
                 {
-                    name: 'HOU T1',
+                    name: 'HOU',
                     sortable: true,
                     sortFunction: sortHOU,
                     cell: (user) => {
@@ -116,7 +116,7 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                     center: true,
                 },
                 {
-                    name: 'IAH T1',
+                    name: 'IAH',
                     sortable: true,
                     sortFunction: sortIAH,
                     cell: (user) => {
@@ -128,7 +128,7 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                     center: true,
                 },
                 {
-                    name: 'I90 T1',
+                    name: 'I90',
                     sortable: true,
                     sortFunction: sortI90,
                     cell: (user) => {

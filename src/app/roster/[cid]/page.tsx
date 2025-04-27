@@ -96,19 +96,19 @@ const UserProfile: NextPage<UserProfileParams> = async ({ params }) => {
                                 <p className="text-right font-medium">Delivery + Ground</p>
                                 <div className="flex flex-col gap-2 sm:flex-row">
                                     <EndorsementBadge tier={0} name="GND" status={user.endorsements.gnd} />
-                                    <EndorsementBadge tier={1} name="HOU GND T1" status={user.endorsements.hou_gnd} />
-                                    <EndorsementBadge tier={1} name="IAH GND T1" status={user.endorsements.iah_gnd} />
+                                    <EndorsementBadge tier={1} name="HOU GND" status={user.endorsements.hou_gnd} />
+                                    <EndorsementBadge tier={1} name="IAH GND" status={user.endorsements.iah_gnd} />
                                 </div>
                                 <p className="text-right font-medium">Local</p>
                                 <div className="flex flex-col gap-2 sm:flex-row">
                                     <EndorsementBadge tier={0} name="TWR" status={user.endorsements.twr} />
-                                    <EndorsementBadge tier={1} name="HOU TWR T1" status={user.endorsements.hou_twr} />
-                                    <EndorsementBadge tier={1} name="IAH TWR T1" status={user.endorsements.iah_twr} />
+                                    <EndorsementBadge tier={1} name="HOU TWR" status={user.endorsements.hou_twr} />
+                                    <EndorsementBadge tier={1} name="IAH TWR" status={user.endorsements.iah_twr} />
                                 </div>
                                 <p className="text-right font-medium">Approach</p>
                                 <div className="flex flex-col gap-2 sm:flex-row">
                                     <EndorsementBadge tier={0} name="APP" status={user.endorsements.app} />
-                                    <EndorsementBadge tier={1} name="I90 T1" status={user.endorsements.i90} />
+                                    <EndorsementBadge tier={1} name="I90" status={user.endorsements.i90} />
                                 </div>
                                 <p className="text-right font-medium">Center</p>
                                 <div className="flex flex-col gap-2 sm:flex-row">

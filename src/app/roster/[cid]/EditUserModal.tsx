@@ -157,7 +157,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                             render={({ field: { value, onChange } }) => (
                                 <ToggleEndorsementButton
                                     tier={1}
-                                    name="HOU GND T1"
+                                    name="HOU GND"
                                     status={value}
                                     onUpdate={onChange}
                                 />
@@ -169,7 +169,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                             render={({ field: { value, onChange } }) => (
                                 <ToggleEndorsementButton
                                     tier={1}
-                                    name="IAH GND T1"
+                                    name="IAH GND"
                                     status={value}
                                     onUpdate={onChange}
                                 />
@@ -196,7 +196,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                             render={({ field: { value, onChange } }) => (
                                 <ToggleEndorsementButton
                                     tier={1}
-                                    name="HOU TWR T1"
+                                    name="HOU TWR"
                                     status={value}
                                     onUpdate={onChange}
                                 />
@@ -208,7 +208,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                             render={({ field: { value, onChange } }) => (
                                 <ToggleEndorsementButton
                                     tier={1}
-                                    name="IAH TWR T1"
+                                    name="IAH TWR"
                                     status={value}
                                     onUpdate={onChange}
                                 />
@@ -235,7 +235,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                             render={({ field: { value, onChange } }) => (
                                 <ToggleEndorsementButton
                                     tier={1}
-                                    name="I90 APP T1"
+                                    name="I90 APP"
                                     status={value}
                                     onUpdate={onChange}
                                 />
