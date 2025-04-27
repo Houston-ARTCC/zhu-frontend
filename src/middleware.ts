@@ -10,6 +10,7 @@ const isLoggedIn = (token: JWT | null) => token !== null;
 
 const ROUTE_AUTH_MAP: { re: RegExp, verify: (token: JWT | null) => boolean }[] = [
     // Need to be admin
+    { re: /\/admin\/loa/, verify: isAdmin },
     { re: /\/admin\/purge/, verify: isAdmin },
     { re: /\/admin\/queue\/loa/, verify: isAdmin },
     { re: /\/admin\/queue\/visit/, verify: isAdmin },

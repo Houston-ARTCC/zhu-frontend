@@ -29,7 +29,11 @@ export const AdminSideNav: React.FC<AdminSideNavProps> = ({ notifications }) => 
             {
                 title: 'Roster',
                 children: [
-                    { title: 'Approved LOAs', route: 'loa' },
+                    {
+                        title: 'Approved LOAs',
+                        route: 'loa',
+                        auth: (user) => user?.permissions.is_admin ?? false,
+                    },
                     {
                         title: 'Roster Purge',
                         route: 'purge',
