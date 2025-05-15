@@ -168,7 +168,7 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
                             <SelectInput
                                 {...field}
                                 className="xl:col-span-2"
-                                label="OTS Status"
+                                label="Rating Exam"
                                 error={errors.ots_status?.message}
                                 options={otsStatuses}
                             />

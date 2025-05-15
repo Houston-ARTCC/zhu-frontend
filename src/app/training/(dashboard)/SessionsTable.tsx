@@ -70,10 +70,10 @@ const ExpandedSessionRow: React.FC<ExpandedSessionRowProps> = ({ data }) => (
             >
                 <OTSStatusIcon status={data.ots_status} />
                 {data.ots_status === SessionOTSStatus.Passed
-                    ? 'Passed OTS Examination'
+                    ? 'Passed Rating Examination'
                     : data.ots_status === SessionOTSStatus.Failed
-                        ? 'Failed OTS Examination'
-                        : 'Recommended for OTS Examination'}
+                        ? 'Failed Rating Examination'
+                        : 'Recommended for Rating Examination'}
             </div>
         )}
         {data.solo_granted && (
@@ -180,7 +180,7 @@ export const SessionsTable: React.FC<SessionsTableProps> = ({ data }) => {
                     width: '110px',
                 },
                 {
-                    name: 'OTS',
+                    name: 'Rating Exam',
                     selector: (row) => row.ots_status,
                     sortable: true,
                     format: (row) => <OTSStatusIcon status={row.ots_status} />,

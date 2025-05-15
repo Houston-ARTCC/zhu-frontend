@@ -11,7 +11,7 @@ export const SESSION_TYPE_STRING = {
     [SessionType.Classroom]: 'Classroom',
     [SessionType.Sweatbox]: 'Sweatbox',
     [SessionType.Online]: 'Online',
-    [SessionType.OTS]: 'OTS',
+    [SessionType.OTS]: 'Rating Exam',
 };
 
 export enum SessionLevel {

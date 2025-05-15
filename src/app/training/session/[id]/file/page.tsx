@@ -58,7 +58,7 @@ const FileSession: NextPage<FileSessionParams> = async ({ params }) => {
                         student failed to appear for the session or if the session was cancelled.
                     </p>
                     <p>
-                        If this session is an OTS examination, submit the OTS form separately as a supplement to this note at
+                        If this session is a rating examination, submit the rating examination form separately as a supplement to this note at
                         {' '}
                         <a href="https://www.vatusa.net/mgt/controller/1339822/promote" target="_blank" rel="noreferrer">
                             https://www.vatusa.net/mgt/controller/1339822/promote

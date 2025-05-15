@@ -5,7 +5,7 @@ export const sessionTypes = Object.entries(SESSION_TYPE_STRING).map(([value, lab
 export const sessionLevels = Object.entries(SESSION_LEVEL_STRING).map(([value, label]) => ({ value: Number(value), label }));
 
 export const otsStatuses = [
-    { value: 0, label: 'Non-OTS' },
+    { value: 0, label: 'N/A' },
     { value: 1, label: 'Passed' },
     { value: 2, label: 'Failed' },
     { value: 3, label: 'Recommended' },
