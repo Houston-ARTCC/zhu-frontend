@@ -7,4 +7,6 @@ Sentry.init({
     tracesSampleRate: 1.0,
 });
 
+// Not sure why this is throwing a fit, but it works fine
+// eslint-disable-next-line import/namespace
 export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;
