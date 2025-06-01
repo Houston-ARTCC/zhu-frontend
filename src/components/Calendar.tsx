@@ -1,125 +1,130 @@
 'use client';
 
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { format } from 'date-fns';
-import ToastCalendar from '@toast-ui/react-calendar';
-import type { Options } from '@toast-ui/calendar/types/types/options';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { getDay, format, parse, startOfWeek } from 'date-fns';
+import { enUS } from 'date-fns/locale/en-US';
+import * as rbc from 'react-big-calendar';
 import { LuArrowLeft, LuArrowRight } from 'react-icons/lu';
-import type { EventObject, ExternalEventTypes } from '@toast-ui/calendar';
+import classNames from 'classnames';
 import { Button } from '@/components/Button';
 import { fetchApi } from '@/utils/fetch';
-import { eventObjectFromEvent, eventObjectFromSession, tuiCalendars, tuiTheme, tuiTimezones } from '@/utils/calendar';
-import type { Calendar } from '@/types/calendar';
+import { calendarEventFromEvent, calendarEventFromSession } from '@/utils/calendar';
+import type { Calendar as CalendarResponse } from '@/types/calendar';
 
-type ReactCalendarOptions = Omit<Options, 'defaultView'>;
-type CalendarView = Required<Options>['defaultView'];
-type CalendarExternalEventNames = Extract<keyof ExternalEventTypes, string>;
-type ReactCalendarEventNames = `on${Capitalize<CalendarExternalEventNames>}`;
-type ReactCalendarEventHandler = ExternalEventTypes[CalendarExternalEventNames];
-type ReactCalendarExternalEvents = Record<ReactCalendarEventNames, ReactCalendarEventHandler>;
+export type Event = rbc.Event & {
+    type: string;
+};
 
-export type TuiCalendarProps = ReactCalendarOptions & ReactCalendarExternalEvents & {
+const Toolbar: React.FC<rbc.ToolbarProps<Event>> = ({ label, onNavigate }) => (
+    <div className="mb-5 flex flex-col justify-between gap-2 lg:flex-row">
+        <h2 className="text-center text-3xl">
+            {label}
+        </h2>
+        <div className="flex justify-center gap-3">
+            <Button
+                variant="secondary"
+                className="gap-1"
+                onClick={() => onNavigate(rbc.Navigate.PREVIOUS)}
+            >
+                <LuArrowLeft />
+                Prev
+            </Button>
+            <Button
+                variant="secondary"
+                onClick={() => onNavigate(rbc.Navigate.TODAY)}
+            >
+                Today
+            </Button>
+            <Button
+                variant="secondary"
+                className="gap-1"
+                onClick={() => onNavigate(rbc.Navigate.NEXT)}
+            >
+                Next
+                <LuArrowRight />
+            </Button>
+        </div>
+    </div>
+);
+
+const localizer = rbc.dateFnsLocalizer({
+    format,
+    parse,
+    startOfWeek,
+    getDay,
+    locales: {
+        'en-US': enUS,
+    },
+});
+
+const eventPropGetter: rbc.EventPropGetter<Event> = (event) => ({
+    className: classNames({
+        'bg-sky-400 border-sky-500': event.type === 'event',
+        'bg-red-400 border-red-500': event.type === 'session',
+        'bg-gray-400 border-gray-500': event.type === 'request',
+    }),
+});
+
+export type CalendarProps = Omit<rbc.CalendarProps, 'localizer'> & {
     className?: string;
-    height: string;
-    events?: Partial<EventObject>[];
-    view?: CalendarView;
+    events?: Event[];
+    view: rbc.View;
     onSelectDateTime?: (range: { start: Date, end: Date }) => void;
 };
 
-export const TuiCalendar: React.FC<TuiCalendarProps> = ({ className, events, onSelectDateTime, ...props }) => {
+export const Calendar: React.FC<CalendarProps> = ({ className, events: eventsProp, view, onSelectDateTime }) => {
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
+
+    const [events, setEvents] = useState<Event[]>([]);
 
     const dateKey = useMemo(() => `${currentDate.getFullYear()}/${currentDate.getMonth() + 1}`, [currentDate]);
 
-    const calendarRef = useRef<ToastCalendar>(null);
+    const eventCache = useRef<Map<string, Event[]>>(new Map());
 
-    const eventMap = useRef<Map<string, EventObject[]>>(new Map());
+    const onSelectSlot = useCallback((slotInfo: rbc.SlotInfo) => {
+        if (onSelectDateTime) {
+            onSelectDateTime({ start: slotInfo.start, end: slotInfo.end });
+        }
+    }, [onSelectDateTime]);
 
     useEffect(() => {
-        const calendar = calendarRef.current?.getInstance();
+        if (eventCache.current.has(dateKey)) {
+            setEvents([
+                ...eventCache.current.get(dateKey) ?? [],
+                ...(eventsProp ?? []),
+            ]);
 
-        if (calendar && eventMap.current.has(dateKey)) {
-            calendar.clear();
-            calendar.createEvents(eventMap.current.get(dateKey) ?? []);
-            calendar.createEvents(events ?? []);
             return;
         }
 
-        fetchApi<Calendar>(`/calendar/${dateKey}/`)
+        fetchApi<CalendarResponse>(`/calendar/${dateKey}/`)
             .then((data) => {
-                const newEvents = data.events.map(eventObjectFromEvent)
-                    .concat(data.sessions.map(eventObjectFromSession));
+                const newEvents = data.events.map(calendarEventFromEvent)
+                    .concat(data.sessions.map(calendarEventFromSession));
 
-                if (calendar) {
-                    calendar.clear();
-                    calendar.createEvents(newEvents);
-                    calendar.createEvents(events ?? []);
-                }
+                setEvents([
+                    ...newEvents,
+                    ...(eventsProp ?? []),
+                ]);
 
-                eventMap.current.set(dateKey, newEvents);
+                eventCache.current.set(dateKey, newEvents);
             });
-    }, [events, dateKey, calendarRef]);
+    }, [eventsProp, dateKey]);
 
     return (
         <div className={className}>
-            <div className="mb-5 flex flex-col justify-between gap-2 lg:flex-row">
-                <h2 className="text-center text-3xl">
-                    {format(currentDate, 'MMMM y')}
-                </h2>
-                <div className="flex justify-center gap-3">
-                    <Button
-                        variant="secondary"
-                        className="gap-1"
-                        onClick={() => {
-                            const calendar = calendarRef.current?.getInstance();
-                            if (calendar) {
-                                calendar.prev();
-                                setCurrentDate(calendar.getDate().toDate());
-                            }
-                        }}
-                    >
-                        <LuArrowLeft />
-                        Prev
-                    </Button>
-                    <Button
-                        variant="secondary"
-                        onClick={() => {
-                            const calendar = calendarRef.current?.getInstance();
-                            if (calendar) {
-                                calendar.today();
-                                setCurrentDate(calendar.getDate().toDate());
-                            }
-                        }}
-                    >
-                        Today
-                    </Button>
-                    <Button
-                        variant="secondary"
-                        className="gap-1"
-                        onClick={() => {
-                            const calendar = calendarRef.current?.getInstance();
-                            if (calendar) {
-                                calendar.next();
-                                setCurrentDate(calendar.getDate().toDate());
-                            }
-                        }}
-                    >
-                        Next
-                        <LuArrowRight />
-                    </Button>
-                </div>
-            </div>
-            <ToastCalendar
-                ref={calendarRef}
-                usageStatistics={false}
-                calendars={tuiCalendars}
-                timezone={tuiTimezones}
-                theme={tuiTheme}
-                onSelectDateTime={(range) => {
-                    calendarRef.current?.getInstance()?.clearGridSelections();
-                    onSelectDateTime?.(range);
-                }}
-                {...props}
+            <rbc.Calendar
+                localizer={localizer}
+                components={{ toolbar: Toolbar }}
+                events={events}
+                showAllEvents={true}
+                showMultiDayTimes={true}
+                eventPropGetter={eventPropGetter}
+                selectable={'ignoreEvents'}
+                view={view}
+                views={[view]}
+                onNavigate={(newDate) => setCurrentDate(newDate)}
+                onSelectSlot={onSelectSlot}
             />
         </div>
     );

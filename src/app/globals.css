@@ -1,9 +1,9 @@
-@import "react-datepicker/dist/react-datepicker.css";
-@import "react-quill-new/dist/quill.snow.css";
-@import "react-calendar-heatmap/dist/styles.css";
-@import "rc-slider/assets/index.css";
-@import "mapbox-gl/dist/mapbox-gl.css";
-@import "@toast-ui/calendar/dist/toastui-calendar.min.css";
+@import "react-datepicker/dist/react-datepicker.css" layer(base);
+@import "react-quill-new/dist/quill.snow.css" layer(base);
+@import "react-calendar-heatmap/dist/styles.css" layer(base);
+@import "rc-slider/assets/index.css" layer(base);
+@import "mapbox-gl/dist/mapbox-gl.css" layer(base);
+@import "react-big-calendar/lib/css/react-big-calendar.css" layer(base);
 @import "tailwindcss";
 
 @plugin "@tailwindcss/typography";
@@ -56,6 +56,11 @@
 
     hr {
         @apply border-b border-slate-200 dark:border-zinc-600;
+    }
+
+    button:not(:disabled),
+    [role="button"]:not(:disabled) {
+        @apply cursor-pointer;
     }
 }
 
@@ -220,34 +225,82 @@
     @apply opacity-80!;
 }
 
-.toastui-calendar-panel,
-.toastui-calendar-week,
-.toastui-calendar-column,
-.toastui-calendar-weekday-grid,
-.toastui-calendar-daygrid-cell,
-.toastui-calendar-gridline-half,
-.toastui-calendar-timegrid-hour-rows,
-.toastui-calendar-timezone-labels-slot,
-.toastui-calendar-timegrid-timezone-label {
-    @apply dark:border-zinc-700!;
+.rbc-header,
+.rbc-month-row + .rbc-month-row,
+.rbc-day-bg + .rbc-day-bg,
+.rbc-timeslot-group,
+.rbc-time-view .rbc-allday-cell + .rbc-allday-cell,
+.rbc-time-content > * + * > *,
+.rbc-day-slot .rbc-time-slot {
+    @apply border-zinc-200 dark:border-zinc-700;
 }
 
-.toastui-calendar-timegrid-hour-rows,
-.toastui-calendar-timegrid-timezone-label {
-    @apply bg-transparent!;
+.rbc-month-view,
+.rbc-time-view,
+.rbc-time-header,
+.rbc-time-header-content,
+.rbc-time-content,
+.rbc-time-gutter .rbc-timeslot-group {
+    @apply border-0;
 }
 
-.toastui-calendar-timezone-labels-slot {
-    @apply dark:bg-zinc-900!;
+.rbc-timeslot-group {
+    @apply min-h-12;
 }
 
-.toastui-calendar-weekday-event,
-.toastui-calendar-weekday-event-title {
-    @apply text-inherit!;
+.rbc-month-header,
+.rbc-time-header-cell {
+    @apply min-h-8;
 }
 
-.toastui-calendar-event-time {
-    @apply whitespace-normal break-words;
+.rbc-time-content {
+    @apply border-t-2 border-zinc-200 dark:border-zinc-700;
+}
+
+.rbc-header {
+    @apply flex items-center text-zinc-400 text-left font-normal;
+}
+
+.rbc-header + .rbc-header {
+    @apply border-l-0;
+}
+
+.rbc-today {
+    @apply bg-sky-400/10;
+}
+
+.rbc-current-time-indicator {
+    @apply bg-sky-500;
+}
+
+.rbc-date-cell,
+.rbc-time-slot {
+    @apply text-zinc-700 dark:text-zinc-300;
+}
+
+.rbc-off-range {
+    @apply text-zinc-400 dark:text-zinc-600;
+}
+
+.rbc-off-range-bg {
+    @apply bg-transparent;
+}
+
+.rbc-event:focus {
+    @apply outline-0;
+}
+
+.rbc-event-label,
+.rbc-event-content {
+    @apply text-xs;
+}
+
+.rbc-selected-cell {
+    @apply bg-sky-500/20 border border-sky-500!;
+}
+
+.rbc-slot-selection {
+    @apply bg-sky-500/20 border border-sky-500 text-sky-500;
 }
 
 .mapboxgl-popup-content {

@@ -26,7 +26,7 @@ export const Dropdown: React.FC<DropdownProps> = ({ title, hideArrow = false, cl
         <MenuItems
             className={classNames(
                 'absolute right-0 mt-3 flex w-40 flex-col rounded-md bg-white py-1 shadow z-10',
-                'dark:bg-zinc-850 dark:shadow-stone-900',
+                'focus:outline-hidden dark:bg-zinc-850 dark:shadow-stone-900',
                 menuClassName,
             )}
             unmount={false}

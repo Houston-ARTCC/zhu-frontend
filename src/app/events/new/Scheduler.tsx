@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { LuCircleAlert } from 'react-icons/lu';
-import { TuiCalendar } from '@/components/Calendar';
+import { Calendar } from '@/components/Calendar';
 import type { SelectOption } from '@/components/Forms';
 import { ClientPortal } from '@/components/ClientPortal';
 import { Alert, AlertTitle } from '@/components/Alert';
@@ -19,11 +19,9 @@ export const Scheduler: React.FC<SchedulerProps> = ({ presets }) => {
 
     return (
         <>
-            <TuiCalendar
-                className="hidden sm:block"
-                height="75vh"
+            <Calendar
+                className="hidden sm:block h-[75vh]"
                 view="week"
-                week={{ taskView: false, eventView: ['time'] }}
                 onSelectDateTime={({ start, end }) => {
                     setDateRange({ start, end });
                     setShowModal(true);

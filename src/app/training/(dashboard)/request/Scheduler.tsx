@@ -2,11 +2,11 @@
 
 import React, { useState } from 'react';
 import { LuCircleAlert } from 'react-icons/lu';
-import { TuiCalendar } from '@/components/Calendar';
+import { Calendar } from '@/components/Calendar';
 import { ClientPortal } from '@/components/ClientPortal';
 import { Alert, AlertTitle } from '@/components/Alert';
 import { Button } from '@/components/Button';
-import { eventObjectFromRequest } from '@/utils/calendar';
+import { calendarEventFromRequest } from '@/utils/calendar';
 import { type TrainingRequest } from '@/types/training';
 import { RequestTrainingModal } from './RequestTrainingModal';
 
@@ -20,12 +20,10 @@ export const Scheduler: React.FC<SchedulerProps> = ({ requests }) => {
 
     return (
         <>
-            <TuiCalendar
-                className="hidden sm:block"
-                height="75vh"
+            <Calendar
+                className="hidden sm:block h-[75vh]"
                 view="week"
-                events={requests.map(eventObjectFromRequest)}
-                week={{ taskView: false, eventView: ['time'] }}
+                events={requests.map(calendarEventFromRequest)}
                 onSelectDateTime={({ start, end }) => {
                     setDateRange({ start, end });
                     setShowModal(true);

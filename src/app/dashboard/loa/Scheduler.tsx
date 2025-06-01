@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { LuCircleAlert } from 'react-icons/lu';
-import { TuiCalendar } from '@/components/Calendar';
+import { Calendar } from '@/components/Calendar';
 import { ClientPortal } from '@/components/ClientPortal';
 import { Alert, AlertTitle } from '@/components/Alert';
 import { Button } from '@/components/Button';
@@ -14,9 +14,8 @@ export const Scheduler: React.FC = () => {
 
     return (
         <>
-            <TuiCalendar
-                className="hidden lg:block"
-                height="75vh"
+            <Calendar
+                className="hidden lg:block h-[75vh]"
                 view="month"
                 onSelectDateTime={({ start, end }) => {
                     setDateRange({ start, end });

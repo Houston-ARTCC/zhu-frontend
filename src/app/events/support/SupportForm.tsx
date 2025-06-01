@@ -97,7 +97,7 @@ export const SupportForm: React.FC = () => {
                                     selected={value}
                                     customInput={(
                                         <TextInput
-                                            label="Start (Zulu)"
+                                            label="Start (Local)"
                                             error={errors.start?.message}
                                         />
                                     )}
@@ -118,7 +118,7 @@ export const SupportForm: React.FC = () => {
                                     selected={value}
                                     customInput={(
                                         <TextInput
-                                            label="End (Zulu)"
+                                            label="End (Local)"
                                             error={errors.end?.message}
                                         />
                                     )}

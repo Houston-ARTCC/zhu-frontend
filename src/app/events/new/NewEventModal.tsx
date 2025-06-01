@@ -78,7 +78,7 @@ export const NewEventModal: React.FC<RequestTrainingModalProps> = ({ presets, st
                                     showTimeSelect
                                     dateFormat="MMM d, yyyy HH:mm"
                                     selected={value}
-                                    customInput={<TextInput label="Start (Zulu)" error={errors.start?.message} />}
+                                    customInput={<TextInput label="Start (Local)" error={errors.start?.message} />}
                                 />
                             </div>
                         )}
@@ -93,7 +93,7 @@ export const NewEventModal: React.FC<RequestTrainingModalProps> = ({ presets, st
                                     showTimeSelect
                                     dateFormat="MMM d, yyyy HH:mm"
                                     selected={value}
-                                    customInput={<TextInput label="End (Zulu)" error={errors.end?.message} />}
+                                    customInput={<TextInput label="End (Local)" error={errors.end?.message} />}
                                 />
                             </div>
                         )}
