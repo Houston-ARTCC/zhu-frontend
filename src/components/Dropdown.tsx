@@ -15,7 +15,7 @@ export const Dropdown: React.FC<DropdownProps> = ({ title, hideArrow = false, cl
         <MenuButton
             className={classNames(
                 'flex items-center gap-2 rounded-md px-6 py-1',
-                'transition-colors duration-150 hover:bg-white/[.10] data-[active]:bg-white/[.10]',
+                'transition-colors duration-150 hover:bg-white/[.10] data-active:bg-white/[.10]',
                 className,
             )}
             {...props}

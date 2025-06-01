@@ -22,7 +22,7 @@ interface RequestTrainingModalProps extends ModalProps {
 export const NewEventModal: React.FC<RequestTrainingModalProps> = ({ presets, start, end, show, close }) => {
     const router = useRouter();
 
-    const { register, control, reset, handleSubmit, formState: { errors, isSubmitting } } = useForm<NewEventFormValues>({
+    const { register, control, reset, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(newEventSchema),
         defaultValues: { start, end },
     });

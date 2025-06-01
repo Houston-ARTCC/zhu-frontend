@@ -11,12 +11,13 @@ async function getTrainingSessions(cid: string): Promise<TrainingSession[]> {
 }
 
 interface MentorProfileParams {
-    params: {
+    params: Promise<{
         cid: string;
-    };
+    }>;
 }
 
-const MentorProfile: NextPage<MentorProfileParams> = async ({ params }) => {
+const MentorProfile: NextPage<MentorProfileParams> = async (props) => {
+    const params = await props.params;
     const trainingSessions = await getTrainingSessions(params.cid);
 
     return <SessionsTable data={trainingSessions} />;

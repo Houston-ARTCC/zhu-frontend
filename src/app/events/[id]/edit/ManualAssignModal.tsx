@@ -25,7 +25,7 @@ export const ManualAssignModal: React.FC<ManualAssignModalProps> = ({ assignCont
         control,
         handleSubmit,
         formState: { errors, isSubmitting },
-    } = useForm<ManualAssignFormValues>({
+    } = useForm({
         resolver: zodResolver(manualAssignSchema),
     });
 
@@ -64,7 +64,6 @@ export const ManualAssignModal: React.FC<ManualAssignModalProps> = ({ assignCont
                     render={({ field }) => (
                         <SelectInput
                             {...field}
-                            autoFocus
                             openInModal
                             isLoading={controllers === undefined}
                             className="mb-5"

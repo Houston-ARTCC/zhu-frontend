@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { LuAlertCircle } from 'react-icons/lu';
+import { LuCircleAlert } from 'react-icons/lu';
 import { TuiCalendar } from '@/components/Calendar';
 import { ClientPortal } from '@/components/ClientPortal';
 import { Alert, AlertTitle } from '@/components/Alert';
@@ -31,7 +31,7 @@ export const Scheduler: React.FC<SchedulerProps> = ({ requests }) => {
                     setShowModal(true);
                 }}
             />
-            <Alert className="sm:hidden" color="amber-500" icon={LuAlertCircle}>
+            <Alert className="sm:hidden" color="amber-500" icon={LuCircleAlert}>
                 <AlertTitle>Larger screen needed!</AlertTitle>
                 <p className="mb-3">
                     Your device is too small to view the training scheduler.

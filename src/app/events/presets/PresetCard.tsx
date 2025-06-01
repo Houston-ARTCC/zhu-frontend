@@ -12,11 +12,11 @@ import { fetchApi } from '@/utils/fetch';
 import { type PositionPreset, type PresetPosition } from '@/types/events';
 import { type SchemaError } from '@/types/api';
 
-type SortedPositions = {
+interface SortedPositions {
     enroute: PresetPosition[];
     tracon: PresetPosition[];
     local: PresetPosition[];
-};
+}
 
 interface PresetCardProps {
     preset: PositionPreset;

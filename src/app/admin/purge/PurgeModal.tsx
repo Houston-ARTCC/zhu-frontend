@@ -19,7 +19,7 @@ interface PurgeModalProps extends ModalProps{
 export const PurgeModal: React.FC<PurgeModalProps> = ({ users, show, close }) => {
     const router = useRouter();
 
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<PurgeFormValues>({
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(purgeSchema),
     });
 

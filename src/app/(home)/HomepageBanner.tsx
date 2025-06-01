@@ -33,7 +33,7 @@ export const HomepageBanner = () => {
                 </Parallax>
                 <div
                     className={classNames(
-                        'absolute top-0 flex h-screen w-screen flex-col items-center justify-center px-6 backdrop-blur-sm',
+                        'absolute top-0 flex h-screen w-screen flex-col items-center justify-center px-6 backdrop-blur-xs',
                         'mix-blend-overlay dark:mix-blend-normal',
                     )}
                 >

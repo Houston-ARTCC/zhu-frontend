@@ -3,7 +3,7 @@
 import React from 'react';
 import { format } from 'date-fns-tz';
 import { addQuarters, isEqual, startOfQuarter, subQuarters } from 'date-fns';
-import { LuAlertCircle, LuArrowLeft, LuArrowRight } from 'react-icons/lu';
+import { LuCircleAlert, LuArrowLeft, LuArrowRight } from 'react-icons/lu';
 import { Button } from '@/components/Button';
 import { Alert, AlertTitle } from '@/components/Alert';
 import { useStatistics } from '@/utils/useStatistics';
@@ -25,7 +25,7 @@ export const Status: React.FC<StatusProps> = ({ initialData }) => {
     return (
         <>
             {!isCurrentQuarter && (
-                <Alert color="amber-500" icon={LuAlertCircle} className="mb-5">
+                <Alert color="amber-500" icon={LuCircleAlert} className="mb-5">
                     <AlertTitle>Warning</AlertTitle>
                     <p>
                         The data you are currently viewing is from a previous quarter, but is not representative of your

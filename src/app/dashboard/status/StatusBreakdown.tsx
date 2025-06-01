@@ -3,7 +3,7 @@
 import React, { type PropsWithChildren } from 'react';
 import { format } from 'date-fns-tz';
 import { addMonths, getQuarter, startOfQuarter } from 'date-fns';
-import { LuBadgeCheck, LuCheckCircle, LuHelpCircle, LuMinusCircle, LuXCircle } from 'react-icons/lu';
+import { LuBadgeCheck, LuCircleCheckBig, LuCircleHelp, LuCircleMinus, LuCircleX } from 'react-icons/lu';
 import classNames from 'classnames';
 import { CgSpinner } from 'react-icons/cg';
 import { Card } from '@/components/Card';
@@ -13,11 +13,11 @@ const Explain: React.FC<PropsWithChildren> = ({ children }) => (
     <button className="group relative ml-auto" type="button">
         <span className="flex items-center gap-1 text-gray-600">
             Explain
-            <LuHelpCircle />
+            <LuCircleHelp />
         </span>
         <Card
             className={classNames(
-                'pointer-events-none absolute right-0 z-10 w-[40rem] text-left opacity-0 !duration-200',
+                'pointer-events-none absolute right-0 z-10 w-160 text-left opacity-0 duration-200!',
                 'group-hover:opacity-100 group-focus:opacity-100',
             )}
         >
@@ -51,10 +51,10 @@ export const StatusBreakdown: React.FC<StatusBreakdownProps> = ({ currentDate, s
             <div className="mb-10">
                 <div className="mb-3 flex items-center gap-3">
                     {status.rating === 'OBS'
-                        ? <LuMinusCircle size={25} className="text-slate-400" />
+                        ? <LuCircleMinus size={25} className="text-slate-400" />
                         : status.quarter_active
-                            ? <LuCheckCircle size={25} className="text-green-500" />
-                            : <LuXCircle size={25} className="text-red-400" />}
+                            ? <LuCircleCheckBig size={25} className="text-green-500" />
+                            : <LuCircleX size={25} className="text-red-400" />}
                     <h3 className="text-xl font-medium">General Controlling Activity</h3>
                     <Explain>
                         <p className="mb-3">
@@ -110,10 +110,10 @@ export const StatusBreakdown: React.FC<StatusBreakdownProps> = ({ currentDate, s
             <div className="mb-10">
                 <div className="mb-3 flex items-center gap-3">
                     {(!houTier1 && !iahTier1 && !i90Tier1)
-                        ? <LuMinusCircle size={25} className="text-slate-400" />
+                        ? <LuCircleMinus size={25} className="text-slate-400" />
                         : status.t1_active
-                            ? <LuCheckCircle size={25} className="text-green-500" />
-                            : <LuXCircle size={25} className="text-red-400" />}
+                            ? <LuCircleCheckBig size={25} className="text-green-500" />
+                            : <LuCircleX size={25} className="text-red-400" />}
                     <h3 className="text-xl font-medium">Tier 1 Currency</h3>
                     <Explain>
                         <p className="mb-3">
@@ -231,10 +231,10 @@ export const StatusBreakdown: React.FC<StatusBreakdownProps> = ({ currentDate, s
             <div className="mb-10">
                 <div className="mb-3 flex items-center gap-3">
                     {status.rating !== 'OBS'
-                        ? <LuMinusCircle size={25} className="text-slate-400" />
+                        ? <LuCircleMinus size={25} className="text-slate-400" />
                         : status.training_active
-                            ? <LuCheckCircle size={25} className="text-green-500" />
-                            : <LuXCircle size={25} className="text-red-400" />}
+                            ? <LuCircleCheckBig size={25} className="text-green-500" />
+                            : <LuCircleX size={25} className="text-red-400" />}
                     <h3 className="text-xl font-medium">Training Activity</h3>
                     <Explain>
                         <p>

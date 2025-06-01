@@ -1,10 +1,10 @@
-const exceptions: Map<string, string> = new Map([
+const exceptions = new Map<string, string>([
     ['I90_APP', 'Houston Approach'],
     ['HOU_APP', 'Houston Approach'],
     ['HOU_CTR', 'Houston Center'],
 ]);
 
-const airports: Map<string, string> = new Map([
+const airports = new Map<string, string>([
     ['HOU', 'Hobby'],
     ['IAH', 'Houston'],
     ['AUS', 'Austin'],

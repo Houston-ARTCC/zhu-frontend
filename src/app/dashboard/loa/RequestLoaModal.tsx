@@ -20,7 +20,7 @@ interface RequestLOAModalProps extends ModalProps {
 export const RequestLoaModal: React.FC<RequestLOAModalProps> = ({ start, end, show, close }) => {
     const router = useRouter();
 
-    const { register, control, reset, handleSubmit, formState: { errors, isSubmitting } } = useForm<RequestLOAFormValues>({
+    const { register, control, reset, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(requestLoaSchema),
         defaultValues: { start, end },
     });

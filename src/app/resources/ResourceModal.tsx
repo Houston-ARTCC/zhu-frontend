@@ -20,7 +20,7 @@ interface ResourceModalProps extends ModalProps {
 export const ResourceModal: React.FC<ResourceModalProps> = ({ resource, show, close }) => {
     const router = useRouter();
 
-    const { reset, register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm<ResourceFormValues>({
+    const { reset, register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(resourceSchema),
     });
 

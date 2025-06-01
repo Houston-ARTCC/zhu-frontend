@@ -11,7 +11,7 @@ interface AddSoloModalProps extends ModalProps {
 }
 
 export const AddSoloModal: React.FC<AddSoloModalProps> = ({ update, show, close }) => {
-    const { register, reset, handleSubmit, formState: { errors } } = useForm<AddSoloFormValues>({
+    const { register, reset, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(addSoloSchema),
     });
 

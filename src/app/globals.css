@@ -1,14 +1,35 @@
-@import "react-toastify/dist/ReactToastify.css";
 @import "react-datepicker/dist/react-datepicker.css";
-@import "react-quill/dist/quill.snow.css";
+@import "react-quill-new/dist/quill.snow.css";
 @import "react-calendar-heatmap/dist/styles.css";
 @import "rc-slider/assets/index.css";
 @import "mapbox-gl/dist/mapbox-gl.css";
 @import "@toast-ui/calendar/dist/toastui-calendar.min.css";
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: var(--font-cera-pro);
+
+  --color-zinc-850: #202023;
+
+  --color-heatmap-50: #daebec;
+  --color-heatmap-100: #c4dee1;
+  --color-heatmap-200: #aed0d7;
+  --color-heatmap-300: #98c0cc;
+  --color-heatmap-400: #82b0c2;
+  --color-heatmap-500: #6c9eb8;
+  --color-heatmap-600: #558bad;
+  --color-heatmap-700: #497599;
+  --color-heatmap-800: #3e6184;
+  --color-heatmap-900: #334d6e;
+
+  --shadow-sm: 0 4px 10px rgba(203, 203, 203, 0.25);
+  --shadow: 2px 2px 20px rgba(203, 203, 203, 0.25);
+  --shadow-lg: 2px 2px 20px rgba(4px 4px 30px, 0.25);
+}
 
 @layer base {
     :root {
@@ -38,59 +59,59 @@
     }
 }
 
-@layer utilities {
-    .prose h1 {
+@utility prose {
+    & h1 {
         @apply mb-5 mt-0 text-3xl font-medium;
     }
 
-    .prose h2 {
+    & h2 {
         @apply mb-5 mt-0 text-2xl font-medium;
     }
 
-    .prose h3 {
+    & h3 {
         @apply mb-3 mt-0 text-xl font-medium;
     }
 
-    .prose h4 {
+    & h4 {
         @apply mb-2 mt-0 text-lg font-medium;
     }
 
-    .prose p {
+    & p {
         @apply mt-0;
     }
 
-    .prose a {
+    & a {
         @apply text-sky-500 opacity-100 transition-opacity duration-150 ease-out hover:opacity-75;
     }
 
-    .prose li {
+    & li {
         @apply my-0;
     }
 }
 
 .rc-slider-rail {
-    @apply !bg-slate-200;
+    @apply bg-slate-200!;
 }
 
 .rc-slider-track {
-    @apply !bg-sky-400;
+    @apply bg-sky-400!;
 }
 
 .rc-slider-dot {
-    @apply !border-slate-200;
+    @apply border-slate-200!;
 }
 
 .rc-slider-handle,
 .rc-slider-dot-active {
-    @apply !border-sky-400 !opacity-100;
+    @apply border-sky-400! opacity-100!;
 }
 
 .rc-slider-handle {
-    @apply !ring-sky-400/25 !transition-shadow !duration-200;
+    @apply ring-sky-400/25! transition-shadow! duration-200!;
 }
 
 .rc-slider-handle-dragging {
-    @apply !ring-2;
+    @apply ring-2!;
 }
 
 .quill {
@@ -100,46 +121,46 @@
 .ql-formats > button,
 .ql-picker-label,
 .ql-picker-item {
-    @apply hover:!text-sky-700 focus:!text-sky-500 dark:hover:!text-sky-200;
+    @apply hover:text-sky-700! focus:text-sky-500! dark:hover:text-sky-200!;
 }
 
 .ql-formats > button.ql-active,
 .ql-picker-label.ql-active,
 .ql-picker-item.ql-selected {
-    @apply !text-sky-500;
+    @apply text-sky-500!;
 }
 
 .ql-toolbar,
 .ql-editor {
-    @apply !border-2 !font-sans;
+    @apply border-2! font-sans!;
 }
 
 .ql-toolbar {
-    @apply !rounded-t-md !border-slate-200 !bg-slate-200 dark:!border-zinc-700 dark:!bg-zinc-700;
+    @apply rounded-t-md! border-slate-200! bg-slate-200! dark:border-zinc-700! dark:bg-zinc-700!;
 }
 
 .ql-picker {
-    @apply !text-inherit;
+    @apply text-inherit!;
 }
 
 .ql-picker-label {
-    @apply !border-0;
+    @apply border-0!;
 }
 
 .ql-picker-options {
-    @apply !border-0 dark:!bg-zinc-800;
+    @apply border-0! dark:bg-zinc-800!;
 }
 
 .ql-stroke {
-    @apply !stroke-current;
+    @apply stroke-current!;
 }
 
 .ql-fill {
-    @apply !fill-current;
+    @apply fill-current!;
 }
 
 .ql-container {
-    @apply flex-grow !border-0;
+    @apply flex-grow border-0!;
 }
 
 .ql-editor {
@@ -148,15 +169,15 @@
 }
 
 .quill.error .ql-editor {
-    @apply !border-red-400 !ring-red-400/25;
+    @apply border-red-400! ring-red-400/25!;
 }
 
 .mapboxgl-popup {
-    @apply !max-w-none;
+    @apply max-w-none!;
 }
 
 .react-calendar-heatmap text {
-    @apply !text-xs;
+    @apply text-xs!;
 }
 
 .rdt_Table,
@@ -166,7 +187,7 @@
 .rdt_TableRow,
 .rdt_ExpanderRow,
 .rdt_Pagination {
-    @apply !bg-transparent !text-inherit;
+    @apply bg-transparent! text-inherit!;
 }
 
 .rdt_TableHead {
@@ -175,28 +196,28 @@
 
 .rdt_TableCol,
 .rdt_TableCell {
-    @apply !px-2 !text-[14px];
+    @apply px-2! text-[14px]!;
 }
 
 .rdt_TableRow,
 .rdt_TableRow:hover {
-    @apply !min-h-[45px] !border-b-gray-200 dark:!border-b-zinc-700;
+    @apply min-h-[45px]! border-b-gray-200! dark:border-b-zinc-700!;
 }
 
 .rdt_TableRow:hover {
-    @apply !outline-0 !bg-gray-200/50 dark:!bg-zinc-700/50;
+    @apply outline-0! bg-gray-200/50! dark:bg-zinc-700/50!;
 }
 
 .rdt_Pagination button {
-    @apply !text-inherit !fill-current;
+    @apply text-inherit! fill-current!;
 }
 
 .rdt_Pagination button:disabled {
-    @apply !text-neutral-300 dark:!text-zinc-600;
+    @apply text-neutral-300! dark:text-zinc-600!;
 }
 
 .__rdt_custom_sort_icon__ {
-    @apply !opacity-80;
+    @apply opacity-80!;
 }
 
 .toastui-calendar-panel,
@@ -208,21 +229,21 @@
 .toastui-calendar-timegrid-hour-rows,
 .toastui-calendar-timezone-labels-slot,
 .toastui-calendar-timegrid-timezone-label {
-    @apply dark:!border-zinc-700;
+    @apply dark:border-zinc-700!;
 }
 
 .toastui-calendar-timegrid-hour-rows,
 .toastui-calendar-timegrid-timezone-label {
-    @apply !bg-transparent;
+    @apply bg-transparent!;
 }
 
 .toastui-calendar-timezone-labels-slot {
-    @apply dark:!bg-zinc-900;
+    @apply dark:bg-zinc-900!;
 }
 
 .toastui-calendar-weekday-event,
 .toastui-calendar-weekday-event-title {
-    @apply !text-inherit;
+    @apply text-inherit!;
 }
 
 .toastui-calendar-event-time {
@@ -230,9 +251,9 @@
 }
 
 .mapboxgl-popup-content {
-    @apply !bg-white dark:!bg-zinc-850 dark:!shadow-stone-900;
+    @apply bg-white! dark:bg-zinc-850! dark:shadow-stone-900!;
 }
 
 .mapboxgl-popup-tip {
-    @apply !border-t-white dark:!border-t-zinc-850;
+    @apply border-t-white! dark:border-t-zinc-850!;
 }

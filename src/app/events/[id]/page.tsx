@@ -31,14 +31,13 @@ async function getEvent(id: string): Promise<Event> {
 }
 
 interface EventParams {
-    params: {
+    params: Promise<{
         id: string;
-    };
+    }>;
 }
 
-export async function generateMetadata(
-    { params }: EventParams,
-): Promise<Metadata> {
+export async function generateMetadata(props: EventParams): Promise<Metadata> {
+    const params = await props.params;
     const event = await getEvent(params.id).catch(notFound);
 
     const start = formatInTimeZone(new Date(event.start), 'Etc/UTC', 'MMM dd, yyyy, HH:mm zzz');
@@ -59,7 +58,8 @@ export async function generateMetadata(
     };
 }
 
-const ViewEvent: NextPage<EventParams> = async ({ params }) => {
+const ViewEvent: NextPage<EventParams> = async (props) => {
+    const params = await props.params;
     const session = await getServerSession(authOptions);
 
     const event = await getEvent(params.id).catch(notFound);

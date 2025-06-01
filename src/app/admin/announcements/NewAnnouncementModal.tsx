@@ -6,7 +6,7 @@ import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { LuPlus } from 'react-icons/lu';
 import { zodResolver } from '@hookform/resolvers/zod';
-import ReactQuill from 'react-quill';
+import ReactQuill from 'react-quill-new';
 import classNames from 'classnames';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { TextInput } from '@/components/Forms';
@@ -17,7 +17,7 @@ import { type AnnouncementFormValues, announcementSchema } from './announcementS
 export const NewAnnouncementModal: React.FC<ModalProps> = ({ show, close }) => {
     const router = useRouter();
 
-    const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm<AnnouncementFormValues>({
+    const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(announcementSchema),
     });
 

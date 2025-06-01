@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import type { NextPage } from 'next';
-import { LuCheckCircle2, LuCircleDashed, LuHelpCircle } from 'react-icons/lu';
+import { LuCircleCheck, LuCircleDashed, LuCircleHelp } from 'react-icons/lu';
 import { format } from 'date-fns';
 import { Card } from '@/components/Card';
 import { Alert, AlertTitle } from '@/components/Alert';
@@ -31,7 +31,7 @@ const RequestLoa: NextPage = async () => {
                 {currentLoa ? (
                     <>
                         <p className="mb-2 flex items-center gap-2 text-lg font-medium">
-                            <LuCheckCircle2 size={20} className="text-green-500" />
+                            <LuCircleCheck size={20} className="text-green-500" />
                             <span>
                                 You are currently on a leave of absence until <b>{format(new Date(currentLoa.end), 'MMMM d, y')}</b>.
                             </span>
@@ -70,7 +70,7 @@ const RequestLoa: NextPage = async () => {
                     </>
                 )}
             </Card>
-            <Alert color="indigo-500" icon={LuHelpCircle}>
+            <Alert color="indigo-500" icon={LuCircleHelp}>
                 <AlertTitle>How do I use this?</AlertTitle>
                 <p className="mb-3">
                     If you expect to be unable to meet roster currency requirements for any reason

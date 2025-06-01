@@ -1,6 +1,6 @@
 export type Category = 'poly' | 'proc' | 'loa' | 'vatis' | 'rvm' | 'ref';
 
-export const CATEGORY_STRING: { [key in Category]: string } = {
+export const CATEGORY_STRING: Record<Category, string> = {
     poly: 'Policy',
     proc: 'Procedure',
     loa: 'LOA',
@@ -19,4 +19,4 @@ export type Resource = {
     updated: string;
 };
 
-export type ResourceData = { [key in Category]: Resource[] };
+export type ResourceData = Record<Category, Resource[]>;

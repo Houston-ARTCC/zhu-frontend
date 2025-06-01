@@ -6,7 +6,6 @@ export const parseHtml = (source: string): ReactNode => (
     parse(
         source,
         {
-            // eslint-disable-next-line consistent-return
             replace: (node) => {
                 // Gets rid of excessive whitespace when <br> tags are inserted.
                 if (

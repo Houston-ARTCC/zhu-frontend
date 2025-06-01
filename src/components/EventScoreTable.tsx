@@ -66,7 +66,7 @@ export const EventScoreTable: React.FC<EventScoreTableProps> = ({ data }) => (
                                 <li key={i} className="my-0.5">
                                     <div className="flex items-center gap-1.5">
                                         {rating > 2 ? '+' : '-'}{(rating - 3) * 5}% for
-                                        <RatingStars className="!gap-1" rating={rating} size={15} />
+                                        <RatingStars className="gap-1!" rating={rating} size={15} />
                                     </div>
                                 </li>
                             ))}

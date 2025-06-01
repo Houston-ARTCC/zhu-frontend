@@ -1,6 +1,6 @@
 import React from 'react';
 import { type NextPage } from 'next';
-import { LuCheckCircle } from 'react-icons/lu';
+import { LuCircleCheckBig } from 'react-icons/lu';
 import { Alert, AlertTitle } from '@/components/Alert';
 import { fetchApi } from '@/utils/fetch';
 import { type Feedback } from '@/types/feedback';
@@ -18,7 +18,7 @@ const PendingFeedback: NextPage = async () => {
 
     if (pendingFeedback.length === 0) {
         return (
-            <Alert color="green-500" icon={LuCheckCircle}>
+            <Alert color="green-500" icon={LuCircleCheckBig}>
                 <AlertTitle>All caught up!</AlertTitle>
                 <p>There are no pending feedback, check back later.</p>
             </Alert>

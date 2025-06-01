@@ -28,7 +28,7 @@ interface ChangeProfilePictureModalProps extends ModalProps {
 export const ChangeProfilePictureModal: React.FC<ChangeProfilePictureModalProps> = ({ user, show, close }) => {
     const router = useRouter();
 
-    const { control, handleSubmit, formState: { errors, isSubmitting } } = useForm<ProfilePictureFormValues>({
+    const { control, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(profilePictureSchema),
     });
 

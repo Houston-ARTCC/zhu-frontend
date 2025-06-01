@@ -17,10 +17,10 @@ interface EditProfileFormProps {
 }
 
 export const EditProfileForm: React.FC<EditProfileFormProps> = ({ user }) => {
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<EditProfileFormValues>({
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(editProfileSchema),
         defaultValues: {
-            biography: user.biography,
+            biography: user.biography || '',
         },
     });
 

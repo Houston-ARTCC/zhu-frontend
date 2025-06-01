@@ -21,7 +21,7 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({ controllerOptions, e
     const router = useRouter();
     const { data: session } = useSession();
 
-    const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm<FeedbackFormValues>({
+    const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(feedbackSchema),
         defaultValues: {
             controller: undefined,

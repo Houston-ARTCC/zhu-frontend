@@ -4,7 +4,7 @@ import React, { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { LuPlusCircle, LuUserCog } from 'react-icons/lu';
+import { LuCirclePlus, LuUserCog } from 'react-icons/lu';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSession } from 'next-auth/react';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
@@ -24,7 +24,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
 
     const { data: session } = useSession();
 
-    const { reset, register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm<EditUserFormValues>({
+    const { reset, register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(editUserSchema),
     });
 
@@ -135,7 +135,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                 <div className="mb-5 grid grid-cols-[auto_1fr] gap-x-5 gap-y-3">
                     <div />
                     <small className="text-slate-400">
-                        Click endorsements to toggle. Click <LuPlusCircle className="inline" /> to add solo endorsement.
+                        Click endorsements to toggle. Click <LuCirclePlus className="inline" /> to add solo endorsement.
                     </small>
                     <p className="text-right font-medium">Delivery + Ground</p>
                     <div className="flex flex-col gap-2 sm:flex-row">

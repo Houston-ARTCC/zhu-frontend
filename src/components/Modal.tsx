@@ -54,7 +54,7 @@ export const Modal: React.FC<ModalProps> = ({ show = false, title, footer, large
             >
                 <Card
                     className={classNames(
-                        '!p-0 mx-auto mt-[10vh] transition-transform duration-250 ease-out mb-20 dark:!shadow-stone-950',
+                        'p-0! mx-auto mt-[10vh] transition-transform duration-250 ease-out mb-20 dark:shadow-stone-950!',
                         { 'max-w-lg': !large, 'max-w-3xl': large, '-translate-y-10': !isVisible, 'translate-y-0': isVisible },
                     )}
                     onClick={(e) => e.stopPropagation()}

@@ -15,7 +15,7 @@ export const VisitForm: React.FC = () => {
     const router = useRouter();
     const { data: session } = useSession();
 
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<VisitFormValues>({
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(visitSchema),
     });
 

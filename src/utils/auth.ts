@@ -2,13 +2,13 @@ import type { AuthOptions } from 'next-auth';
 import { parseJwt } from '@/utils/jwt';
 import type { UserId } from '@/types/next-auth';
 
-type RefreshedTokens = {
+interface RefreshedTokens {
     access: string;
     refresh: string;
     profile: UserId;
 }
 
-const refreshTokenPromiseCache: { [key: string]: Promise<RefreshedTokens> } = {};
+const refreshTokenPromiseCache: Record<string, Promise<RefreshedTokens>> = {};
 
 const fetchNewToken = async (refreshToken: string): Promise<RefreshedTokens> => {
     const response = await fetch(

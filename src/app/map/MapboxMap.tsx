@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import MapboxGl, { type MapLayerMouseEvent } from 'mapbox-gl';
+import mapboxgl, { type MapMouseEvent } from 'mapbox-gl';
 import { createRoot } from 'react-dom/client';
 import { useTheme } from 'next-themes';
 import { type Metar } from '@/types/tmu';
 
-MapboxGl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_APIK as string;
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_APIK as string;
 
 const FLIGHT_RULE_COLORS = {
     VFR: 'text-green-500',
@@ -24,13 +24,13 @@ export const MapboxMap: React.FC<MapboxMapProps> = ({ metars }) => {
 
     const containerRef = useRef<HTMLDivElement>(null);
 
-    const mapRef = useRef<MapboxGl.Map>();
-    const popupRef = useRef<MapboxGl.Popup>();
-    const popupDomRef = useRef<HTMLDivElement>();
+    const mapRef = useRef<mapboxgl.Map>(undefined);
+    const popupRef = useRef<mapboxgl.Popup>(undefined);
+    const popupDomRef = useRef<HTMLDivElement>(undefined);
 
     const metarMap = useMemo(() => new Map(metars.map((metar) => ([metar.station, metar]))), [metars]);
 
-    const createPopup = useCallback((event: MapLayerMouseEvent) => {
+    const createPopup = useCallback((event: MapMouseEvent) => {
         if (!event.features || !mapRef.current) return;
         const feature = event.features[0];
         const metar = metarMap.get(feature.properties?.icao);
@@ -49,8 +49,8 @@ export const MapboxMap: React.FC<MapboxMapProps> = ({ metars }) => {
         );
 
         popupRef.current?.remove();
-        popupRef.current = new MapboxGl.Popup({ closeButton: false })
-            .setLngLat((feature.geometry as GeoJSON.Point).coordinates as MapboxGl.LngLatLike)
+        popupRef.current = new mapboxgl.Popup({ closeButton: false })
+            .setLngLat((feature.geometry as GeoJSON.Point).coordinates as mapboxgl.LngLatLike)
             .setDOMContent(popupDomRef.current)
             .addTo(mapRef.current);
     }, [metarMap]);
@@ -65,7 +65,7 @@ export const MapboxMap: React.FC<MapboxMapProps> = ({ metars }) => {
 
     useEffect(() => {
         if (containerRef.current && !mapRef.current) {
-            mapRef.current = new MapboxGl.Map({
+            mapRef.current = new mapboxgl.Map({
                 container: containerRef.current,
                 style: resolvedTheme === 'light'
                     ? 'mapbox://styles/mikeroma/cknyy7hnt32ch17n1u1d7xon4'

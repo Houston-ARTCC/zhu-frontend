@@ -55,7 +55,7 @@ const SignInButton: React.FC<SignInButtonProps> = ({ className, light }) => (
         onClick={() => signIn('vatsim')}
         className={classNames(
             'rounded-md from-sky-400 to-blue-800 px-7 py-1 shadow-sm',
-            { 'bg-white shadow-white/25': light, 'bg-gradient-to-r shadow-sky-500/25': !light },
+            { 'bg-white shadow-white/25': light, 'bg-linear-to-r shadow-sky-500/25': !light },
             className,
         )}
     >
@@ -63,7 +63,7 @@ const SignInButton: React.FC<SignInButtonProps> = ({ className, light }) => (
             className={classNames(
                 'from-sky-400 to-blue-800',
                 {
-                    'bg-gradient-to-r text-transparent bg-clip-text font-semibold': light,
+                    'bg-linear-to-r text-transparent bg-clip-text font-semibold': light,
                     'bg-transparent text-white': !light,
                 },
             )}
@@ -210,13 +210,13 @@ export const Navbar: React.FC = () => {
             <div className="lg:hidden">
                 <PopoverBackdrop
                     transition
-                    className="fixed inset-0 z-20 bg-black/40 transition-opacity data-[closed]:opacity-0"
+                    className="fixed inset-0 z-20 bg-black/40 transition-opacity data-closed:opacity-0"
                 />
 
                 <PopoverPanel
                     transition
                     className="absolute inset-x-0 top-0 z-30 mx-auto flex max-h-screen w-full flex-col p-2
-                               transition-opacity data-[closed]:opacity-0 sm:max-w-screen-sm md:max-w-screen-md"
+                               transition-opacity data-closed:opacity-0 sm:max-w-(--breakpoint-sm) md:max-w-(--breakpoint-md)"
                 >
                     {({ close }) => (
                         <div className="overflow-y-scroll rounded-md bg-white py-4 shadow dark:bg-zinc-850 dark:shadow-stone-900">

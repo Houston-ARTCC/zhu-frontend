@@ -55,7 +55,7 @@ export const DeleteEventModal: React.FC<DeleteEventModalProps> = ({ event, show,
 export const DeleteEventButton: React.FC<DeleteEventModalProps> = ({ event }) => (
     <ModalButton
         modal={<DeleteEventModal event={event} />}
-        className="!bg-red-400 !shadow-red-400/25"
+        className="bg-red-400! shadow-red-400/25!"
     >
         <LuTrash2 />
         Delete Event

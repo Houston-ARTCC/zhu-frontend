@@ -22,10 +22,6 @@ const nextConfig = {
             permanent: true,
         },
     ],
-    sentry: {
-        hideSourceMaps: true,
-        disableLogger: true,
-    },
 };
 
 const sentryOptions = {
@@ -33,6 +29,8 @@ const sentryOptions = {
     project: 'zhu-frontend',
     authToken: process.env.SENTRY_AUTH_TOKEN,
     silent: true,
+    hideSourceMaps: true,
+    disableLogger: true,
 };
 
 module.exports = withSentryConfig(nextConfig, sentryOptions);

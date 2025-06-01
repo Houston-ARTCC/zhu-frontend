@@ -1,6 +1,6 @@
 import 'next-auth';
 
-type UserId = {
+interface UserId {
     first_name: string;
     last_name: string;
     cid: number;
@@ -16,9 +16,9 @@ type UserId = {
 }
 
 declare module 'next-auth' {
-    interface User extends UserId { }
+    type User = UserId
 
-    interface Profile extends UserId { }
+    type Profile = UserId
 
     interface Session {
         user: Profile;
@@ -27,7 +27,7 @@ declare module 'next-auth' {
 }
 
 declare module 'next-auth/jwt' {
-    interface User extends UserId { }
+    type User = UserId
 
     interface JWT {
         user: User;

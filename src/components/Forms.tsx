@@ -33,10 +33,10 @@ export const TextInput: React.FC<InputProps<string>> = React.forwardRef<HTMLInpu
                 className={classNames(
                     'block rounded-md px-3 py-1.5 transition-all duration-200',
                     'border-2 border-slate-200 outline-0 ring-0 ring-sky-400/25 focus:border-sky-400 focus:ring-2',
-                    'read-only:bg-neutral-100 read-only:!border-slate-200 read-only:!text-gray-500 read-only:!ring-0',
+                    'read-only:bg-neutral-100 read-only:border-slate-200! read-only:text-gray-500! read-only:ring-0!',
                     'dark:bg-zinc-900 dark:border-zinc-700 dark:placeholder:text-zinc-500',
-                    'dark:read-only:bg-zinc-800 dark:read-only:!border-zinc-700 dark:read-only:!text-zinc-400',
-                    { '!ring-red-400/25 !border-red-400': error },
+                    'dark:read-only:bg-zinc-800 dark:read-only:border-zinc-700! dark:read-only:text-zinc-400!',
+                    { 'ring-red-400/25! border-red-400!': error },
                     inputClassName,
                 )}
                 onChange={(e) => {
@@ -79,10 +79,10 @@ export const TextAreaInput: React.FC<TextAreaProps> = React.forwardRef<HTMLTextA
                 className={classNames(
                     'block rounded-md px-3 py-1.5 transition duration-200',
                     'border-2 border-slate-200 outline-0 ring-0 ring-sky-400/25 focus:border-sky-400 focus:ring-2',
-                    'read-only:bg-neutral-50 read-only:!border-slate-200 read-only:!text-gray-500 read-only:!ring-0',
+                    'read-only:bg-neutral-50 read-only:border-slate-200! read-only:text-gray-500! read-only:ring-0!',
                     'dark:bg-zinc-900 dark:border-zinc-700 dark:placeholder:text-zinc-500',
-                    'dark:read-only:bg-zinc-800 dark:read-only:!border-zinc-700 dark:read-only:!text-zinc-400',
-                    { '!ring-red-400/25 !border-red-400': error },
+                    'dark:read-only:bg-zinc-800 dark:read-only:border-zinc-700! dark:read-only:text-zinc-400!',
+                    { 'ring-red-400/25! border-red-400!': error },
                     inputClassName,
                 )}
                 onChange={(e) => {
@@ -146,7 +146,7 @@ export const ToggleInput: React.FC<Omit<InputProps<boolean>, 'inputClassName'>> 
 // React.forwardRef does not preserve this information, so we have to set it manually for debugging.
 ToggleInput.displayName = 'ToggleInput';
 
-export type SelectOption<T = number> = {
+export interface SelectOption<T = number> {
     value: T;
     label: string;
     isFixed?: boolean;
@@ -200,31 +200,31 @@ const SelectInputInner = (
                     menuPortalTarget={openInModal ? portalTarget : undefined}
                     menuPosition={openInModal ? 'fixed' : undefined}
                     classNames={{
-                        menuPortal: () => '!z-30',
+                        menuPortal: () => 'z-30!',
                         control: ({ isFocused }) => classNames(
-                            '!transition-all !duration-200 !border-2 dark:!bg-zinc-900',
+                            'transition-all! duration-200! border-2! dark:bg-zinc-900!',
                             {
-                                '!ring-0': !isFocused,
-                                '!ring-2': isFocused,
-                                '!border-slate-200 dark:!border-zinc-700': !isFocused && !error,
-                                '!ring-sky-400/25 !border-sky-400': isFocused && !error,
-                                '!ring-red-400/25 !border-red-400': error,
+                                'ring-0!': !isFocused,
+                                'ring-2!': isFocused,
+                                'border-slate-200! dark:border-zinc-700!': !isFocused && !error,
+                                'ring-sky-400/25! border-sky-400!': isFocused && !error,
+                                'ring-red-400/25! border-red-400!': error,
                             },
                         ),
-                        input: () => '!text-inherit',
-                        singleValue: () => '!text-inherit',
-                        multiValue: () => '!text-inherit !bg-gray-300 dark:!bg-zinc-700',
-                        multiValueRemove: ({ data: { isFixed } }) => (isFixed ? '!hidden' : ''),
+                        input: () => 'text-inherit!',
+                        singleValue: () => 'text-inherit!',
+                        multiValue: () => 'text-inherit! bg-gray-300! dark:bg-zinc-700!',
+                        multiValueRemove: ({ data: { isFixed } }) => (isFixed ? 'hidden!' : ''),
                         multiValueLabel: ({ data: { isFixed } }) => classNames(
-                            '!text-inherit',
-                            { '!px-2': isFixed, '!pl-2 !pr-1': !isFixed },
+                            'text-inherit!',
+                            { 'px-2!': isFixed, 'pl-2! pr-1!': !isFixed },
                         ),
-                        groupHeading: () => '-mt-2 !mb-0 py-2 sticky top-0 bg-white rounded-t-md font-bold dark:!bg-zinc-800',
-                        menuList: () => '!shadow !py-0 dark:!bg-zinc-800 dark:!shadow-stone-900',
-                        indicatorSeparator: () => 'dark:!bg-zinc-700/80',
+                        groupHeading: () => '-mt-2 mb-0! py-2 sticky top-0 bg-white rounded-t-md font-bold dark:bg-zinc-800!',
+                        menuList: () => 'shadow! py-0! dark:bg-zinc-800! dark:shadow-stone-900!',
+                        indicatorSeparator: () => 'dark:bg-zinc-700/80!',
                         option: ({ isFocused, isSelected }) => classNames({
-                            '!bg-sky-500/10': isFocused && !isSelected,
-                            '!bg-sky-500 dark:!bg-sky-500/50': isSelected,
+                            'bg-sky-500/10!': isFocused && !isSelected,
+                            'bg-sky-500! dark:bg-sky-500/50!': isSelected,
                         }),
                     }}
                     {...props}
@@ -239,10 +239,8 @@ const SelectInputInner = (
 export const SelectInput = React.forwardRef(SelectInputInner) as <
     Value,
     IsMulti extends boolean = false,
-    // eslint-disable-next-line no-use-before-define
     Group extends GroupBase<SelectOption<Value>> = GroupBase<SelectOption<Value>>,
 >(
-    // eslint-disable-next-line no-use-before-define
     props: SelectInputProps<Value, IsMulti, Group> & { ref?: React.ForwardedRef<SelectInstance<SelectOption<Value>, IsMulti, Group>> },
 ) => ReturnType<typeof SelectInputInner>;
 
@@ -261,7 +259,7 @@ export const FileInput: React.FC<FileInputProps> = ({ error, currentFile, onUplo
                         'cursor-pointer text-center text-slate-300 transition-all duration-200',
                         'border-2 border-dashed border-slate-200 outline-0 ring-0 ring-sky-400/25 focus:border-sky-400 focus:ring-2',
                         'dark:border-zinc-700 dark:text-zinc-600',
-                        { '!ring-red-400/25 !border-red-400 !text-red-400': error },
+                        { 'ring-red-400/25! border-red-400! text-red-400!': error },
                     )}
                     {...getRootProps()}
                 >

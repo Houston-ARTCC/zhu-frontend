@@ -16,7 +16,7 @@ type CalendarView = Required<Options>['defaultView'];
 type CalendarExternalEventNames = Extract<keyof ExternalEventTypes, string>;
 type ReactCalendarEventNames = `on${Capitalize<CalendarExternalEventNames>}`;
 type ReactCalendarEventHandler = ExternalEventTypes[CalendarExternalEventNames];
-type ReactCalendarExternalEvents = { [events in ReactCalendarEventNames]: ReactCalendarEventHandler; };
+type ReactCalendarExternalEvents = Record<ReactCalendarEventNames, ReactCalendarEventHandler>;
 
 export type TuiCalendarProps = ReactCalendarOptions & ReactCalendarExternalEvents & {
     className?: string;

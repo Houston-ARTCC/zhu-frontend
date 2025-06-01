@@ -11,7 +11,7 @@ interface EventCardProps {
 
 export const EventCard: React.FC<EventCardProps> = ({ event }) => (
     <Link className="text-inherit" href={`/events/${event.id}`} prefetch={false}>
-        <Card className="!p-0" interactive>
+        <Card className="p-0!" interactive>
             <div className="w-full shrink overflow-hidden p-5">
                 <h4 className="flex items-center gap-3 text-ellipsis text-2xl font-bold">
                     {event.name}

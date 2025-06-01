@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
-import { LuCheckCircle2, LuChevronDown, LuMessageCircle, LuX } from 'react-icons/lu';
+import { LuCircleCheck, LuChevronDown, LuMessageCircle, LuX } from 'react-icons/lu';
 import { format } from 'date-fns-tz';
 import { Tooltip } from 'react-tooltip';
 import { ClientPortal } from '@/components/ClientPortal';
@@ -30,7 +30,7 @@ export const LoaTable: React.FC<PendingRequestsTableProps> = ({ data }) => {
                         name: 'Approved',
                         selector: (loa) => loa.approved,
                         cell: (loa) => loa.approved && (
-                            <LuCheckCircle2
+                            <LuCircleCheck
                                 size={20}
                                 className="text-green-500"
                             />

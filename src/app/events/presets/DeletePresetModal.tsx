@@ -56,7 +56,7 @@ export const DeletePresetButton: React.FC<DeletePresetModalProps> = ({ preset })
     <ModalButton
         modal={<DeletePresetModal preset={preset} />}
         variant="tertiary"
-        className="text-sm !text-red-400"
+        className="text-sm text-red-400!"
     >
         <LuX />
         Delete Preset

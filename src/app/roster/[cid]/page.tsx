@@ -45,12 +45,13 @@ async function getUserFeedback(cid: string): Promise<BasicFeedback[]> {
 }
 
 interface UserProfileParams {
-    params: {
+    params: Promise<{
         cid: string;
-    };
+    }>;
 }
 
-const UserProfile: NextPage<UserProfileParams> = async ({ params }) => {
+const UserProfile: NextPage<UserProfileParams> = async (props) => {
+    const params = await props.params;
     const session = await getServerSession(authOptions);
 
     const user = await getUser(params.cid).catch(notFound);

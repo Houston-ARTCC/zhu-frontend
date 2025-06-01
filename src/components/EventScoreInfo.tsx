@@ -16,7 +16,7 @@ export const EventScoreInfo: React.FC<EventScoreInfoProps> = ({ scores }) => {
             {scores.length > 0 && (
                 <h3 className="mb-3 mt-5 flex items-center gap-3 text-2xl font-medium">
                     Overall Score:
-                    <Badge small color={scoreToBadgeColor(overallScore)} className="!text-base">
+                    <Badge small color={scoreToBadgeColor(overallScore)} className="text-base!">
                         {overallScore}%
                     </Badge>
                 </h3>

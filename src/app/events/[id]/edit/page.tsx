@@ -16,12 +16,13 @@ async function getEvent(id: string): Promise<Event> {
 }
 
 interface EventParams {
-    params: {
+    params: Promise<{
         id: string;
-    };
+    }>;
 }
 
-const EditEvent: NextPage<EventParams> = async ({ params }) => {
+const EditEvent: NextPage<EventParams> = async (props) => {
+    const params = await props.params;
     const event = await getEvent(params.id).catch(notFound);
 
     return (

@@ -66,7 +66,7 @@ export const Button: React.FC<ButtonProps> = ({
                 [colorVariants[color].secondary]: variant === 'secondary',
 
                 [colorVariants[color].tertiary]: variant === 'tertiary',
-                '!p-0': variant === 'tertiary',
+                'p-0!': variant === 'tertiary',
             },
             className,
         )}

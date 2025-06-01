@@ -25,7 +25,7 @@ export const EditEventForm: React.FC<EditEventFormProps> = ({ event }) => {
         control,
         handleSubmit,
         formState: { errors, isSubmitting },
-    } = useForm<EditEventFormValues>({
+    } = useForm({
         resolver: zodResolver(editEventSchema),
         defaultValues: {
             ...event,

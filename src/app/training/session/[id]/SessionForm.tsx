@@ -3,7 +3,7 @@
 import React, { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
-import ReactQuill from 'react-quill';
+import ReactQuill from 'react-quill-new';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ReactDatePicker from 'react-datepicker';
 import classNames from 'classnames';
@@ -27,7 +27,7 @@ interface FileSessionFormProps {
 export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, session, instructorOptions }) => {
     const router = useRouter();
 
-    const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm<SessionFormValues>({
+    const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(sessionSchema),
         defaultValues: {
             instructor: {
@@ -36,14 +36,14 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
             },
             start: new Date(session.start),
             end: new Date(session.end),
-            type: sessionTypes.find(({ value }) => value === session.type),
-            level: sessionLevels.find(({ value }) => value === session.level),
-            ots_status: otsStatuses.find(({ value }) => value === session.ots_status),
-            progress: progress.find(({ value }) => value === session.progress),
+            type: sessionTypes.find(({ value }) => value === session.type) ?? sessionTypes[0],
+            level: sessionLevels.find(({ value }) => value === session.level) ?? sessionLevels[0],
+            ots_status: otsStatuses.find(({ value }) => value === session.ots_status) ?? otsStatuses[0],
+            progress: progress.find(({ value }) => value === session.progress) ?? progress[0],
             movements: session.movements ?? 0,
-            position: session.position ?? undefined,
+            position: session.position ?? '',
             solo_granted: session.solo_granted,
-            notes: session.notes ?? undefined,
+            notes: session.notes ?? '',
         },
     });
 

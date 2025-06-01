@@ -57,7 +57,7 @@ export const ApproveRequestModal: React.FC<AcceptRequestModalProps> = ({ title, 
 
 export const ApproveRequestButton: React.FC<AcceptRequestModalProps> = (props) => (
     <ModalButton
-        className="!bg-green-500/[.10] !text-green-500"
+        className="bg-green-500/[.10]! text-green-500!"
         variant="secondary"
         modal={<ApproveRequestModal {...props} />}
     >

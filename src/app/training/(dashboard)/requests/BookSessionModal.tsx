@@ -44,7 +44,7 @@ export const BookSessionModal: React.FC<BookSessionModalProps> = ({ request, sho
         ];
     }, [request]);
 
-    const { register, control, handleSubmit, setValue, formState: { errors, isSubmitting } } = useForm<BookSessionFormValues>({
+    const { register, control, handleSubmit, setValue, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(bookSessionSchema),
         defaultValues: {
             start,

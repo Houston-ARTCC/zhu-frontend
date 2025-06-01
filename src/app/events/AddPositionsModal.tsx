@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
-import { LuMinusCircle, LuPlus } from 'react-icons/lu';
+import { LuCircleMinus, LuPlus } from 'react-icons/lu';
 import { Button } from '@/components/Button';
 import { TextInput } from '@/components/Forms';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
@@ -23,7 +23,7 @@ export const AddPositionsModal: React.FC<AddPositionsModalProps> = ({ addPositio
         handleSubmit,
         setError,
         formState: { errors, isSubmitting },
-    } = useForm<AddPositionsFormValues>({
+    } = useForm({
         resolver: zodResolver(addPositionsSchema),
         defaultValues: {
             positions: [{ callsign: '', shifts: 1 }],
@@ -80,7 +80,7 @@ export const AddPositionsModal: React.FC<AddPositionsModalProps> = ({ addPositio
                                 onClick={() => remove(i)}
                                 disabled={fields.length < 2}
                             >
-                                <LuMinusCircle size={20} />
+                                <LuCircleMinus size={20} />
                             </Button>
                             <TextInput
                                 {...register(`positions.${i}.callsign`)}

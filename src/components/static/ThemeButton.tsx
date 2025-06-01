@@ -28,8 +28,8 @@ export const ThemeButton: React.FC<ThemeButtonProps> = ({ className }) => {
     return (
 
         <Dropdown
-            className={classNames('!p-1.5', className)}
-            menuClassName="!w-32"
+            className={classNames('p-1.5!', className)}
+            menuClassName="w-32!"
             hideArrow
             title={(
                 <>

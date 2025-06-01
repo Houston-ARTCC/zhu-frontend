@@ -11,12 +11,13 @@ async function getEventScores(cid: string): Promise<EventScore[]> {
 }
 
 interface EventScoresParams {
-    params: {
+    params: Promise<{
         cid: string;
-    };
+    }>;
 }
 
-const EventScores: NextPage<EventScoresParams> = async ({ params }) => {
+const EventScores: NextPage<EventScoresParams> = async (props) => {
+    const params = await props.params;
     const scores = await getEventScores(params.cid);
 
     return <EventScoreInfo scores={scores} />;

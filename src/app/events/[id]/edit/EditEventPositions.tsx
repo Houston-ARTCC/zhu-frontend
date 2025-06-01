@@ -57,7 +57,7 @@ const EventShiftInfo: React.FC<EventShiftInfoProps> = ({ shift, deleteShift }) =
                         'Unassigned'
                     )
                 }
-                className="flex h-6 w-full justify-center !gap-1 !p-0 text-sm font-medium hover:!bg-transparent"
+                className="flex h-6 w-full justify-center gap-1! p-0! text-sm font-medium hover:bg-transparent!"
                 menuClassName="w-64"
             >
                 <div className="flex">

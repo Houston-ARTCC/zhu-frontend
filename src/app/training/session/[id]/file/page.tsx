@@ -1,6 +1,6 @@
 import React from 'react';
 import { type NextPage } from 'next';
-import { LuAlertCircle } from 'react-icons/lu';
+import { LuCircleAlert } from 'react-icons/lu';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
 import { Alert, AlertTitle } from '@/components/Alert';
@@ -27,12 +27,13 @@ async function getStaff(): Promise<Staff> {
 }
 
 interface FileSessionParams {
-    params: {
+    params: Promise<{
         id: string;
-    };
+    }>;
 }
 
-const FileSession: NextPage<FileSessionParams> = async ({ params }) => {
+const FileSession: NextPage<FileSessionParams> = async (props) => {
+    const params = await props.params;
     const trainingSession = await getTrainingSession(params.id);
     const staff = await getStaff();
 
@@ -50,7 +51,7 @@ const FileSession: NextPage<FileSessionParams> = async ({ params }) => {
     return (
         <Page {...metadata}>
             <PageContent>
-                <Alert color="amber-500" icon={LuAlertCircle} className="mb-16">
+                <Alert color="amber-500" icon={LuCircleAlert} className="mb-16">
                     <AlertTitle>Read before submitting!</AlertTitle>
                     <p className="mb-3">
                         Submitting this form will automatically submit this training session to the VATUSA Centralized Training Record System,

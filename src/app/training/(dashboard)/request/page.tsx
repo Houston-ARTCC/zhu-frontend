@@ -1,6 +1,6 @@
 import React from 'react';
 import type { NextPage } from 'next';
-import { LuHelpCircle } from 'react-icons/lu';
+import { LuCircleHelp } from 'react-icons/lu';
 import { PendingRequestsTable } from '@/app/training/(dashboard)/request/PendingRequestsTable';
 import { Card } from '@/components/Card';
 import { Alert, AlertTitle } from '@/components/Alert';
@@ -24,7 +24,7 @@ const RequestTraining: NextPage = async () => {
                 <h3 className="mb-5 text-2xl font-medium">Pending Requests</h3>
                 <PendingRequestsTable data={trainingRequests} />
             </Card>
-            <Alert color="indigo-500" icon={LuHelpCircle}>
+            <Alert color="indigo-500" icon={LuCircleHelp}>
                 <AlertTitle>How do I use this?</AlertTitle>
                 <p className="mb-3">
                     To request training, indicate the range of time for which you are <b>100% available</b>.

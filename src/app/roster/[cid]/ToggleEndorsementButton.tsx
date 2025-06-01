@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LuPlusCircle } from 'react-icons/lu';
+import { LuCirclePlus } from 'react-icons/lu';
 import type { EndorsementBadgeProps } from '@/app/roster/ProfileBadges';
 import { EndorsementBadge } from '@/app/roster/ProfileBadges';
 import { ClientPortal } from '@/components/ClientPortal';
@@ -26,7 +26,7 @@ export const ToggleEndorsementButton: React.FC<CertDropdownProps> = ({ tier, nam
                                 setShowSoloModal(true);
                             }}
                         >
-                            <LuPlusCircle size={15} />
+                            <LuCirclePlus size={15} />
                         </button>
                     )}
                 </EndorsementBadge>

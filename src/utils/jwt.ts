@@ -1,4 +1,4 @@
-type JWTPayload = {
+interface JWTPayload {
     token_type: 'access' | 'refresh';
     exp: number;
     iat: number;

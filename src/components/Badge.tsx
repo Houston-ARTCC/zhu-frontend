@@ -39,7 +39,7 @@ export const Badge: React.FC<BadgeProps> = ({
         className={classNames(
             'flex shrink-0 justify-center items-center font-semibold text-white whitespace-nowrap',
             {
-                'min-w-[8rem] rounded-md text-sm py-1 px-3 shadow-sm': !small,
+                'min-w-32 rounded-md text-sm py-1 px-3 shadow-sm': !small,
                 'rounded-full text-xs py-0.5 px-2': small,
             },
             colorVariants[color],

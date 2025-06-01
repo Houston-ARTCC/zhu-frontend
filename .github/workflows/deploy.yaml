@@ -16,24 +16,21 @@ jobs:
           echo NEXT_PUBLIC_MAPBOX_APIK=${{ vars.NEXT_PUBLIC_MAPBOX_APIK }} >> $GITHUB_ENV
           echo SENTRY_AUTH_TOKEN=${{ vars.SENTRY_AUTH_TOKEN }} >> $GITHUB_ENV
 
-      - name: Enable corepack
-        run: corepack enable
-
       - name: Configure Node 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "yarn"
+          cache: "npm"
 
       - name: Install dependencies
-        run: yarn install --immutable
+        run: npm ci --omit=dev
 
       - name: Build
-        run: yarn build
+        run: npm run build
 
       - name: Copy static files
         run: |
-          cp -r public next.config.js yarn.lock .yarnrc.yml .next/standalone
+          cp -r public next.config.js package-lock.json .next/standalone
           cp -r .next/static .next/standalone/.next/static
 
       - name: Create archive

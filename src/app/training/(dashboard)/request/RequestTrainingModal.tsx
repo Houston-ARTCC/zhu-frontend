@@ -21,7 +21,7 @@ interface RequestTrainingModalProps extends ModalProps {
 export const RequestTrainingModal: React.FC<RequestTrainingModalProps> = ({ start, end, show, close }) => {
     const router = useRouter();
 
-    const { register, control, reset, handleSubmit, formState: { errors, isSubmitting } } = useForm<RequestTrainingFormValues>({
+    const { register, control, reset, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(requestTrainingSchema),
         defaultValues: { start, end },
     });

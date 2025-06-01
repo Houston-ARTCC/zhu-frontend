@@ -16,7 +16,7 @@ export const SupportForm: React.FC = () => {
     const router = useRouter();
     const { data: session } = useSession();
 
-    const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm<SupportFormValues>({
+    const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(supportSchema),
     });
 

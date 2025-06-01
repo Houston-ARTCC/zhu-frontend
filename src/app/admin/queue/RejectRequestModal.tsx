@@ -33,7 +33,7 @@ export const RejectRequestModal: React.FC<RejectRequestModalProps> = ({
 }) => {
     const router = useRouter();
 
-    const { reset, register, handleSubmit, formState: { errors, isSubmitting } } = useForm<RejectRequestFormValues>({
+    const { reset, register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: needsReason ? zodResolver(rejectRequestSchema) : undefined,
     });
 
@@ -89,7 +89,7 @@ export const RejectRequestModal: React.FC<RejectRequestModalProps> = ({
 
 export const RejectRequestButton: React.FC<RejectRequestModalProps> = (props) => (
     <ModalButton
-        className="!bg-red-400/[.10] !text-red-400"
+        className="bg-red-400/[.10]! text-red-400!"
         variant="secondary"
         modal={<RejectRequestModal {...props} />}
     >

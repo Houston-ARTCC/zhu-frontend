@@ -15,7 +15,7 @@ import { type NewPresetFormValues, newPresetSchema } from './newPresetSchema';
 export const NewPresetModal: React.FC<ModalProps> = ({ show, close }) => {
     const router = useRouter();
 
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<NewPresetFormValues>({
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(newPresetSchema),
     });
 
@@ -40,7 +40,6 @@ export const NewPresetModal: React.FC<ModalProps> = ({ show, close }) => {
                 <TextInput
                     {...register('name')}
                     className="mb-5"
-                    autoFocus
                     label="Title"
                     error={errors.name?.message}
                 />

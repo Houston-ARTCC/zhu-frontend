@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { LuChevronDown, LuFileEdit } from 'react-icons/lu';
+import { LuChevronDown, LuSquarePen } from 'react-icons/lu';
 import { format } from 'date-fns-tz';
 import DataTable from 'react-data-table-component';
 import { useSession } from 'next-auth/react';
@@ -65,7 +65,7 @@ export const ResourceTable: React.FC<ResourceTableProps> = ({ data }) => {
                                     setShowEditResource(true);
                                 }}
                             >
-                                <LuFileEdit size={20} />
+                                <LuSquarePen size={20} />
                             </button>
                         ),
                         omit: !session?.user.permissions.is_staff,
