@@ -28,9 +28,9 @@ const sentryOptions = {
     org: 'zhuartcc',
     project: 'zhu-frontend',
     authToken: process.env.SENTRY_AUTH_TOKEN,
-    silent: true,
-    hideSourceMaps: true,
+    silent: !process.env.CI,
     disableLogger: true,
+    widenClientFileUpload: true,
 };
 
 export default withSentryConfig(nextConfig, sentryOptions);
