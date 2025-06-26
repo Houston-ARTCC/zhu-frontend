@@ -65,6 +65,9 @@ export function getPositionName(position: string): string {
         case 'DEL':
             level = 'Delivery';
             break;
+        case 'RMP':
+            level = 'Ramp';
+            break;
         case 'GND':
             level = 'Ground';
             break;

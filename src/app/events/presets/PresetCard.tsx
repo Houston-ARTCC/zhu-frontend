@@ -34,7 +34,7 @@ export const PresetCard: React.FC<PresetCardProps> = ({ preset }) => {
             acc.tracon.push(curr);
         }
 
-        if (curr.callsign.endsWith('DEL') || curr.callsign.endsWith('GND') || curr.callsign.endsWith('TWR')) {
+        if (curr.callsign.endsWith('DEL') || curr.callsign.endsWith('RMP') || curr.callsign.endsWith('GND') || curr.callsign.endsWith('TWR')) {
             acc.local.push(curr);
         }
 
