@@ -16,8 +16,6 @@ const airports = new Map<string, string>([
     ['RND', 'Hangover'],
     ['BAZ', 'New Braunfels'],
     ['GTU', 'Georgetown'],
-    ['GRK', 'Gray'],
-    ['HLR', 'Hood'],
     ['VCT', 'Victoria'],
     ['CLL', 'Easterwood'],
     ['DWH', 'Hooks'],
