@@ -24,7 +24,7 @@ export const CancelLoaModal: React.FC<CancelLoaModalProps> = ({ loa, show, close
         setIsSubmitting(true);
 
         toast.promise(
-            fetchApi(`/loa/${loa.id}/`, { method: 'DELETE' }),
+            fetchApi(`/loa/admin/${loa.id}/`, { method: 'DELETE' }),
             {
                 pending: 'Cancelling leave of absence',
                 success: 'Successfully canceled',
