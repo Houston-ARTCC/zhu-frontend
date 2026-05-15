@@ -68,6 +68,10 @@ export const authOptions: AuthOptions = {
                 // Obtain new token pair and new profile data
                 if (!refreshTokenPromiseCache[tokenId]) {
                     refreshTokenPromiseCache[tokenId] = fetchNewToken(token.refreshToken);
+                    // Evict only on rejection so a failed refresh doesn't poison subsequent renders.
+                    refreshTokenPromiseCache[tokenId].catch(() => {
+                        delete refreshTokenPromiseCache[tokenId];
+                    });
                 }
                 const { access, refresh, profile } = await refreshTokenPromiseCache[tokenId];
 
