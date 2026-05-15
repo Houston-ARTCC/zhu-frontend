@@ -1,7 +1,7 @@
 import { type NextPage } from 'next';
 import { fetchApi } from '@/utils/fetch';
 import { type UserTrainingRequests } from '@/types/training';
-import { TrainingRequestsTable } from './TrainingRequestsTable';
+import { TrainingRequestsView } from './TrainingRequestsView';
 
 async function getTrainingRequests(): Promise<UserTrainingRequests[]> {
     return fetchApi(
@@ -13,7 +13,7 @@ async function getTrainingRequests(): Promise<UserTrainingRequests[]> {
 const TrainingRequests: NextPage = async () => {
     const trainingRequests = await getTrainingRequests();
 
-    return <TrainingRequestsTable data={trainingRequests} />;
+    return <TrainingRequestsView data={trainingRequests} />;
 };
 
 export default TrainingRequests;

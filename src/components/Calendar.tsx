@@ -69,10 +69,12 @@ export type CalendarProps = Omit<rbc.CalendarProps, 'localizer'> & {
     className?: string;
     events?: Event[];
     view: rbc.View;
+    /** When true, do not fetch ARTCC events/sessions — render only the events prop. */
+    eventsOnly?: boolean;
     onSelectDateTime?: (range: { start: Date, end: Date }) => void;
 };
 
-export const Calendar: React.FC<CalendarProps> = ({ className, events: eventsProp, view, onSelectDateTime }) => {
+export const Calendar: React.FC<CalendarProps> = ({ className, events: eventsProp, view, eventsOnly, onSelectDateTime }) => {
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
 
     const [events, setEvents] = useState<Event[]>([]);
@@ -88,6 +90,11 @@ export const Calendar: React.FC<CalendarProps> = ({ className, events: eventsPro
     }, [onSelectDateTime]);
 
     useEffect(() => {
+        if (eventsOnly) {
+            setEvents(eventsProp ?? []);
+            return;
+        }
+
         if (eventCache.current.has(dateKey)) {
             setEvents([
                 ...eventCache.current.get(dateKey) ?? [],
@@ -109,7 +116,7 @@ export const Calendar: React.FC<CalendarProps> = ({ className, events: eventsPro
 
                 eventCache.current.set(dateKey, newEvents);
             });
-    }, [eventsProp, dateKey]);
+    }, [eventsProp, dateKey, eventsOnly]);
 
     return (
         <div className={className}>
