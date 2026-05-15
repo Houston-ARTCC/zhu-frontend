@@ -68,13 +68,31 @@ async function getTopPositions(): Promise<TopPosition[]> {
     return data.slice(0, 3);
 }
 
+async function settled<T>(promise: Promise<T>, fallback: T): Promise<T> {
+    try {
+        return await promise;
+    } catch (err) {
+        console.error('Home page data fetch failed:', err);
+        return fallback;
+    }
+}
+
 const Home: NextPage = async () => {
-    const onlineConnections = await getOnlineConnection();
-    const recentAnnouncements = await getRecentAnnouncements();
-    const upcomingEvents = await getUpcomingEvents();
-    const newestControllers = await getNewestControllers();
-    const topControllers = await getTopControllers();
-    const topPositions = await getTopPositions();
+    const [
+        onlineConnections,
+        recentAnnouncements,
+        upcomingEvents,
+        newestControllers,
+        topControllers,
+        topPositions,
+    ] = await Promise.all([
+        settled(getOnlineConnection(), [] as OnlineConnection[]),
+        settled(getRecentAnnouncements(), [] as Announcement[]),
+        settled(getUpcomingEvents(), [] as BasicEvent[]),
+        settled(getNewestControllers(), [] as BasicUser[]),
+        settled(getTopControllers(), [] as TopController[]),
+        settled(getTopPositions(), [] as TopPosition[]),
+    ]);
 
     return (
         <>
