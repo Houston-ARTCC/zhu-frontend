@@ -96,3 +96,9 @@ export type TrainingNotifications = {
     training_requests: number;
     instructor_sessions: number;
 }
+
+export type TrainingRequestHistoryEntry = {
+    user: BasicUser;
+    count: number;
+    last_request: string;
+}
