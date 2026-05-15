@@ -71,7 +71,7 @@ export const FeedbackCard: React.FC<FeedbackCardProps> = ({ feedback }) => (
             />
             <ApproveRequestButton
                 title="Approve Feedback"
-                confirmation={`Are you sure you would like to reject ${feedback.pilot.first_name} ${feedback.pilot.last_name}'s feedback?`}
+                confirmation={`Are you sure you would like to approve ${feedback.pilot.first_name} ${feedback.pilot.last_name}'s feedback?`}
                 endpoint={`/feedback/${feedback.id}/`}
                 toastConfig={{
                     pending: 'Approving feedback',
