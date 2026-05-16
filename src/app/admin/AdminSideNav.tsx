@@ -65,6 +65,11 @@ export const AdminSideNav: React.FC<AdminSideNavProps> = ({ notifications }) => 
                         auth: (user) => user?.permissions.is_admin ?? false,
                     },
                     {
+                        title: 'Feedback History',
+                        route: 'feedback-history',
+                        auth: (user) => user?.permissions.is_admin ?? false,
+                    },
+                    {
                         title: 'Event Support',
                         route: 'queue/events',
                         alerts: notifications.support_requests,
