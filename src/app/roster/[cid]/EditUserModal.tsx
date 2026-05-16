@@ -24,6 +24,14 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
 
     const { data: session } = useSession();
 
+    const canEditRoles = session?.user.permissions.is_training_admin ?? false;
+    const canEditProfile = canEditRoles || (session?.user.permissions.is_staff ?? false);
+    const restrictedToOwnEndorsements = session?.user.permissions.endorsement_scope === 'own';
+    const ownEndorsements = session?.user.endorsements ?? {};
+    const isEndorsementEditable = (key: string) => (
+        !restrictedToOwnEndorsements || ownEndorsements[key] === true
+    );
+
     const { reset, register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(editUserSchema),
     });
@@ -34,21 +42,24 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
     );
 
     const patchResource: SubmitHandler<EditUserFormValues> = useCallback((values) => {
-        let body;
-        if (session?.user.permissions.is_admin && values.roles) {
+        let body: Record<string, unknown>;
+        if (canEditRoles && values.roles) {
             body = {
                 ...values,
                 roles: values.roles.map(({ value, label }) => ({ short: value, long: label })),
             };
-        } else {
-            body = values;
+        } else if (canEditProfile) {
+            body = { ...values };
             delete body.roles;
+        } else {
+            // Training-staff-only requesters can only touch endorsements.
+            body = { endorsements: values.endorsements };
         }
 
         toast.promise(
             fetchApi(`/users/${user.cid}/`, { method: 'PATCH', body: JSON.stringify(body) }),
             {
-                pending: `Updating "${values.first_name} ${values.last_name}"`,
+                pending: `Updating "${user.first_name} ${user.last_name}"`,
                 success: 'Successfully updated',
                 error: 'Something went wrong, check console for more info',
             },
@@ -57,20 +68,24 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                 router.refresh();
                 close?.();
             });
-    }, [user, router, session, close]);
+    }, [user, router, close, canEditRoles, canEditProfile]);
 
     return (
         <Modal large show={show} title="Modify User" close={close}>
             <form onSubmit={handleSubmit(patchResource)}>
+                {/* Profile fields are always shown — read-only for endorsement-only
+                    editors — so they can confirm which user they're modifying. */}
                 <div className="mb-3 grid grid-cols-2 gap-3 md:grid-cols-6">
                     <TextInput
                         {...register('first_name')}
+                        readOnly={!canEditProfile}
                         className="col-span-2"
                         label="First Name"
                         error={errors.first_name?.message}
                     />
                     <TextInput
                         {...register('last_name')}
+                        readOnly={!canEditProfile}
                         className="col-span-2"
                         label="Last Name"
                         error={errors.last_name?.message}
@@ -81,17 +96,20 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                 <div className="grid grid-cols-2 gap-3 md:grid-cols-6">
                     <TextInput
                         {...register('email')}
+                        readOnly={!canEditProfile}
                         className="col-span-2 md:col-span-4"
                         label="Email"
                         error={errors.email?.message}
                     />
                     <TextInput
                         {...register('home_facility')}
+                        readOnly={!canEditProfile}
                         label="Facility"
                         error={errors.home_facility?.message}
                     />
                     <TextInput
                         {...register('initials')}
+                        readOnly={!canEditProfile}
                         label="Initials"
                         error={errors.initials?.message}
                     />
@@ -100,32 +118,35 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                 <hr className="my-5" />
 
                 <div className="flex flex-col gap-3">
-                    {session?.user.permissions.is_admin && (
-                        <Controller
-                            name="roles"
-                            control={control}
-                            render={({ field: { value, ...field } }) => (
-                                <SelectInput
-                                    {...field}
-                                    label="Roles"
-                                    error={errors.roles?.message}
-                                    options={roles.filter((role) => !role.isFixed)}
-                                    value={value?.sort((a, b) => (a.id > b.id ? 1 : -1))}
-                                    closeMenuOnSelect={false}
-                                    isClearable={false}
-                                    isMulti
-                                />
-                            )}
-                        />
-                    )}
+                    <Controller
+                        name="roles"
+                        control={control}
+                        render={({ field: { value, ...field } }) => (
+                            <SelectInput
+                                {...field}
+                                label="Roles"
+                                isDisabled={!canEditRoles}
+                                error={errors.roles?.message}
+                                options={roles.filter((role) => !role.isFixed)}
+                                value={value?.sort((a, b) => (a.id > b.id ? 1 : -1))}
+                                closeMenuOnSelect={false}
+                                isClearable={false}
+                                isMulti
+                            />
+                        )}
+                    />
 
                     <ToggleInput
                         {...register('prevent_event_signup')}
+                        disabled={!canEditProfile}
+                        className={canEditProfile ? '' : 'opacity-50'}
                         label="Prevent Event Sign Up"
                     />
 
                     <ToggleInput
                         {...register('cic_endorsed')}
+                        disabled={!canEditProfile}
+                        className={canEditProfile ? '' : 'opacity-50'}
                         label="CIC Endorsed"
                     />
                 </div>
@@ -148,6 +169,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                                     name="GND"
                                     status={value}
                                     onUpdate={onChange}
+                                    disabled={!isEndorsementEditable('gnd')}
                                 />
                             )}
                         />
@@ -160,6 +182,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                                     name="HOU GND"
                                     status={value}
                                     onUpdate={onChange}
+                                    disabled={!isEndorsementEditable('hou_gnd')}
                                 />
                             )}
                         />
@@ -172,6 +195,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                                     name="IAH GND"
                                     status={value}
                                     onUpdate={onChange}
+                                    disabled={!isEndorsementEditable('iah_gnd')}
                                 />
                             )}
                         />
@@ -187,6 +211,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                                     name="TWR"
                                     status={value}
                                     onUpdate={onChange}
+                                    disabled={!isEndorsementEditable('twr')}
                                 />
                             )}
                         />
@@ -199,6 +224,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                                     name="HOU TWR"
                                     status={value}
                                     onUpdate={onChange}
+                                    disabled={!isEndorsementEditable('hou_twr')}
                                 />
                             )}
                         />
@@ -211,6 +237,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                                     name="IAH TWR"
                                     status={value}
                                     onUpdate={onChange}
+                                    disabled={!isEndorsementEditable('iah_twr')}
                                 />
                             )}
                         />
@@ -226,6 +253,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                                     name="APP"
                                     status={value}
                                     onUpdate={onChange}
+                                    disabled={!isEndorsementEditable('app')}
                                 />
                             )}
                         />
@@ -238,6 +266,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                                     name="I90 APP"
                                     status={value}
                                     onUpdate={onChange}
+                                    disabled={!isEndorsementEditable('i90')}
                                 />
                             )}
                         />
@@ -253,6 +282,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                                     name="ZHU"
                                     status={value}
                                     onUpdate={onChange}
+                                    disabled={!isEndorsementEditable('zhu')}
                                 />
                             )}
                         />

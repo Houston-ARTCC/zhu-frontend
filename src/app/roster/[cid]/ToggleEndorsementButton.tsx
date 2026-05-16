@@ -7,16 +7,22 @@ import { AddSoloModal } from './AddSoloModal';
 
 interface CertDropdownProps extends EndorsementBadgeProps {
     onUpdate: (status: boolean | string) => void;
+    disabled?: boolean;
 }
 
-export const ToggleEndorsementButton: React.FC<CertDropdownProps> = ({ tier, name, status, onUpdate }) => {
+export const ToggleEndorsementButton: React.FC<CertDropdownProps> = ({ tier, name, status, onUpdate, disabled }) => {
     const [showSoloModal, setShowSoloModal] = useState<boolean>(false);
 
     return (
         <>
-            <button type="button" onClick={() => onUpdate(status !== true)}>
+            <button
+                type="button"
+                disabled={disabled}
+                onClick={() => onUpdate(status !== true)}
+                className={disabled ? 'cursor-not-allowed opacity-50' : ''}
+            >
                 <EndorsementBadge tier={tier} name={name} status={status}>
-                    {tier === 0 && (status === true || status === false) && (
+                    {!disabled && tier === 0 && (status === true || status === false) && (
                         <button
                             className="absolute left-1.5"
                             aria-label="Add Solo Endorsement"

@@ -72,7 +72,7 @@ const UserProfile: NextPage<UserProfileParams> = async (props) => {
                         <div className="mb-12 flex items-start gap-5">
                             <div className="flex flex-col items-center gap-5">
                                 <ProfilePicture user={user} size={150} />
-                                {session?.user.permissions.is_staff && (
+                                {(session?.user.permissions.is_staff || session?.user.permissions.is_training_staff) && (
                                     <EditUserButton user={user as AuthenticatedUser} />
                                 )}
                             </div>
