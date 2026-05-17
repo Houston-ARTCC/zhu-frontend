@@ -26,6 +26,7 @@ declare module 'next-auth' {
     interface Session {
         user: Profile;
         accessToken: string;
+        error?: 'RefreshAccessTokenError';
     }
 }
 
@@ -36,5 +37,6 @@ declare module 'next-auth/jwt' {
         user: User;
         accessToken: string;
         refreshToken: string;
+        error?: 'RefreshAccessTokenError';
     }
 }

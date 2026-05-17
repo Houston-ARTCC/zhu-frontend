@@ -43,6 +43,7 @@ export const authOptions: AuthOptions = {
                     ...session,
                     user: token.user,
                     accessToken: token.accessToken,
+                    error: token.error,
                 };
             }
             return session;
@@ -73,13 +74,18 @@ export const authOptions: AuthOptions = {
                         delete refreshTokenPromiseCache[tokenId];
                     });
                 }
-                const { access, refresh, profile } = await refreshTokenPromiseCache[tokenId];
+                try {
+                    const { access, refresh, profile } = await refreshTokenPromiseCache[tokenId];
 
-                return {
-                    user: profile,
-                    accessToken: access,
-                    refreshToken: refresh,
-                };
+                    return {
+                        user: profile,
+                        accessToken: access,
+                        refreshToken: refresh,
+                    };
+                } catch {
+                    // Surface the failure so the client can re-authenticate.
+                    return { ...token, error: 'RefreshAccessTokenError' };
+                }
             }
 
             return token;
