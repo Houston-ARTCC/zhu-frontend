@@ -1,5 +1,6 @@
 import { type NextPage } from 'next';
-import { type Session, getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth';
 import { authOptions } from '@/utils/auth';
 import { fetchApi } from '@/utils/fetch';
 import { type TrainingSession } from '@/types/training';
@@ -13,7 +14,11 @@ async function getTrainingSessions(cid: number): Promise<TrainingSession[]> {
 }
 
 const Sessions: NextPage = async () => {
-    const session = await getServerSession(authOptions) as Session;
+    const session = await getServerSession(authOptions);
+    if (!session) {
+        redirect('/');
+    }
+
     const trainingSessions = await getTrainingSessions(session.user.cid);
 
     return <SessionsTable data={trainingSessions} />;
