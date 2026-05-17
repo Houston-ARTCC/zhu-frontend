@@ -17,6 +17,11 @@ export const StudentSelectInput: React.FC<StudentSelectInputProps> = ({ options 
     const pathname = usePathname();
 
     const [loading, setLoading] = useState<boolean>(false);
+    const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
+
+    useEffect(() => {
+        setPortalTarget(document.body);
+    }, []);
 
     // When the pathname changes, the new data has been loaded and we can remove the spinner.
     useEffect(() => {
@@ -27,7 +32,7 @@ export const StudentSelectInput: React.FC<StudentSelectInputProps> = ({ options 
         <>
             <SelectInput
                 label="Select a Student"
-                menuPortalTarget={document.body}
+                menuPortalTarget={portalTarget ?? undefined}
                 options={options}
                 onChange={(option) => {
                     if (option) {

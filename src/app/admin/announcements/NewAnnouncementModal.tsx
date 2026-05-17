@@ -2,17 +2,20 @@
 
 import React, { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { LuPlus } from 'react-icons/lu';
 import { zodResolver } from '@hookform/resolvers/zod';
-import ReactQuill from 'react-quill-new';
 import classNames from 'classnames';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { TextInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
 import { fetchApi } from '@/utils/fetch';
 import { type AnnouncementFormValues, announcementSchema } from './announcementSchema';
+
+// react-quill-new touches `document` at import time, so it can't be SSR'd.
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 export const NewAnnouncementModal: React.FC<ModalProps> = ({ show, close }) => {
     const router = useRouter();
