@@ -1,5 +1,5 @@
-import { type NextPage } from 'next';
 import { redirect } from 'next/navigation';
+import { type NextPage } from 'next';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/utils/auth';
 import { fetchApi } from '@/utils/fetch';

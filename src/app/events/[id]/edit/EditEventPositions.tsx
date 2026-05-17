@@ -9,6 +9,7 @@ import { Dropdown, DropdownButton, DropdownSeparator } from '@/components/Dropdo
 import { fetchApi } from '@/utils/fetch';
 import { type EventPosition, type EventShift } from '@/types/events';
 import { type BasicUser } from '@/types/users';
+import { type SchemaError } from '@/types/api';
 import { AddPositionsButton } from '../../AddPositionsModal';
 import { type AddPositionsFormValues } from '../../addPositionsSchema';
 import { ManualAssignButton } from './ManualAssignModal';
@@ -157,7 +158,17 @@ export const EditEventPositions: React.FC<EditEventPositionsProps> = ({ eventId,
                     method: 'POST',
                     body: JSON.stringify(values.positions),
                 })
-                    .then((data) => setCurrPositions((pos) => pos.concat(data))),
+                    .then((data): SchemaError[] | undefined => {
+                        setCurrPositions((pos) => pos.concat(data));
+                        return undefined;
+                    })
+                    .catch((error): SchemaError[] => {
+                        // A 400 carries per-position validation errors for the form to display.
+                        if (error?.status === 400 && Array.isArray(error.body)) {
+                            return error.body as SchemaError[];
+                        }
+                        throw error;
+                    }),
                 { error: 'Something went wrong, check console for more info' },
             )),
         [eventId],

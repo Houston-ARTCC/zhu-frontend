@@ -38,10 +38,11 @@ export async function fetchApi<T extends Record<string, unknown> | unknown[]>(ro
     return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api${route}`, { ...config, headers })
         .then(async (resp) => {
             if (!resp.ok) {
-                // Surface the API's error detail when present.
+                // Surface the API's error detail and body so callers can react.
                 const body = await resp.json().catch(() => null);
                 const detail = body && typeof body.detail === 'string' ? body.detail : null;
-                return Promise.reject(new Error(detail ?? `${resp.url}: ${resp.status} ${resp.statusText}`));
+                const error = new Error(detail ?? `${resp.url}: ${resp.status} ${resp.statusText}`);
+                return Promise.reject(Object.assign(error, { status: resp.status, body }));
             }
 
             if (resp.headers.get('Content-Type') === 'application/json') {
