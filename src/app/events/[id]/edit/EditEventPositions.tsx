@@ -157,14 +157,7 @@ export const EditEventPositions: React.FC<EditEventPositionsProps> = ({ eventId,
                     method: 'POST',
                     body: JSON.stringify(values.positions),
                 })
-                    .then((data) => setCurrPositions((pos) => pos.concat(data)))
-                    .catch(async (resp) => {
-                        if (resp.headers.get('Content-Type') === 'application/json') {
-                            const data = await resp.json();
-                            return Promise.resolve(data);
-                        }
-                        return Promise.reject(resp);
-                    }),
+                    .then((data) => setCurrPositions((pos) => pos.concat(data))),
                 { error: 'Something went wrong, check console for more info' },
             )),
         [eventId],
