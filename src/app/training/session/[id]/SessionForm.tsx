@@ -64,7 +64,13 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
             {
                 pending: 'Saving session',
                 success: 'Successfully saved',
-                error: 'Something went wrong, check console for more info',
+                error: {
+                    render: ({ data: error }) => (
+                        error instanceof Error
+                            ? error.message
+                            : 'Something went wrong, check console for more info'
+                    ),
+                },
             },
         )
             .then(() => {
