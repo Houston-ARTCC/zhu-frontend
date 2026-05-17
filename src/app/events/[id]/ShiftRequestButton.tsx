@@ -19,9 +19,18 @@ export const ShiftRequestButton: React.FC<ShiftRequestButtonProps> = ({ shift, r
                 `/events/request/${shift.id}/`,
                 { method: requested ? 'DELETE' : 'POST' },
             ),
-            { error: 'Something went wrong, check console for more info' },
+            {
+                error: {
+                    render: ({ data: error }) => (
+                        error instanceof Error ? error.message : 'Something went wrong, check console for more info'
+                    ),
+                },
+            },
         )
-            .then(() => setRequested(!requested));
+            .then(() => setRequested(!requested))
+            .catch(() => {
+                // Failure is already surfaced by the error toast.
+            });
     }, [shift, requested]);
 
     return (

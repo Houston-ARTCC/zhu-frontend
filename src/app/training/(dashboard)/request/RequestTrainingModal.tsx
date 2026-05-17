@@ -39,12 +39,19 @@ export const RequestTrainingModal: React.FC<RequestTrainingModalProps> = ({ star
             {
                 pending: 'Submitting request',
                 success: 'Successfully submitted',
-                error: 'Something went wrong, check console for more info',
+                error: {
+                    render: ({ data: error }) => (
+                        error instanceof Error ? error.message : 'Something went wrong, check console for more info'
+                    ),
+                },
             },
         )
             .then(() => {
                 router.refresh();
                 close?.();
+            })
+            .catch(() => {
+                // Failure is already surfaced by the error toast.
             });
     }, [router, close]);
 
