@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useCallback } from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
-import ReactQuill from 'react-quill-new';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ReactDatePicker from 'react-datepicker';
 import classNames from 'classnames';
@@ -14,6 +14,9 @@ import { fetchApi } from '@/utils/fetch';
 import { type TrainingSession } from '@/types/training';
 import { otsStatuses, progress, sessionLevels, sessionTypes } from '../../selectOptions';
 import { type SessionFormValues, sessionSchema } from './sessionSchema';
+
+// react-quill-new touches `document` at import time, so it can't be SSR'd.
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 interface FileSessionFormProps {
     editing?: boolean;
