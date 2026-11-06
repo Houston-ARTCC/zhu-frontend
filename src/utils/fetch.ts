@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { getSession } from 'next-auth/react';
 import { authOptions } from '@/utils/auth';
@@ -31,13 +32,19 @@ export async function fetchApi<T extends Record<string, unknown> | unknown[]>(ro
         headers.append('Content-Type', 'application/json');
     }
 
-    if (session) {
+    // The API returns 401 for a bad token even on public routes.
+    if (session && !session.error) {
         headers.append('Authorization', `Bearer ${session.accessToken}`);
     }
 
     return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api${route}`, { ...config, headers })
         .then(async (resp) => {
             if (!resp.ok) {
+                // A throw here would land on global-error, where SessionGuard can't recover the session.
+                if (resp.status === 401 && typeof window === 'undefined') {
+                    redirect('/api/auth/signin');
+                }
+
                 // Surface the API's error detail and body so callers can react.
                 const body = await resp.json().catch(() => null);
                 const detail = typeof body?.detail === 'string'

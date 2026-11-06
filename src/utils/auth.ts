@@ -69,10 +69,15 @@ export const authOptions: AuthOptions = {
                 // Obtain new token pair and new profile data
                 if (!refreshTokenPromiseCache[tokenId]) {
                     refreshTokenPromiseCache[tokenId] = fetchNewToken(token.refreshToken);
-                    // Evict only on rejection so a failed refresh doesn't poison subsequent renders.
-                    refreshTokenPromiseCache[tokenId].catch(() => {
-                        delete refreshTokenPromiseCache[tokenId];
-                    });
+                    // Server components can't persist the new tokens, so this cookie can outlive them.
+                    refreshTokenPromiseCache[tokenId].then(
+                        ({ access }) => setTimeout(() => {
+                            delete refreshTokenPromiseCache[tokenId];
+                        }, (parseJwt(access).exp * 1000) - Date.now()),
+                        () => {
+                            delete refreshTokenPromiseCache[tokenId];
+                        },
+                    );
                 }
                 try {
                     const { access, refresh, profile } = await refreshTokenPromiseCache[tokenId];
