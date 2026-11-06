@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useCallback, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import classNames from 'classnames';
 import { LuPlus, LuUserX, LuX } from 'react-icons/lu';
 import { toast } from 'react-toastify';
@@ -149,6 +150,8 @@ interface EditEventPositionsProps {
 }
 
 export const EditEventPositions: React.FC<EditEventPositionsProps> = ({ eventId, label, positions }) => {
+    const router = useRouter();
+
     const [currPositions, setCurrPositions] = useState<EventPosition[]>(positions);
 
     const addPositions = useCallback(
@@ -182,9 +185,15 @@ export const EditEventPositions: React.FC<EditEventPositionsProps> = ({ eventId,
                 }),
                 { error: 'Something went wrong, check console for more info' },
             )
-                .then(() => setCurrPositions(positions.filter((position) => position.id !== positionId)));
+                .then(() => {
+                    setCurrPositions((pos) => pos.filter((position) => position.id !== positionId));
+                    router.refresh();
+                })
+                .catch(() => {
+                    // Failure is already surfaced by the error toast.
+                });
         },
-        [positions],
+        [router],
     );
 
     return (
