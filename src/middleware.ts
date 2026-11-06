@@ -19,7 +19,7 @@ const ROUTE_AUTH_MAP: { re: RegExp, verify: (token: JWT | null) => boolean }[] =
     { re: /\/admin\/queue\/feedback/, verify: isAdmin },
     // Need to be staff
     { re: /\/admin(\/(.*))?/, verify: isStaff },
-    { re: /\/events\/(d+)\/edit/, verify: isStaff },
+    { re: /\/events\/(\d+)\/edit/, verify: isStaff },
     { re: /\/events\/new/, verify: isStaff },
     { re: /\/events\/presets/, verify: isStaff },
     // Need to be training staff
@@ -28,7 +28,7 @@ const ROUTE_AUTH_MAP: { re: RegExp, verify: (token: JWT | null) => boolean }[] =
     { re: /\/training\/profile/, verify: isTrainingStaff },
     { re: /\/training\/requests/, verify: isTrainingStaff },
     { re: /\/training\/scheduled/, verify: isTrainingStaff },
-    { re: /\/training\/session\/(d+)/, verify: isTrainingStaff },
+    { re: /\/training\/session\/(\d+)/, verify: isTrainingStaff },
     // Need to be member
     { re: /\/training(\/(.*))?/, verify: isMember },
     { re: /\/dashboard(\/(.*))?/, verify: isMember },
