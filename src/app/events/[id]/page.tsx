@@ -7,6 +7,7 @@ import { type Metadata, type NextPage } from 'next';
 import { getServerSession } from 'next-auth';
 import { LuEyeOff, LuFolderClosed, LuPencil } from 'react-icons/lu';
 import { Button } from '@/components/Button';
+import { LocalTimeRange } from '@/components/LocalTimeRange';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
 import { Alert, AlertTitle } from '@/components/Alert';
@@ -87,6 +88,7 @@ const ViewEvent: NextPage<EventParams> = async (props) => {
                                 <h5 className="text-lg">{format(new Date(event.start), 'MMM dd, yyyy, HH:mm zzz')}</h5>
                                 <h4 className="text-xl font-bold">End</h4>
                                 <h5 className="text-lg">{format(new Date(event.end), 'MMM dd, yyyy, HH:mm zzz')}</h5>
+                                <LocalTimeRange className="mt-2 block" start={event.start} end={event.end} />
                             </div>
                             <div>
                                 <h4 className="text-xl font-bold">Time Until Event</h4>

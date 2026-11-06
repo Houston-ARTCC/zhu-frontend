@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { format } from 'date-fns-tz';
 import { LuArrowRight, LuCalendar, LuClock, LuEyeOff, LuTowerControl } from 'react-icons/lu';
 import { Card } from '@/components/Card';
+import { LocalTimeRange } from '@/components/LocalTimeRange';
 import { type BasicEvent } from '@/types/events';
 
 interface EventCardProps {
@@ -35,13 +36,16 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => (
                             {event.available_shifts} Shift{event.available_shifts === 1 ? '' : 's'} Available
                         </span>
                     </div>
-                    <div className="flex items-center gap-3">
-                        <LuClock size={25} />
-                        <span className="flex items-center gap-1.5 font-medium">
-                            {format(new Date(event.start), 'HH:mm zzz')}
-                            <LuArrowRight />
-                            {format(new Date(event.end), 'HH:mm zzz')}
-                        </span>
+                    <div>
+                        <div className="flex items-center gap-3">
+                            <LuClock size={25} />
+                            <span className="flex items-center gap-1.5 font-medium">
+                                {format(new Date(event.start), 'HH:mm zzz')}
+                                <LuArrowRight />
+                                {format(new Date(event.end), 'HH:mm zzz')}
+                            </span>
+                        </div>
+                        <LocalTimeRange className="mt-1 block pl-[37px] font-medium" start={event.start} end={event.end} />
                     </div>
                 </div>
             </div>

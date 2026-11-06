@@ -6,6 +6,7 @@ import { format } from 'date-fns-tz';
 import { LuArrowRight, LuCalendar, LuClock } from 'react-icons/lu';
 import { AnnouncementModal } from '@/components/AnnouncementModal';
 import { Card } from '@/components/Card';
+import { LocalTimeRange } from '@/components/LocalTimeRange';
 import { ClientPortal } from '@/components/ClientPortal';
 import { type Announcement } from '@/types/announcements';
 import { type BasicEvent } from '@/types/events';
@@ -65,6 +66,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => (
                             {format(new Date(event.end), 'HH:mm zzz')}
                         </span>
                     </div>
+                    <LocalTimeRange className="mt-1 block pl-[35px]" start={event.start} end={event.end} />
                 </div>
                 <img className="object-contain" src={event.banner} />
             </div>
