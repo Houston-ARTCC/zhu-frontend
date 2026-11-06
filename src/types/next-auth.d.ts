@@ -15,6 +15,7 @@ interface UserId {
         is_staff: boolean;
         is_admin: boolean;
         endorsement_scope: 'all' | 'own';
+        can_view_audit_log: boolean;
     }
 }
 

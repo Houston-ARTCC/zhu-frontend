@@ -16,7 +16,11 @@ export const AdminSideNav: React.FC<AdminSideNavProps> = ({ notifications }) => 
                 title: 'General',
                 children: [
                     { title: 'ARTCC Information', route: '' },
-                    { title: 'Audit Log', route: 'audit' },
+                    {
+                        title: 'Audit Log',
+                        route: 'audit',
+                        auth: (user) => user?.permissions.can_view_audit_log ?? false,
+                    },
                     { title: 'Training Requests', route: 'training-requests' },
                     { title: 'Django Panel', url: `${process.env.NEXT_PUBLIC_API_URL}/admin/` },
                 ],

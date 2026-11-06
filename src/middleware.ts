@@ -7,8 +7,10 @@ const isStaff = (token: JWT | null) => token?.user.permissions.is_staff ?? false
 const isTrainingStaff = (token: JWT | null) => token?.user.permissions.is_training_staff ?? false;
 const isMember = (token: JWT | null) => token?.user.permissions.is_member ?? false;
 const isLoggedIn = (token: JWT | null) => token !== null;
+const canViewAuditLog = (token: JWT | null) => token?.user.permissions.can_view_audit_log ?? false;
 
 const ROUTE_AUTH_MAP: { re: RegExp, verify: (token: JWT | null) => boolean }[] = [
+    { re: /\/admin\/audit/, verify: canViewAuditLog },
     // Need to be admin
     { re: /\/admin\/loa/, verify: isAdmin },
     { re: /\/admin\/purge/, verify: isAdmin },
