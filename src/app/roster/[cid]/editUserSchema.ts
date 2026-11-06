@@ -68,4 +68,6 @@ export const editUserSchema = z.object({
     }),
 });
 
+export const endorsementsOnlySchema = editUserSchema.pick({ endorsements: true });
+
 export type EditUserFormValues = z.infer<typeof editUserSchema>;

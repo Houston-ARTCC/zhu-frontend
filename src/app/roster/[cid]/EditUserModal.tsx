@@ -13,7 +13,7 @@ import { Button } from '@/components/Button';
 import { fetchApi } from '@/utils/fetch';
 import { type AuthenticatedUser } from '@/types/users';
 import { ToggleEndorsementButton } from './ToggleEndorsementButton';
-import { type EditUserFormValues, editUserSchema, roles } from './editUserSchema';
+import { type EditUserFormValues, editUserSchema, endorsementsOnlySchema, roles } from './editUserSchema';
 
 interface EditUserModalProps extends ModalProps {
     user: AuthenticatedUser;
@@ -27,13 +27,14 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
     const canEditRoles = session?.user.permissions.is_training_admin ?? false;
     const canEditProfile = canEditRoles || (session?.user.permissions.is_staff ?? false);
     const restrictedToOwnEndorsements = session?.user.permissions.endorsement_scope === 'own';
-    const ownEndorsements = session?.user.endorsements ?? {};
-    const isEndorsementEditable = (key: string) => (
-        !restrictedToOwnEndorsements || ownEndorsements[key] === true
-    );
+    const ownEndorsements = session?.user.endorsements;
+    const isEndorsementEditable = useCallback((key: string) => (
+        !restrictedToOwnEndorsements || ownEndorsements?.[key] === true
+    ), [restrictedToOwnEndorsements, ownEndorsements]);
 
-    const { reset, register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm({
-        resolver: zodResolver(editUserSchema),
+    const { reset, register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm<EditUserFormValues>({
+        // The API hides email and prevent_event_signup from endorsement-only editors.
+        resolver: zodResolver((canEditProfile ? editUserSchema : endorsementsOnlySchema) as typeof editUserSchema),
     });
 
     useEffect(
@@ -53,7 +54,12 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
             delete body.roles;
         } else {
             // Training-staff-only requesters can only touch endorsements.
-            body = { endorsements: values.endorsements };
+            // The API rejects mentors for sending any key they don't hold, even unchanged.
+            body = {
+                endorsements: Object.fromEntries(
+                    Object.entries(values.endorsements).filter(([key]) => isEndorsementEditable(key)),
+                ),
+            };
         }
 
         toast.promise(
@@ -68,7 +74,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                 router.refresh();
                 close?.();
             });
-    }, [user, router, close, canEditRoles, canEditProfile]);
+    }, [user, router, close, canEditRoles, canEditProfile, isEndorsementEditable]);
 
     return (
         <Modal large show={show} title="Modify User" close={close}>
@@ -94,13 +100,14 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                     <TextInput readOnly label="Rating" value={user.rating.short} />
                 </div>
                 <div className="grid grid-cols-2 gap-3 md:grid-cols-6">
-                    <TextInput
-                        {...register('email')}
-                        readOnly={!canEditProfile}
-                        className="col-span-2 md:col-span-4"
-                        label="Email"
-                        error={errors.email?.message}
-                    />
+                    {canEditProfile && (
+                        <TextInput
+                            {...register('email')}
+                            className="col-span-2 md:col-span-4"
+                            label="Email"
+                            error={errors.email?.message}
+                        />
+                    )}
                     <TextInput
                         {...register('home_facility')}
                         readOnly={!canEditProfile}
@@ -136,12 +143,12 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                         )}
                     />
 
-                    <ToggleInput
-                        {...register('prevent_event_signup')}
-                        disabled={!canEditProfile}
-                        className={canEditProfile ? '' : 'opacity-50'}
-                        label="Prevent Event Sign Up"
-                    />
+                    {canEditProfile && (
+                        <ToggleInput
+                            {...register('prevent_event_signup')}
+                            label="Prevent Event Sign Up"
+                        />
+                    )}
 
                     <ToggleInput
                         {...register('cic_endorsed')}
