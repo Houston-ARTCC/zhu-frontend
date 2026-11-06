@@ -17,6 +17,8 @@ export const SupportForm: React.FC = () => {
     const { data: session } = useSession();
 
     const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+        // ReactDatePicker's ref has no focus(), which would crash handleSubmit on a date error.
+        shouldFocusError: false,
         resolver: zodResolver(supportSchema),
     });
 

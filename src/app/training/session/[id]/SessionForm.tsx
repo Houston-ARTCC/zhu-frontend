@@ -31,6 +31,8 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
     const router = useRouter();
 
     const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+        // ReactDatePicker's ref has no focus(), which would crash handleSubmit on a date error.
+        shouldFocusError: false,
         resolver: zodResolver(sessionSchema),
         defaultValues: {
             instructor: {

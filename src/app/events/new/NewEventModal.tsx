@@ -23,6 +23,8 @@ export const NewEventModal: React.FC<RequestTrainingModalProps> = ({ presets, st
     const router = useRouter();
 
     const { register, control, reset, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+        // ReactDatePicker's ref has no focus(), which would crash handleSubmit on a date error.
+        shouldFocusError: false,
         resolver: zodResolver(newEventSchema),
         defaultValues: { start, end },
     });

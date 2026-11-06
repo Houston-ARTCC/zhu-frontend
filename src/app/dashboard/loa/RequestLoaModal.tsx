@@ -21,6 +21,8 @@ export const RequestLoaModal: React.FC<RequestLOAModalProps> = ({ start, end, sh
     const router = useRouter();
 
     const { register, control, reset, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+        // ReactDatePicker's ref has no focus(), which would crash handleSubmit on a date error.
+        shouldFocusError: false,
         resolver: zodResolver(requestLoaSchema),
         defaultValues: { start, end },
     });

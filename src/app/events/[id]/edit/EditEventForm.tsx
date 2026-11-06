@@ -26,6 +26,8 @@ export const EditEventForm: React.FC<EditEventFormProps> = ({ event }) => {
         handleSubmit,
         formState: { errors, isSubmitting },
     } = useForm({
+        // ReactDatePicker's ref has no focus(), which would crash handleSubmit on a date error.
+        shouldFocusError: false,
         resolver: zodResolver(editEventSchema),
         defaultValues: {
             ...event,
