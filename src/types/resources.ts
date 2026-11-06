@@ -5,7 +5,7 @@ export const CATEGORY_STRING: Record<Category, string> = {
     proc: 'Procedure',
     loa: 'LOA',
     vatis: 'vATIS Profile',
-    rvm: 'RVM List',
+    rvm: 'Facilities',
     ref: 'Reference',
 };
 
