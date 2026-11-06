@@ -50,7 +50,11 @@ export const sessionSchema = z.object({
 
     movements: z.number().nonnegative('May not be negative'),
 
-    position: z.string(),
+    // Matches VATUSA's CTRS validation, which rejects the whole filing otherwise.
+    position: z.string().regex(
+        /^[A-Z0-9]{2,3}(_[A-Z0-9]{1,3})?_(DEL|GND|TWR|APP|DEP|CTR|FSS)$/i,
+        'Enter a position like HOU_GND or I90_D_APP',
+    ),
 
     notes: z.string(),
 
