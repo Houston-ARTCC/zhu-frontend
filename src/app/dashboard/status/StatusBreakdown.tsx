@@ -42,7 +42,6 @@ export const StatusBreakdown: React.FC<StatusBreakdownProps> = ({ currentDate, s
 
     const quarter = startOfQuarter(currentDate);
 
-    const houTier1 = status.endorsements.hou_twr || status.endorsements.hou_gnd;
     const iahTier1 = status.endorsements.iah_twr || status.endorsements.iah_gnd;
     const i90Tier1 = status.endorsements.i90;
 
@@ -109,7 +108,7 @@ export const StatusBreakdown: React.FC<StatusBreakdownProps> = ({ currentDate, s
 
             <div className="mb-10">
                 <div className="mb-3 flex items-center gap-3">
-                    {(!houTier1 && !iahTier1 && !i90Tier1)
+                    {(!iahTier1 && !i90Tier1)
                         ? <LuCircleMinus size={25} className="text-slate-400" />
                         : status.t1_active
                             ? <LuCircleCheckBig size={25} className="text-green-500" />
@@ -122,17 +121,13 @@ export const StatusBreakdown: React.FC<StatusBreakdownProps> = ({ currentDate, s
                         </p>
                         <ul>
                             <li>
-                                For controllers with ground or local tier one endorsements at <i>either</i> HOU or IAH,
-                                all three hours must be spent staffing the highest endorsed position at that airport.
-                            </li>
-                            <li>
-                                For controllers with ground or local tier one endorsements at <i>both</i> HOU and IAH,
-                                at least one hour must be spent staffing the highest endorsed position at each airport.
+                                For controllers with ground or local tier one endorsements at IAH,
+                                all three hours must be spent staffing the highest endorsed position at IAH.
                             </li>
                             <li>
                                 For controllers with a I90 TRACON tier one endorsement,
                                 all three hours must be spent staffing any I90 TRACON position.
-                                Satisfying this requirement also satisfies the HOU and IAH currency requirements.
+                                Satisfying this requirement also satisfies the IAH currency requirement.
                             </li>
                             <li>
                                 For controllers with a center tier two endorsement,
@@ -141,8 +136,8 @@ export const StatusBreakdown: React.FC<StatusBreakdownProps> = ({ currentDate, s
                         </ul>
                     </Explain>
                 </div>
-                {(!houTier1 && !iahTier1 && !i90Tier1) ? (
-                    <p>Since you do not hold any tier one or tier two endorsements, you are not subject to this requirement.</p>
+                {(!iahTier1 && !i90Tier1) ? (
+                    <p>Since you do not hold any endorsements with a currency requirement, you are not subject to this requirement.</p>
                 ) : (
                     <>
                         <p className="mb-3">
@@ -158,35 +153,15 @@ export const StatusBreakdown: React.FC<StatusBreakdownProps> = ({ currentDate, s
                                     Since you hold an I90 tier one endorsement, tier one currency is
                                     calculated from time spent controlling any I90 TRACON position.
                                 </>
-                            ) : (houTier1 && iahTier1) ? (
-                                <>
-                                    Since you hold both HOU and IAH tier one endorsements, tier one currency
-                                    is calculated from time spent controlling your highest endorsed position at each airport.
-                                    Additionally, you are expected to control for at least one hour at each airport.
-                                </>
                             ) : (
                                 <>
-                                    Since you only hold an {iahTier1 ? 'IAH' : 'HOU'} tier one endorsement, tier one currency
-                                    is calculated from time spent controlling your highest endorsed position at {iahTier1 ? 'IAH' : 'HOU'}.
+                                    Since you hold an IAH tier one endorsement, tier one currency
+                                    is calculated from time spent controlling your highest endorsed position at IAH.
                                 </>
                             )}
                         </p>
                         <table className="border-separate border-spacing-x-3 border-spacing-y-0.5">
                             <tbody>
-                                <tr>
-                                    <td className="text-green-500">
-                                        {status.endorsements.hou_gnd && <LuBadgeCheck />}
-                                    </td>
-                                    <th className="text-right">HOU GND</th>
-                                    <td className="font-mono text-sm">{status.hou_gnd_hours ?? '00:00'}</td>
-                                </tr>
-                                <tr>
-                                    <td className="text-green-500">
-                                        {status.endorsements.hou_twr && <LuBadgeCheck />}
-                                    </td>
-                                    <th className="text-right">HOU TWR</th>
-                                    <td className="font-mono text-sm">{status.hou_twr_hours ?? '00:00'}</td>
-                                </tr>
                                 <tr>
                                     <td className="text-green-500">
                                         {status.endorsements.iah_gnd && <LuBadgeCheck />}

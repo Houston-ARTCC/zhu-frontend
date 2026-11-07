@@ -97,13 +97,13 @@ const UserProfile: NextPage<UserProfileParams> = async (props) => {
                                 <p className="text-right font-medium">Delivery + Ground</p>
                                 <div className="flex flex-col gap-2 sm:flex-row">
                                     <EndorsementBadge tier={0} name="GND" status={user.endorsements.gnd} />
-                                    <EndorsementBadge tier={1} name="HOU GND" status={user.endorsements.hou_gnd} />
+                                    <EndorsementBadge tier={2} name="HOU GND" status={user.endorsements.hou_gnd} />
                                     <EndorsementBadge tier={1} name="IAH GND" status={user.endorsements.iah_gnd} />
                                 </div>
                                 <p className="text-right font-medium">Local</p>
                                 <div className="flex flex-col gap-2 sm:flex-row">
                                     <EndorsementBadge tier={0} name="TWR" status={user.endorsements.twr} />
-                                    <EndorsementBadge tier={1} name="HOU TWR" status={user.endorsements.hou_twr} />
+                                    <EndorsementBadge tier={2} name="HOU TWR" status={user.endorsements.hou_twr} />
                                     <EndorsementBadge tier={1} name="IAH TWR" status={user.endorsements.iah_twr} />
                                 </div>
                                 <p className="text-right font-medium">Approach</p>

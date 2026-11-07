@@ -108,9 +108,9 @@ export const RosterView: React.FC<RosterViewProps> = ({ data }) => {
                     sortable: true,
                     sortFunction: sortHOU,
                     cell: (user) => {
-                        if (user.endorsements.hou_twr) return <EndorsementBadge tier={1} name="HOU TWR" status={user.endorsements.hou_twr} />;
-                        if (user.endorsements.hou_gnd) return <EndorsementBadge tier={1} name="HOU GND" status={user.endorsements.hou_gnd} />;
-                        return <EndorsementBadge tier={1} name="HOU" status={false} />;
+                        if (user.endorsements.hou_twr) return <EndorsementBadge tier={2} name="HOU TWR" status={user.endorsements.hou_twr} />;
+                        if (user.endorsements.hou_gnd) return <EndorsementBadge tier={2} name="HOU GND" status={user.endorsements.hou_gnd} />;
+                        return <EndorsementBadge tier={2} name="HOU" status={false} />;
                     },
                     width: '110px',
                     center: true,
