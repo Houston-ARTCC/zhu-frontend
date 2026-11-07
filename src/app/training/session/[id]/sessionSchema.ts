@@ -1,6 +1,7 @@
 'use client';
 
 import { z } from 'zod';
+import { SessionType } from '@/types/training';
 import { otsStatuses, progress, sessionLevels, sessionTypes } from '../../selectOptions';
 
 export const sessionSchema = z.object({
@@ -50,15 +51,22 @@ export const sessionSchema = z.object({
 
     movements: z.number().nonnegative('May not be negative'),
 
-    // Matches VATUSA's CTRS validation, which rejects the whole filing otherwise.
-    position: z.string().regex(
-        /^[A-Z0-9]{2,3}(_[A-Z0-9]{1,3})?_(DEL|GND|TWR|APP|DEP|CTR|FSS)$/i,
-        'Enter a position like HOU_GND or I90_D_APP',
-    ),
+    position: z.string(),
 
     notes: z.string(),
 
     solo_granted: z.boolean(),
-});
+})
+    .superRefine(({ type, position }, ctx) => {
+        if (type.value === SessionType.Classroom && position === '') return;
+        // Matches VATUSA's CTRS validation, which rejects the whole filing otherwise.
+        if (/^[A-Z0-9]{2,3}(_[A-Z0-9]{1,3})?_(DEL|GND|TWR|APP|DEP|CTR|FSS)$/i.test(position)) return;
+        ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: ['position'],
+            message: 'Enter a position like HOU_GND or I90_D_APP',
+        });
+    })
+    .transform((values) => ({ ...values, position: values.position || 'ZHU_GND' }));
 
 export type SessionFormValues = z.infer<typeof sessionSchema>;
