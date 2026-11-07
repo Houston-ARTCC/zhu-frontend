@@ -63,10 +63,12 @@ const EventShiftInfo: React.FC<EventShiftInfoProps> = ({ shift, deleteShift }) =
                 menuClassName="w-64"
             >
                 <div className="flex">
-                    <DropdownButton className="grow basis-0" onClick={() => assignController(null)}>
-                        <LuUserX />
-                        Unassign
-                    </DropdownButton>
+                    {controller && (
+                        <DropdownButton className="grow basis-0" onClick={() => assignController(null)}>
+                            <LuUserX />
+                            Unassign
+                        </DropdownButton>
+                    )}
                     <DropdownButton className="grow basis-0" onClick={() => deleteShift(shift.id)}>
                         <LuX />
                         Delete
