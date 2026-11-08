@@ -17,10 +17,10 @@ jobs:
           echo NEXT_PUBLIC_SENTRY_DSN=${{ vars.NEXT_PUBLIC_SENTRY_DSN }} >> $GITHUB_ENV
           echo SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }} >> $GITHUB_ENV
 
-      - name: Configure Node 20
+      - name: Configure Node 26
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 26
           cache: "npm"
 
       - name: Install dependencies
