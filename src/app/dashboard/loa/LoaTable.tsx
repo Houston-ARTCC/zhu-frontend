@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import DataTable from 'react-data-table-component';
 import { LuCircleCheck, LuChevronDown, LuMessageCircle, LuX } from 'react-icons/lu';
 import { format } from 'date-fns-tz';
 import { Tooltip } from 'react-tooltip';
+import { DataTable } from '@/components/DataTable';
 import { ClientPortal } from '@/components/ClientPortal';
 import { dataTableStyle } from '@/utils/dataTableStyle';
 import type { LeaveOfAbsence } from '@/types/loa';

@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import DataTable from 'react-data-table-component';
 import { LuChevronDown } from 'react-icons/lu';
 import { format } from 'date-fns-tz';
+import { DataTable } from '@/components/DataTable';
 import { Badge } from '@/components/Badge';
 import { RatingStars } from '@/components/RatingStars';
 import { dataTableStyle } from '@/utils/dataTableStyle';

@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import DataTable from 'react-data-table-component';
 import { LuChevronDown, LuFileBadge, LuUserX, LuX } from 'react-icons/lu';
 import { format } from 'date-fns-tz';
 import { useSession } from 'next-auth/react';
+import { DataTable } from '@/components/DataTable';
 import { Badge } from '@/components/Badge';
 import { ClientPortal } from '@/components/ClientPortal';
 import { dataTableStyle } from '@/utils/dataTableStyle';

@@ -3,10 +3,10 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { format } from 'date-fns-tz';
-import DataTable from 'react-data-table-component';
 import { LuCheck, LuChevronDown } from 'react-icons/lu';
 import { addMonths, getQuarter, startOfQuarter } from 'date-fns';
 import classNames from 'classnames';
+import { DataTable } from '@/components/DataTable';
 import { RosterOptions } from '@/components/RosterOptions';
 import { ProfilePicture } from '@/components/ProfilePicture';
 import { dataTableStyle } from '@/utils/dataTableStyle';

@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import DataTable from 'react-data-table-component';
 import { LuChevronDown, LuMessageCircle } from 'react-icons/lu';
 import { format } from 'date-fns-tz';
 import { Tooltip } from 'react-tooltip';
+import { DataTable } from '@/components/DataTable';
 import { dataTableStyle } from '@/utils/dataTableStyle';
 import { SESSION_LEVEL_STRING, SESSION_TYPE_STRING, type UserTrainingRequests } from '@/types/training';
 import { BookSessionButton } from './BookSessionModal';

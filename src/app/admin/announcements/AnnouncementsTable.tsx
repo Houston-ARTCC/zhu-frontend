@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import DataTable from 'react-data-table-component';
 import { format } from 'date-fns-tz';
 import { LuX } from 'react-icons/lu';
+import { DataTable } from '@/components/DataTable';
 import { AnnouncementModal } from '@/components/AnnouncementModal';
 import { ClientPortal } from '@/components/ClientPortal';
 import { dataTableStyle } from '@/utils/dataTableStyle';

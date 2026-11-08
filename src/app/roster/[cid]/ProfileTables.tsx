@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { format } from 'date-fns-tz';
-import DataTable from 'react-data-table-component';
 import { LuCalendar, LuChevronDown, LuPlane } from 'react-icons/lu';
+import { DataTable } from '@/components/DataTable';
 import { RatingStars } from '@/components/RatingStars';
 import { formatDuration } from '@/utils/time';
 import { dataTableStyle } from '@/utils/dataTableStyle';

@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import DataTable from 'react-data-table-component';
 import { LuChevronDown } from 'react-icons/lu';
 import { EndorsementBadge } from '@/app/roster/ProfileBadges';
+import { DataTable } from '@/components/DataTable';
 import { ProfilePicture } from '@/components/ProfilePicture';
 import { RosterOptions } from '@/components/RosterOptions';
 import { dataTableStyle } from '@/utils/dataTableStyle';

@@ -1,7 +1,7 @@
 import React from 'react';
-import DataTable from 'react-data-table-component';
 import { format } from 'date-fns-tz';
 import { CgSpinner } from 'react-icons/cg';
+import { DataTable } from '@/components/DataTable';
 import { Badge, type BadgeColor } from '@/components/Badge';
 import { dataTableStyle } from '@/utils/dataTableStyle';
 import { type LogEntry, LogEntryAction } from '@/types/admin';

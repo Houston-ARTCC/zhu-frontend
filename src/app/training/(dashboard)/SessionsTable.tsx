@@ -2,12 +2,12 @@
 
 import React from 'react';
 import Link from 'next/link';
-import DataTable from 'react-data-table-component';
 import { LuCalendar, LuChevronDown, LuClock, LuFileCog, LuPlane, LuRadioTower } from 'react-icons/lu';
 import { format } from 'date-fns-tz';
 import { useSession } from 'next-auth/react';
 import { RiArrowRightCircleFill, RiCheckboxCircleFill, RiCloseCircleFill, RiIndeterminateCircleFill } from 'react-icons/ri';
 import classNames from 'classnames';
+import { DataTable } from '@/components/DataTable';
 import { Badge } from '@/components/Badge';
 import { dataTableStyle } from '@/utils/dataTableStyle';
 import { parseHtml } from '@/utils/parseHtml';

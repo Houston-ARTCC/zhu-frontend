@@ -2,11 +2,11 @@
 
 import React, { useState } from 'react';
 import { format } from 'date-fns-tz';
-import DataTable from 'react-data-table-component';
 import { LuCheck, LuChevronDown, LuEye, LuUserX } from 'react-icons/lu';
 import { addMonths, getQuarter, startOfQuarter } from 'date-fns';
 import classNames from 'classnames';
 import { CgSpinner } from 'react-icons/cg';
+import { DataTable } from '@/components/DataTable';
 import { Button } from '@/components/Button';
 import { ProfilePicture } from '@/components/ProfilePicture';
 import { ClientPortal } from '@/components/ClientPortal';

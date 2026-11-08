@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import { LuChevronDown, LuSquarePen } from 'react-icons/lu';
 import { format } from 'date-fns-tz';
-import DataTable from 'react-data-table-component';
 import { useSession } from 'next-auth/react';
+import { DataTable } from '@/components/DataTable';
 import { ClientPortal } from '@/components/ClientPortal';
 import { dataTableStyle } from '@/utils/dataTableStyle';
 import { type Resource } from '@/types/resources';
