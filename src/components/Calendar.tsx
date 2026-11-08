@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { getDay, format, parse, startOfWeek } from 'date-fns';
 import { enUS } from 'date-fns/locale/en-US';
+import { formatInTimeZone } from 'date-fns-tz';
 import * as rbc from 'react-big-calendar';
 import { LuArrowLeft, LuArrowRight } from 'react-icons/lu';
 import classNames from 'classnames';
@@ -57,6 +58,10 @@ const localizer = rbc.dateFnsLocalizer({
     },
 });
 
+const formats: rbc.Formats = {
+    timeGutterFormat: (date) => `${format(date, 'haaaaa')} / ${formatInTimeZone(date, 'Etc/UTC', 'HHmm')}Z`,
+};
+
 const eventPropGetter: rbc.EventPropGetter<Event> = (event) => ({
     className: classNames({
         'bg-sky-400 border-sky-500': event.type === 'event',
@@ -78,6 +83,10 @@ export const Calendar: React.FC<CalendarProps> = ({ className, events: eventsPro
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
 
     const [events, setEvents] = useState<Event[]>([]);
+
+    // The server can't know the browser's timezone, so Zulu labels would break hydration.
+    const [mounted, setMounted] = useState<boolean>(false);
+    useEffect(() => setMounted(true), []);
 
     const dateKey = useMemo(() => `${currentDate.getFullYear()}/${currentDate.getMonth() + 1}`, [currentDate]);
 
@@ -122,6 +131,7 @@ export const Calendar: React.FC<CalendarProps> = ({ className, events: eventsPro
         <div className={className}>
             <rbc.Calendar
                 localizer={localizer}
+                formats={mounted ? formats : undefined}
                 components={{ toolbar: Toolbar }}
                 events={events}
                 showAllEvents={true}
