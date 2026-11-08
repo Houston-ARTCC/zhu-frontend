@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { format } from 'date-fns-tz';
+import { formatInTimeZone } from 'date-fns-tz';
 import { LuArrowRight, LuCalendar, LuClock } from 'react-icons/lu';
 import { AnnouncementModal } from '@/components/AnnouncementModal';
 import { Card } from '@/components/Card';
@@ -23,7 +23,7 @@ export const AnnouncementCard: React.FC<AnnouncementCardProps> = ({ announcement
             <Card interactive onClick={() => setShowModal(true)}>
                 <div className="flex w-full items-center">
                     <p className="inline-block w-32 whitespace-nowrap text-gray-400">
-                        {format(new Date(announcement.posted), 'MMM d, y')}
+                        {formatInTimeZone(announcement.posted, 'Etc/UTC', 'MMM d, y')}
                     </p>
                     <h4 className="w-full shrink truncate text-lg font-medium">
                         {announcement.title}
@@ -56,14 +56,14 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => (
                     </h5>
                     <div className="mb-3 flex items-center gap-3">
                         <LuCalendar size={23} />
-                        {format(new Date(event.start), 'MMM d, y')}
+                        {formatInTimeZone(event.start, 'Etc/UTC', 'MMM d, y')}
                     </div>
                     <div className="flex items-center gap-3">
                         <LuClock size={23} />
                         <span className="flex items-center gap-1.5">
-                            {format(new Date(event.start), 'HH:mm zzz')}
+                            {formatInTimeZone(event.start, 'Etc/UTC', 'HH:mm zzz')}
                             <LuArrowRight />
-                            {format(new Date(event.end), 'HH:mm zzz')}
+                            {formatInTimeZone(event.end, 'Etc/UTC', 'HH:mm zzz')}
                         </span>
                     </div>
                     <LocalTimeRange className="mt-1 block pl-[35px]" start={event.start} end={event.end} />
