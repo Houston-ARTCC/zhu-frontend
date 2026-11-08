@@ -12,43 +12,48 @@ import { SelectInput, type SelectOption, TextInput, ToggleInput } from '@/compon
 import { Button } from '@/components/Button';
 import { fetchApi } from '@/utils/fetch';
 import { type TrainingSession } from '@/types/training';
+import { type BasicUser } from '@/types/users';
 import { otsStatuses, progress, sessionLevels, sessionTypes } from '../../selectOptions';
-import { type SessionFormValues, sessionSchema } from './sessionSchema';
+import { type SessionFormInput, type SessionFormValues, sessionSchema } from './sessionSchema';
 
 // react-quill-new touches `document` at import time, so it can't be SSR'd.
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
+type Person = Pick<BasicUser, 'cid' | 'first_name' | 'last_name'>;
+
 interface FileSessionFormProps {
     editing?: boolean;
-    session: TrainingSession;
+    session?: TrainingSession;
+    student: Person;
+    instructor: Person;
     instructorOptions: {
         label: string;
         options: SelectOption[];
     }[];
 }
 
-export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, session, instructorOptions }) => {
+export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, session, student, instructor, instructorOptions }) => {
     const router = useRouter();
 
-    const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+    const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm<SessionFormInput, unknown, SessionFormValues>({
         // ReactDatePicker's ref has no focus(), which would crash handleSubmit on a date error.
         shouldFocusError: false,
         resolver: zodResolver(sessionSchema),
         defaultValues: {
             instructor: {
-                value: session.instructor.cid,
-                label: `${session.instructor.first_name} ${session.instructor.last_name}`,
+                value: instructor.cid,
+                label: `${instructor.first_name} ${instructor.last_name}`,
             },
-            start: new Date(session.start),
-            end: new Date(session.end),
-            type: sessionTypes.find(({ value }) => value === session.type) ?? sessionTypes[0],
-            level: sessionLevels.find(({ value }) => value === session.level) ?? sessionLevels[0],
-            ots_status: otsStatuses.find(({ value }) => value === session.ots_status) ?? otsStatuses[0],
-            progress: progress.find(({ value }) => value === session.progress) ?? progress[0],
-            movements: session.movements ?? 0,
-            position: session.position ?? '',
-            solo_granted: session.solo_granted,
-            notes: session.notes ?? '',
+            start: session && new Date(session.start),
+            end: session && new Date(session.end),
+            type: sessionTypes.find(({ value }) => value === session?.type) ?? sessionTypes[0],
+            level: sessionLevels.find(({ value }) => value === session?.level) ?? sessionLevels[0],
+            ots_status: otsStatuses.find(({ value }) => value === session?.ots_status) ?? otsStatuses[0],
+            progress: progress.find(({ value }) => value === session?.progress) ?? progress[0],
+            movements: session?.movements ?? 0,
+            position: session?.position ?? '',
+            solo_granted: session?.solo_granted ?? false,
+            notes: session?.notes ?? '',
         },
     });
 
@@ -61,11 +66,12 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
             ots_status: values.ots_status.value,
             progress: values.progress.value,
         };
+        let path = `/training/sessions/${student.cid}/`;
+        if (session) {
+            path = `/training/session/${session.id}/`;
+        }
         toast.promise(
-            fetchApi(
-                `/training/session/${session.id}/`,
-                { method: editing ? 'PUT' : 'POST', body: JSON.stringify(data) },
-            ),
+            fetchApi(path, { method: editing ? 'PUT' : 'POST', body: JSON.stringify(data) }),
             {
                 pending: 'Saving session',
                 success: 'Successfully saved',
@@ -82,7 +88,7 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
                 router.back();
                 router.refresh();
             });
-    }, [editing, session, router]);
+    }, [editing, session, student, router]);
 
     return (
         <form onSubmit={handleSubmit(saveSession)}>
@@ -92,7 +98,7 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
                         className="xl:col-span-3"
                         disabled
                         label="Student"
-                        value={`${session.student.first_name} ${session.student.last_name}`}
+                        value={`${student.first_name} ${student.last_name}`}
                     />
                     <Controller
                         name="instructor"

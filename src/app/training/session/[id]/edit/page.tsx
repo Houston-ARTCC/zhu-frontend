@@ -62,6 +62,8 @@ const FileSession: NextPage<FileSessionParams> = async (props) => {
                 <SessionForm
                     editing
                     session={trainingSession}
+                    student={trainingSession.student}
+                    instructor={trainingSession.instructor}
                     instructorOptions={options}
                 />
             </PageContent>

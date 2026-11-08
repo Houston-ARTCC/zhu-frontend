@@ -69,4 +69,5 @@ export const sessionSchema = z.object({
     })
     .transform((values) => ({ ...values, position: values.position || 'ZHU_GND' }));
 
+export type SessionFormInput = z.input<typeof sessionSchema>;
 export type SessionFormValues = z.infer<typeof sessionSchema>;
