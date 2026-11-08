@@ -8,9 +8,11 @@ interface DropdownProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 't
     title: ReactNode;
     hideArrow?: boolean;
     menuClassName?: string;
+    /** Floats the menu so it stays inside the viewport and doesn't inherit the button's styles. */
+    anchored?: boolean;
 }
 
-export const Dropdown: React.FC<DropdownProps> = ({ title, hideArrow = false, className, menuClassName, children, ...props }) => (
+export const Dropdown: React.FC<DropdownProps> = ({ title, hideArrow = false, className, menuClassName, anchored = false, children, ...props }) => (
     <Menu as="div" className="relative">
         <MenuButton
             className={classNames(
@@ -25,10 +27,12 @@ export const Dropdown: React.FC<DropdownProps> = ({ title, hideArrow = false, cl
         </MenuButton>
         <MenuItems
             className={classNames(
-                'absolute right-0 mt-3 flex w-40 flex-col rounded-md bg-white py-1 shadow z-10',
+                'flex w-40 flex-col rounded-md bg-white py-1 shadow z-10',
+                { 'absolute right-0 mt-3': !anchored },
                 'focus:outline-hidden dark:bg-zinc-850 dark:shadow-stone-900',
                 menuClassName,
             )}
+            anchor={anchored ? { to: 'bottom end', gap: 12, padding: 16 } : undefined}
             unmount={false}
             modal={false}
         >

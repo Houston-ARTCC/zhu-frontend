@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import classNames from 'classnames';
 import { LuPlus, LuUserX, LuX } from 'react-icons/lu';
 import { toast } from 'react-toastify';
+import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
 import { Dropdown, DropdownButton, DropdownSeparator } from '@/components/Dropdown';
 import { fetchApi } from '@/utils/fetch';
@@ -14,14 +15,28 @@ import { type SchemaError } from '@/types/api';
 import { AddPositionsButton } from '../../AddPositionsModal';
 import { type AddPositionsFormValues } from '../../addPositionsSchema';
 import { ManualAssignButton } from './ManualAssignModal';
+import { formatScore, overlaps, useAssignments } from './AssignmentsContext';
 
 interface EventShiftInfoProps {
     shift: EventShift;
+    callsign: string;
+    index: number;
+    count: number;
     deleteShift: (shiftId: number) => void;
 }
 
-const EventShiftInfo: React.FC<EventShiftInfoProps> = ({ shift, deleteShift }) => {
+const EventShiftInfo: React.FC<EventShiftInfoProps> = ({ shift, callsign, index, count, deleteShift }) => {
     const [controller, setController] = useState<BasicUser | null>(shift.user);
+    const { signups, slots, setSlot } = useAssignments();
+
+    useEffect(() => {
+        setSlot(shift.id, { callsign, index, count, cid: controller?.cid ?? null });
+        return () => setSlot(shift.id, null);
+    }, [shift.id, callsign, index, count, controller, setSlot]);
+
+    const assignedDuring = (cid: number) => [...slots]
+        .filter(([id, slot]) => id !== shift.id && slot.cid === cid && overlaps(slot, { index, count }))
+        .map(([, slot]) => slot.callsign);
 
     // FIXME: Something weird is going on here... The shifts get jumbled around.
     const assignController = useCallback(
@@ -60,7 +75,8 @@ const EventShiftInfo: React.FC<EventShiftInfoProps> = ({ shift, deleteShift }) =
                     )
                 }
                 className="flex h-6 w-full justify-center gap-1! p-0! text-sm font-medium hover:bg-transparent!"
-                menuClassName="w-64"
+                menuClassName="w-96"
+                anchored
             >
                 <div className="flex">
                     {controller && (
@@ -75,11 +91,17 @@ const EventShiftInfo: React.FC<EventShiftInfoProps> = ({ shift, deleteShift }) =
                     </DropdownButton>
                 </div>
                 {shift.requests.length > 0 && <DropdownSeparator />}
-                {shift.requests.map((request) => (
-                    <DropdownButton key={request.id} onClick={() => assignController(request.user.cid)}>
-                        {request.user.first_name} {request.user.last_name}
-                    </DropdownButton>
-                ))}
+                {shift.requests.map((request) => {
+                    const signup = signups.get(request.user.cid);
+                    const elsewhere = assignedDuring(request.user.cid);
+                    return (
+                        <DropdownButton key={request.id} onClick={() => assignController(request.user.cid)}>
+                            <span className="truncate">{request.user.first_name} {request.user.last_name}</span>
+                            {elsewhere.length > 0 && <Badge small color="amber-400">on {elsewhere.join(', ')}</Badge>}
+                            {signup && <span className="ml-auto">{signup.rating} &middot; {formatScore(signup.score)}</span>}
+                        </DropdownButton>
+                    );
+                })}
                 <DropdownSeparator />
                 <ManualAssignButton assignController={assignController} />
             </Dropdown>
@@ -129,8 +151,15 @@ const EventPositionInfo: React.FC<EventPositionInfoProps> = ({ position, deleteP
                 </Button>
             </div>
             <div className="flex">
-                {shifts.map((shift) => (
-                    <EventShiftInfo key={shift.id} shift={shift} deleteShift={deleteShift} />
+                {shifts.map((shift, index) => (
+                    <EventShiftInfo
+                        key={shift.id}
+                        shift={shift}
+                        callsign={position.callsign}
+                        index={index}
+                        count={shifts.length}
+                        deleteShift={deleteShift}
+                    />
                 ))}
                 <button
                     type="button"

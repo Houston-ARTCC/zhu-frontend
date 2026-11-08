@@ -50,6 +50,12 @@ export type EventScore = {
     }
 };
 
+export type EventSignup = BasicUser & {
+    rating: string;
+    requests: number;
+    score: number | null;
+};
+
 export type PresetPosition = {
     callsign: string;
     shifts: number;
