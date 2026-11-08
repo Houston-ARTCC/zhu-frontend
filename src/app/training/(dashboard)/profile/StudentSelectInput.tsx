@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import { CgSpinner } from 'react-icons/cg';
 import { SelectInput, type SelectOption } from '@/components/Forms';
 
@@ -15,6 +15,9 @@ interface StudentSelectInputProps {
 export const StudentSelectInput: React.FC<StudentSelectInputProps> = ({ options }) => {
     const router = useRouter();
     const pathname = usePathname();
+    const { cid } = useParams<{ cid?: string }>();
+
+    const selected = options.flatMap((group) => group.options).find(({ value }) => value === Number(cid)) ?? null;
 
     const [loading, setLoading] = useState<boolean>(false);
     const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
@@ -34,6 +37,7 @@ export const StudentSelectInput: React.FC<StudentSelectInputProps> = ({ options 
                 label="Select a Student"
                 menuPortalTarget={portalTarget ?? undefined}
                 options={options}
+                value={selected}
                 onChange={(option) => {
                     if (option) {
                         setLoading(true);
