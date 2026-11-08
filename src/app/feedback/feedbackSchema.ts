@@ -10,7 +10,7 @@ export const feedbackSchema = z.object({
         .optional()
         .nullable(),
 
-    controller_callsign: z.string().optional(),
+    controller_callsign: z.string().max(16, 'Must be 16 characters or fewer').optional(),
 
     event: z.object({
         value: z.number(),
@@ -19,7 +19,7 @@ export const feedbackSchema = z.object({
         .optional()
         .nullable(),
 
-    pilot_callsign: z.string().optional(),
+    pilot_callsign: z.string().max(16, 'Must be 16 characters or fewer').optional(),
 
     rating: z.number().min(1).max(5),
 
