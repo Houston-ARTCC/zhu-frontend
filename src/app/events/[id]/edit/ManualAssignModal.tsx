@@ -1,13 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
-import { LuUserPlus } from 'react-icons/lu';
 import { type GroupBase } from 'react-select';
 import { Button } from '@/components/Button';
-import { DropdownButton } from '@/components/Dropdown';
 import { SelectInput, type SelectOption } from '@/components/Forms';
 import { Modal, type ModalProps } from '@/components/Modal';
-import { ClientPortal } from '@/components/ClientPortal';
 import { fetchApi } from '@/utils/fetch';
 import { type BasicUser, type Roster } from '@/types/users';
 import { userToOption } from '@/utils';
@@ -84,25 +81,5 @@ export const ManualAssignModal: React.FC<ManualAssignModalProps> = ({ assignCont
                 </div>
             </form>
         </Modal>
-    );
-};
-
-export const ManualAssignButton: React.FC<ManualAssignModalProps> = ({ assignController }) => {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <>
-            <DropdownButton onClick={() => setOpen(true)}>
-                <LuUserPlus />
-                Manually Assign
-            </DropdownButton>
-            <ClientPortal>
-                <ManualAssignModal
-                    assignController={assignController}
-                    show={open}
-                    close={() => setOpen(false)}
-                />
-            </ClientPortal>
-        </>
     );
 };

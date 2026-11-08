@@ -3,10 +3,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import classNames from 'classnames';
-import { LuPlus, LuUserX, LuX } from 'react-icons/lu';
+import { LuPlus, LuUserPlus, LuUserX, LuX } from 'react-icons/lu';
 import { toast } from 'react-toastify';
 import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
+import { ClientPortal } from '@/components/ClientPortal';
 import { Dropdown, DropdownButton, DropdownSeparator } from '@/components/Dropdown';
 import { fetchApi } from '@/utils/fetch';
 import { type EventPosition, type EventShift } from '@/types/events';
@@ -14,7 +15,7 @@ import { type BasicUser } from '@/types/users';
 import { type SchemaError } from '@/types/api';
 import { AddPositionsButton } from '../../AddPositionsModal';
 import { type AddPositionsFormValues } from '../../addPositionsSchema';
-import { ManualAssignButton } from './ManualAssignModal';
+import { ManualAssignModal } from './ManualAssignModal';
 import { formatScore, overlaps, useAssignments } from './AssignmentsContext';
 
 interface EventShiftInfoProps {
@@ -28,6 +29,8 @@ interface EventShiftInfoProps {
 const EventShiftInfo: React.FC<EventShiftInfoProps> = ({ shift, callsign, index, count, deleteShift }) => {
     const [controller, setController] = useState<BasicUser | null>(shift.user);
     const { signups, slots, setSlot } = useAssignments();
+    // Lives outside the menu, which remounts its items when it closes.
+    const [manualAssign, setManualAssign] = useState<boolean>(false);
 
     useEffect(() => {
         setSlot(shift.id, { callsign, index, count, cid: controller?.cid ?? null });
@@ -103,8 +106,18 @@ const EventShiftInfo: React.FC<EventShiftInfoProps> = ({ shift, callsign, index,
                     );
                 })}
                 <DropdownSeparator />
-                <ManualAssignButton assignController={assignController} />
+                <DropdownButton onClick={() => setManualAssign(true)}>
+                    <LuUserPlus />
+                    Manually Assign
+                </DropdownButton>
             </Dropdown>
+            <ClientPortal>
+                <ManualAssignModal
+                    assignController={assignController}
+                    show={manualAssign}
+                    close={() => setManualAssign(false)}
+                />
+            </ClientPortal>
         </div>
     );
 };
