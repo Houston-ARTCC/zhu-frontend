@@ -1,21 +1,15 @@
 import React from 'react';
+import { notFound } from 'next/navigation';
 import type { NextPage } from 'next';
-import { fetchApi } from '@/utils/fetch';
-import { type User } from '@/types/users';
-import { auth } from '@/auth';
+import { requireMember } from '@/lib/auth/guards';
+import { getAuthenticatedUserById } from '@/lib/users/repository';
 import { EditProfileForm } from './EditProfileForm';
 
-async function getUser(id: number): Promise<User> {
-    return fetchApi(
-        `/users/${id}/`,
-        { cache: 'no-store' },
-    );
-}
-
 const EditProfile: NextPage = async () => {
-    const session = await auth();
+    const session = await requireMember();
 
-    const user = await getUser(session!.user.cid);
+    const user = await getAuthenticatedUserById(session.user.cid);
+    if (!user) notFound();
 
     return <EditProfileForm user={user} />;
 };

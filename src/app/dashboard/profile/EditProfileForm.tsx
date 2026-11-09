@@ -7,13 +7,13 @@ import { toast } from 'react-toastify';
 import { Button } from '@/components/Button';
 import { TextAreaInput } from '@/components/Forms';
 import { ProfilePicture } from '@/components/ProfilePicture';
-import { fetchApi } from '@/utils/fetch';
-import { type User } from '@/types/users';
+import { type AuthenticatedUser } from '@/types/users';
+import { updateOwnProfile } from '@/lib/users/actions';
+import { type EditProfileFormValues, editProfileSchema } from '@/lib/users/schema';
 import { ChangeProfilePictureButton } from './ChangeProfilePictureModal';
-import { type EditProfileFormValues, editProfileSchema } from './editProfileSchema';
 
 interface EditProfileFormProps {
-    user: User;
+    user: AuthenticatedUser;
 }
 
 export const EditProfileForm: React.FC<EditProfileFormProps> = ({ user }) => {
@@ -26,17 +26,14 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({ user }) => {
 
     const putRequest: SubmitHandler<EditProfileFormValues> = useCallback((data) => {
         toast.promise(
-            fetchApi(
-                `/users/${user.cid}/`,
-                { method: 'PUT', body: JSON.stringify(data) },
-            ),
+            updateOwnProfile(data),
             {
                 pending: 'Saving changes',
                 success: 'Successfully saved',
                 error: 'Something went wrong, check console for more info',
             },
         );
-    }, [user]);
+    }, []);
 
     return (
         <>

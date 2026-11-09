@@ -9,8 +9,8 @@ import { z } from 'zod';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { FileInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
-import { type User } from '@/types/users';
+import { type AuthenticatedUser } from '@/types/users';
+import { uploadOwnProfilePicture } from '@/lib/users/actions';
 
 const profilePictureSchema = z.object({
     avatar: z.union([
@@ -22,10 +22,10 @@ const profilePictureSchema = z.object({
 type ProfilePictureFormValues = z.infer<typeof profilePictureSchema>;
 
 interface ChangeProfilePictureModalProps extends ModalProps {
-    user: User;
+    user: AuthenticatedUser;
 }
 
-export const ChangeProfilePictureModal: React.FC<ChangeProfilePictureModalProps> = ({ user, show, close }) => {
+export const ChangeProfilePictureModal: React.FC<ChangeProfilePictureModalProps> = ({ show, close }) => {
     const router = useRouter();
 
     const { control, handleSubmit, formState: { errors, isSubmitting } } = useForm({
@@ -34,11 +34,10 @@ export const ChangeProfilePictureModal: React.FC<ChangeProfilePictureModalProps>
 
     const putProfilePicture: SubmitHandler<ProfilePictureFormValues> = useCallback((values) => {
         const data = new FormData();
-
         data.append('avatar', values.avatar);
 
         toast.promise(
-            fetchApi(`/users/${user.cid}/`, { method: 'PUT', body: data }),
+            uploadOwnProfilePicture(data),
             {
                 pending: 'Saving changes',
                 success: 'Successfully saved',
@@ -49,7 +48,7 @@ export const ChangeProfilePictureModal: React.FC<ChangeProfilePictureModalProps>
                 router.refresh();
                 close?.();
             });
-    }, [user, router, close]);
+    }, [router, close]);
 
     const resetProfilePicture = () => putProfilePicture({ avatar: '' });
 

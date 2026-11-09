@@ -16,7 +16,7 @@ interface StatisticsTableProps {
 
 export const PurgeTable: React.FC<StatisticsTableProps> = ({ initialData }) => {
     const { loading, data, currentDate, setCurrentDate } = useStatistics(
-        (key) => `/connections/statistics/admin/${key}/`,
+        (key) => `/api/statistics/admin/${key}`,
         initialData,
     );
 

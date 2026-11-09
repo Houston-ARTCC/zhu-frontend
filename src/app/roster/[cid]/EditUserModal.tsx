@@ -10,8 +10,8 @@ import { useSession } from 'next-auth/react';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { SelectInput, TextInput, ToggleInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
 import { type AuthenticatedUser } from '@/types/users';
+import { adminUpdateUser } from '@/lib/users/actions';
 import { ToggleEndorsementButton } from './ToggleEndorsementButton';
 import { type EditUserFormValues, editUserSchema, endorsementsOnlySchema, roles } from './editUserSchema';
 
@@ -27,13 +27,13 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
     const canEditRoles = session?.user.permissions.is_training_admin ?? false;
     const canEditProfile = canEditRoles || (session?.user.permissions.is_staff ?? false);
     const restrictedToOwnEndorsements = session?.user.permissions.endorsement_scope === 'own';
-    const ownEndorsements = session?.user.endorsements;
-    const isEndorsementEditable = useCallback((key: string) => (
-        !restrictedToOwnEndorsements || ownEndorsements?.[key] === true
-    ), [restrictedToOwnEndorsements, ownEndorsements]);
+    const ownEndorsements = session?.user.endorsements ?? {};
+    const isEndorsementEditable = (key: string) => (
+        !restrictedToOwnEndorsements || ownEndorsements[key] === true
+    );
 
     const { reset, register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm<EditUserFormValues>({
-        // The API hides email and prevent_event_signup from endorsement-only editors.
+        // Endorsement-only editors don't get email or prevent_event_signup to validate.
         resolver: zodResolver((canEditProfile ? editUserSchema : endorsementsOnlySchema) as typeof editUserSchema),
     });
 
@@ -43,27 +43,28 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
     );
 
     const patchResource: SubmitHandler<EditUserFormValues> = useCallback((values) => {
-        let body: Record<string, unknown>;
+        const input: Parameters<typeof adminUpdateUser>[1] = {
+            endorsements: values.endorsements as Record<string, boolean>,
+        };
+
+        if (canEditProfile) {
+            input.first_name = values.first_name;
+            input.last_name = values.last_name;
+            input.email = values.email;
+            input.home_facility = values.home_facility;
+            input.initials = values.initials;
+            input.prevent_event_signup = values.prevent_event_signup;
+            input.cic_endorsed = values.cic_endorsed;
+        }
+
         if (canEditRoles && values.roles) {
-            body = {
-                ...values,
-                roles: values.roles.map(({ value, label }) => ({ short: value, long: label })),
-            };
-        } else if (canEditProfile) {
-            body = { ...values };
-            delete body.roles;
-        } else {
-            // Training-staff-only requesters can only touch endorsements.
-            // The API rejects mentors for sending any key they don't hold, even unchanged.
-            body = {
-                endorsements: Object.fromEntries(
-                    Object.entries(values.endorsements).filter(([key]) => isEndorsementEditable(key)),
-                ),
-            };
+            input.roles = values.roles
+                .filter((r): r is NonNullable<typeof r> => r !== undefined)
+                .map(({ value }) => value);
         }
 
         toast.promise(
-            fetchApi(`/users/${user.cid}/`, { method: 'PATCH', body: JSON.stringify(body) }),
+            adminUpdateUser(user.cid, input),
             {
                 pending: `Updating "${user.first_name} ${user.last_name}"`,
                 success: 'Successfully updated',
@@ -74,7 +75,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                 router.refresh();
                 close?.();
             });
-    }, [user, router, close, canEditRoles, canEditProfile, isEndorsementEditable]);
+    }, [user, router, close, canEditRoles, canEditProfile]);
 
     return (
         <Modal large show={show} title="Modify User" close={close}>
@@ -135,7 +136,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, show, close 
                                 isDisabled={!canEditRoles}
                                 error={errors.roles?.message}
                                 options={roles.filter((role) => !role.isFixed)}
-                                value={value?.sort((a, b) => (a.id > b.id ? 1 : -1))}
+                                value={value?.sort((a, b) => (a!.id > b!.id ? 1 : -1))}
                                 closeMenuOnSelect={false}
                                 isClearable={false}
                                 isMulti

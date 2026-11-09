@@ -15,7 +15,7 @@ export const ProfilePicture: React.FC<ProfilePictureProps> = ({ user, size, clas
         return (
             <Image
                 className={classNames('rounded-full bg-slate-300', className)}
-                src={`${process.env.NEXT_PUBLIC_API_URL}${user.profile}`}
+                src={`/media/${user.profile}`}
                 alt={`${user.first_name} ${user.last_name}`}
                 height={size}
                 width={size}

@@ -8,8 +8,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Modal, type ModalProps } from '@/components/Modal';
 import { Button } from '@/components/Button';
 import { TextInput, ToggleInput } from '@/components/Forms';
-import { fetchApi } from '@/utils/fetch';
 import { type UserStatistic } from '@/types/connections';
+import { purgeUsers } from '@/lib/administration/actions';
 import { type PurgeFormValues, purgeSchema } from './purgeSchema';
 
 interface PurgeModalProps extends ModalProps{
@@ -24,12 +24,9 @@ export const PurgeModal: React.FC<PurgeModalProps> = ({ users, show, close }) =>
     });
 
     const deleteUsers: SubmitHandler<PurgeFormValues> = useCallback((values) => {
-        const data = { reason: values.reason };
-        const deleteRequests = users.map((user) => (
-            fetchApi(`/users/${user.cid}/`, { method: 'DELETE', body: JSON.stringify(data) })
-        ));
+        const cids = users.map((user) => user.cid);
         toast.promise(
-            Promise.all(deleteRequests),
+            purgeUsers(cids, values.reason),
             {
                 pending: 'Purging users',
                 success: 'Successfully purged',

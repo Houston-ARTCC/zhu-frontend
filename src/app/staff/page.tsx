@@ -2,21 +2,14 @@ import React from 'react';
 import { type NextPage } from 'next';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
-import { fetchApi } from '@/utils/fetch';
 import { type Staff } from '@/types/users';
+import { getStaff } from '@/lib/users/repository';
 import { StaffCard } from './StaffCard';
 
 export const metadata = { title: 'Facility Staff' };
 
-async function getStaff(): Promise<Staff> {
-    return fetchApi(
-        '/users/staff/',
-        { next: { revalidate: 3600 } },
-    );
-}
-
 const StaffPage: NextPage = async () => {
-    const staff = await getStaff();
+    const staff: Staff = await getStaff();
 
     return (
         <Page {...metadata}>

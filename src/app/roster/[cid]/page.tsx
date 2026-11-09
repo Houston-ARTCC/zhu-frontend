@@ -7,41 +7,13 @@ import { PageContent } from '@/components/PageContent';
 import { ProfilePicture } from '@/components/ProfilePicture';
 import { Card } from '@/components/Card';
 import { Heatmap } from '@/components/Heatmap';
-import { fetchApi } from '@/utils/fetch';
-import { type AuthenticatedUser, type User } from '@/types/users';
-import { type BasicFeedback } from '@/types/feedback';
-import { type DailyStatistic, type Session } from '@/types/connections';
+import { type AuthenticatedUser } from '@/types/users';
 import { auth } from '@/auth';
+import { getAuthenticatedUserById } from '@/lib/users/repository';
+import { getUserSessions, getUserDailyStatistics } from '@/lib/connections/repository';
+import { getFeedbackByController } from '@/lib/feedback/repository';
 import { ConnectionsTable, FeedbackTable } from './ProfileTables';
 import { EditUserButton } from './EditUserModal';
-
-async function getUser(cid: string): Promise<User | AuthenticatedUser> {
-    return fetchApi(
-        `/users/${cid}/`,
-        { cache: 'no-store' },
-    );
-}
-
-async function getUserConnections(cid: string): Promise<Session[]> {
-    return fetchApi(
-        `/connections/sessions/${cid}/`,
-        { cache: 'no-store' },
-    );
-}
-
-async function getUserStatistics(cid: string): Promise<DailyStatistic[]> {
-    return fetchApi(
-        `/connections/daily/${new Date().getFullYear()}/${cid}/`,
-        { cache: 'no-store' },
-    );
-}
-
-async function getUserFeedback(cid: string): Promise<BasicFeedback[]> {
-    return fetchApi(
-        `/users/${cid}/feedback/`,
-        { cache: 'no-store' },
-    );
-}
 
 interface UserProfileParams {
     params: Promise<{
@@ -51,14 +23,21 @@ interface UserProfileParams {
 
 const UserProfile: NextPage<UserProfileParams> = async (props) => {
     const params = await props.params;
+    const cidNum = parseInt(params.cid, 10);
+    if (isNaN(cidNum)) notFound();
+
     const session = await auth();
 
-    const user = await getUser(params.cid).catch(notFound);
-    const connections = await getUserConnections(params.cid);
-    const statistics = await getUserStatistics(params.cid);
+    const user = await getAuthenticatedUserById(cidNum);
+    if (!user) notFound();
+
+    const [connections, statistics] = await Promise.all([
+        getUserSessions(cidNum),
+        getUserDailyStatistics(cidNum, new Date().getFullYear()),
+    ]);
 
     const feedback = (session?.user.permissions.is_staff || session?.user.cid.toString() === params.cid)
-        && await getUserFeedback(params.cid);
+        && await getFeedbackByController(cidNum);
 
     return (
         <Page

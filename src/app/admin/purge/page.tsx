@@ -1,18 +1,10 @@
 import React from 'react';
 import { type NextPage } from 'next';
 import { PurgeTable } from '@/app/admin/purge/PurgeTable';
-import { fetchApi } from '@/utils/fetch';
-import type { AdminStatistics } from '@/types/connections';
-
-async function getStatistics(): Promise<AdminStatistics> {
-    return fetchApi(
-        '/connections/statistics/admin/',
-        { next: { revalidate: 3600 } },
-    );
-}
+import { getAdminStatistics } from '@/lib/connections/repository';
 
 const RosterPurge: NextPage = async () => {
-    const statistics = await getStatistics();
+    const statistics = await getAdminStatistics();
 
     return (
         <PurgeTable initialData={statistics} />
