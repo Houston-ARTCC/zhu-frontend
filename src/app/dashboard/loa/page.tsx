@@ -5,20 +5,14 @@ import { LuCircleCheck, LuCircleDashed, LuCircleHelp } from 'react-icons/lu';
 import { format } from 'date-fns';
 import { Card } from '@/components/Card';
 import { Alert, AlertTitle } from '@/components/Alert';
-import { fetchApi } from '@/utils/fetch';
-import type { LeaveOfAbsence } from '@/types/loa';
+import { requireMember } from '@/lib/auth/guards';
+import { getCurrentUserLoas } from '@/lib/loa/repository';
 import { Scheduler } from './Scheduler';
 import { LoaTable } from './LoaTable';
 
-async function getCurrentLoas(): Promise<LeaveOfAbsence[]> {
-    return fetchApi(
-        '/loa/',
-        { cache: 'no-store' },
-    );
-}
-
 const RequestLoa: NextPage = async () => {
-    const loas = await getCurrentLoas();
+    const session = await requireMember();
+    const loas = await getCurrentUserLoas(session.user.cid);
 
     const currentDate = new Date();
     const currentLoa = loas

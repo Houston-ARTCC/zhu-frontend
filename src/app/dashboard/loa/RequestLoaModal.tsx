@@ -9,8 +9,8 @@ import { toast } from 'react-toastify';
 import { Modal, type ModalProps } from '@/components/Modal';
 import { TextAreaInput, TextInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
-import { type RequestLOAFormValues, requestLoaSchema } from './requestLoaSchema';
+import { requestLoa } from '@/lib/loa/actions';
+import { type RequestLOAFormValues, requestLoaSchema } from '@/lib/loa/schema';
 
 interface RequestLOAModalProps extends ModalProps {
     start?: Date;
@@ -30,8 +30,9 @@ export const RequestLoaModal: React.FC<RequestLOAModalProps> = ({ start, end, sh
     useEffect(() => reset({ start, end }), [start, end, show, reset]);
 
     const putRequest: SubmitHandler<RequestLOAFormValues> = useCallback((data) => {
+        const toDateStr = (d: Date) => d.toISOString().slice(0, 10);
         toast.promise(
-            fetchApi('/loa/', { method: 'POST', body: JSON.stringify(data) }),
+            requestLoa({ start: toDateStr(data.start), end: toDateStr(data.end), remarks: data.remarks }),
             {
                 pending: 'Submitting request',
                 success: 'Successfully submitted',

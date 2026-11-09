@@ -6,8 +6,8 @@ import { toast } from 'react-toastify';
 import { format } from 'date-fns';
 import { Modal, type ModalProps } from '@/components/Modal';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
 import { type LeaveOfAbsence } from '@/types/loa';
+import { cancelOwnLoa } from '@/lib/loa/actions';
 
 interface CancelLoaModalProps extends ModalProps {
     loa?: LeaveOfAbsence;
@@ -24,7 +24,7 @@ export const CancelLoaModal: React.FC<CancelLoaModalProps> = ({ loa, show, close
         setIsSubmitting(true);
 
         toast.promise(
-            fetchApi(`/loa/${loa.id}/`, { method: 'DELETE' }),
+            cancelOwnLoa(loa.id),
             {
                 pending: 'Cancelling leave of absence',
                 success: 'Successfully canceled',
