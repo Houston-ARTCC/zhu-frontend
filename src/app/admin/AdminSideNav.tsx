@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import type { Route } from 'next';
 import { SideNav } from '@/components/SideNav';
 import type { AdminNotifications } from '@/types/admin';
 
@@ -22,7 +23,7 @@ export const AdminSideNav: React.FC<AdminSideNavProps> = ({ notifications }) => 
                         auth: (user) => user?.permissions.can_view_audit_log ?? false,
                     },
                     { title: 'Training Requests', route: 'training-requests' },
-                    { title: 'Django Panel', url: `${process.env.NEXT_PUBLIC_API_URL}/admin/` },
+                    { title: 'Django Panel', url: `${process.env.NEXT_PUBLIC_API_URL}/admin/` as Route },
                 ],
             },
             {

@@ -3,6 +3,7 @@ import { type SentryBuildOptions, withSentryConfig } from '@sentry/nextjs/config
 
 const nextConfig: NextConfig = {
     output: 'standalone',
+    typedRoutes: true,
     turbopack: {
         rules: {
             '*.css': {

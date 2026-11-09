@@ -41,9 +41,9 @@ export const Dropdown: React.FC<DropdownProps> = ({ title, hideArrow = false, cl
     </Menu>
 );
 
-type LinkProps = Omit<HTMLProps<HTMLAnchorElement>, keyof InternalLinkProps> & InternalLinkProps & RefAttributes<HTMLAnchorElement>;
+type LinkProps<T> = Omit<HTMLProps<HTMLAnchorElement>, keyof InternalLinkProps<T>> & InternalLinkProps<T> & RefAttributes<HTMLAnchorElement>;
 
-export const DropdownItem: React.FC<LinkProps> = ({ className, children, ...props }) => (
+export const DropdownItem = <T,>({ className, children, ...props }: LinkProps<T>) => (
     <MenuItem>
         <Link prefetch={false} className={classNames('whitespace-nowrap px-4 py-1 text-inherit', className)} {...props}>
             {children}

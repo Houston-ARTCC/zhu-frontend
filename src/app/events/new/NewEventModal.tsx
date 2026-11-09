@@ -46,7 +46,7 @@ export const NewEventModal: React.FC<RequestTrainingModalProps> = ({ presets, st
         )
             .then((resp) => {
                 const { id } = resp as Event;
-                router.push(`/events/${id}/`);
+                router.push(`/events/${id}`);
                 router.refresh();
                 close?.();
             });

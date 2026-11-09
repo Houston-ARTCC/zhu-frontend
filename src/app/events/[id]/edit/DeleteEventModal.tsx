@@ -31,7 +31,7 @@ export const DeleteEventModal: React.FC<DeleteEventModalProps> = ({ event, show,
         )
             .then(() => {
                 setIsSubmitting(false);
-                router.push('/events/');
+                router.push('/events');
                 close?.();
             });
     }, [event, router, close]);

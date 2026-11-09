@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import { Popover, PopoverBackdrop, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { LuMenu, LuX } from 'react-icons/lu';
 import { type Session } from 'next-auth';
+import type { Route } from 'next';
 import { Dropdown, DropdownButton, DropdownItem, DropdownSeparator } from '@/components/Dropdown';
 import { ThemeButton } from './ThemeButton';
 
@@ -15,7 +16,7 @@ interface Section {
     title: string;
     children: ({
         title: string;
-        href?: string;
+        href?: Route;
         separate?: boolean;
         action?: () => void;
     })[];
@@ -129,7 +130,7 @@ const generateMenu = (session: Session | null): Section[] => {
 
     if (user.permissions.is_member) {
         sections[3].children.push(
-            { title: 'My Profile', href: `/roster/${user.cid}` },
+            { title: 'My Profile', href: `/roster/${user.cid}` as Route },
             { title: 'Dashboard', href: '/dashboard' },
             { title: 'Training Center', href: '/training' },
         );

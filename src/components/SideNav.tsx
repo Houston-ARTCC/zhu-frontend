@@ -6,6 +6,7 @@ import Link from 'next/link';
 import classNames from 'classnames';
 import { useSession } from 'next-auth/react';
 import type { Profile } from 'next-auth';
+import type { Route } from 'next';
 import { Badge } from '@/components/Badge';
 
 interface SideNavItemProps extends PropsWithChildren {
@@ -32,7 +33,7 @@ interface Section {
     children: ({
         title: string;
         route?: string;
-        url?: string;
+        url?: Route;
         alerts?: number;
         auth?: (token: Profile | undefined) => boolean;
     })[];
@@ -60,7 +61,7 @@ export const SideNav: React.FC<SideNavProps> = ({ rootPath, sections }) => {
                                 <SideNavItem key={child.route ?? child.url} active={child.route === (segment ?? '')}>
                                     <Link
                                         className="flex items-center gap-2 text-inherit"
-                                        href={child.url ?? `${rootPath}/${child.route}`}
+                                        href={child.url ?? `${rootPath}/${child.route}` as Route}
                                         prefetch={false}
                                     >
                                         {child.title}
