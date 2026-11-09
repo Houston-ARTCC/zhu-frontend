@@ -2,7 +2,7 @@
 
 import React from 'react';
 import CalendarHeatmap from 'react-calendar-heatmap';
-import { endOfYear, startOfYear } from 'date-fns';
+import { endOfYear, format, parseISO, startOfYear } from 'date-fns';
 import { Tooltip } from 'react-tooltip';
 import { type DailyStatistic } from '@/types/connections';
 
@@ -30,11 +30,12 @@ export const Heatmap: React.FC<HeatmapProps> = ({ data }) => (
             gutterSize={2}
             startDate={startOfYear(new Date())}
             endDate={endOfYear(new Date())}
-            values={data}
+            // Local dates, since the heatmap reads date strings as UTC midnight, a day early in US time zones.
+            values={data.map((day) => ({ ...day, date: parseISO(day.date) }))}
             classForValue={(cell) => cellColor((cell as DailyStatistic | undefined)?.count ?? 0)}
-            tooltipDataAttrs={(value: DailyStatistic) => (
+            tooltipDataAttrs={(value: { date: Date, count: number }) => (
                 value.count
-                    ? { 'data-tooltip-html': `<b>${value.date}:</b> ${value.count.toFixed(2)} hours` }
+                    ? { 'data-tooltip-html': `<b>${format(value.date, 'yyyy-MM-dd')}:</b> ${value.count.toFixed(2)} hours` }
                     : {}
             )}
         />
