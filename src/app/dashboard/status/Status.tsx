@@ -16,7 +16,7 @@ interface StatusProps {
 
 export const Status: React.FC<StatusProps> = ({ initialData }) => {
     const { loading, data, currentDate, setCurrentDate } = useStatistics(
-        (key) => `/connections/statistics/status/${key}/`,
+        (key) => `/api/statistics/status/${key}`,
         initialData,
     );
 

@@ -1,6 +1,5 @@
 import { type Dispatch, type SetStateAction, useEffect, useMemo, useRef, useState } from 'react';
 import { getQuarter, getYear } from 'date-fns';
-import { fetchApi } from '@/utils/fetch';
 
 export function useStatistics<T extends Record<string, unknown>>(apiPath: (key: string) => string, initialData: T): {
     loading: boolean,
@@ -25,7 +24,8 @@ export function useStatistics<T extends Record<string, unknown>>(apiPath: (key: 
 
         setLoading(true);
 
-        fetchApi<T>(apiPath(dateKey))
+        fetch(apiPath(dateKey))
+            .then((resp) => resp.json() as Promise<T>)
             .then((newData) => {
                 dates.current.set(dateKey, newData);
                 setData(newData);

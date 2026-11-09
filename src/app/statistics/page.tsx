@@ -3,29 +3,16 @@ import { type NextPage } from 'next';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
 import { Heatmap } from '@/components/Heatmap';
-import { fetchApi } from '@/utils/fetch';
-import { type DailyStatistic, type Statistics } from '@/types/connections';
+import { getDailyStatistics, getStatistics } from '@/lib/connections/repository';
 import { StatisticsTable } from './StatisticsTable';
 
 export const metadata = { title: 'Controller Statistics' };
 
-async function getAggregateStatistics(): Promise<DailyStatistic[]> {
-    return fetchApi(
-        `/connections/daily/${new Date().getFullYear()}/`,
-        { next: { revalidate: 3600 } },
-    );
-}
-
-async function getStatistics(): Promise<Statistics> {
-    return fetchApi(
-        '/connections/statistics/',
-        { next: { revalidate: 3600 } },
-    );
-}
-
 const StatisticsPage: NextPage = async () => {
-    const aggregateStatistics = await getAggregateStatistics();
-    const statistics = await getStatistics();
+    const [aggregateStatistics, statistics] = await Promise.all([
+        getDailyStatistics(new Date().getFullYear()),
+        getStatistics(),
+    ]);
 
     return (
         <Page {...metadata}>

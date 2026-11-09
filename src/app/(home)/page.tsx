@@ -6,76 +6,16 @@ import { PageContent } from '@/components/PageContent';
 import { ProfilePicture } from '@/components/ProfilePicture';
 import { getPositionName } from '@/utils/facilities';
 import { formatDuration } from '@/utils/time';
-import { fetchApi } from '@/utils/fetch';
-import { type BasicUser } from '@/types/users';
-import { type BasicEvent } from '@/types/events';
-import { type Announcement } from '@/types/announcements';
-import { type OnlineConnection, type TopController, type TopPosition } from '@/types/connections';
+import { getRecentAnnouncements } from '@/lib/announcements/repository';
+import { getOnlineControllers, getTopControllers, getTopPositions } from '@/lib/connections/repository';
+import { getEvents } from '@/lib/events/repository';
+import { getNewestControllers } from '@/lib/users/repository';
 import { AnnouncementCard, EventCard } from './HomepageCards';
 import { HomepageBanner } from './HomepageBanner';
 
 export const metadata = { title: 'Welcome to Houston ARTCC!' };
 
 const TROPHY_COLORS = ['text-yellow-500', 'text-slate-400', 'text-amber-600'];
-
-async function getOnlineConnection(): Promise<OnlineConnection[]> {
-    return fetchApi(
-        '/connections/online/',
-        { next: { revalidate: 60 } },
-    );
-}
-
-async function getRecentAnnouncements(): Promise<Announcement[]> {
-    return fetchApi(
-        '/announcements/recent/',
-        { cache: 'no-store' },
-    );
-}
-
-async function getUpcomingEvents(): Promise<BasicEvent[]> {
-    const data: BasicEvent[] = await fetchApi(
-        '/events/',
-        { cache: 'no-store' },
-    );
-
-    return data.filter((event) => !event.hidden).slice(0, 2);
-}
-
-async function getNewestControllers(): Promise<BasicUser[]> {
-    const data = await fetchApi<BasicUser[]>(
-        '/users/newest/',
-        { next: { revalidate: 60 } },
-    );
-
-    return data.slice(0, 3);
-}
-
-async function getTopControllers(): Promise<TopController[]> {
-    const data = await fetchApi<TopController[]>(
-        '/connections/top/controllers/',
-        { next: { revalidate: 60 } },
-    );
-
-    return data.slice(0, 3);
-}
-
-async function getTopPositions(): Promise<TopPosition[]> {
-    const data: TopPosition[] = await fetchApi(
-        '/connections/top/positions/',
-        { next: { revalidate: 60 } },
-    );
-
-    return data.slice(0, 3);
-}
-
-async function settled<T>(promise: Promise<T>, fallback: T): Promise<T> {
-    try {
-        return await promise;
-    } catch (err) {
-        console.error('Home page data fetch failed:', err);
-        return fallback;
-    }
-}
 
 const Home: NextPage = async () => {
     const [
@@ -86,12 +26,12 @@ const Home: NextPage = async () => {
         topControllers,
         topPositions,
     ] = await Promise.all([
-        settled(getOnlineConnection(), [] as OnlineConnection[]),
-        settled(getRecentAnnouncements(), [] as Announcement[]),
-        settled(getUpcomingEvents(), [] as BasicEvent[]),
-        settled(getNewestControllers(), [] as BasicUser[]),
-        settled(getTopControllers(), [] as TopController[]),
-        settled(getTopPositions(), [] as TopPosition[]),
+        getOnlineControllers(),
+        getRecentAnnouncements(4),
+        getEvents({ limit: 2 }),
+        getNewestControllers(3),
+        getTopControllers(3),
+        getTopPositions(3),
     ]);
 
     return (

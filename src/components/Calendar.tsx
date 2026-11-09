@@ -8,7 +8,6 @@ import * as rbc from 'react-big-calendar';
 import { LuArrowLeft, LuArrowRight } from 'react-icons/lu';
 import classNames from 'classnames';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
 import { calendarEventFromEvent, calendarEventFromSession } from '@/utils/calendar';
 import type { Calendar as CalendarResponse } from '@/types/calendar';
 
@@ -113,7 +112,8 @@ export const Calendar: React.FC<CalendarProps> = ({ className, events: eventsPro
             return;
         }
 
-        fetchApi<CalendarResponse>(`/calendar/${dateKey}/`)
+        fetch(`/api/calendar/${dateKey}`)
+            .then((resp) => resp.json() as Promise<CalendarResponse>)
             .then((data) => {
                 const newEvents = data.events.map(calendarEventFromEvent)
                     .concat(data.sessions.map(calendarEventFromSession));

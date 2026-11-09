@@ -31,9 +31,21 @@ export type AdminUserStatistic = UserStatistic & {
     training_active: boolean;
 };
 
-export type UserStatusStatistics = AdminUserStatistic & {
-    endorsements: Endorsements;
+// Personal status view: the viewer's own activity, so no identity fields
+// (those live in the session). Only rating + endorsements + hours are used.
+export type UserStatusStatistics = {
+    rating: string;
+    month_1_hours?: string;
+    month_2_hours?: string;
+    month_3_hours?: string;
+    quarter_hours?: string;
+    quarter_active: boolean;
     quarter_quota: string;
+    endorsements: Endorsements;
+    t1_hours?: string;
+    t1_active: boolean;
+    training_hours?: string;
+    training_active: boolean;
     hou_gnd_hours?: string;
     hou_twr_hours?: string;
     iah_gnd_hours?: string;
