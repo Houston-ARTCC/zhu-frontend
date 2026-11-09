@@ -8,8 +8,8 @@ import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
 import { TextAreaInput, TextInput, ToggleInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
-import { type VisitFormValues, visitSchema } from './visitSchema';
+import { submitVisitApplication } from '@/lib/visit/actions';
+import { type VisitFormValues, visitSchema } from '@/lib/visit/schema';
 
 export const VisitForm: React.FC = () => {
     const router = useRouter();
@@ -20,12 +20,8 @@ export const VisitForm: React.FC = () => {
     });
 
     const postRequest: SubmitHandler<VisitFormValues> = useCallback((values) => {
-        const data = { reason: values.reason };
         toast.promise(
-            fetchApi(
-                '/visit/',
-                { method: 'POST', body: JSON.stringify(data) },
-            ),
+            submitVisitApplication({ reason: values.reason }),
             {
                 pending: 'Submitting application',
                 success: 'Successfully submitted',

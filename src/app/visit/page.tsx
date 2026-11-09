@@ -1,23 +1,17 @@
 import React from 'react';
 import { type NextPage } from 'next';
-import { PageContent } from '@/components/PageContent';
 import { Page } from '@/components/Page';
-import { fetchApi } from '@/utils/fetch';
-import { type VisitEligibility } from '@/types/visit';
+import { PageContent } from '@/components/PageContent';
+import { requireMember } from '@/lib/auth/guards';
+import { getVisitEligibility } from '@/lib/visit/eligibility';
 import { VisitCriterion } from './VisitCriterion';
 import { VisitForm } from './VisitForm';
 
 export const metadata = { title: 'Visit Houston' };
 
-async function getVisitEligibility(): Promise<VisitEligibility> {
-    return fetchApi(
-        '/visit/eligible/',
-        { cache: 'no-store' },
-    );
-}
-
 const Visit: NextPage = async () => {
-    const eligibility = await getVisitEligibility();
+    const session = await requireMember();
+    const eligibility = await getVisitEligibility(session.user.cid);
 
     return (
         <Page {...metadata}>
