@@ -11,7 +11,14 @@
     "test": "vitest run",
     "db:pull": "drizzle-kit pull",
     "db:generate": "drizzle-kit generate",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "cron:update-loa-status": "tsx --tsconfig tsconfig.scripts.json scripts/crons/update-loa-status.ts",
+    "cron:calculate-scores": "tsx --tsconfig tsconfig.scripts.json scripts/crons/calculate-scores.ts",
+    "cron:clear-expired-requests": "tsx --tsconfig tsconfig.scripts.json scripts/crons/clear-expired-requests.ts",
+    "cron:notify-inactive-controllers": "tsx --tsconfig tsconfig.scripts.json scripts/crons/notify-inactive-controllers.ts",
+    "cron:sync-vatusa-roster": "tsx --tsconfig tsconfig.scripts.json scripts/crons/sync-vatusa-roster.ts",
+    "cron:update-online-controllers": "tsx --tsconfig tsconfig.scripts.json scripts/crons/update-online-controllers.ts",
+    "cron:update-user-ratings": "tsx --tsconfig tsconfig.scripts.json scripts/crons/update-user-ratings.ts"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.10",
@@ -75,6 +82,7 @@
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.4.5",
     "ts-essentials": "^10.2.1",
+    "tsx": "^4.22.3",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.1",
     "vitest": "^5.1.0"
