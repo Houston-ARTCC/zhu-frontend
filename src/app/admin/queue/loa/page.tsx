@@ -2,19 +2,13 @@ import React from 'react';
 import type { NextPage } from 'next';
 import { LuCircleCheckBig } from 'react-icons/lu';
 import { Alert, AlertTitle } from '@/components/Alert';
-import { fetchApi } from '@/utils/fetch';
-import type { LeaveOfAbsence } from '@/types/loa';
+import { requireAdmin } from '@/lib/auth/guards';
+import { getAdminLoas } from '@/lib/loa/repository';
 import { LoaRequestCard } from './LoaRequestCard';
 
-async function getLoas(): Promise<LeaveOfAbsence[]> {
-    return fetchApi(
-        '/loa/admin/',
-        { cache: 'no-store' },
-    );
-}
-
 const LoaRequests: NextPage = async () => {
-    const loas = await getLoas();
+    await requireAdmin();
+    const loas = await getAdminLoas();
 
     const loaRequests = loas.filter((loa) => !loa.approved);
 

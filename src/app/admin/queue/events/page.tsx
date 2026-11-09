@@ -2,19 +2,11 @@ import React from 'react';
 import { type NextPage } from 'next';
 import { LuCircleCheckBig } from 'react-icons/lu';
 import { Alert, AlertTitle } from '@/components/Alert';
-import { fetchApi } from '@/utils/fetch';
-import { type SupportRequest } from '@/types/admin';
+import { getPendingSupportRequests } from '@/lib/events/repository';
 import { SupportRequestCard } from './SupportRequestCard';
 
-async function getSupportRequests(): Promise<SupportRequest[]> {
-    return fetchApi(
-        '/events/support/',
-        { cache: 'no-store' },
-    );
-}
-
 const EventSupportRequests: NextPage = async () => {
-    const requests = await getSupportRequests();
+    const requests = await getPendingSupportRequests();
 
     if (requests.length === 0) {
         return (

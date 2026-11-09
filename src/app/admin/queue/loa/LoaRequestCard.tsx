@@ -1,7 +1,10 @@
+'use client';
+
 import React from 'react';
 import { format } from 'date-fns';
 import { Card } from '@/components/Card';
 import type { LeaveOfAbsence } from '@/types/loa';
+import { approveLoa, rejectLoa } from '@/lib/loa/actions';
 import { RejectRequestButton } from '../RejectRequestModal';
 import { ApproveRequestButton } from '../ApproveRequestModal';
 
@@ -29,7 +32,7 @@ export const LoaRequestCard: React.FC<LoaRequestCardProps> = ({ request }) => (
                 title="Reject LOA Request"
                 confirmation={`Are you sure you would like to reject ${request.user.first_name} ${request.user.last_name}'s LOA request?`}
                 needsReason
-                endpoint={`/loa/admin/${request.id}/`}
+                onReject={(data) => rejectLoa({ id: request.id, reason: data.reason })}
                 toastConfig={{
                     pending: 'Rejecting LOA request',
                     success: 'Successfully rejected',
@@ -38,7 +41,7 @@ export const LoaRequestCard: React.FC<LoaRequestCardProps> = ({ request }) => (
             <ApproveRequestButton
                 title="Approve LOA Request"
                 confirmation={`Are you sure you would like to approve ${request.user.first_name} ${request.user.last_name}'s LOA request?`}
-                endpoint={`/loa/admin/${request.id}/`}
+                onApprove={() => approveLoa(request.id)}
                 toastConfig={{
                     pending: 'Approving LOA request',
                     success: 'Successfully approved',

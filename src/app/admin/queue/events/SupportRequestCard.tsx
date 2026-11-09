@@ -1,16 +1,19 @@
+'use client';
+
 import React from 'react';
 import { LuArrowRight, LuCalendar, LuClock, LuMail, LuTowerControl } from 'react-icons/lu';
 import { format } from 'date-fns-tz';
 import { Card } from '@/components/Card';
 import { type SupportRequest } from '@/types/admin';
+import { approveSupportRequest, rejectSupportRequest } from '@/lib/events/actions';
 import { RejectRequestButton } from '../RejectRequestModal';
 import { ApproveRequestButton } from '../ApproveRequestModal';
 
-interface VisitRequestCardProps {
+interface SupportRequestCardProps {
     request: SupportRequest;
 }
 
-export const SupportRequestCard: React.FC<VisitRequestCardProps> = ({ request }) => (
+export const SupportRequestCard: React.FC<SupportRequestCardProps> = ({ request }) => (
     <Card className="flex flex-col">
         <h4 className="text-xl font-bold">
             {request.name}
@@ -54,19 +57,18 @@ export const SupportRequestCard: React.FC<VisitRequestCardProps> = ({ request })
 
         <div className="mt-auto flex gap-3">
             <RejectRequestButton
-                title="Reject Visiting Request"
+                title="Reject Support Request"
                 confirmation={`Are you sure you would like to reject the support request for ${request.name}?`}
-                needsReason
-                endpoint={`/events/support/${request.id}/`}
+                onReject={() => rejectSupportRequest(request.id)}
                 toastConfig={{
-                    pending: 'Rejecting Support request',
+                    pending: 'Rejecting support request',
                     success: 'Successfully rejected',
                 }}
             />
             <ApproveRequestButton
                 title="Approve Support Request"
                 confirmation={`Are you sure you would like to approve the support request for ${request.name}?`}
-                endpoint={`/events/support/${request.id}/`}
+                onApprove={() => approveSupportRequest(request.id)}
                 toastConfig={{
                     pending: 'Approving support request',
                     success: 'Successfully approved',

@@ -2,19 +2,13 @@ import React from 'react';
 import { type NextPage } from 'next';
 import { LuCircleCheckBig } from 'react-icons/lu';
 import { Alert, AlertTitle } from '@/components/Alert';
-import { fetchApi } from '@/utils/fetch';
-import { type Feedback } from '@/types/feedback';
+import { requireAdmin } from '@/lib/auth/guards';
+import { getPendingFeedback } from '@/lib/feedback/repository';
 import { FeedbackCard } from './FeedbackCard';
 
-async function getFeedback(): Promise<Feedback[]> {
-    return fetchApi(
-        '/feedback/',
-        { cache: 'no-store' },
-    );
-}
-
 const PendingFeedback: NextPage = async () => {
-    const pendingFeedback = await getFeedback();
+    await requireAdmin();
+    const pendingFeedback = await getPendingFeedback();
 
     if (pendingFeedback.length === 0) {
         return (

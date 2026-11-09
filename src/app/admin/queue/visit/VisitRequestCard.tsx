@@ -1,6 +1,9 @@
+'use client';
+
 import React from 'react';
 import { Card } from '@/components/Card';
-import { type VisitRequest } from '@/types/visit';
+import type { VisitRequest } from '@/types/visit';
+import { approveVisitApplication, rejectVisitApplication } from '@/lib/visit/actions';
 import { RejectRequestButton } from '../RejectRequestModal';
 import { ApproveRequestButton } from '../ApproveRequestModal';
 
@@ -33,7 +36,7 @@ export const VisitRequestCard: React.FC<VisitRequestCardProps> = ({ request }) =
                 title="Reject Visiting Request"
                 confirmation={`Are you sure you would like to reject ${request.user.first_name} ${request.user.last_name}'s visiting request?`}
                 needsReason
-                endpoint={`/visit/${request.id}/`}
+                onReject={(data) => rejectVisitApplication({ id: request.id, reason: data.reason })}
                 toastConfig={{
                     pending: 'Rejecting visiting request',
                     success: 'Successfully rejected',
@@ -42,7 +45,7 @@ export const VisitRequestCard: React.FC<VisitRequestCardProps> = ({ request }) =
             <ApproveRequestButton
                 title="Approve Visiting Request"
                 confirmation={`Are you sure you would like to approve ${request.user.first_name} ${request.user.last_name}'s visiting request?`}
-                endpoint={`/visit/${request.id}/`}
+                onApprove={() => approveVisitApplication(request.id)}
                 toastConfig={{
                     pending: 'Approving visiting request',
                     success: 'Successfully approved',

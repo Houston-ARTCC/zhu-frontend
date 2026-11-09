@@ -2,19 +2,13 @@ import React from 'react';
 import { type NextPage } from 'next';
 import { LuCircleCheckBig } from 'react-icons/lu';
 import { Alert, AlertTitle } from '@/components/Alert';
-import { fetchApi } from '@/utils/fetch';
-import { type VisitRequest } from '@/types/visit';
+import { requireAdmin } from '@/lib/auth/guards';
+import { getPendingVisitApplications } from '@/lib/visit/repository';
 import { VisitRequestCard } from './VisitRequestCard';
 
-async function getVisitRequests(): Promise<VisitRequest[]> {
-    return fetchApi(
-        '/visit/',
-        { cache: 'no-store' },
-    );
-}
-
 const VisitRequests: NextPage = async () => {
-    const requests = await getVisitRequests();
+    await requireAdmin();
+    const requests = await getPendingVisitApplications();
 
     if (requests.length === 0) {
         return (

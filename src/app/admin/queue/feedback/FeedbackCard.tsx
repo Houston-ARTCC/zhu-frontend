@@ -1,8 +1,11 @@
+'use client';
+
 import React from 'react';
 import { LuMail, LuStar } from 'react-icons/lu';
 import classNames from 'classnames';
 import { Card } from '@/components/Card';
 import { type Feedback } from '@/types/feedback';
+import { approveFeedback, rejectFeedback } from '@/lib/feedback/actions';
 import { RejectRequestButton } from '../RejectRequestModal';
 import { ApproveRequestButton } from '../ApproveRequestModal';
 
@@ -63,7 +66,7 @@ export const FeedbackCard: React.FC<FeedbackCardProps> = ({ feedback }) => (
             <RejectRequestButton
                 title="Reject Feedback"
                 confirmation={`Are you sure you would like to reject ${feedback.pilot.first_name} ${feedback.pilot.last_name}'s feedback?`}
-                endpoint={`/feedback/${feedback.id}/`}
+                onReject={() => rejectFeedback(feedback.id)}
                 toastConfig={{
                     pending: 'Rejecting feedback',
                     success: 'Successfully rejected',
@@ -72,7 +75,7 @@ export const FeedbackCard: React.FC<FeedbackCardProps> = ({ feedback }) => (
             <ApproveRequestButton
                 title="Approve Feedback"
                 confirmation={`Are you sure you would like to approve ${feedback.pilot.first_name} ${feedback.pilot.last_name}'s feedback?`}
-                endpoint={`/feedback/${feedback.id}/`}
+                onApprove={() => approveFeedback(feedback.id)}
                 toastConfig={{
                     pending: 'Approving feedback',
                     success: 'Successfully approved',

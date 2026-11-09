@@ -1,21 +1,19 @@
 'use client';
 
 import React, { useCallback, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { TextAreaInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
 import { type RejectRequestFormValues, rejectRequestSchema } from './rejectRequestSchema';
 
 interface RejectRequestModalProps extends ModalProps {
     title: string;
     confirmation: string;
     needsReason?: boolean;
-    endpoint: string;
+    onReject: (data: RejectRequestFormValues) => Promise<void>;
     toastConfig: {
         pending: string;
         success: string;
@@ -26,33 +24,27 @@ export const RejectRequestModal: React.FC<RejectRequestModalProps> = ({
     title,
     needsReason = false,
     confirmation,
-    endpoint,
+    onReject,
     toastConfig,
     show,
     close,
 }) => {
-    const router = useRouter();
-
     const { reset, register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: needsReason ? zodResolver(rejectRequestSchema) : undefined,
     });
 
-    const deleteRequest: SubmitHandler<RejectRequestFormValues> = useCallback((data) => {
+    const reject: SubmitHandler<RejectRequestFormValues> = useCallback((data) => (
         toast.promise(
-            fetchApi(
-                endpoint,
-                { method: 'DELETE', body: JSON.stringify(data) },
-            ),
+            onReject(data),
             {
                 ...toastConfig,
                 error: 'Something went wrong, check console for more info',
             },
         )
             .then(() => {
-                router.refresh();
                 close?.();
-            });
-    }, [endpoint, toastConfig, router, close]);
+            })
+    ), [onReject, toastConfig, close]);
 
     useEffect(() => {
         if (!show) {
@@ -62,7 +54,7 @@ export const RejectRequestModal: React.FC<RejectRequestModalProps> = ({
 
     return (
         <Modal show={show} title={title} close={close}>
-            <form onSubmit={handleSubmit(deleteRequest)}>
+            <form onSubmit={handleSubmit(reject)}>
                 <p className="mb-5">{confirmation}</p>
 
                 {needsReason && (

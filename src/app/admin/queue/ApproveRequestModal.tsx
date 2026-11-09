@@ -1,43 +1,40 @@
 'use client';
 
 import React, { useCallback, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
 
-interface AcceptRequestModalProps extends ModalProps {
+interface ApproveRequestModalProps extends ModalProps {
     title: string;
     confirmation: string;
-    endpoint: string;
+    onApprove: () => Promise<void>;
     toastConfig: {
         pending: string;
         success: string;
     };
 }
 
-export const ApproveRequestModal: React.FC<AcceptRequestModalProps> = ({ title, confirmation, endpoint, toastConfig, show, close }) => {
-    const router = useRouter();
-
+export const ApproveRequestModal: React.FC<ApproveRequestModalProps> = ({ title, confirmation, onApprove, toastConfig, show, close }) => {
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-    const putRequest = useCallback(() => {
+    const approve = useCallback(() => {
         setIsSubmitting(true);
 
         toast.promise(
-            fetchApi(endpoint, { method: 'PUT' }),
+            onApprove(),
             {
                 ...toastConfig,
                 error: 'Something went wrong, check console for more info',
             },
         )
             .then(() => {
-                setIsSubmitting(false);
-                router.refresh();
                 close?.();
+            })
+            .finally(() => {
+                setIsSubmitting(false);
             });
-    }, [endpoint, toastConfig, router, close]);
+    }, [onApprove, toastConfig, close]);
 
     return (
         <Modal show={show} title={title} close={close}>
@@ -47,7 +44,7 @@ export const ApproveRequestModal: React.FC<AcceptRequestModalProps> = ({ title, 
                 <Button color="gray-300" onClick={close}>
                     Cancel
                 </Button>
-                <Button color="green-500" onClick={putRequest} disabled={isSubmitting}>
+                <Button color="green-500" onClick={approve} disabled={isSubmitting}>
                     Approve
                 </Button>
             </div>
@@ -55,7 +52,7 @@ export const ApproveRequestModal: React.FC<AcceptRequestModalProps> = ({ title, 
     );
 };
 
-export const ApproveRequestButton: React.FC<AcceptRequestModalProps> = (props) => (
+export const ApproveRequestButton: React.FC<ApproveRequestModalProps> = (props) => (
     <ModalButton
         className="bg-green-500/[.10]! text-green-500!"
         variant="secondary"
