@@ -1,5 +1,3 @@
-'use client';
-
 import { z } from 'zod';
 
 export const feedbackSchema = z.object({

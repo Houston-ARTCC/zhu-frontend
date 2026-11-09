@@ -3,32 +3,22 @@ import { type NextPage } from 'next';
 import { type SelectOption } from '@/components/Forms';
 import { PageContent } from '@/components/PageContent';
 import { Page } from '@/components/Page';
-import { fetchApi } from '@/utils/fetch';
-import { type BasicUser, type Roster } from '@/types/users';
-import { type BasicEvent } from '@/types/events';
+import { requireMember } from '@/lib/auth/guards';
+import { getArchivedEvents } from '@/lib/events/repository';
+import { getSimplifiedUsers } from '@/lib/users/repository';
 import { FeedbackForm } from './FeedbackForm';
 
 export const metadata = { title: 'Leave Feedback' };
 
-async function getControllers(): Promise<BasicUser[]> {
-    const roster = await fetchApi<Roster<BasicUser>>(
-        '/users/simplified/',
-        { next: { revalidate: 900 } },
-    );
-
-    return roster.home.concat(roster.visiting);
-}
-
-async function getEvents(): Promise<BasicEvent[]> {
-    return fetchApi(
-        '/events/archived/',
-        { cache: 'no-store' },
-    );
-}
-
 const Feedback: NextPage = async () => {
-    const controllers = await getControllers();
-    const events = await getEvents();
+    await requireMember();
+
+    const [roster, events] = await Promise.all([
+        getSimplifiedUsers(),
+        getArchivedEvents(),
+    ]);
+
+    const controllers = roster.home.concat(roster.visiting);
 
     const controllerOptions: SelectOption<number | null>[] = controllers.map(
         (controller) => ({

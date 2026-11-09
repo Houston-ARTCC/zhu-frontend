@@ -9,8 +9,8 @@ import { useSession } from 'next-auth/react';
 import { RatingInput } from '@/app/feedback/RatingInput';
 import { SelectInput, type SelectOption, TextAreaInput, TextInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
-import { type FeedbackFormValues, feedbackSchema } from './feedbackSchema';
+import { type SubmitFeedbackInput, submitFeedback } from '@/lib/feedback/actions';
+import { type FeedbackFormValues, feedbackSchema } from '@/lib/feedback/schema';
 
 interface FeedbackFormProps {
     controllerOptions: SelectOption<number | null>[];
@@ -29,24 +29,24 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({ controllerOptions, e
         },
     });
 
-    const postRequest: SubmitHandler<FeedbackFormValues> = useCallback((values) => {
-        const data = {
-            ...values,
-            controller: values.controller?.value,
-            event: values.event?.value,
+    const postRequest: SubmitHandler<FeedbackFormValues> = useCallback(async (values) => {
+        const input: SubmitFeedbackInput = {
+            controller: values.controller?.value ?? null,
+            controller_callsign: values.controller_callsign,
+            event: values.event?.value ?? null,
+            pilot_callsign: values.pilot_callsign,
+            rating: values.rating,
+            comments: values.comments,
         };
-        toast.promise(
-            fetchApi(
-                '/feedback/',
-                { method: 'POST', body: JSON.stringify(data) },
-            ),
+        await toast.promise(
+            submitFeedback(input),
             {
                 pending: 'Submitting feedback',
                 success: 'Successfully submitted',
                 error: 'Something went wrong, check console for more info',
             },
-        )
-            .then(() => router.push('/'));
+        );
+        router.push('/');
     }, [router]);
 
     if (!session) { return null; }

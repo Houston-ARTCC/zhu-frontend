@@ -1,19 +1,13 @@
 import React from 'react';
 import { type NextPage } from 'next';
-import { fetchApi } from '@/utils/fetch';
-import { type Feedback } from '@/types/feedback';
+import { requireAdmin } from '@/lib/auth/guards';
+import { getApprovedFeedback } from '@/lib/feedback/repository';
 import { ApprovedFeedbackCard } from './ApprovedFeedbackCard';
 
 export const metadata = { title: 'Feedback History' };
 
-async function getApprovedFeedback(): Promise<Feedback[]> {
-    return fetchApi(
-        '/feedback/history/',
-        { cache: 'no-store' },
-    );
-}
-
 const FeedbackHistory: NextPage = async () => {
+    await requireAdmin();
     const feedback = await getApprovedFeedback();
 
     if (feedback.length === 0) {
