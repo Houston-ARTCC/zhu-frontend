@@ -1,0 +1,46 @@
+name: Check
+on: push
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: zhu
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/zhu
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install tools
+        uses: jdx/mise-action@v5
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create and seed database
+        run: |
+          npx drizzle-kit push --force
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -q -f scripts/ci/seed.sql
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type-check
+        run: |
+          npx next typegen
+          npx tsc --noEmit
+          npx tsc --noEmit -p tsconfig.scripts.json
+
+      - name: Test
+        run: npm test
