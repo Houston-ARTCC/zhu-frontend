@@ -15,6 +15,7 @@ jobs:
           echo NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL }} >> $GITHUB_ENV
           echo NEXT_PUBLIC_MAPBOX_APIK=${{ vars.NEXT_PUBLIC_MAPBOX_APIK }} >> $GITHUB_ENV
           echo NEXT_PUBLIC_SENTRY_DSN=${{ vars.NEXT_PUBLIC_SENTRY_DSN }} >> $GITHUB_ENV
+          echo POSITION_PREFIXES=${{ vars.POSITION_PREFIXES }} >> $GITHUB_ENV
           echo SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }} >> $GITHUB_ENV
 
       - name: Configure Node 26

@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import mapboxgl, { type MapMouseEvent } from 'mapbox-gl';
 import { createRoot } from 'react-dom/client';
 import { useTheme } from 'next-themes';
-import { type Metar } from '@/types/tmu';
+import { type Metar } from '@/types/weather';
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_APIK as string;
 
