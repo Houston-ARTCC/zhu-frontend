@@ -3,26 +3,12 @@ import { notFound } from 'next/navigation';
 import { type NextPage } from 'next';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
-import { fetchApi } from '@/utils/fetch';
-import { type Event, type EventSignup } from '@/types/events';
+import { requireStaff } from '@/lib/auth/guards';
+import { getEventById, getEventSignups } from '@/lib/events/repository';
 import { AssignmentsProvider } from './AssignmentsContext';
 import { EditEventForm } from './EditEventForm';
 import { EditEventPositions } from './EditEventPositions';
 import { EventSignups } from './EventSignups';
-
-async function getEvent(id: string): Promise<Event> {
-    return fetchApi(
-        `/events/${id}/`,
-        { cache: 'no-store' },
-    );
-}
-
-async function getSignups(id: string): Promise<EventSignup[]> {
-    return fetchApi(
-        `/events/${id}/signups/`,
-        { cache: 'no-store' },
-    );
-}
 
 interface EventParams {
     params: Promise<{
@@ -31,20 +17,24 @@ interface EventParams {
 }
 
 const EditEvent: NextPage<EventParams> = async (props) => {
+    await requireStaff();
+
     const params = await props.params;
-    const event = await getEvent(params.id).catch(notFound);
-    const signups = await getSignups(params.id);
+    const event = await getEventById(Number(params.id));
+    if (!event) notFound();
+    const signups = await getEventSignups(event.id);
+    const { enroute, tracon, local } = event.positions;
 
     return (
         <Page title={event.name}>
             <PageContent>
                 <EditEventForm event={event} />
-                <AssignmentsProvider signups={signups}>
+                <AssignmentsProvider signups={signups} positions={[...enroute, ...tracon, ...local]}>
                     <EventSignups signups={signups} />
                     <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
-                        <EditEventPositions eventId={event.id} label="Enroute" positions={event.positions.enroute} />
-                        <EditEventPositions eventId={event.id} label="TRACON" positions={event.positions.tracon} />
-                        <EditEventPositions eventId={event.id} label="Local" positions={event.positions.local} />
+                        <EditEventPositions eventId={event.id} label="Enroute" positions={enroute} />
+                        <EditEventPositions eventId={event.id} label="TRACON" positions={tracon} />
+                        <EditEventPositions eventId={event.id} label="Local" positions={local} />
                     </div>
                 </AssignmentsProvider>
             </PageContent>

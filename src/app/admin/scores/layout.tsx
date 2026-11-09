@@ -1,18 +1,10 @@
 import React, { type PropsWithChildren } from 'react';
-import { fetchApi } from '@/utils/fetch';
-import { type BasicUser, type Roster } from '@/types/users';
+import { getSimplifiedUsers } from '@/lib/users/repository';
 import { userToOption } from '@/utils';
 import { UserSelectInput } from './UserSelectInput';
 
-async function getControllers(): Promise<Roster<BasicUser>> {
-    return fetchApi(
-        '/users/simplified/',
-        { cache: 'no-store' },
-    );
-}
-
 const EventScoresLayout: React.FC<PropsWithChildren> = async ({ children }) => {
-    const controllers = await getControllers();
+    const controllers = await getSimplifiedUsers();
 
     const options = [
         {

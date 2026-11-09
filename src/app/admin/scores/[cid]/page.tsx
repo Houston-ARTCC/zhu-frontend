@@ -1,14 +1,6 @@
 import { type NextPage } from 'next';
 import { EventScoreInfo } from '@/components/EventScoreInfo';
-import { fetchApi } from '@/utils/fetch';
-import { type EventScore } from '@/types/events';
-
-async function getEventScores(cid: string): Promise<EventScore[]> {
-    return fetchApi(
-        `/events/scores/${cid}/`,
-        { cache: 'no-store' },
-    );
-}
+import { getEventScoresForUser } from '@/lib/events/repository';
 
 interface EventScoresParams {
     params: Promise<{
@@ -18,7 +10,7 @@ interface EventScoresParams {
 
 const EventScores: NextPage<EventScoresParams> = async (props) => {
     const params = await props.params;
-    const scores = await getEventScores(params.cid);
+    const scores = await getEventScoresForUser(Number(params.cid));
 
     return <EventScoreInfo scores={scores} />;
 };

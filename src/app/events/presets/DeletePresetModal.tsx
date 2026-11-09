@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { LuX } from 'react-icons/lu';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
 import { type PositionPreset } from '@/types/events';
+import { deletePreset } from '@/lib/events/actions';
 
 interface DeletePresetModalProps extends ModalProps {
     preset: PositionPreset;
@@ -15,26 +15,20 @@ interface DeletePresetModalProps extends ModalProps {
 
 export const DeletePresetModal: React.FC<DeletePresetModalProps> = ({ preset, show, close }) => {
     const router = useRouter();
+    const [isPending, startTransition] = useTransition();
 
-    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
-    const deletePreset = useCallback(() => {
-        setIsSubmitting(true);
-
-        toast.promise(
-            fetchApi(`/events/presets/${preset.id}/`, { method: 'DELETE' }),
+    const onDelete = () => startTransition(async () => {
+        await toast.promise(
+            deletePreset(preset.id),
             {
                 pending: 'Deleting preset',
                 success: 'Successfully deleted',
                 error: 'Something went wrong, check console for more info',
             },
-        )
-            .then(() => {
-                setIsSubmitting(false);
-                router.refresh();
-                close?.();
-            });
-    }, [preset, router, close]);
+        );
+        router.refresh();
+        close?.();
+    });
 
     return (
         <Modal show={show} title="Delete Preset" close={close}>
@@ -44,7 +38,7 @@ export const DeletePresetModal: React.FC<DeletePresetModalProps> = ({ preset, sh
                 <Button color="gray-300" onClick={close}>
                     Cancel
                 </Button>
-                <Button color="red-400" type="submit" onClick={deletePreset} disabled={isSubmitting}>
+                <Button color="red-400" type="submit" onClick={onDelete} disabled={isPending}>
                     Delete
                 </Button>
             </div>

@@ -1,7 +1,7 @@
 'use client';
 
-import React, { createContext, type PropsWithChildren, useCallback, useContext, useMemo, useState } from 'react';
-import { type EventSignup } from '@/types/events';
+import React, { createContext, type PropsWithChildren, useContext, useMemo } from 'react';
+import { type EventPosition, type EventSignup } from '@/types/events';
 
 export interface ShiftSlot {
     callsign: string;
@@ -18,33 +18,23 @@ export const overlaps = (a: Omit<ShiftSlot, 'callsign' | 'cid'>, b: Omit<ShiftSl
 interface Assignments {
     signups: Map<number, EventSignup>;
     slots: Map<number, ShiftSlot>;
-    setSlot: (shiftId: number, slot: ShiftSlot | null) => void;
 }
 
 const AssignmentsContext = createContext<Assignments | null>(null);
 
 interface AssignmentsProviderProps {
     signups: EventSignup[];
+    positions: EventPosition[];
 }
 
-export const AssignmentsProvider: React.FC<PropsWithChildren<AssignmentsProviderProps>> = ({ signups, children }) => {
-    const [slots, setSlots] = useState<Map<number, ShiftSlot>>(new Map());
-
-    const setSlot = useCallback((shiftId: number, slot: ShiftSlot | null) => {
-        setSlots((prev) => {
-            const next = new Map(prev);
-            if (slot) {
-                next.set(shiftId, slot);
-            } else {
-                next.delete(shiftId);
-            }
-            return next;
-        });
-    }, []);
-
-    const signupsByCid = useMemo(() => new Map(signups.map((signup) => [signup.cid, signup])), [signups]);
-
-    const value = useMemo(() => ({ signups: signupsByCid, slots, setSlot }), [signupsByCid, slots, setSlot]);
+export const AssignmentsProvider: React.FC<PropsWithChildren<AssignmentsProviderProps>> = ({ signups, positions, children }) => {
+    const value = useMemo(() => ({
+        signups: new Map(signups.map((signup) => [signup.cid, signup])),
+        slots: new Map(positions.flatMap((position) => position.shifts.map((shift, index): [number, ShiftSlot] => [
+            shift.id,
+            { callsign: position.callsign, index, count: position.shifts.length, cid: shift.user?.cid ?? null },
+        ]))),
+    }), [signups, positions]);
 
     return <AssignmentsContext.Provider value={value}>{children}</AssignmentsContext.Provider>;
 };

@@ -10,9 +10,8 @@ import { LocalTimeRange } from '@/components/LocalTimeRange';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
 import { Alert, AlertTitle } from '@/components/Alert';
-import { fetchApi } from '@/utils/fetch';
-import { type Event } from '@/types/events';
 import { auth } from '@/auth';
+import { getEventById } from '@/lib/events/repository';
 import { EventPositions } from './EventPositions';
 
 function formatTimeUntilEvent(start: Date, end: Date): string {
@@ -23,13 +22,6 @@ function formatTimeUntilEvent(start: Date, end: Date): string {
     return formatDistance(currentDate, start);
 }
 
-async function getEvent(id: string): Promise<Event> {
-    return fetchApi(
-        `/events/${id}/`,
-        { cache: 'no-store' },
-    );
-}
-
 interface EventParams {
     params: Promise<{
         id: string;
@@ -38,7 +30,8 @@ interface EventParams {
 
 export async function generateMetadata(props: EventParams): Promise<Metadata> {
     const params = await props.params;
-    const event = await getEvent(params.id).catch(notFound);
+    const event = await getEventById(Number(params.id));
+    if (!event) notFound();
 
     const start = formatInTimeZone(new Date(event.start), 'Etc/UTC', 'MMM dd, yyyy, HH:mm zzz');
     const end = formatInTimeZone(new Date(event.end), 'Etc/UTC', 'MMM dd, yyyy, HH:mm zzz');
@@ -62,7 +55,10 @@ const ViewEvent: NextPage<EventParams> = async (props) => {
     const params = await props.params;
     const session = await auth();
 
-    const event = await getEvent(params.id).catch(notFound);
+    const event = await getEventById(Number(params.id));
+    if (!event) notFound();
+
+    if (event.hidden && !session?.user.permissions.is_staff) notFound();
 
     return (
         <Page title={event.name}>

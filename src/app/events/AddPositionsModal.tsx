@@ -1,27 +1,24 @@
+'use client';
+
 import React, { useCallback, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { LuCircleMinus, LuPlus } from 'react-icons/lu';
 import { Button } from '@/components/Button';
 import { TextInput } from '@/components/Forms';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
-import { type SchemaError } from '@/types/api';
-import { type AddPositionsFormValues, addPositionsSchema } from './addPositionsSchema';
+import { type AddPositionsFormValues, addPositionsSchema } from '@/lib/events/schema';
 
 interface AddPositionsModalProps extends ModalProps {
-    addPositions: (values: AddPositionsFormValues) => Promise<SchemaError[] | undefined>;
+    addPositions: (values: AddPositionsFormValues) => Promise<void>;
 }
 
 export const AddPositionsModal: React.FC<AddPositionsModalProps> = ({ addPositions, show, close }) => {
-    const router = useRouter();
-
     const {
         reset,
         register,
         control,
         handleSubmit,
-        setError,
         formState: { errors, isSubmitting },
     } = useForm({
         resolver: zodResolver(addPositionsSchema),
@@ -36,24 +33,11 @@ export const AddPositionsModal: React.FC<AddPositionsModalProps> = ({ addPositio
     });
 
     const postResource: SubmitHandler<AddPositionsFormValues> = useCallback(
-        (data) => {
-            addPositions(data).then((submitData) => {
-                if (!submitData) {
-                    router.refresh();
-                    close?.();
-                    return;
-                }
-
-                submitData.forEach((error, i) => {
-                    if (error.non_field_errors) {
-                        setError(`positions.${i}`, {
-                            message: error.non_field_errors[0],
-                        });
-                    }
-                });
-            });
+        async (data) => {
+            await addPositions(data);
+            close?.();
         },
-        [addPositions, setError, router, close],
+        [addPositions, close],
     );
 
     useEffect(() => {

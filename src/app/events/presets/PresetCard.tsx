@@ -1,16 +1,14 @@
 'use client';
 
-import React, { useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useCallback, useTransition } from 'react';
 import { toast } from 'react-toastify';
 import { DeletePresetButton } from '@/app/events/presets/DeletePresetModal';
 import { PresetPositions } from '@/app/events/presets/PresetPositions';
 import { AddPositionsButton } from '@/app/events/AddPositionsModal';
-import { type AddPositionsFormValues } from '@/app/events/addPositionsSchema';
 import { Card } from '@/components/Card';
-import { fetchApi } from '@/utils/fetch';
 import { type PositionPreset, type PresetPosition } from '@/types/events';
-import { type SchemaError } from '@/types/api';
+import { updatePresetPositions } from '@/lib/events/actions';
+import { type AddPositionsFormValues } from '@/lib/events/schema';
 
 interface SortedPositions {
     enroute: PresetPosition[];
@@ -23,7 +21,7 @@ interface PresetCardProps {
 }
 
 export const PresetCard: React.FC<PresetCardProps> = ({ preset }) => {
-    const router = useRouter();
+    const [, startTransition] = useTransition();
 
     const positions = preset.positions.reduce<SortedPositions>((acc, curr) => {
         if (curr.callsign.endsWith('CTR') || curr.callsign.endsWith('FSS') || curr.callsign.endsWith('TMU')) {
@@ -42,43 +40,32 @@ export const PresetCard: React.FC<PresetCardProps> = ({ preset }) => {
     }, { enroute: [], tracon: [], local: [] });
 
     const addPositions = useCallback(
-        async (values: AddPositionsFormValues) => toast.promise(
-            fetchApi<SchemaError[]>(`/events/presets/${preset.id}/`, {
-                method: 'PUT',
-                body: JSON.stringify({
-                    positions: preset.positions.concat(values.positions),
-                }),
-            })
-                .then(() => undefined)
-                .catch(async (resp) => {
-                    if (resp.headers.get('Content-Type') === 'application/json') {
-                        const data = await resp.json();
-                        return Promise.resolve(data);
-                    }
-                    return Promise.reject(resp);
-                }),
-            { error: 'Something went wrong, check console for more info' },
-        ),
+        async (values: AddPositionsFormValues) => {
+            await toast.promise(
+                updatePresetPositions(preset.id, preset.positions.concat(values.positions)),
+                { error: 'Something went wrong, check console for more info' },
+            );
+        },
         [preset],
     );
 
     const deletePosition = useCallback(
         (position: PresetPosition) => {
-            toast.promise(
-                fetchApi(`/events/presets/${preset.id}/`, {
-                    method: 'PUT',
-                    body: JSON.stringify({
-                        positions: preset.positions.filter((p) => p.callsign !== position.callsign),
-                    }),
-                }),
-                {
-                    pending: 'Removing position',
-                    success: 'Successfully removed',
-                    error: 'Something went wrong, check console for more info',
-                },
-            ).then(() => router.refresh());
+            startTransition(async () => {
+                await toast.promise(
+                    updatePresetPositions(
+                        preset.id,
+                        preset.positions.filter((p) => p.callsign !== position.callsign),
+                    ),
+                    {
+                        pending: 'Removing position',
+                        success: 'Successfully removed',
+                        error: 'Something went wrong, check console for more info',
+                    },
+                );
+            });
         },
-        [router, preset],
+        [preset, startTransition],
     );
 
     return (

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useTransition } from 'react';
 import Link from 'next/link';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ReactDatePicker from 'react-datepicker';
@@ -11,15 +11,17 @@ import { toast } from 'react-toastify';
 import { DeleteEventButton } from '@/app/events/[id]/edit/DeleteEventModal';
 import { Button } from '@/components/Button';
 import { TextAreaInput, TextInput, ToggleInput } from '@/components/Forms';
-import { fetchApi } from '@/utils/fetch';
 import { type Event } from '@/types/events';
-import { type EditEventFormValues, editEventSchema } from './editEventSchema';
+import { postEventPositionsAnnouncement, updateEvent } from '@/lib/events/actions';
+import { type EditEventFormValues, editEventSchema } from '@/lib/events/schema';
 
 interface EditEventFormProps {
     event: Event;
 }
 
 export const EditEventForm: React.FC<EditEventFormProps> = ({ event }) => {
+    const [isPending, startTransition] = useTransition();
+
     const {
         register,
         control,
@@ -39,9 +41,10 @@ export const EditEventForm: React.FC<EditEventFormProps> = ({ event }) => {
     const patchRequest: SubmitHandler<EditEventFormValues> = useCallback(
         (data) => {
             toast.promise(
-                fetchApi(`/events/${event.id}/`, {
-                    method: 'PATCH',
-                    body: JSON.stringify(data),
+                updateEvent(event.id, {
+                    ...data,
+                    start: data.start.toISOString(),
+                    end: data.end.toISOString(),
                 }),
                 {
                     pending: 'Saving changes',
@@ -53,11 +56,13 @@ export const EditEventForm: React.FC<EditEventFormProps> = ({ event }) => {
         [event],
     );
 
-    const putRequest = useCallback(() => {
-        toast.promise(fetchApi(`/events/${event.id}/`, { method: 'PUT' }), {
-            pending: 'Posting events to Discord',
-            success: 'Successfully posted',
-            error: 'Something went wrong, check console for more info',
+    const postDiscord = useCallback(() => {
+        startTransition(() => {
+            toast.promise(postEventPositionsAnnouncement(event.id), {
+                pending: 'Posting events to Discord',
+                success: 'Successfully posted',
+                error: 'Something went wrong, check console for more info',
+            });
         });
     }, [event]);
 
@@ -133,7 +138,7 @@ export const EditEventForm: React.FC<EditEventFormProps> = ({ event }) => {
                     Save
                 </Button>
                 <DeleteEventButton event={event} />
-                <Button color="indigo-400" className="md:ml-auto" onClick={putRequest}>
+                <Button color="indigo-400" className="md:ml-auto" onClick={postDiscord} disabled={isPending}>
                     <FaDiscord />
                     Post Event Positions
                 </Button>

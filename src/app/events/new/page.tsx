@@ -2,20 +2,14 @@ import React from 'react';
 import type { NextPage } from 'next';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
-import { fetchApi } from '@/utils/fetch';
-import { type PositionPreset } from '@/types/events';
+import { requireStaff } from '@/lib/auth/guards';
+import { getPositionPresets } from '@/lib/events/repository';
 import { Scheduler } from './Scheduler';
 
-async function getPresets(): Promise<PositionPreset[]> {
-    return fetchApi(
-        '/events/presets/',
-        { cache: 'no-store' },
-    );
-}
-
 const CreateEvent: NextPage = async () => {
-    const presets = await getPresets();
+    await requireStaff();
 
+    const presets = await getPositionPresets();
     const presetOptions = presets.map((preset) => ({
         value: preset.id,
         label: preset.name,

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useCallback, useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
@@ -5,13 +7,12 @@ import { type GroupBase } from 'react-select';
 import { Button } from '@/components/Button';
 import { SelectInput, type SelectOption } from '@/components/Forms';
 import { Modal, type ModalProps } from '@/components/Modal';
-import { fetchApi } from '@/utils/fetch';
-import { type BasicUser, type Roster } from '@/types/users';
+import { getSimplifiedUsers } from '@/lib/users/actions';
+import { type ManualAssignFormValues, manualAssignSchema } from '@/lib/events/schema';
 import { userToOption } from '@/utils';
-import { type ManualAssignFormValues, manualAssignSchema } from './manualAssignSchema';
 
 interface ManualAssignModalProps extends ModalProps {
-    assignController: (cid: number) => Promise<void>;
+    assignController: (cid: number | null) => void;
 }
 
 export const ManualAssignModal: React.FC<ManualAssignModalProps> = ({ assignController, show, close }) => {
@@ -28,7 +29,8 @@ export const ManualAssignModal: React.FC<ManualAssignModalProps> = ({ assignCont
 
     const postResource: SubmitHandler<ManualAssignFormValues> = useCallback(
         (data) => {
-            assignController(data.controller.value).then(close);
+            assignController(data.controller.value);
+            close?.();
         },
         [assignController, close],
     );
@@ -38,7 +40,7 @@ export const ManualAssignModal: React.FC<ManualAssignModalProps> = ({ assignCont
 
         reset(undefined);
 
-        fetchApi<Roster<BasicUser>>('/users/simplified/').then((data) => {
+        getSimplifiedUsers().then((data) => {
             setControllers([
                 {
                     label: 'Home Controllers',

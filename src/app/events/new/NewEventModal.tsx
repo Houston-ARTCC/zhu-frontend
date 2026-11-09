@@ -9,9 +9,8 @@ import { toast } from 'react-toastify';
 import { Modal, type ModalProps } from '@/components/Modal';
 import { SelectInput, type SelectOption, TextAreaInput, TextInput, ToggleInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
-import type { Event } from '@/types/events';
-import { type NewEventFormValues, newEventSchema } from './newEventSchema';
+import { createEvent } from '@/lib/events/actions';
+import { type NewEventFormValues, newEventSchema } from '@/lib/events/schema';
 
 interface RequestTrainingModalProps extends ModalProps {
     presets: SelectOption[];
@@ -34,20 +33,20 @@ export const NewEventModal: React.FC<RequestTrainingModalProps> = ({ presets, st
     const putRequest: SubmitHandler<NewEventFormValues> = useCallback((values) => {
         const data = {
             ...values,
+            start: values.start.toISOString(),
+            end: values.end.toISOString(),
             preset: values.preset?.value,
         };
         toast.promise(
-            fetchApi('/events/', { method: 'POST', body: JSON.stringify(data) }),
+            createEvent(data),
             {
                 pending: 'Creating event',
                 success: 'Successfully created',
                 error: 'Something went wrong, check console for more info',
             },
         )
-            .then((resp) => {
-                const { id } = resp as Event;
+            .then((id) => {
                 router.push(`/events/${id}`);
-                router.refresh();
                 close?.();
             });
     }, [router, close]);

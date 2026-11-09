@@ -9,8 +9,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { Button } from '@/components/Button';
 import { TextInput } from '@/components/Forms';
-import { fetchApi } from '@/utils/fetch';
-import { type NewPresetFormValues, newPresetSchema } from './newPresetSchema';
+import { createPreset } from '@/lib/events/actions';
+import { type NewPresetFormValues, newPresetSchema } from '@/lib/events/schema';
 
 export const NewPresetModal: React.FC<ModalProps> = ({ show, close }) => {
     const router = useRouter();
@@ -21,7 +21,7 @@ export const NewPresetModal: React.FC<ModalProps> = ({ show, close }) => {
 
     const postPreset: SubmitHandler<NewPresetFormValues> = useCallback((data) => {
         toast.promise(
-            fetchApi('/events/presets/', { method: 'POST', body: JSON.stringify(data) }),
+            createPreset({ name: data.name }),
             {
                 pending: 'Creating preset',
                 success: 'Successfully created',

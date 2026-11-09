@@ -1,7 +1,86 @@
-'use client';
-
 import { z } from 'zod';
 import { type SelectOption } from '@/components/Forms';
+
+export const newEventSchema = z.object({
+    name: z.string().min(1, 'Required'),
+    host: z.string().min(1, 'Required'),
+    banner: z.string().optional(),
+    description: z.string(),
+
+    preset: z.object({
+        value: z.number(),
+        label: z.string(),
+    })
+        .optional()
+        .nullable(),
+
+    start: z.date(),
+    end: z.date(),
+
+    hidden: z.boolean(),
+});
+
+export type NewEventFormValues = z.infer<typeof newEventSchema>;
+
+export const editEventSchema = z.object({
+    name: z.string().min(1, 'Required'),
+    host: z.string().min(1, 'Required'),
+    banner: z.string().optional(),
+    description: z.string(),
+
+    start: z.date(),
+    end: z.date(),
+
+    hidden: z.boolean(),
+});
+
+export type EditEventFormValues = z.infer<typeof editEventSchema>;
+
+export const addPositionsSchema = z.object({
+    positions: z
+        .object({
+            callsign: z.string().min(1, 'Required'),
+            shifts: z.number({ error: 'Required' }).positive('Must be positive'),
+        })
+        .array(),
+});
+
+export type AddPositionsFormValues = z.infer<typeof addPositionsSchema>;
+
+export const manualAssignSchema = z.object({
+    controller: z.object({
+        value: z.number(),
+        label: z.string(),
+    }),
+});
+
+export type ManualAssignFormValues = z.infer<typeof manualAssignSchema>;
+
+export const newPresetSchema = z.object({
+    name: z.string().min(1, 'Required'),
+});
+
+export type NewPresetFormValues = z.infer<typeof newPresetSchema>;
+
+export const supportSchema = z.object({
+    name: z.string().min(1, 'Required'),
+    host: z.string().min(1, 'Required'),
+    banner_url: z.string().min(1, 'Required').url('Must be a URL'),
+
+    start: z.coerce.date<Date>(),
+    end: z.coerce.date<Date>(),
+
+    requested_fields: z.array(
+        z.object({
+            value: z.string(),
+            label: z.string(),
+        }),
+    ),
+
+    description: z.string().min(1, 'Required'),
+});
+
+export type SupportFormValues = z.infer<typeof supportSchema>;
 
 export const airports: SelectOption<string>[] = [
     { value: 'KIAH', label: 'Houston/George Bush Intercontinental' },
@@ -54,26 +133,3 @@ export const airports: SelectOption<string>[] = [
     { value: 'KTME', label: 'Houston Executive' },
     { value: 'KVCT', label: 'Victoria Regional' },
 ];
-
-export const supportSchema = z.object({
-    name: z.string().min(1, 'Required'),
-    host: z.string().min(1, 'Required'),
-    banner_url: z.string().min(1, 'Required').url('Must be a URL'),
-
-    start: z.coerce.date<Date>(),
-    end: z.coerce.date<Date>(),
-
-    requested_fields: z.array(
-        z.object({
-            value: z.string(),
-            label: z.string(),
-        })
-            .refine((object) => airports.some(
-                (airport) => airport.value === object.value && airport.label === object.label,
-            )),
-    ),
-
-    description: z.string().min(1, 'Required'),
-});
-
-export type SupportFormValues = z.infer<typeof supportSchema>;

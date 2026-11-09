@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { LuTrash2 } from 'react-icons/lu';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
 import type { Event } from '@/types/events';
+import { deleteEvent } from '@/lib/events/actions';
 
 interface DeleteEventModalProps extends ModalProps {
     event: Event;
@@ -15,25 +15,22 @@ interface DeleteEventModalProps extends ModalProps {
 
 export const DeleteEventModal: React.FC<DeleteEventModalProps> = ({ event, show, close }) => {
     const router = useRouter();
+    const [isPending, startTransition] = useTransition();
 
-    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
-    const deleteEvent = useCallback(() => {
-        setIsSubmitting(true);
-
-        toast.promise(
-            fetchApi(`/events/${event.id}/`, { method: 'DELETE' }),
-            {
-                pending: 'Deleting event',
-                success: 'Successfully deleted',
-                error: 'Something went wrong, check console for more info',
-            },
-        )
-            .then(() => {
-                setIsSubmitting(false);
-                router.push('/events');
-                close?.();
-            });
+    const handleDelete = useCallback(() => {
+        startTransition(() => {
+            toast.promise(
+                deleteEvent(event.id).then(() => {
+                    router.push('/events');
+                    close?.();
+                }),
+                {
+                    pending: 'Deleting event',
+                    success: 'Successfully deleted',
+                    error: 'Something went wrong, check console for more info',
+                },
+            );
+        });
     }, [event, router, close]);
 
     return (
@@ -44,7 +41,7 @@ export const DeleteEventModal: React.FC<DeleteEventModalProps> = ({ event, show,
                 <Button color="gray-300" onClick={close}>
                     Cancel
                 </Button>
-                <Button color="red-400" type="submit" onClick={deleteEvent} disabled={isSubmitting}>
+                <Button color="red-400" type="submit" onClick={handleDelete} disabled={isPending}>
                     Delete
                 </Button>
             </div>

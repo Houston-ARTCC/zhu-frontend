@@ -9,8 +9,8 @@ import { useSession } from 'next-auth/react';
 import ReactDatePicker from 'react-datepicker';
 import { SelectInput, TextAreaInput, TextInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
-import { airports, type SupportFormValues, supportSchema } from './supportSchema';
+import { submitSupportRequest } from '@/lib/events/actions';
+import { airports, type SupportFormValues, supportSchema } from '@/lib/events/schema';
 
 export const SupportForm: React.FC = () => {
     const router = useRouter();
@@ -23,16 +23,16 @@ export const SupportForm: React.FC = () => {
     });
 
     const postRequest: SubmitHandler<SupportFormValues> = useCallback((values) => {
-        const data = {
-            ...values,
-            banner: values.banner_url,
-            requested_fields: values.requested_fields.map(({ value }) => value),
-        };
         toast.promise(
-            fetchApi(
-                '/events/support/',
-                { method: 'POST', body: JSON.stringify(data) },
-            ),
+            submitSupportRequest({
+                name: values.name,
+                host: values.host,
+                banner: values.banner_url,
+                start: values.start.toISOString(),
+                end: values.end.toISOString(),
+                requested_fields: values.requested_fields.map(({ value }) => value),
+                description: values.description,
+            }),
             {
                 pending: 'Submitting request',
                 success: 'Successfully submitted',

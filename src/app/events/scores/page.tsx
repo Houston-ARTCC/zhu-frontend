@@ -3,20 +3,14 @@ import { type NextPage } from 'next';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
 import { EventScoreInfo } from '@/components/EventScoreInfo';
-import { fetchApi } from '@/utils/fetch';
-import { type EventScore } from '@/types/events';
+import { requireMember } from '@/lib/auth/guards';
+import { getEventScoresForUser } from '@/lib/events/repository';
 
 export const metadata = { title: 'Event Scores' };
 
-async function getEventScores(): Promise<EventScore[]> {
-    return fetchApi(
-        '/events/scores/',
-        { cache: 'no-store' },
-    );
-}
-
 const EventScores: NextPage = async () => {
-    const scores = await getEventScores();
+    const session = await requireMember();
+    const scores = await getEventScoresForUser(session.user.cid);
 
     return (
         <Page {...metadata}>
