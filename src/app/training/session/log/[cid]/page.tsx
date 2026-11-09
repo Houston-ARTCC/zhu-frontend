@@ -1,14 +1,13 @@
 import React from 'react';
 import { notFound, redirect } from 'next/navigation';
 import { type NextPage } from 'next';
-import { getServerSession } from 'next-auth';
 import { LuCircleAlert } from 'react-icons/lu';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
 import { Alert, AlertTitle } from '@/components/Alert';
-import { authOptions } from '@/utils/auth';
 import { fetchApi } from '@/utils/fetch';
 import { type Staff, type User } from '@/types/users';
+import { auth } from '@/auth';
 import { userToOption } from '@/utils';
 import { SessionForm } from '../../[id]/SessionForm';
 
@@ -35,7 +34,7 @@ interface LogSessionParams {
 }
 
 const LogSession: NextPage<LogSessionParams> = async (props) => {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
     if (!session) {
         redirect('/');
     }

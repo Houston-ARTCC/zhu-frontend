@@ -1,18 +1,17 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { type NextPage } from 'next';
-import { getServerSession } from 'next-auth';
 import { EndorsementBadge, RoleBadge } from '@/app/roster/ProfileBadges';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
 import { ProfilePicture } from '@/components/ProfilePicture';
 import { Card } from '@/components/Card';
 import { Heatmap } from '@/components/Heatmap';
-import { authOptions } from '@/utils/auth';
 import { fetchApi } from '@/utils/fetch';
 import { type AuthenticatedUser, type User } from '@/types/users';
 import { type BasicFeedback } from '@/types/feedback';
 import { type DailyStatistic, type Session } from '@/types/connections';
+import { auth } from '@/auth';
 import { ConnectionsTable, FeedbackTable } from './ProfileTables';
 import { EditUserButton } from './EditUserModal';
 
@@ -52,7 +51,7 @@ interface UserProfileParams {
 
 const UserProfile: NextPage<UserProfileParams> = async (props) => {
     const params = await props.params;
-    const session = await getServerSession(authOptions);
+    const session = await auth();
 
     const user = await getUser(params.cid).catch(notFound);
     const connections = await getUserConnections(params.cid);

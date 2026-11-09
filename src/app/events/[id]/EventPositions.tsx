@@ -1,10 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
 import { format } from 'date-fns-tz';
-import { getServerSession } from 'next-auth';
 import { Popover } from '@/components/Popover';
-import { authOptions } from '@/utils/auth';
 import { type EventPosition, type EventShift } from '@/types/events';
+import { auth } from '@/auth';
 import { ShiftRequestButton } from './ShiftRequestButton';
 
 interface EventShiftInfoProps {
@@ -15,7 +14,7 @@ interface EventShiftInfoProps {
 }
 
 const EventShiftInfo: React.FC<EventShiftInfoProps> = async ({ index, preventSignup, position, shift }) => {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
 
     return (
         <Popover

@@ -11,6 +11,14 @@ const nextConfig: NextConfig = {
             },
         },
     },
+    experimental: {
+        // Lets the auth guards render forbidden.tsx and unauthorized.tsx.
+        authInterrupts: true,
+        serverActions: {
+            // Resource and profile picture uploads go through server actions; the largest existing file is under 12 MB.
+            bodySizeLimit: '16mb',
+        },
+    },
     images: {
         remotePatterns: [
             {

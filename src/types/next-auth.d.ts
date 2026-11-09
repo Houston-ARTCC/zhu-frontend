@@ -22,22 +22,27 @@ interface UserId {
 declare module 'next-auth' {
     type User = UserId
 
-    type Profile = UserId
+    interface Profile {
+        data: {
+            cid: number | string;
+            personal: { email: string; name_first: string; name_last: string };
+            vatsim: { rating: { short: string }; division: { id: string } };
+        };
+    }
 
     interface Session {
-        user: Profile;
-        accessToken: string;
-        error?: 'RefreshAccessTokenError';
+        user: UserId;
     }
 }
 
 declare module 'next-auth/jwt' {
-    type User = UserId
-
     interface JWT {
-        user: User;
-        accessToken: string;
-        refreshToken: string;
-        error?: 'RefreshAccessTokenError';
+        cid: number;
+    }
+}
+
+declare module '@auth/core/jwt' {
+    interface JWT {
+        cid: number;
     }
 }

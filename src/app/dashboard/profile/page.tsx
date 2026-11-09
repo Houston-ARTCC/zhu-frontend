@@ -1,9 +1,8 @@
 import React from 'react';
 import type { NextPage } from 'next';
-import { getServerSession } from 'next-auth';
 import { fetchApi } from '@/utils/fetch';
-import { authOptions } from '@/utils/auth';
 import { type User } from '@/types/users';
+import { auth } from '@/auth';
 import { EditProfileForm } from './EditProfileForm';
 
 async function getUser(id: number): Promise<User> {
@@ -14,7 +13,7 @@ async function getUser(id: number): Promise<User> {
 }
 
 const EditProfile: NextPage = async () => {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
 
     const user = await getUser(session!.user.cid);
 

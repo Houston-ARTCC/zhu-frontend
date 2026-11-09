@@ -5,7 +5,7 @@ import { useSelectedLayoutSegment } from 'next/navigation';
 import Link from 'next/link';
 import classNames from 'classnames';
 import { useSession } from 'next-auth/react';
-import type { Profile } from 'next-auth';
+import type { Session } from 'next-auth';
 import type { Route } from 'next';
 import { Badge } from '@/components/Badge';
 
@@ -29,13 +29,13 @@ const SideNavItem: React.FC<SideNavItemProps> = ({ active = false, children }) =
 
 interface Section {
     title: string;
-    auth?: (token: Profile | undefined) => boolean;
+    auth?: (token: Session['user'] | undefined) => boolean;
     children: ({
         title: string;
         route?: string;
         url?: Route;
         alerts?: number;
-        auth?: (token: Profile | undefined) => boolean;
+        auth?: (token: Session['user'] | undefined) => boolean;
     })[];
 }
 

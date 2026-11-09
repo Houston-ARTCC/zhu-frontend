@@ -1,63 +1,33 @@
-import { withAuth } from 'next-auth/middleware';
-import { type JWT } from 'next-auth/jwt';
-import { parseJwt } from '@/utils/jwt';
+import NextAuth from 'next-auth';
+import { authConfig } from '@/auth.config';
 
-const isAdmin = (token: JWT | null) => token?.user.permissions.is_admin ?? false;
-const isStaff = (token: JWT | null) => token?.user.permissions.is_staff ?? false;
-const isTrainingStaff = (token: JWT | null) => token?.user.permissions.is_training_staff ?? false;
-const isMember = (token: JWT | null) => token?.user.permissions.is_member ?? false;
-const isLoggedIn = (token: JWT | null) => token !== null;
-const canViewAuditLog = (token: JWT | null) => token?.user.permissions.can_view_audit_log ?? false;
+const { auth } = NextAuth(authConfig);
 
-const ROUTE_AUTH_MAP: { re: RegExp, verify: (token: JWT | null) => boolean }[] = [
-    { re: /\/admin\/audit/, verify: canViewAuditLog },
-    // Need to be admin
-    { re: /\/admin\/loa/, verify: isAdmin },
-    { re: /\/admin\/purge/, verify: isAdmin },
-    { re: /\/admin\/queue\/loa/, verify: isAdmin },
-    { re: /\/admin\/queue\/visit/, verify: isAdmin },
-    { re: /\/admin\/queue\/feedback/, verify: isAdmin },
-    // Need to be staff
-    { re: /\/admin(\/(.*))?/, verify: isStaff },
-    { re: /\/events\/(\d+)\/edit/, verify: isStaff },
-    { re: /\/events\/new/, verify: isStaff },
-    { re: /\/events\/presets/, verify: isStaff },
-    // Need to be training staff
-    { re: /\/training\/availability/, verify: isTrainingStaff },
-    { re: /\/training\/mentor/, verify: isTrainingStaff },
-    { re: /\/training\/profile/, verify: isTrainingStaff },
-    { re: /\/training\/requests/, verify: isTrainingStaff },
-    { re: /\/training\/scheduled/, verify: isTrainingStaff },
-    { re: /\/training\/session\/log\/(\d+)/, verify: isTrainingStaff },
-    { re: /\/training\/session\/(\d+)/, verify: isTrainingStaff },
-    // Need to be member
-    { re: /\/training(\/(.*))?/, verify: isMember },
-    { re: /\/dashboard(\/(.*))?/, verify: isMember },
-    { re: /\/events\/scores/, verify: isMember },
-    // Just need to be logged in
-    { re: /\/feedback/, verify: isLoggedIn },
-    { re: /\/visit/, verify: isLoggedIn },
-    { re: /\/events\/support/, verify: isLoggedIn },
+// Route prefixes that require an authenticated session. Per-tier checks
+// (staff/admin/training) are enforced in the route layouts, not here.
+const PROTECTED_ROUTES: RegExp[] = [
+    /^\/admin/,
+    /^\/training/,
+    /^\/dashboard/,
+    /^\/events\/new/,
+    /^\/events\/[^/]+\/edit/,
+    /^\/events\/presets/,
+    /^\/events\/scores/,
+    /^\/events\/support/,
+    /^\/feedback/,
+    /^\/visit/,
 ];
 
-export default withAuth({
-    callbacks: {
-        authorized: async ({ req, token }) => {
-            const now = Date.now() / 1000;
+export default auth((req) => {
+    if (req.auth) {
+        return;
+    }
 
-            // Check if refresh token is still valid
-            if (token && now > parseJwt(token.refreshToken).exp) {
-                return false;
-            }
-
-            // Check if user has access to current path
-            return ROUTE_AUTH_MAP.find(({ re }) => re.test(req.nextUrl.pathname))
-                // Protected route, check verify function
-                ?.verify(token)
-                // Unprotected route
-                ?? true;
-        },
-    },
+    if (PROTECTED_ROUTES.some((route) => route.test(req.nextUrl.pathname))) {
+        const signInUrl = new URL('/api/auth/signin', req.nextUrl.origin);
+        signInUrl.searchParams.set('callbackUrl', req.nextUrl.pathname);
+        return Response.redirect(signInUrl);
+    }
 });
 
 export const config = {

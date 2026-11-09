@@ -4,16 +4,15 @@ import { notFound } from 'next/navigation';
 import { formatDistance } from 'date-fns';
 import { format, formatInTimeZone } from 'date-fns-tz';
 import { type Metadata, type NextPage } from 'next';
-import { getServerSession } from 'next-auth';
 import { LuEyeOff, LuFolderClosed, LuPencil } from 'react-icons/lu';
 import { Button } from '@/components/Button';
 import { LocalTimeRange } from '@/components/LocalTimeRange';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
 import { Alert, AlertTitle } from '@/components/Alert';
-import { authOptions } from '@/utils/auth';
 import { fetchApi } from '@/utils/fetch';
 import { type Event } from '@/types/events';
+import { auth } from '@/auth';
 import { EventPositions } from './EventPositions';
 
 function formatTimeUntilEvent(start: Date, end: Date): string {
@@ -61,7 +60,7 @@ export async function generateMetadata(props: EventParams): Promise<Metadata> {
 
 const ViewEvent: NextPage<EventParams> = async (props) => {
     const params = await props.params;
-    const session = await getServerSession(authOptions);
+    const session = await auth();
 
     const event = await getEvent(params.id).catch(notFound);
 

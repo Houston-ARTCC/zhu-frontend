@@ -1,14 +1,13 @@
 import React from 'react';
 import { type NextPage } from 'next';
-import { getServerSession } from 'next-auth';
 import slugify from 'slugify';
 import classNames from 'classnames';
 import { PageContent } from '@/components/PageContent';
 import { Page } from '@/components/Page';
 import { Card } from '@/components/Card';
-import { authOptions } from '@/utils/auth';
 import { fetchApi } from '@/utils/fetch';
 import { CATEGORY_STRING, type ResourceData } from '@/types/resources';
+import { auth } from '@/auth';
 import { ResourceTable } from './ResourceTable';
 import { NewResourceButton } from './ResourceModal';
 
@@ -24,7 +23,7 @@ async function getResources(): Promise<ResourceData> {
 const Resources: NextPage = async () => {
     const resources = await getResources();
 
-    const session = await getServerSession(authOptions);
+    const session = await auth();
 
     return (
         <Page {...metadata}>
