@@ -1,9 +1,9 @@
 import * as Sentry from '@sentry/nextjs';
+import '@/lib/zod';
 
 Sentry.init({
     dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
     enabled: process.env.NODE_ENV === 'production',
-    sendDefaultPii: true,
     tracesSampleRate: 1.0,
 });
 

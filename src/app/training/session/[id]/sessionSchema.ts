@@ -10,8 +10,8 @@ export const sessionSchema = z.object({
         label: z.string(),
     }),
 
-    start: z.coerce.date(),
-    end: z.coerce.date(),
+    start: z.coerce.date<Date>(),
+    end: z.coerce.date<Date>(),
 
     type: z.object({
         value: z.number(),

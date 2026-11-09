@@ -60,8 +60,8 @@ export const supportSchema = z.object({
     host: z.string().min(1, 'Required'),
     banner_url: z.string().min(1, 'Required').url('Must be a URL'),
 
-    start: z.coerce.date(),
-    end: z.coerce.date(),
+    start: z.coerce.date<Date>(),
+    end: z.coerce.date<Date>(),
 
     requested_fields: z.array(
         z.object({

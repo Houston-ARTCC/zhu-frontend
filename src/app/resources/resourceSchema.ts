@@ -9,10 +9,10 @@ export const resourceSchema = z.object({
     category: z.object({
         value: z.enum(
             Object.keys(CATEGORY_STRING) as [string, ...string[]],
-            { errorMap: () => ({ message: 'Invalid category' }) },
+            { error: 'Invalid category' },
         ),
         label: z.string(),
-    }, { required_error: 'This field is required' }),
+    }, { error: 'This field is required' }),
 
     path: z.union([
         z.instanceof(File, { message: 'This field is required' }),

@@ -1,14 +1,17 @@
-import { withSentryConfig } from '@sentry/nextjs';
+import type { NextConfig } from 'next';
+import { type SentryBuildOptions, withSentryConfig } from '@sentry/nextjs/config';
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
     output: 'standalone',
+    turbopack: {
+        rules: {
+            '*.css': {
+                loaders: ['@tailwindcss/turbopack'],
+            },
+        },
+    },
     images: {
         remotePatterns: [
-            {
-                protocol: 'http',
-                hostname: 'localhost',
-            },
             {
                 protocol: 'https',
                 hostname: 'api.houston.center',
@@ -24,12 +27,14 @@ const nextConfig = {
     ],
 };
 
-const sentryOptions = {
+const sentryOptions: SentryBuildOptions = {
     org: 'zhuartcc',
     project: 'zhu-frontend',
     authToken: process.env.SENTRY_AUTH_TOKEN,
     silent: !process.env.CI,
-    disableLogger: true,
+    bundleSizeOptimizations: {
+        excludeDebugStatements: true,
+    },
     widenClientFileUpload: true,
 };
 

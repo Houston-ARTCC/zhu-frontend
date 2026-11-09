@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import CalendarHeatmap from 'react-calendar-heatmap';
+import CalendarHeatmap, { type TooltipDataAttrs } from 'react-calendar-heatmap';
 import { endOfYear, format, parseISO, startOfYear } from 'date-fns';
 import { Tooltip } from 'react-tooltip';
 import { type DailyStatistic } from '@/types/connections';
@@ -32,13 +32,18 @@ export const Heatmap: React.FC<HeatmapProps> = ({ data }) => (
             endDate={endOfYear(new Date())}
             // Local dates, since the heatmap reads date strings as UTC midnight, a day early in US time zones.
             values={data.map((day) => ({ ...day, date: parseISO(day.date) }))}
-            classForValue={(cell) => cellColor((cell as DailyStatistic | undefined)?.count ?? 0)}
-            tooltipDataAttrs={(value: { date: Date, count: number }) => (
-                value.count
-                    ? { 'data-tooltip-html': `<b>${format(value.date, 'yyyy-MM-dd')}:</b> ${value.count.toFixed(2)} hours` }
+            classForValue={(cell) => cellColor(cell?.count ?? 0)}
+            tooltipDataAttrs={(value) => (
+                value?.count
+                    ? { 'data-date': format(value.date, 'yyyy-MM-dd'), 'data-hours': value.count.toFixed(2) } as TooltipDataAttrs
                     : {}
             )}
         />
-        <Tooltip anchorSelect="rect" />
+        <Tooltip
+            anchorSelect="rect[data-date]"
+            render={({ activeAnchor }) => (
+                <><b>{activeAnchor?.getAttribute('data-date')}:</b> {activeAnchor?.getAttribute('data-hours')} hours</>
+            )}
+        />
     </>
 );

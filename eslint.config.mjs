@@ -1,21 +1,17 @@
 import { defineConfig } from 'eslint/config';
-import { fixupConfigRules } from '@eslint/compat';
 import js from '@eslint/js';
+import nextVitals from 'eslint-config-next/core-web-vitals';
+import importPlugin from 'eslint-plugin-import';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
 import ts from 'typescript-eslint';
-import { FlatCompat } from '@eslint/eslintrc';
-
-const compat = new FlatCompat({
-    baseDirectory: import.meta.dirname,
-});
 
 export default defineConfig([{
     extends: [
         js.configs.recommended,
-        ...fixupConfigRules(compat.extends(
-            'plugin:import/recommended',
-            'plugin:jsx-a11y/recommended',
-            'next/core-web-vitals',
-        )),
+        // Next's config registers these plugins and overrides some of their rules, so it comes after.
+        { rules: importPlugin.flatConfigs.recommended.rules },
+        { rules: jsxA11y.flatConfigs.recommended.rules },
+        ...nextVitals,
         ts.configs.recommended,
         ts.configs.stylistic,
     ],
@@ -39,6 +35,11 @@ export default defineConfig([{
 
         'jsx-a11y/no-static-element-interactions': 'off',
 
+        // Mount checks for browser-only rendering and route-change resets set state in effects on purpose.
+        'react-hooks/set-state-in-effect': 'off',
+
+        // TypeScript already checks default imports, and this rule misreads mapbox-gl's bundled types.
+        'import/default': 'off',
         'import/order': [
             'error',
             {

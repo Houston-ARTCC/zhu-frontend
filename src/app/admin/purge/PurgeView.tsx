@@ -54,7 +54,7 @@ export const PurgeView: React.FC<PurgeViewProps> = ({ data, loading, currentDate
                         setShowSelectedRows(false);
                     }
                 }}
-                contextActions={(
+                actions={selectedRows.length > 0 && (
                     <div className="flex gap-5">
                         <Button
                             variant={showSelectedRows ? 'primary' : 'secondary'}
