@@ -28,7 +28,7 @@ export const ResourceTable: React.FC<ResourceTableProps> = ({ data }) => {
                 defaultSortAsc={false}
                 sortIcon={<LuChevronDown />}
                 pointerOnHover
-                onRowClicked={(row) => window.open(process.env.NEXT_PUBLIC_API_URL + row.path, '_blank')}
+                onRowClicked={(row) => window.open(row.path, '_blank')}
                 customStyles={dataTableStyle}
                 columns={[
                     {

@@ -5,20 +5,13 @@ import classNames from 'classnames';
 import { PageContent } from '@/components/PageContent';
 import { Page } from '@/components/Page';
 import { Card } from '@/components/Card';
-import { fetchApi } from '@/utils/fetch';
-import { CATEGORY_STRING, type ResourceData } from '@/types/resources';
+import { CATEGORY_STRING } from '@/types/resources';
 import { auth } from '@/auth';
+import { getResources } from '@/lib/resources/repository';
 import { ResourceTable } from './ResourceTable';
 import { NewResourceButton } from './ResourceModal';
 
-const metadata = { title: 'Resources' };
-
-async function getResources(): Promise<ResourceData> {
-    return fetchApi(
-        '/resources/',
-        { cache: 'no-store' },
-    );
-}
+export const metadata = { title: 'Resources' };
 
 const Resources: NextPage = async () => {
     const resources = await getResources();

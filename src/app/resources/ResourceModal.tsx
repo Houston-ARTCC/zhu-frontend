@@ -9,8 +9,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { FileInput, SelectInput, TextInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
 import { CATEGORY_STRING, type Resource } from '@/types/resources';
+import { createResource, updateResource, deleteResource } from '@/lib/resources/actions';
 import { type ResourceFormValues, resourceSchema } from './resourceSchema';
 
 interface ResourceModalProps extends ModalProps {
@@ -46,7 +46,7 @@ export const ResourceModal: React.FC<ResourceModalProps> = ({ resource, show, cl
         data.append('path', values.path);
 
         toast.promise(
-            fetchApi('/resources/', { method: 'POST', body: data }),
+            createResource(data),
             {
                 pending: `Uploading "${values.name}"`,
                 success: 'Successfully uploaded',
@@ -66,14 +66,13 @@ export const ResourceModal: React.FC<ResourceModalProps> = ({ resource, show, cl
         data.append('name', values.name);
         data.append('category', values.category.value);
 
-        // Uploading a file is optional when modifying a resource.
-        // If the file has not been changed, it is a string and can be ignored.
+        // File is optional on update; only append if a new one was selected.
         if (values.path instanceof File) {
             data.append('path', values.path);
         }
 
         toast.promise(
-            fetchApi(`/resources/${resource.id}/`, { method: 'PATCH', body: data }),
+            updateResource(resource.id, data),
             {
                 pending: `Updating "${values.name}"`,
                 success: 'Successfully updated',
@@ -86,11 +85,11 @@ export const ResourceModal: React.FC<ResourceModalProps> = ({ resource, show, cl
             });
     }, [resource, router, close]);
 
-    const deleteResource = useCallback(() => {
+    const handleDelete = useCallback(() => {
         if (!resource) return;
 
         toast.promise(
-            fetchApi(`/resources/${resource.id}/`, { method: 'DELETE' }),
+            deleteResource(resource.id),
             {
                 pending: `Deleting "${resource.name}"`,
                 success: 'Successfully deleted',
@@ -145,7 +144,7 @@ export const ResourceModal: React.FC<ResourceModalProps> = ({ resource, show, cl
 
                 <div className="flex justify-end gap-3">
                     {resource && (
-                        <Button color="red-400" className="mr-auto" onClick={deleteResource}>
+                        <Button color="red-400" className="mr-auto" onClick={handleDelete}>
                             Delete
                         </Button>
                     )}
