@@ -1,3 +1,4 @@
+import 'server-only';
 import { z } from 'zod';
 import type { Metar } from '@/types/weather';
 

@@ -6,6 +6,8 @@ import jsxA11y from 'eslint-plugin-jsx-a11y';
 import ts from 'typescript-eslint';
 
 export default defineConfig([{
+    ignores: ['src/lib/db/relations.ts', 'src/lib/db/schema.ts'],
+}, {
     extends: [
         js.configs.recommended,
         // Next's config registers these plugins and overrides some of their rules, so it comes after.
