@@ -1,18 +1,12 @@
 import React from 'react';
 import { type NextPage } from 'next';
-import { fetchApi } from '@/utils/fetch';
-import { type Announcement } from '@/types/announcements';
+import { requireStaff } from '@/lib/auth/guards';
+import { getAnnouncements } from '@/lib/announcements/repository';
 import { AnnouncementsTable } from './AnnouncementsTable';
 import { NewAnnouncementButton } from './NewAnnouncementModal';
 
-async function getAnnouncements(): Promise<Announcement[]> {
-    return fetchApi(
-        '/announcements/',
-        { cache: 'no-store' },
-    );
-}
-
-const LoaRequests: NextPage = async () => {
+const AnnouncementsPage: NextPage = async () => {
+    await requireStaff();
     const announcements = await getAnnouncements();
 
     return (
@@ -23,4 +17,4 @@ const LoaRequests: NextPage = async () => {
     );
 };
 
-export default LoaRequests;
+export default AnnouncementsPage;

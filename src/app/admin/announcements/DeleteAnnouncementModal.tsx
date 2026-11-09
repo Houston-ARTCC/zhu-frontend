@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { Modal, type ModalProps } from '@/components/Modal';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
 import { type Announcement } from '@/types/announcements';
+import { deleteAnnouncement } from '@/lib/announcements/actions';
 
 interface DeleteAnnouncementModalProps extends ModalProps {
     announcement?: Announcement;
@@ -23,7 +23,7 @@ export const DeleteAnnouncementModal: React.FC<DeleteAnnouncementModalProps> = (
         setIsSubmitting(true);
 
         toast.promise(
-            fetchApi(`/announcements/${announcement.id}/`, { method: 'DELETE' }),
+            deleteAnnouncement(announcement.id),
             {
                 pending: 'Deleting announcement',
                 success: 'Successfully deleted',

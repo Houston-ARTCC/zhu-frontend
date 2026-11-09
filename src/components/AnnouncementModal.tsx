@@ -19,10 +19,12 @@ export const AnnouncementModal: React.FC<AnnouncementModalProps> = ({ announceme
         title={announcement?.title}
         footer={(
             <div className="flex items-center gap-2">
-                <ProfilePicture user={announcement?.author} size={30} />
+                <ProfilePicture user={announcement?.author ?? undefined} size={30} />
                 <p>
                     <span className="font-medium">
-                        {announcement?.author.first_name} {announcement?.author.last_name}
+                        {announcement?.author
+                            ? `${announcement.author.first_name} ${announcement.author.last_name}`
+                            : 'Houston ARTCC'}
                     </span>
                     {' '}
                     on

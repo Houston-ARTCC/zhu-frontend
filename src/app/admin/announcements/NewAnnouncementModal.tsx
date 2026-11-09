@@ -11,8 +11,8 @@ import classNames from 'classnames';
 import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { TextInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
-import { type AnnouncementFormValues, announcementSchema } from './announcementSchema';
+import { createAnnouncement } from '@/lib/announcements/actions';
+import { type AnnouncementFormValues, announcementSchema } from '@/lib/announcements/schema';
 
 // react-quill-new touches `document` at import time, so it can't be SSR'd.
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
@@ -26,7 +26,7 @@ export const NewAnnouncementModal: React.FC<ModalProps> = ({ show, close }) => {
 
     const postResource: SubmitHandler<AnnouncementFormValues> = useCallback((data) => {
         toast.promise(
-            fetchApi('/announcements/', { method: 'POST', body: JSON.stringify(data) }),
+            createAnnouncement({ title: data.title, body: data.body }),
             {
                 pending: 'Creating announcement',
                 success: 'Successfully created',
