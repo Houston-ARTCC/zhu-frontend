@@ -3,16 +3,9 @@ import Link from 'next/link';
 import { type NextPage } from 'next';
 import { LuPlus } from 'react-icons/lu';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
-import { type TrainingSession } from '@/types/training';
+import { requireTrainingStaff } from '@/lib/auth/guards';
+import { getSessionsByStudent } from '@/lib/training/repository';
 import { SessionsTable } from '../../SessionsTable';
-
-async function getTrainingSessions(cid: string): Promise<TrainingSession[]> {
-    return fetchApi(
-        `/training/sessions/${cid}/`,
-        { cache: 'no-store' },
-    );
-}
 
 interface StudentProfileParams {
     params: Promise<{
@@ -21,8 +14,9 @@ interface StudentProfileParams {
 }
 
 const StudentProfile: NextPage<StudentProfileParams> = async (props) => {
+    await requireTrainingStaff();
     const params = await props.params;
-    const trainingSessions = await getTrainingSessions(params.cid);
+    const trainingSessions = await getSessionsByStudent(Number(params.cid));
 
     return (
         <>

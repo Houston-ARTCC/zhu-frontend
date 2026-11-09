@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { LuChevronDown, LuMessageCircle, LuX } from 'react-icons/lu';
 import { format } from 'date-fns-tz';
@@ -8,8 +8,8 @@ import { Tooltip } from 'react-tooltip';
 import { toast } from 'react-toastify';
 import { DataTable } from '@/components/DataTable';
 import { dataTableStyle } from '@/utils/dataTableStyle';
-import { fetchApi } from '@/utils/fetch';
 import { SESSION_LEVEL_STRING, SESSION_TYPE_STRING, type TrainingRequest } from '@/types/training';
+import { cancelOwnTrainingRequest } from '@/lib/training/actions';
 
 interface PendingRequestsTableProps {
     data: TrainingRequest[];
@@ -17,17 +17,23 @@ interface PendingRequestsTableProps {
 
 export const PendingRequestsTable: React.FC<PendingRequestsTableProps> = ({ data }) => {
     const router = useRouter();
+    const [, startTransition] = useTransition();
 
     const cancelRequest = useCallback(({ id }: TrainingRequest) => {
-        toast.promise(
-            fetchApi(`/training/request/${id}/`, { method: 'DELETE' }),
-            {
-                pending: 'Cancelling request',
-                success: 'Successfully cancelled',
-                error: 'Something went wrong, check console for more info',
-            },
-        )
-            .then(() => router.refresh());
+        startTransition(() => {
+            toast.promise(
+                cancelOwnTrainingRequest(id),
+                {
+                    pending: 'Cancelling request',
+                    success: 'Successfully cancelled',
+                    error: 'Something went wrong, check console for more info',
+                },
+            )
+                .then(() => router.refresh())
+                .catch(() => {
+                    // toast.promise surfaces the error.
+                });
+        });
     }, [router]);
 
     return (

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,9 +9,9 @@ import { toast } from 'react-toastify';
 import { Modal, type ModalProps } from '@/components/Modal';
 import { SelectInput, TextAreaInput, TextInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
+import { submitTrainingRequest } from '@/lib/training/actions';
+import { type RequestTrainingFormValues, requestTrainingSchema } from '@/lib/training/schema';
 import { sessionLevels, sessionTypes } from '../../selectOptions';
-import { type RequestTrainingFormValues, requestTrainingSchema } from './requestTrainingSchema';
 
 interface RequestTrainingModalProps extends ModalProps {
     start?: Date;
@@ -20,8 +20,9 @@ interface RequestTrainingModalProps extends ModalProps {
 
 export const RequestTrainingModal: React.FC<RequestTrainingModalProps> = ({ start, end, show, close }) => {
     const router = useRouter();
+    const [isPending, startTransition] = useTransition();
 
-    const { register, control, reset, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+    const { register, control, reset, handleSubmit, formState: { errors } } = useForm({
         // ReactDatePicker's ref has no focus(), which would crash handleSubmit on a date error.
         shouldFocusError: false,
         resolver: zodResolver(requestTrainingSchema),
@@ -31,30 +32,27 @@ export const RequestTrainingModal: React.FC<RequestTrainingModalProps> = ({ star
     useEffect(() => reset({ start, end }), [start, end, show, reset]);
 
     const putRequest: SubmitHandler<RequestTrainingFormValues> = useCallback((values) => {
-        const data = {
-            ...values,
-            type: values.type.value,
-            level: values.level.value,
-        };
-        toast.promise(
-            fetchApi('/training/request/', { method: 'POST', body: JSON.stringify(data) }),
-            {
-                pending: 'Submitting request',
-                success: 'Successfully submitted',
-                error: {
-                    render: ({ data: error }) => (
-                        error instanceof Error ? error.message : 'Something went wrong, check console for more info'
-                    ),
+        startTransition(() => {
+            toast.promise(
+                submitTrainingRequest(values),
+                {
+                    pending: 'Submitting request',
+                    success: 'Successfully submitted',
+                    error: {
+                        render: ({ data: error }) => (
+                            error instanceof Error ? error.message : 'Something went wrong, check console for more info'
+                        ),
+                    },
                 },
-            },
-        )
-            .then(() => {
-                router.refresh();
-                close?.();
-            })
-            .catch(() => {
-                // Failure is already surfaced by the error toast.
-            });
+            )
+                .then(() => {
+                    router.refresh();
+                    close?.();
+                })
+                .catch(() => {
+                    // Failure is already surfaced by the error toast.
+                });
+        });
     }, [router, close]);
 
     return (
@@ -142,7 +140,7 @@ export const RequestTrainingModal: React.FC<RequestTrainingModalProps> = ({ star
                     <Button color="gray-300" onClick={close}>
                         Cancel
                     </Button>
-                    <Button type="submit" disabled={isSubmitting}>
+                    <Button type="submit" disabled={isPending}>
                         Request
                     </Button>
                 </div>

@@ -1,17 +1,11 @@
 import { type NextPage } from 'next';
-import { fetchApi } from '@/utils/fetch';
-import { type TrainingSession } from '@/types/training';
+import { requireTrainingStaff } from '@/lib/auth/guards';
+import { getAllSessionsLast30Days } from '@/lib/training/repository';
 import { SessionsTable } from '../SessionsTable';
 
-async function getTrainingSessions(): Promise<TrainingSession[]> {
-    return fetchApi(
-        '/training/sessions/all/',
-        { cache: 'no-store' },
-    );
-}
-
 const AllSessions: NextPage = async () => {
-    const trainingSessions = await getTrainingSessions();
+    await requireTrainingStaff();
+    const trainingSessions = await getAllSessionsLast30Days();
 
     return <SessionsTable data={trainingSessions} />;
 };

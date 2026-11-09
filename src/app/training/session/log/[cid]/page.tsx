@@ -1,31 +1,16 @@
 import React from 'react';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { type NextPage } from 'next';
 import { LuCircleAlert } from 'react-icons/lu';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
 import { Alert, AlertTitle } from '@/components/Alert';
-import { fetchApi } from '@/utils/fetch';
-import { type Staff, type User } from '@/types/users';
-import { auth } from '@/auth';
 import { userToOption } from '@/utils';
+import { requireTrainingStaff } from '@/lib/auth/guards';
+import { getAuthenticatedUserById, getTrainingStaff } from '@/lib/users/repository';
 import { SessionForm } from '../../[id]/SessionForm';
 
 export const metadata = { title: 'Training Center' };
-
-async function getStudent(cid: string): Promise<User> {
-    return fetchApi(
-        `/users/${cid}/`,
-        { cache: 'no-store' },
-    );
-}
-
-async function getStaff(): Promise<Staff> {
-    return fetchApi(
-        '/users/staff/',
-        { cache: 'no-store' },
-    );
-}
 
 interface LogSessionParams {
     params: Promise<{
@@ -34,14 +19,13 @@ interface LogSessionParams {
 }
 
 const LogSession: NextPage<LogSessionParams> = async (props) => {
-    const session = await auth();
-    if (!session) {
-        redirect('/');
-    }
-
+    const session = await requireTrainingStaff();
     const params = await props.params;
-    const student = await getStudent(params.cid).catch(notFound);
-    const staff = await getStaff();
+    const student = await getAuthenticatedUserById(Number(params.cid));
+    if (!student) {
+        notFound();
+    }
+    const staff = await getTrainingStaff();
 
     const options = [
         {

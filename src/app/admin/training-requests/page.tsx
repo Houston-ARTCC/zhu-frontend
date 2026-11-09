@@ -1,20 +1,13 @@
 import React from 'react';
 import { type NextPage } from 'next';
-import { fetchApi } from '@/utils/fetch';
 import { type TrainingRequestHistoryEntry } from '@/types/training';
+import { getTrainingRequestHistory } from '@/lib/training/repository';
 import { TrainingRequestHistoryTable } from './TrainingRequestHistoryTable';
 
 export const metadata = { title: 'Training Request History' };
 
-async function getHistory(): Promise<TrainingRequestHistoryEntry[]> {
-    return fetchApi(
-        '/training/request/history/',
-        { cache: 'no-store' },
-    );
-}
-
 const TrainingRequestHistory: NextPage = async () => {
-    const history = await getHistory();
+    const history: TrainingRequestHistoryEntry[] = await getTrainingRequestHistory();
 
     return (
         <>

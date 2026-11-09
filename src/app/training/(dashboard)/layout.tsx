@@ -2,20 +2,14 @@ import React, { type PropsWithChildren } from 'react';
 import { TrainingSideNav } from '@/app/training/(dashboard)/TrainingSideNav';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
-import { fetchApi } from '@/utils/fetch';
-import type { TrainingNotifications } from '@/types/training';
+import { requireMember } from '@/lib/auth/guards';
+import { getTrainingNotifications } from '@/lib/training/repository';
 
 export const metadata = { title: 'Training Center' };
 
-async function getTrainingNotifications(): Promise<TrainingNotifications> {
-    return fetchApi(
-        '/training/notifications/',
-        { cache: 'no-store' },
-    );
-}
-
 const TrainingCenterLayout: React.FC<PropsWithChildren> = async ({ children }) => {
-    const notifications = await getTrainingNotifications();
+    const session = await requireMember();
+    const notifications = await getTrainingNotifications(session.user.cid);
 
     return (
         <Page {...metadata}>

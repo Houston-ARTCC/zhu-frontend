@@ -31,16 +31,15 @@ export const TrainingSideNav: React.FC<TrainingSideNavProps> = ({ notifications 
                 title: 'Mentor Resources',
                 auth: (user) => user?.permissions.is_training_staff ?? false,
                 children: [
-                    // TODO: { title: 'My Availability', route: 'availability' },
                     {
                         title: 'Scheduled Sessions',
                         route: 'scheduled',
-                        alerts: notifications.scheduled_sessions,
+                        alerts: notifications.instructor_sessions,
                     },
                     {
                         title: 'Training Requests',
                         route: 'requests',
-                        alerts: notifications.instructor_sessions,
+                        alerts: notifications.training_requests,
                     },
                     { title: 'Student Profile', route: 'profile' },
                     { title: 'Mentor Profile', route: 'mentor' },

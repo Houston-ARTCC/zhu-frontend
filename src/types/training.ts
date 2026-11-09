@@ -83,14 +83,6 @@ export type UserTrainingRequests = {
     last_session: string | null;
 }
 
-export type AvailabilitySlot = {
-    id: number;
-    user: BasicUser;
-    day: number;
-    start: string;
-    end: string;
-}
-
 export type TrainingNotifications = {
     scheduled_sessions: number;
     training_requests: number;

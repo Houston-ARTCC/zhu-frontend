@@ -1,18 +1,10 @@
 import React, { type PropsWithChildren } from 'react';
-import { fetchApi } from '@/utils/fetch';
-import { type Staff } from '@/types/users';
 import { userToOption } from '@/utils';
+import { getTrainingStaff } from '@/lib/users/repository';
 import { MentorSelectInput } from './MentorSelectInput';
 
-async function getStaff(): Promise<Staff> {
-    return fetchApi(
-        '/users/staff/',
-        { cache: 'no-store' },
-    );
-}
-
 const MentorProfileLayout: React.FC<PropsWithChildren> = async ({ children }) => {
-    const staff = await getStaff();
+    const staff = await getTrainingStaff();
 
     const options = [
         {

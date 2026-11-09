@@ -4,19 +4,13 @@ import { LuCircleHelp } from 'react-icons/lu';
 import { PendingRequestsTable } from '@/app/training/(dashboard)/request/PendingRequestsTable';
 import { Card } from '@/components/Card';
 import { Alert, AlertTitle } from '@/components/Alert';
-import { fetchApi } from '@/utils/fetch';
-import type { TrainingRequest } from '@/types/training';
+import { requireMember } from '@/lib/auth/guards';
+import { getOwnTrainingRequests } from '@/lib/training/repository';
 import { Scheduler } from './Scheduler';
 
-async function getTrainingRequests(): Promise<TrainingRequest[]> {
-    return fetchApi(
-        '/training/request/',
-        { cache: 'no-store' },
-    );
-}
-
 const RequestTraining: NextPage = async () => {
-    const trainingRequests = await getTrainingRequests();
+    const session = await requireMember();
+    const trainingRequests = await getOwnTrainingRequests(session.user.cid);
 
     return (
         <div className="flex flex-col gap-10">

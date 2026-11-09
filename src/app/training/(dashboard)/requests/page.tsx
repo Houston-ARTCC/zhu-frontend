@@ -1,17 +1,11 @@
 import { type NextPage } from 'next';
-import { fetchApi } from '@/utils/fetch';
-import { type UserTrainingRequests } from '@/types/training';
+import { requireTrainingStaff } from '@/lib/auth/guards';
+import { getPendingRequests } from '@/lib/training/repository';
 import { TrainingRequestsView } from './TrainingRequestsView';
 
-async function getTrainingRequests(): Promise<UserTrainingRequests[]> {
-    return fetchApi(
-        '/training/request/pending/',
-        { cache: 'no-store' },
-    );
-}
-
 const TrainingRequests: NextPage = async () => {
-    const trainingRequests = await getTrainingRequests();
+    await requireTrainingStaff();
+    const trainingRequests = await getPendingRequests();
 
     return <TrainingRequestsView data={trainingRequests} />;
 };

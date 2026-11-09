@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useTransition } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
@@ -10,9 +10,9 @@ import classNames from 'classnames';
 import { toast } from 'react-toastify';
 import { SelectInput, type SelectOption, TextInput, ToggleInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
 import { type TrainingSession } from '@/types/training';
 import { type BasicUser } from '@/types/users';
+import { editSession, fileSession, logSession } from '@/lib/training/actions';
 import { otsStatuses, progress, sessionLevels, sessionTypes } from '../../selectOptions';
 import { type SessionFormInput, type SessionFormValues, sessionSchema } from './sessionSchema';
 
@@ -34,8 +34,9 @@ interface FileSessionFormProps {
 
 export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, session, student, instructor, instructorOptions }) => {
     const router = useRouter();
+    const [isPending, startTransition] = useTransition();
 
-    const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm<SessionFormInput, unknown, SessionFormValues>({
+    const { register, control, handleSubmit, formState: { errors } } = useForm<SessionFormInput, unknown, SessionFormValues>({
         // ReactDatePicker's ref has no focus(), which would crash handleSubmit on a date error.
         shouldFocusError: false,
         resolver: zodResolver(sessionSchema),
@@ -58,36 +59,43 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
     });
 
     const saveSession: SubmitHandler<SessionFormValues> = useCallback((values) => {
-        const data = {
-            ...values,
+        const input = {
             instructor: values.instructor.value,
+            start: values.start.toISOString(),
+            end: values.end.toISOString(),
             type: values.type.value,
             level: values.level.value,
             ots_status: values.ots_status.value,
             progress: values.progress.value,
+            movements: values.movements,
+            position: values.position || null,
+            notes: values.notes || null,
+            solo_granted: values.solo_granted,
         };
-        let path = `/training/sessions/${student.cid}/`;
+        let save = () => logSession(student.cid, input);
         if (session) {
-            path = `/training/session/${session.id}/`;
+            save = () => (editing ? editSession(session.id, input) : fileSession(session.id, input));
         }
-        toast.promise(
-            fetchApi(path, { method: editing ? 'PUT' : 'POST', body: JSON.stringify(data) }),
-            {
-                pending: 'Saving session',
-                success: 'Successfully saved',
-                error: {
-                    render: ({ data: error }) => (
-                        error instanceof Error
-                            ? error.message
-                            : 'Something went wrong, check console for more info'
-                    ),
+        startTransition(() => {
+            toast.promise(
+                save(),
+                {
+                    pending: 'Saving session',
+                    success: 'Successfully saved',
+                    error: {
+                        render: ({ data: error }) => (
+                            error instanceof Error
+                                ? error.message
+                                : 'Something went wrong, check console for more info'
+                        ),
+                    },
                 },
-            },
-        )
-            .then(() => {
-                router.back();
-                router.refresh();
-            });
+            )
+                .then(() => {
+                    router.back();
+                    router.refresh();
+                });
+        });
     }, [editing, session, student, router]);
 
     return (
@@ -258,7 +266,7 @@ export const SessionForm: React.FC<FileSessionFormProps> = ({ editing = false, s
                 <Button color="gray-300" onClick={() => router.back()}>
                     Cancel
                 </Button>
-                <Button type="submit" disabled={isSubmitting}>
+                <Button type="submit" disabled={isPending}>
                     Submit
                 </Button>
             </div>

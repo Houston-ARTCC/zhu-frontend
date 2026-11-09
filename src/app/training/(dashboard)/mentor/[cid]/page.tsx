@@ -1,14 +1,7 @@
 import { type NextPage } from 'next';
-import { fetchApi } from '@/utils/fetch';
-import { type TrainingSession } from '@/types/training';
+import { requireTrainingStaff } from '@/lib/auth/guards';
+import { getSessionsByInstructor } from '@/lib/training/repository';
 import { SessionsTable } from '../../SessionsTable';
-
-async function getTrainingSessions(cid: string): Promise<TrainingSession[]> {
-    return fetchApi(
-        `/training/mentor/${cid}/`,
-        { cache: 'no-store' },
-    );
-}
 
 interface MentorProfileParams {
     params: Promise<{
@@ -17,8 +10,9 @@ interface MentorProfileParams {
 }
 
 const MentorProfile: NextPage<MentorProfileParams> = async (props) => {
+    await requireTrainingStaff();
     const params = await props.params;
-    const trainingSessions = await getTrainingSessions(params.cid);
+    const trainingSessions = await getSessionsByInstructor(Number(params.cid));
 
     return <SessionsTable data={trainingSessions} />;
 };

@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { format } from 'date-fns-tz';
 import { toast } from 'react-toastify';
 import { Modal, type ModalProps } from '@/components/Modal';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
 import { type TrainingSession } from '@/types/training';
+import { noShowSession } from '@/lib/training/actions';
 
 interface NoShowSessionModalProps extends ModalProps {
     session?: TrainingSession;
@@ -15,27 +15,25 @@ interface NoShowSessionModalProps extends ModalProps {
 
 export const NoShowSessionModal: React.FC<NoShowSessionModalProps> = ({ session, show, close }) => {
     const router = useRouter();
+    const [isPending, startTransition] = useTransition();
 
-    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
-    const cancelSession = useCallback(() => {
+    const handleNoShow = useCallback(() => {
         if (!session) return;
 
-        setIsSubmitting(true);
-
-        toast.promise(
-            fetchApi(`/training/session/${session.id}/`, { method: 'PUT', body: JSON.stringify({ status: 3 }) }),
-            {
-                pending: 'No-showing session',
-                success: 'Successfully no-showed',
-                error: 'Something went wrong, check console for more info',
-            },
-        )
-            .then(() => {
-                setIsSubmitting(false);
-                router.refresh();
-                close?.();
-            });
+        startTransition(() => {
+            toast.promise(
+                noShowSession(session.id),
+                {
+                    pending: 'No-showing session',
+                    success: 'Successfully no-showed',
+                    error: 'Something went wrong, check console for more info',
+                },
+            )
+                .then(() => {
+                    router.refresh();
+                    close?.();
+                });
+        });
     }, [session, router, close]);
 
     return (
@@ -57,7 +55,7 @@ export const NoShowSessionModal: React.FC<NoShowSessionModalProps> = ({ session,
                 <Button color="gray-300" onClick={close}>
                     Cancel
                 </Button>
-                <Button type="submit" onClick={cancelSession} disabled={isSubmitting}>
+                <Button type="submit" onClick={handleNoShow} disabled={isPending}>
                     Confirm
                 </Button>
             </div>

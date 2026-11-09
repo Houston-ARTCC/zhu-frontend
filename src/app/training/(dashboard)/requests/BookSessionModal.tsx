@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { Controller, type SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -12,10 +12,10 @@ import { Modal, ModalButton, type ModalProps } from '@/components/Modal';
 import { SelectInput, TextInput } from '@/components/Forms';
 import { Button } from '@/components/Button';
 import { Badge } from '@/components/Badge';
-import { fetchApi } from '@/utils/fetch';
 import { type TrainingRequest } from '@/types/training';
+import { acceptTrainingRequest } from '@/lib/training/actions';
+import { type BookSessionFormValues, bookSessionSchema } from '@/lib/training/schema';
 import { sessionLevels, sessionTypes } from '../../selectOptions';
-import { type BookSessionFormValues, bookSessionSchema } from './bookSessionSchema';
 
 interface BookSessionModalProps extends ModalProps {
     request: TrainingRequest;
@@ -25,6 +25,7 @@ const FIFTEEN_MIN_MS = 1000 * 60 * 15;
 
 export const BookSessionModal: React.FC<BookSessionModalProps> = ({ request, show, close }) => {
     const router = useRouter();
+    const [isPending, startTransition] = useTransition();
 
     const [start, end, marks] = useMemo(() => {
         const startUnix = new Date(request.start).getTime();
@@ -44,7 +45,7 @@ export const BookSessionModal: React.FC<BookSessionModalProps> = ({ request, sho
         ];
     }, [request]);
 
-    const { register, control, handleSubmit, setValue, formState: { errors, isSubmitting } } = useForm({
+    const { register, control, handleSubmit, setValue, formState: { errors } } = useForm({
         resolver: zodResolver(bookSessionSchema),
         defaultValues: {
             start,
@@ -55,23 +56,23 @@ export const BookSessionModal: React.FC<BookSessionModalProps> = ({ request, sho
     });
 
     const putRequest: SubmitHandler<BookSessionFormValues> = useCallback((values) => {
-        const data = {
-            ...values,
-            type: values.type.value,
-            level: values.level.value,
-        };
-        toast.promise(
-            fetchApi(`/training/request/${request.id}/`, { method: 'PUT', body: JSON.stringify(data) }),
-            {
-                pending: 'Booking session',
-                success: 'Successfully booked',
-                error: 'Something went wrong, check console for more info',
-            },
-        )
-            .then(() => {
-                router.refresh();
-                close?.();
-            });
+        startTransition(() => {
+            toast.promise(
+                acceptTrainingRequest(request.id, values),
+                {
+                    pending: 'Booking session',
+                    success: 'Successfully booked',
+                    error: 'Something went wrong, check console for more info',
+                },
+            )
+                .then(() => {
+                    router.refresh();
+                    close?.();
+                })
+                .catch(() => {
+                    // toast.promise surfaces the error.
+                });
+        });
     }, [request, router, close]);
 
     const [currentStart, currentEnd] = useWatch({ control, name: ['start', 'end'] });
@@ -159,7 +160,7 @@ export const BookSessionModal: React.FC<BookSessionModalProps> = ({ request, sho
                     <Button color="gray-300" onClick={close}>
                         Cancel
                     </Button>
-                    <Button type="submit" disabled={isSubmitting}>
+                    <Button type="submit" disabled={isPending}>
                         Book
                     </Button>
                 </div>

@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { format } from 'date-fns-tz';
 import { toast } from 'react-toastify';
 import { Modal, type ModalProps } from '@/components/Modal';
 import { Button } from '@/components/Button';
-import { fetchApi } from '@/utils/fetch';
 import { type TrainingSession } from '@/types/training';
+import { cancelSession } from '@/lib/training/actions';
 
 interface CancelSessionModalProps extends ModalProps {
     session?: TrainingSession;
@@ -15,27 +15,25 @@ interface CancelSessionModalProps extends ModalProps {
 
 export const CancelSessionModal: React.FC<CancelSessionModalProps> = ({ session, show, close }) => {
     const router = useRouter();
+    const [isPending, startTransition] = useTransition();
 
-    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
-    const cancelSession = useCallback(() => {
+    const handleCancel = useCallback(() => {
         if (!session) return;
 
-        setIsSubmitting(true);
-
-        toast.promise(
-            fetchApi(`/training/session/${session.id}/`, { method: 'DELETE' }),
-            {
-                pending: 'Cancelling session',
-                success: 'Successfully cancelled',
-                error: 'Something went wrong, check console for more info',
-            },
-        )
-            .then(() => {
-                setIsSubmitting(false);
-                router.refresh();
-                close?.();
-            });
+        startTransition(() => {
+            toast.promise(
+                cancelSession(session.id),
+                {
+                    pending: 'Cancelling session',
+                    success: 'Successfully cancelled',
+                    error: 'Something went wrong, check console for more info',
+                },
+            )
+                .then(() => {
+                    router.refresh();
+                    close?.();
+                });
+        });
     }, [session, router, close]);
 
     return (
@@ -57,7 +55,7 @@ export const CancelSessionModal: React.FC<CancelSessionModalProps> = ({ session,
                 <Button color="gray-300" onClick={close}>
                     Cancel
                 </Button>
-                <Button type="submit" onClick={cancelSession} disabled={isSubmitting}>
+                <Button type="submit" onClick={handleCancel} disabled={isPending}>
                     Confirm
                 </Button>
             </div>
