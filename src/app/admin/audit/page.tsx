@@ -1,53 +1,31 @@
-'use client';
-
-import { useEffect, useState } from 'react';
+import React from 'react';
 import { type NextPage } from 'next';
-import { LogEntryTable } from '@/app/admin/audit/LogEntryTable';
-import { TextInput } from '@/components/Forms';
-import { fetchApi } from '@/utils/fetch';
-import { type LogEntry } from '@/types/admin';
-import { type Paginated } from '@/types/api';
+import { requireAuditLogViewer } from '@/lib/auth/guards';
+import { getAuditLog } from '@/lib/administration/repository';
+import { AuditLogView } from './AuditLogView';
 
-const AuditLog: NextPage = () => {
-    const [loading, setLoading] = useState<boolean>(false);
+interface AuditLogProps {
+    searchParams: Promise<{ page?: string; page_size?: string; query?: string }>;
+}
 
-    const [page, setPage] = useState<number>(1);
-    const [pageSize, setPageSize] = useState<number>(20);
-    const [query, setQuery] = useState<string>('');
+const AuditLog: NextPage<AuditLogProps> = async ({ searchParams }) => {
+    await requireAuditLogViewer();
 
-    const [totalEntries, setTotalEntries] = useState<number>(0);
-    const [logEntries, setLogEntries] = useState<LogEntry[]>([]);
+    const sp = await searchParams;
+    const page = Math.max(1, parseInt(sp.page ?? '1', 10) || 1);
+    const pageSize = Math.min(200, Math.max(1, parseInt(sp.page_size ?? '20', 10) || 20));
+    const query = sp.query ?? '';
 
-    useEffect(() => {
-        setLoading(true);
-
-        fetchApi<Paginated<LogEntry>>(
-            `/administration/audit/?page=${page}&page_size=${pageSize}&query=${query}`,
-            { cache: 'no-store' },
-        )
-            .then((data) => {
-                setTotalEntries(data.count);
-                setLogEntries(data.results);
-                setLoading(false);
-            });
-    }, [page, pageSize, query]);
+    const { count, results } = await getAuditLog(page, pageSize, query || undefined);
 
     return (
-        <>
-            <TextInput
-                className="w-60"
-                placeholder="Filter results..."
-                onUpdate={setQuery}
-            />
-            <LogEntryTable
-                data={logEntries}
-                totalEntries={totalEntries}
-                pageSize={pageSize}
-                setPage={setPage}
-                setPageSize={setPageSize}
-                loading={loading}
-            />
-        </>
+        <AuditLogView
+            data={results}
+            totalEntries={count}
+            page={page}
+            pageSize={pageSize}
+            query={query}
+        />
     );
 };
 

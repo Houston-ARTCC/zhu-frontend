@@ -2,19 +2,13 @@ import React, { type PropsWithChildren } from 'react';
 import { AdminSideNav } from '@/app/admin/AdminSideNav';
 import { Page } from '@/components/Page';
 import { PageContent } from '@/components/PageContent';
-import { fetchApi } from '@/utils/fetch';
-import type { AdminNotifications } from '@/types/admin';
+import { getAdminNotifications } from '@/lib/administration/repository';
+import { requireStaff } from '@/lib/auth/guards';
 
 export const metadata = { title: 'Administration' };
 
-async function getAdminNotifications(): Promise<AdminNotifications> {
-    return fetchApi(
-        '/administration/notifications/',
-        { cache: 'no-store' },
-    );
-}
-
 const AdminLayout: React.FC<PropsWithChildren> = async ({ children }) => {
+    await requireStaff();
     const notifications = await getAdminNotifications();
 
     return (

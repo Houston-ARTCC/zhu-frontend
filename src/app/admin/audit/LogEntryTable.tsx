@@ -58,12 +58,13 @@ interface LogEntryTableProps {
     loading: boolean;
     data: LogEntry[];
     totalEntries: number;
+    page: number;
     pageSize: number;
     setPage: (page: number) => void;
     setPageSize: (pageSize: number) => void;
 }
 
-export const LogEntryTable: React.FC<LogEntryTableProps> = ({ loading, data, totalEntries, pageSize, setPage, setPageSize }) => (
+export const LogEntryTable: React.FC<LogEntryTableProps> = ({ loading, data, totalEntries, page, pageSize, setPage, setPageSize }) => (
     <DataTable
         data={data}
         progressPending={loading}
@@ -75,6 +76,7 @@ export const LogEntryTable: React.FC<LogEntryTableProps> = ({ loading, data, tot
         pagination
         paginationServer
         paginationTotalRows={totalEntries}
+        paginationDefaultPage={page}
         paginationPerPage={pageSize}
         paginationRowsPerPageOptions={[20, 30, 40, 50]}
         onChangePage={setPage}
